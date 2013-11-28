@@ -238,7 +238,7 @@ activate_panel (GnomeControlCenter *shell,
     }
 
   /* create the panel plugin */
-  priv->current_panel = g_object_new (panel_type, "shell", shell, "argv", argv, NULL);
+  priv->current_panel = g_object_new (panel_type, "shell", shell, "name", name, "argv", argv, NULL);
   cc_shell_set_active_panel (CC_SHELL (shell), CC_PANEL (priv->current_panel));
   gtk_widget_show (priv->current_panel);
 

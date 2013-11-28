@@ -186,6 +186,24 @@ help_activated (GSimpleAction *action,
 }
 
 static void
+contents_activated (GSimpleAction *action,
+                    GVariant      *parameter,
+                    gpointer       user_data)
+{
+  GnomeControlCenter *shell = user_data;
+  GtkWidget *window = cc_shell_get_toplevel (CC_SHELL (shell));
+  
+  if (!g_strcmp0(g_getenv("XDG_CURRENT_DESKTOP"), "Unity"))
+    gtk_show_uri (gtk_widget_get_screen (window),
+                  "help:ubuntu-help/prefs",
+                  GDK_CURRENT_TIME, NULL);
+  else
+    gtk_show_uri (gtk_widget_get_screen (window),
+                  "help:gnome-help/prefs",
+                  GDK_CURRENT_TIME, NULL);
+}
+
+static void
 quit_activated (GSimpleAction *action,
                 GVariant      *parameter,
                 gpointer       user_data)
@@ -195,30 +213,85 @@ quit_activated (GSimpleAction *action,
 }
 
 static void
+active_panel_changed_cb (GObject    *gobject,
+                         GParamSpec *pspec,
+                         GMenu      *menu) 
+{
+  CcPanel *panel = cc_shell_get_active_panel (CC_SHELL (gobject));
+  const char *uri = NULL;
+
+  if (panel)
+    uri = cc_panel_get_help_uri (panel);
+
+  gint n_items = g_menu_model_get_n_items (G_MENU_MODEL (menu));
+
+  if (!uri && n_items > 1)
+  {
+    g_menu_remove (menu, 1);
+  }
+  else if (uri && n_items == 1)
+  {
+    g_menu_append (menu, cc_panel_get_display_name(panel), "app.help");
+  }
+  else if (uri && n_items > 1)
+  {
+    g_menu_remove (menu, 1);
+    g_menu_append (menu, cc_panel_get_display_name(panel), "app.help");
+  }
+}
+
+static void
 application_startup_cb (GApplication       *application,
                         GnomeControlCenter *shell)
 {
-  GMenu *menu, *section;
+  GMenu *menubar, *menu, *section;
+  GMenu *menuitem;
   GAction *action;
 
   action = G_ACTION (g_simple_action_new ("help", NULL));
   g_action_map_add_action (G_ACTION_MAP (application), action);
   g_signal_connect (action, "activate", G_CALLBACK (help_activated), shell);
 
+  action = G_ACTION (g_simple_action_new ("contents", NULL));
+  g_action_map_add_action (G_ACTION_MAP (application), action);
+  g_signal_connect (action, "activate", G_CALLBACK (contents_activated), shell);
+
   action = G_ACTION (g_simple_action_new ("quit", NULL));
   g_action_map_add_action (G_ACTION_MAP (application), action);
   g_signal_connect (action, "activate", G_CALLBACK (quit_activated), shell);
 
-  menu = g_menu_new ();
+  if (!g_strcmp0(g_getenv("XDG_CURRENT_DESKTOP"), "Unity"))
+  {
+    menubar = g_menu_new ();
+    menu = g_menu_new ();
 
-  section = g_menu_new ();
-  g_menu_append (section, _("Help"), "app.help");
-  g_menu_append (section, _("Quit"), "app.quit");
+    section = g_menu_new ();
+    g_menu_append (section, _("Contents"), "app.contents");
+    g_menu_append_section (menu, NULL, G_MENU_MODEL (section));
 
-  g_menu_append_section (menu, NULL, G_MENU_MODEL (section));
+    g_menu_append (menu, _("Quit"), "app.quit");
 
-  gtk_application_set_app_menu (GTK_APPLICATION (application),
-                                G_MENU_MODEL (menu));
+    g_menu_append_submenu (menubar, _("Help"), G_MENU_MODEL (menu));
+
+    gtk_application_set_menubar (GTK_APPLICATION (application),
+                                 G_MENU_MODEL (menubar));
+
+    g_signal_connect (shell, "notify::active-panel",
+                      G_CALLBACK (active_panel_changed_cb), section);
+  }
+  else
+  {
+    menu = g_menu_new ();
+
+    section = g_menu_new ();
+    g_menu_append (section, _("Help"), "app.help");
+    g_menu_append (section, _("Quit"), "app.quit");
+
+    g_menu_append_section (menu, NULL, G_MENU_MODEL (section));
+
+    gtk_application_set_app_menu (GTK_APPLICATION (application),
+                                  G_MENU_MODEL (menu));
+  }
 
   gtk_application_add_accelerator (GTK_APPLICATION (application),
                                    "F1", "app.help", NULL);

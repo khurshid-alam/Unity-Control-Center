@@ -52,12 +52,14 @@ struct CcPanelPrivate
 
   gboolean  is_active;
   CcShell  *shell;
+  gchar    *name;
 };
 
 enum
 {
     PROP_0,
     PROP_SHELL,
+    PROP_NAME,
     PROP_ARGV
 };
 
@@ -79,6 +81,11 @@ cc_panel_set_property (GObject      *object,
       /* construct only property */
       panel->priv->shell = g_value_get_object (value);
       break;
+
+    case PROP_NAME:
+      /* construct only property */
+      panel->priv->name = g_strdup (g_value_get_string (value));
+      break;      
 
     case PROP_ARGV:
       {
@@ -109,6 +116,10 @@ cc_panel_get_property (GObject    *object,
       g_value_set_object (value, panel->priv->shell);
       break;
 
+    case PROP_NAME:
+      g_value_set_string (value, panel->priv->name);
+      break;
+
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
@@ -127,6 +138,7 @@ cc_panel_finalize (GObject *object)
 
   g_free (panel->priv->id);
   g_free (panel->priv->display_name);
+  g_free (panel->priv->name);
 
   G_OBJECT_CLASS (cc_panel_parent_class)->finalize (object);
 }
@@ -208,6 +220,14 @@ cc_panel_class_init (CcPanelClass *klass)
                                | G_PARAM_CONSTRUCT_ONLY);
   g_object_class_install_property (object_class, PROP_SHELL, pspec);
 
+  pspec = g_param_spec_string ("name",
+                               "Name",
+                               "The name of the Panel",
+                               NULL,
+                               G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS
+                               | G_PARAM_CONSTRUCT_ONLY);
+  g_object_class_install_property (object_class, PROP_NAME, pspec);
+
   pspec = g_param_spec_boxed ("argv",
                               "Argument vector",
                               "Additional arguments passed on the command line",
@@ -257,3 +277,10 @@ cc_panel_get_help_uri (CcPanel *panel)
 
   return NULL;
 }
+
+const char  *
+cc_panel_get_display_name (CcPanel *panel)
+{
+  return panel->priv->name;
+}
+

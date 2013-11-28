@@ -93,6 +93,8 @@ GPermission *cc_panel_get_permission   (CcPanel     *panel);
 
 const char  *cc_panel_get_help_uri     (CcPanel     *panel);
 
+const char  *cc_panel_get_display_name (CcPanel     *panel);
+
 G_END_DECLS
 
 #endif /* __CC_PANEL_H */
