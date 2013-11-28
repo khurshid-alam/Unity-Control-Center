@@ -1004,6 +1004,10 @@ _shell_set_active_panel_from_id (CcShell      *shell,
       !g_strcmp0(start_id, "sound"))
       start_id = "sound-nua";
 
+  if (!g_strcmp0 (g_getenv ("XDG_CURRENT_DESKTOP"), "Unity") && 
+      !g_strcmp0(start_id, "background"))
+      start_id = "unity-appearance";
+
   /* clear any custom widgets */
   _shell_remove_all_custom_widgets (priv);
 
