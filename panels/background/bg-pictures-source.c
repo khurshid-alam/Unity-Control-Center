@@ -413,7 +413,7 @@ file_info_async_ready (GObject      *source,
                        GAsyncResult *res,
                        gpointer      user_data)
 {
-  BgPicturesSource *bg_source = BG_PICTURES_SOURCE (user_data);
+  BgPicturesSource *bg_source;
   GList *files, *l;
   GError *err = NULL;
   GFile *parent;
@@ -423,13 +423,16 @@ file_info_async_ready (GObject      *source,
 
   if (err)
     {
-      g_warning ("Could not get pictures file information: %s", err->message);
+      if (!g_error_matches (err, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+        g_warning ("Could not get pictures file information: %s", err->message);
       g_error_free (err);
 
       g_list_foreach (files, (GFunc) g_object_unref, NULL);
       g_list_free (files);
       return;
     }
+
+  bg_source = BG_PICTURES_SOURCE (user_data);
 
   parent = g_file_enumerator_get_container (G_FILE_ENUMERATOR (source));
 
@@ -453,7 +456,7 @@ dir_enum_async_ready (GObject      *source,
                       GAsyncResult *res,
                       gpointer      user_data)
 {
-  BgPicturesSourcePrivate *priv = BG_PICTURES_SOURCE (user_data)->priv;
+  BgPicturesSourcePrivate *priv;
   GFileEnumerator *enumerator;
   GError *err = NULL;
 
@@ -461,11 +464,14 @@ dir_enum_async_ready (GObject      *source,
 
   if (err)
     {
-      if (g_error_matches (err, G_IO_ERROR, G_IO_ERROR_NOT_FOUND) == FALSE)
+      if (!g_error_matches (err, G_IO_ERROR, G_IO_ERROR_NOT_FOUND) &&
+          !g_error_matches (err, G_IO_ERROR, G_IO_ERROR_CANCELLED))
         g_warning ("Could not fill pictures source: %s", err->message);
       g_error_free (err);
       return;
     }
+
+  priv = BG_PICTURES_SOURCE (user_data)->priv;
 
   /* get the files */
   g_file_enumerator_next_files_async (enumerator,
