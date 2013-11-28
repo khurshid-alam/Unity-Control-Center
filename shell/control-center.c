@@ -175,8 +175,12 @@ help_activated (GSimpleAction *action,
 
   if (panel)
     uri = cc_panel_get_help_uri (panel);
-
-  gtk_show_uri (gtk_widget_get_screen (window),
+    if (!g_strcmp0(g_getenv("XDG_CURRENT_DESKTOP"), "Unity"))
+      gtk_show_uri (gtk_widget_get_screen (window),
+                uri ? uri : "help:ubuntu-help/prefs",
+                GDK_CURRENT_TIME, NULL);
+    else
+      gtk_show_uri (gtk_widget_get_screen (window),
                 uri ? uri : "help:gnome-help/prefs",
                 GDK_CURRENT_TIME, NULL);
 }

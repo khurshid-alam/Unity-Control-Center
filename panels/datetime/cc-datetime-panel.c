@@ -178,7 +178,10 @@ cc_date_time_panel_get_permission (CcPanel *panel)
 static const char *
 cc_date_time_panel_get_help_uri (CcPanel *panel)
 {
-  return "help:gnome-help/clock";
+  if (!g_strcmp0(g_getenv("XDG_CURRENT_DESKTOP"), "Unity"))
+    return "help:ubuntu-help/clock";
+  else
+    return "help:gnome-help/clock";
 }
 
 static void

@@ -256,7 +256,10 @@ goa_panel_init (GoaPanel *panel)
 static const char *
 goa_panel_get_help_uri (CcPanel *panel)
 {
-  return "help:gnome-help/accounts";
+  if (!g_strcmp0(g_getenv("XDG_CURRENT_DESKTOP"), "Unity"))
+    return "help:ubuntu-help/accounts";
+  else
+    return "help:gnome-help/accounts";
 }
 
 static void

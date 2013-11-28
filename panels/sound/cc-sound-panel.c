@@ -70,7 +70,10 @@ cc_sound_panel_set_property (GObject      *object,
 static const char *
 cc_sound_panel_get_help_uri (CcPanel *panel)
 {
-  return "help:gnome-help/media#sound";
+  if (!g_strcmp0(g_getenv("XDG_CURRENT_DESKTOP"), "Unity"))
+    return "help:ubuntu-help/media#sound";
+  else
+    return "help:gnome-help/media#sound";
 }
 
 static void

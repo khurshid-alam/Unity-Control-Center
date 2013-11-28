@@ -2285,7 +2285,10 @@ gcm_prefs_window_realize_cb (GtkWidget *widget, CcColorPanel *prefs)
 static const char *
 cc_color_panel_get_help_uri (CcPanel *panel)
 {
-  return "help:gnome-help/color";
+  if (!g_strcmp0(g_getenv("XDG_CURRENT_DESKTOP"), "Unity"))
+    return "help:ubuntu-help/color";
+  else
+    return "help:gnome-help/color";
 }
 
 static void
@@ -2567,6 +2570,12 @@ cc_color_panel_init (CcColorPanel *prefs)
   g_signal_connect (widget, "realize",
                     G_CALLBACK (gcm_prefs_window_realize_cb),
                     prefs);
+
+  widget = WID (priv->builder, "linkbutton_help");
+  if (!g_strcmp0(g_getenv("XDG_CURRENT_DESKTOP"), "Unity"))
+    g_object_set (G_OBJECT (widget),
+              "uri", "help:ubuntu-help/color-whyimportant",
+              NULL);
 }
 
 void

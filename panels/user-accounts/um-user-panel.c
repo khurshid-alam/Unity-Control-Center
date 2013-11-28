@@ -1372,7 +1372,10 @@ um_user_panel_get_permission (CcPanel *panel)
 static const char *
 um_user_panel_get_help_uri (CcPanel *panel)
 {
-	return "help:gnome-help/user-accounts";
+ if (!g_strcmp0(g_getenv("XDG_CURRENT_DESKTOP"), "Unity"))
+   return "help:ubuntu-help/user-accounts";
+ else
+ return "help:gnome-help/user-accounts";
 }
 
 static void

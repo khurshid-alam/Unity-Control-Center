@@ -146,7 +146,10 @@ on_lockdown_settings_changed (GSettings     *settings,
 static const char *
 cc_screen_panel_get_help_uri (CcPanel *panel)
 {
-  return "help:gnome-help/prefs-display";
+  if (!g_strcmp0(g_getenv("XDG_CURRENT_DESKTOP"), "Unity"))
+    return "help:ubuntu-help/prefs-display";
+  else
+    return "help:gnome-help/prefs-display";
 }
 
 static void
