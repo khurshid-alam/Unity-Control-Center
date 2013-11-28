@@ -730,7 +730,7 @@ um_user_set_icon_file (UmUser      *user,
         GVariant *result;
         GError *error = NULL;
 
-        result = g_dbus_proxy_call_sync (user->proxy, "SetIconFile", g_variant_new ("(s)", icon_file), G_DBUS_CALL_FLAGS_NONE, -1, NULL, &error);
+        result = g_dbus_proxy_call_sync (user->proxy, "SetIconFile", g_variant_new ("(s)", icon_file ? icon_file : ""), G_DBUS_CALL_FLAGS_NONE, -1, NULL, &error);
         if (!result) {
                 g_warning ("SetIconFile call failed: %s", error->message);
                 g_error_free (error);
