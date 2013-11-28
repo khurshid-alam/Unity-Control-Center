@@ -435,6 +435,9 @@ panels/online-accounts/icons/24x24/Makefile
 panels/online-accounts/icons/32x32/Makefile
 panels/online-accounts/icons/48x48/Makefile
 panels/online-accounts/icons/256x256/Makefile
+panels/sound-nua/Makefile
+panels/sound-nua/data/Makefile
+panels/sound-nua/data/gnome-sound-nua-panel.desktop.in
 panels/sound/Makefile
 panels/sound/data/Makefile
 panels/sound/data/gnome-sound-panel.desktop.in

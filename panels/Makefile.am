@@ -10,6 +10,7 @@ SUBDIRS= \
 	region \
 	info \
 	sound \
+	sound-nua \
 	keyboard \
 	universal-access \
 	user-accounts \

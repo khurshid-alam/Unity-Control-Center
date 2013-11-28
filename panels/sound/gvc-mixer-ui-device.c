@@ -370,6 +370,13 @@ add_canonical_names_of_profiles (GvcMixerUIDevice *device,
 
                 g_free (canonical_name);
 
+                if (p->n_sinks == 0 && p->n_sources == 0) {
+                /* TODO: Right now, make sure this profile is not added, because when selected,
+                the item will disappear and there's no way to get it back. In the long
+                term, make sure we handle the OFF profile better. */
+                    continue;
+                }
+
                 g_debug ("Adding profile to combobox: '%s' - '%s'", p->profile, p->human_profile);
                 g_hash_table_insert (added_profiles, g_strdup (p->profile), p);
                 device->priv->profiles = g_list_append (device->priv->profiles, p);
