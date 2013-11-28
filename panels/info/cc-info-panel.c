@@ -1737,6 +1737,8 @@ info_panel_setup_overview (CcInfoPanel  *self)
       g_free (text);
     }
 
+  gtk_widget_hide (WID ("version_label"));
+
   glibtop_get_mem (&mem);
   text = g_format_size_full (mem.total, G_FORMAT_SIZE_IEC_UNITS);
   widget = WID ("memory_label");
