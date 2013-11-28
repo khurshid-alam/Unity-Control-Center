@@ -81,6 +81,7 @@ panels/region/gnome-region-panel-formats.c
 [type: gettext/glade]panels/region/gnome-region-panel-input-chooser.ui
 panels/region/gnome-region-panel-system.c
 [type: gettext/glade]panels/region/gnome-region-panel.ui
+panels/region/gtkentryaccel.c
 panels/screen/gnome-screen-panel.desktop.in.in
 [type: gettext/glade]panels/screen/screen.ui
 panels/sound/applet-main.c

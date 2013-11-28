@@ -36,16 +36,32 @@
 
 #include "gdm-languages.h"
 #include "gnome-region-panel-input.h"
+#include "keyboard-shortcuts.h"
+#include "gtkentryaccel.h"
 
 #define WID(s) GTK_WIDGET(gtk_builder_get_object (builder, s))
 
 #define GNOME_DESKTOP_INPUT_SOURCES_DIR "org.gnome.desktop.input-sources"
+#define KEY_CURRENT_INPUT_SOURCE        "current"
+#define KEY_INPUT_SOURCES               "sources"
+#define INPUT_SOURCE_TYPE_XKB           "xkb"
+#define INPUT_SOURCE_TYPE_IBUS          "ibus"
 
-#define KEY_CURRENT_INPUT_SOURCE "current"
-#define KEY_INPUT_SOURCES        "sources"
+#define MEDIA_KEYS_SCHEMA_ID  "org.gnome.desktop.wm.keybindings"
+#define KEY_PREV_INPUT_SOURCE "switch-input-source-backward"
+#define KEY_NEXT_INPUT_SOURCE "switch-input-source"
 
-#define INPUT_SOURCE_TYPE_XKB  "xkb"
-#define INPUT_SOURCE_TYPE_IBUS "ibus"
+#define INDICATOR_KEYBOARD_SCHEMA_ID "com.canonical.indicator.keyboard"
+#define KEY_VISIBLE                  "visible"
+
+#define LIBGNOMEKBD_DESKTOP_SCHEMA_ID "org.gnome.libgnomekbd.desktop"
+#define KEY_GROUP_PER_WINDOW          "group-per-window"
+#define KEY_DEFAULT_GROUP             "default-group"
+
+#define IBUS_PANEL_SECTION       "panel"
+#define IBUS_ORIENTATION_KEY     "lookup_table_orientation"
+#define IBUS_USE_CUSTOM_FONT_KEY "use_custom_font"
+#define IBUS_CUSTOM_FONT_KEY     "custom_font"
 
 enum {
   NAME_COLUMN,
@@ -56,8 +72,14 @@ enum {
 };
 
 static GSettings *input_sources_settings = NULL;
+static GSettings *libgnomekbd_settings = NULL;
+static GSettings *media_key_settings = NULL;
+static GSettings *indicator_settings = NULL;
 static GnomeXkbInfo *xkb_info = NULL;
+static GtkBuilder *builder = NULL; /* weak pointer */
 static GtkWidget *input_chooser = NULL; /* weak pointer */
+static CcRegionKeyboardItem *prev_source_item = NULL;
+static CcRegionKeyboardItem *next_source_item = NULL;
 
 #ifdef HAVE_IBUS
 static IBusBus *ibus = NULL;
@@ -289,6 +311,31 @@ static gboolean   input_chooser_get_selected (GtkWidget     *chooser,
 static GtkTreeModel *tree_view_get_actual_model (GtkTreeView *tv);
 
 static gboolean
+is_unity (void)
+{
+  return g_strcmp0 (g_getenv ("XDG_CURRENT_DESKTOP"), "Unity") == 0;
+}
+
+static gboolean
+has_indicator_keyboard (void)
+{
+  if (is_unity ())
+    {
+      const gchar * const *schemas = g_settings_list_schemas ();
+
+      while (*schemas != NULL)
+        {
+          if (g_strcmp0 (*schemas, INDICATOR_KEYBOARD_SCHEMA_ID) == 0)
+            return TRUE;
+
+          schemas++;
+        }
+    }
+
+  return FALSE;
+}
+
+static gboolean
 strv_contains (const gchar * const *strv,
                const gchar         *str)
 {
@@ -467,9 +514,6 @@ fetch_ibus_engines (GtkBuilder *builder)
                                ibus_cancellable,
                                (GAsyncReadyCallback)fetch_ibus_engines_result,
                                builder);
-
-  /* We've got everything we needed, don't want to be called again. */
-  g_signal_handlers_disconnect_by_func (ibus, fetch_ibus_engines, builder);
 }
 
 static void
@@ -488,6 +532,277 @@ maybe_start_ibus (void)
 }
 
 static void
+update_source_radios (GtkBuilder *builder)
+{
+  GtkWidget *same_source_radio = WID ("same-source-radio");
+  GtkWidget *different_source_radio = WID ("different-source-radio");
+  GtkWidget *default_source_radio = WID ("default-source-radio");
+  GtkWidget *current_source_radio = WID ("current-source-radio");
+  gboolean group_per_window = g_settings_get_boolean (libgnomekbd_settings, KEY_GROUP_PER_WINDOW);
+  gboolean default_group = g_settings_get_int (libgnomekbd_settings, KEY_DEFAULT_GROUP) >= 0;
+
+  gtk_widget_set_sensitive (default_source_radio, group_per_window);
+  gtk_widget_set_sensitive (current_source_radio, group_per_window);
+
+  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (different_source_radio)) != group_per_window)
+    {
+      if (group_per_window)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (different_source_radio), TRUE);
+      else
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (same_source_radio), TRUE);
+    }
+
+  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (default_source_radio)) != default_group)
+    {
+      if (default_group)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (default_source_radio), TRUE);
+      else
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (current_source_radio), TRUE);
+    }
+}
+
+static void
+update_orientation_combo (GtkBuilder *builder)
+{
+#ifdef HAVE_IBUS
+  if (ibus != NULL)
+    {
+      IBusConfig *config = ibus_bus_get_config (ibus);
+      GVariant *variant = ibus_config_get_value (config, IBUS_PANEL_SECTION, IBUS_ORIENTATION_KEY);
+
+      g_return_if_fail (variant != NULL);
+
+      if (g_variant_is_of_type (variant, G_VARIANT_TYPE_INT32))
+        {
+          GtkComboBox *orientation_combo = GTK_COMBO_BOX (WID ("orientation-combo"));
+          gint orientation = g_variant_get_int32 (variant);
+
+          if (gtk_combo_box_get_active (orientation_combo) != orientation)
+            gtk_combo_box_set_active (orientation_combo, orientation);
+        }
+      else
+        g_warning ("Orientation setting has type '%s', expected type 'i'",
+                   g_variant_get_type_string (variant));
+
+      g_variant_unref (variant);
+    }
+#endif
+}
+
+static void
+update_custom_font_buttons (GtkBuilder *builder)
+{
+#ifdef HAVE_IBUS
+  if (ibus != NULL)
+    {
+      IBusConfig *config = ibus_bus_get_config (ibus);
+      GVariant *variant = ibus_config_get_value (config, IBUS_PANEL_SECTION, IBUS_USE_CUSTOM_FONT_KEY);
+      GtkToggleButton *custom_font_check = GTK_TOGGLE_BUTTON (WID ("custom-font-check"));
+      GtkFontButton *custom_font_button = GTK_FONT_BUTTON (WID ("custom-font-button"));
+
+      if (variant != NULL)
+        {
+          if (g_variant_is_of_type (variant, G_VARIANT_TYPE_BOOLEAN))
+            {
+              gboolean use_custom_font = g_variant_get_boolean (variant);
+
+              if (gtk_toggle_button_get_active (custom_font_check) != use_custom_font)
+                gtk_toggle_button_set_active (custom_font_check, use_custom_font);
+            }
+          else
+            g_warning ("Use custom font setting has type '%s', expected type 'b'",
+                       g_variant_get_type_string (variant));
+
+          g_variant_unref (variant);
+        }
+      else
+        g_warning ("No use custom font setting '" IBUS_USE_CUSTOM_FONT_KEY "'");
+
+      variant = ibus_config_get_value (config, IBUS_PANEL_SECTION, IBUS_CUSTOM_FONT_KEY);
+
+      if (variant != NULL)
+        {
+          if (g_variant_is_of_type (variant, G_VARIANT_TYPE_STRING))
+            {
+              const gchar *custom_font = g_variant_get_string (variant, NULL);
+
+              if (g_strcmp0 (gtk_font_button_get_font_name (custom_font_button), custom_font))
+                gtk_font_button_set_font_name (custom_font_button, custom_font);
+            }
+          else
+            g_warning ("Custom font setting has type '%s', expected type 's'",
+                       g_variant_get_type_string (variant));
+
+          g_variant_unref (variant);
+        }
+      else
+        g_warning ("No custom font setting '" IBUS_CUSTOM_FONT_KEY "'");
+
+      gtk_widget_set_sensitive (GTK_WIDGET (custom_font_button),
+                                gtk_toggle_button_get_active (custom_font_check));
+    }
+#endif
+}
+
+static void
+source_radio_toggled (GtkToggleButton *widget,
+                      gpointer         user_data)
+{
+  GtkWidget *same_source_radio = WID ("same-source-radio");
+  GtkWidget *different_source_radio = WID ("different-source-radio");
+  GtkWidget *default_source_radio = WID ("default-source-radio");
+  GtkWidget *current_source_radio = WID ("current-source-radio");
+  gboolean different_source_active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (different_source_radio));
+  gboolean default_source_active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (default_source_radio));
+  gboolean group_per_window = g_settings_get_boolean (libgnomekbd_settings, KEY_GROUP_PER_WINDOW);
+  gboolean default_group = g_settings_get_int (libgnomekbd_settings, KEY_DEFAULT_GROUP) >= 0;
+
+  if (different_source_active != group_per_window)
+    g_settings_set_boolean (libgnomekbd_settings, KEY_GROUP_PER_WINDOW, different_source_active);
+
+  if (default_source_active != default_group)
+    g_settings_set_int (libgnomekbd_settings, KEY_DEFAULT_GROUP, default_source_active ? 0 : -1);
+
+  gtk_widget_set_sensitive (default_source_radio, different_source_active);
+  gtk_widget_set_sensitive (current_source_radio, different_source_active);
+}
+
+static void
+orientation_combo_changed (GtkComboBox *widget,
+                           gpointer     user_data)
+{
+#ifdef HAVE_IBUS
+  if (ibus != NULL)
+    {
+      GtkBuilder *builder = user_data;
+      GtkComboBox *orientation_combo = GTK_COMBO_BOX (WID ("orientation-combo"));
+      IBusConfig *config = ibus_bus_get_config (ibus);
+      gint orientation = -1;
+      GVariant *variant = ibus_config_get_value (config, IBUS_PANEL_SECTION, IBUS_ORIENTATION_KEY);
+
+      if (variant != NULL)
+        {
+          if (g_variant_is_of_type (variant, G_VARIANT_TYPE_INT32))
+            orientation = g_variant_get_int32 (variant);
+
+          g_variant_unref (variant);
+        }
+
+      if (gtk_combo_box_get_active (orientation_combo) != orientation)
+        {
+          orientation = gtk_combo_box_get_active (orientation_combo);
+          variant = g_variant_new_int32 (orientation);
+
+          ibus_config_set_value (config, IBUS_PANEL_SECTION, IBUS_ORIENTATION_KEY, variant);
+        }
+    }
+#endif
+}
+
+static void
+custom_font_changed (GtkWidget *widget,
+                     gpointer   user_data)
+{
+#ifdef HAVE_IBUS
+  if (ibus != NULL)
+    {
+      GtkBuilder *builder = user_data;
+      GtkToggleButton *custom_font_check = GTK_TOGGLE_BUTTON (WID ("custom-font-check"));
+      GtkFontButton *custom_font_button = GTK_FONT_BUTTON (WID ("custom-font-button"));
+      IBusConfig *config = ibus_bus_get_config (ibus);
+      gboolean update_setting = TRUE;
+      gboolean use_custom_font;
+      const gchar *custom_font;
+      GVariant *variant = ibus_config_get_value (config, IBUS_PANEL_SECTION, IBUS_USE_CUSTOM_FONT_KEY);
+
+      if (variant != NULL)
+        {
+          if (g_variant_is_of_type (variant, G_VARIANT_TYPE_BOOLEAN))
+            {
+              use_custom_font = g_variant_get_boolean (variant);
+              update_setting = gtk_toggle_button_get_active (custom_font_check) != use_custom_font;
+            }
+
+          g_variant_unref (variant);
+        }
+
+      if (update_setting)
+        {
+          use_custom_font = gtk_toggle_button_get_active (custom_font_check);
+          variant = g_variant_new_boolean (use_custom_font);
+
+          ibus_config_set_value (config, IBUS_PANEL_SECTION, IBUS_USE_CUSTOM_FONT_KEY, variant);
+        }
+
+      update_setting = TRUE;
+      variant = ibus_config_get_value (config, IBUS_PANEL_SECTION, IBUS_CUSTOM_FONT_KEY);
+
+      if (variant != NULL)
+        {
+          if (g_variant_is_of_type (variant, G_VARIANT_TYPE_STRING))
+            {
+              custom_font = g_variant_get_string (variant, NULL);
+              update_setting = g_strcmp0 (gtk_font_button_get_font_name (custom_font_button), custom_font);
+            }
+
+          g_variant_unref (variant);
+        }
+
+      if (update_setting)
+        {
+          custom_font = gtk_font_button_get_font_name (custom_font_button);
+          variant = g_variant_new_string (custom_font);
+
+          ibus_config_set_value (config, IBUS_PANEL_SECTION, IBUS_CUSTOM_FONT_KEY, variant);
+        }
+
+      gtk_widget_set_sensitive (GTK_WIDGET (custom_font_button),
+                                gtk_toggle_button_get_active (custom_font_check));
+    }
+#endif
+}
+
+static void
+ibus_config_value_changed (IBusConfig *config,
+                           gchar      *section,
+                           gchar      *name,
+                           GVariant   *value,
+                           gpointer    user_data)
+{
+  if (g_strcmp0 (section, IBUS_PANEL_SECTION) == 0)
+    {
+      if (g_strcmp0 (name, IBUS_ORIENTATION_KEY) == 0)
+        update_orientation_combo (builder);
+      else if (g_strcmp0 (name, IBUS_USE_CUSTOM_FONT_KEY) == 0 ||
+               g_strcmp0 (name, IBUS_CUSTOM_FONT_KEY) == 0)
+        update_custom_font_buttons (builder);
+    }
+}
+
+static void
+ibus_connected (IBusBus  *bus,
+                gpointer  user_data)
+{
+  GtkBuilder *builder = user_data;
+  IBusConfig *config = ibus_bus_get_config (bus);
+
+  g_signal_connect (config, "value-changed",
+                    G_CALLBACK (ibus_config_value_changed), NULL);
+
+  fetch_ibus_engines (builder);
+
+  if (has_indicator_keyboard ())
+    {
+      update_source_radios (builder);
+      update_orientation_combo (builder);
+      update_custom_font_buttons (builder);
+    }
+
+  /* We've got everything we needed, don't want to be called again. */
+  g_signal_handlers_disconnect_by_func (ibus, ibus_connected, builder);
+}
+
+static void
 on_shell_appeared (GDBusConnection *connection,
                    const gchar     *name,
                    const gchar     *name_owner,
@@ -499,10 +814,9 @@ on_shell_appeared (GDBusConnection *connection,
     {
       ibus = ibus_bus_new_async ();
       if (ibus_bus_is_connected (ibus))
-        fetch_ibus_engines (builder);
+        ibus_connected (ibus, builder);
       else
-        g_signal_connect_swapped (ibus, "connected",
-                                  G_CALLBACK (fetch_ibus_engines), builder);
+        g_signal_connect (ibus, "connected", G_CALLBACK (ibus_connected), builder);
     }
   maybe_start_ibus ();
 }
@@ -909,7 +1223,7 @@ add_input (GtkButton *button, gpointer data)
 
   g_debug ("add an input source");
 
-  toplevel = gtk_widget_get_toplevel (WID ("region_notebook"));
+  toplevel = gtk_widget_get_toplevel (WID ("active_input_sources"));
   treeview = WID ("active_input_sources");
   active_sources = GTK_LIST_STORE (tree_view_get_actual_model (GTK_TREE_VIEW (treeview)));
 
@@ -1150,6 +1464,8 @@ go_to_shortcuts (GtkLinkButton *button,
   const gchar *argv[] = { "shortcuts", "Typing", NULL };
   GError *error = NULL;
 
+  g_clear_object (&input_sources_settings);
+
   shell = cc_panel_get_shell (CC_PANEL (panel));
   if (!cc_shell_set_active_panel_from_id (shell, "keyboard", argv, &error))
     {
@@ -1234,6 +1550,15 @@ update_shortcuts (GtkBuilder *builder)
   g_free (next);
 }
 
+static void
+libgnomekbd_settings_changed (GSettings *settings,
+                              gchar     *key,
+                              gpointer   user_data)
+{
+  if (g_strcmp0 (key, KEY_GROUP_PER_WINDOW) == 0 || g_strcmp0 (key, KEY_DEFAULT_GROUP) == 0)
+    update_source_radios (user_data);
+}
+
 static gboolean
 active_sources_visible_func (GtkTreeModel *model,
                              GtkTreeIter  *iter,
@@ -1251,8 +1576,103 @@ active_sources_visible_func (GtkTreeModel *model,
   return TRUE;
 }
 
+static GtkEntryAccelPostAction
+shortcut_key_pressed (GtkEntryAccel   *entry,
+                      guint           *key,
+                      guint           *code,
+                      GdkModifierType *mask,
+                      gpointer         user_data)
+{
+  GtkBuilder *builder = user_data;
+  CcRegionKeyboardItem *item = NULL;
+  gboolean edited;
+
+  if (entry == GTK_ENTRY_ACCEL (WID ("prev-source-entry")))
+    item = prev_source_item;
+  else if (entry == GTK_ENTRY_ACCEL (WID ("next-source-entry")))
+    item = next_source_item;
+
+  if (*mask == 0 && *key == GDK_KEY_Escape)
+    return GTK_ENTRY_ACCEL_CANCEL;
+
+  if (*mask == 0 && *key == GDK_KEY_BackSpace)
+    {
+      *key = 0;
+      *code = 0;
+      *mask = 0;
+
+      return GTK_ENTRY_ACCEL_UPDATE;
+    }
+
+  if ((*mask & ~GDK_LOCK_MASK) == 0 &&
+      (*key == GDK_KEY_Tab ||
+       *key == GDK_KEY_KP_Tab ||
+       *key == GDK_KEY_ISO_Left_Tab ||
+       *key == GDK_KEY_3270_BackTab))
+    return GTK_ENTRY_ACCEL_IGNORE;
+
+  edited = keyboard_shortcuts_accel_edited (item,
+                                            *key,
+                                            *code,
+                                            *mask,
+                                            gtk_widget_get_toplevel (GTK_WIDGET (entry)));
+
+  return edited ? GTK_ENTRY_ACCEL_UPDATE : GTK_ENTRY_ACCEL_IGNORE;
+}
+
+static void
+builder_finalized (gpointer  data,
+                   GObject  *where_the_object_was)
+{
+  keyboard_shortcuts_dispose ();
+
+  g_clear_object (&input_sources_settings);
+  g_clear_object (&libgnomekbd_settings);
+  g_clear_object (&indicator_settings);
+  g_clear_object (&media_key_settings);
+  g_clear_object (&next_source_item);
+  g_clear_object (&prev_source_item);
+
+#ifdef HAVE_IBUS
+  clear_ibus ();
+#endif
+}
+
+static gboolean
+get_key_setting (GValue   *value,
+                 GVariant *variant,
+                 gpointer  user_data)
+{
+    gchar **switch_key;
+
+    switch_key = g_variant_get_strv (variant, NULL);
+    g_value_set_string (value, switch_key[0]);
+
+
+    return TRUE;
+}
+
+static GVariant *
+set_key_setting (const GValue   *value,
+                 const GVariantType *expected_type,
+                 gpointer  user_data)
+{
+    gchar *switch_key;
+    gchar **switch_strv;
+    GVariant *ret = NULL;
+
+    switch_strv = g_settings_get_strv(media_key_settings, user_data);
+    switch_key = g_value_get_string (value);
+    switch_strv[0] = g_strdup (switch_key);
+
+    ret = g_variant_new_strv ((const gchar * const *) switch_strv, -1);
+
+    return ret;
+}
+
+
 void
-setup_input_tabs (GtkBuilder    *builder,
+setup_input_tabs (GtkBuilder    *builder_,
                   CcRegionPanel *panel)
 {
   GtkWidget *treeview;
@@ -1261,6 +1681,17 @@ setup_input_tabs (GtkBuilder    *builder,
   GtkListStore *store;
   GtkTreeModel *filtered_store;
   GtkTreeSelection *selection;
+
+  builder = builder_;
+
+  g_object_weak_ref (G_OBJECT (builder), builder_finalized, NULL);
+
+  keyboard_shortcuts_init ();
+
+  prev_source_item = g_object_ref (keyboard_shortcuts_get_item (MEDIA_KEYS_SCHEMA_ID,
+                                                                KEY_PREV_INPUT_SOURCE));
+  next_source_item = g_object_ref (keyboard_shortcuts_get_item (MEDIA_KEYS_SCHEMA_ID,
+                                                                KEY_NEXT_INPUT_SOURCE));
 
   /* set up the list of active inputs */
   treeview = WID("active_input_sources");
@@ -1279,8 +1710,8 @@ setup_input_tabs (GtkBuilder    *builder,
   gtk_tree_view_set_model (GTK_TREE_VIEW (treeview), GTK_TREE_MODEL (store));
 
   input_sources_settings = g_settings_new (GNOME_DESKTOP_INPUT_SOURCES_DIR);
+
   g_settings_delay (input_sources_settings);
-  g_object_weak_ref (G_OBJECT (builder), (GWeakNotify) g_object_unref, input_sources_settings);
 
   if (!xkb_info)
     xkb_info = gnome_xkb_info_new ();
@@ -1294,7 +1725,6 @@ setup_input_tabs (GtkBuilder    *builder,
                                           NULL,
                                           builder,
                                           NULL);
-  g_object_weak_ref (G_OBJECT (builder), (GWeakNotify) clear_ibus, NULL);
 #endif
 
   populate_with_active_sources (store);
@@ -1327,29 +1757,84 @@ setup_input_tabs (GtkBuilder    *builder,
                     G_CALLBACK (show_selected_layout), builder);
   g_signal_connect (WID("input_source_settings"), "clicked",
                     G_CALLBACK (show_selected_settings), builder);
-
-  /* use an em dash is no shortcut */
-  update_shortcuts (builder);
-
   g_signal_connect (WID("jump-to-shortcuts"), "activate-link",
                     G_CALLBACK (go_to_shortcuts), panel);
-
   g_signal_connect (G_OBJECT (input_sources_settings),
                     "changed::" KEY_INPUT_SOURCES,
                     G_CALLBACK (input_sources_changed),
                     builder);
 
-  g_settings_bind (input_sources_settings, "per-window",
-                   WID("per-window-radio-true"), "active",
-                   G_SETTINGS_BIND_DEFAULT);
-  g_settings_bind (input_sources_settings, "per-window",
-                   WID("per-window-radio-false"), "active",
-                   G_SETTINGS_BIND_DEFAULT | G_SETTINGS_BIND_INVERT_BOOLEAN);
-  /* because we are in delay-apply mode */
-  g_signal_connect_swapped (WID("per-window-radio-true"), "clicked",
-                            G_CALLBACK (g_settings_apply), input_sources_settings);
-  g_signal_connect_swapped (WID("per-window-radio-false"), "clicked",
-                            G_CALLBACK (g_settings_apply), input_sources_settings);
+  if (has_indicator_keyboard ())
+    {
+      libgnomekbd_settings = g_settings_new (LIBGNOMEKBD_DESKTOP_SCHEMA_ID);
+      indicator_settings = g_settings_new (INDICATOR_KEYBOARD_SCHEMA_ID);
+      media_key_settings = g_settings_new (MEDIA_KEYS_SCHEMA_ID);
+
+      update_source_radios (builder);
+      update_orientation_combo (builder);
+      update_custom_font_buttons (builder);
+
+      g_settings_bind (indicator_settings,
+                       KEY_VISIBLE,
+                       WID ("show-indicator-check"),
+                       "active",
+                       G_SETTINGS_BIND_DEFAULT);
+      g_settings_bind_with_mapping (media_key_settings,
+                                    KEY_PREV_INPUT_SOURCE,
+                                    WID ("prev-source-entry"),
+                                    "accel",
+                                    G_SETTINGS_BIND_DEFAULT,
+                                    get_key_setting,
+                                    set_key_setting,
+                                    KEY_PREV_INPUT_SOURCE, NULL);
+      g_settings_bind_with_mapping (media_key_settings,
+                                    KEY_NEXT_INPUT_SOURCE,
+                                    WID ("next-source-entry"),
+                                    "accel",
+                                    G_SETTINGS_BIND_DEFAULT,
+                                    get_key_setting,
+                                    set_key_setting,
+                                    KEY_NEXT_INPUT_SOURCE, NULL);
+
+      g_signal_connect (WID ("prev-source-entry"), "key-pressed",
+                        G_CALLBACK (shortcut_key_pressed), builder);
+      g_signal_connect (WID ("next-source-entry"), "key-pressed",
+                        G_CALLBACK (shortcut_key_pressed), builder);
+      g_signal_connect (WID ("same-source-radio"), "toggled",
+                        G_CALLBACK (source_radio_toggled), builder);
+      g_signal_connect (WID ("different-source-radio"), "toggled",
+                        G_CALLBACK (source_radio_toggled), builder);
+      g_signal_connect (WID ("default-source-radio"), "toggled",
+                        G_CALLBACK (source_radio_toggled), builder);
+      g_signal_connect (WID ("current-source-radio"), "toggled",
+                        G_CALLBACK (source_radio_toggled), builder);
+      g_signal_connect (WID ("orientation-combo"), "changed",
+                        G_CALLBACK (orientation_combo_changed), builder);
+      g_signal_connect (WID ("custom-font-check"), "toggled",
+                        G_CALLBACK (custom_font_changed), builder);
+      g_signal_connect (WID ("custom-font-button"), "font-set",
+                        G_CALLBACK (custom_font_changed), builder);
+      g_signal_connect (libgnomekbd_settings,
+                        "changed",
+                        G_CALLBACK (libgnomekbd_settings_changed),
+                        builder);
+    }
+  else
+    {
+      g_settings_bind (input_sources_settings, "per-window",
+                       WID("per-window-radio-true"), "active",
+                       G_SETTINGS_BIND_DEFAULT);
+      g_settings_bind (input_sources_settings, "per-window",
+                       WID("per-window-radio-false"), "active",
+                       G_SETTINGS_BIND_DEFAULT | G_SETTINGS_BIND_INVERT_BOOLEAN);
+      /* because we are in delay-apply mode */
+      g_signal_connect_swapped (WID("per-window-radio-true"), "clicked",
+                                G_CALLBACK (g_settings_apply), input_sources_settings);
+      g_signal_connect_swapped (WID("per-window-radio-false"), "clicked",
+                                G_CALLBACK (g_settings_apply), input_sources_settings);
+
+      update_shortcuts (builder);
+    }
 }
 
 static void

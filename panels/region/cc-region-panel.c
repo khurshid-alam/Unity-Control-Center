@@ -26,6 +26,7 @@
 #include "gnome-region-panel-lang.h"
 #include "gnome-region-panel-formats.h"
 #include "gnome-region-panel-system.h"
+#include "gtkentryaccel.h"
 
 CC_PANEL_REGISTER (CcRegionPanel, cc_region_panel)
 
@@ -47,10 +48,29 @@ enum {
 	SYSTEM_PAGE
 };
 
+#define INDICATOR_KEYBOARD_SCHEMA_ID "com.canonical.indicator.keyboard"
+
 static gboolean
 is_unity (void)
 {
 	return g_strcmp0 (g_getenv ("XDG_CURRENT_DESKTOP"), "Unity") == 0;
+}
+
+static gboolean
+has_indicator_keyboard (void)
+{
+	if (is_unity ()) {
+		const gchar * const *schemas = g_settings_list_schemas ();
+
+		while (*schemas != NULL) {
+			if (g_strcmp0 (*schemas, INDICATOR_KEYBOARD_SCHEMA_ID) == 0)
+				return TRUE;
+
+			schemas++;
+		}
+	}
+
+	return FALSE;
 }
 
 static void
@@ -142,13 +162,21 @@ cc_region_panel_init (CcRegionPanel * self)
 	GtkWidget *prefs_widget;
 	GError *error = NULL;
 
+	GTK_TYPE_ENTRY_ACCEL;
+
 	priv = self->priv = REGION_PANEL_PRIVATE (self);
 
 	priv->builder = gtk_builder_new ();
 
-	gtk_builder_add_from_file (priv->builder,
-				   GNOMECC_UI_DIR "/gnome-region-panel.ui",
-				   &error);
+	if (has_indicator_keyboard ())
+		gtk_builder_add_from_file (priv->builder,
+					   GNOMECC_UI_DIR "/unity-region-panel.ui",
+					   &error);
+	else
+		gtk_builder_add_from_file (priv->builder,
+					   GNOMECC_UI_DIR "/gnome-region-panel.ui",
+					   &error);
+
 	if (error != NULL) {
 		g_warning ("Error loading UI file: %s", error->message);
 		g_error_free (error);

@@ -25,6 +25,14 @@ libregion_la_SOURCES =	\
 	gnome-region-panel-system.h \
 	gnome-region-panel-input.c \
 	gnome-region-panel-input.h \
+	cc-region-keyboard-item.c \
+	cc-region-keyboard-item.h \
+	keyboard-shortcuts.c \
+	keyboard-shortcuts.h \
+	gtkentryaccel.c \
+	gtkentryaccel.h \
+	wm-common.c \
+	wm-common.h \
 	$(NULL)
 
 libregion_la_LIBADD = $(PANEL_LIBS) $(REGION_PANEL_LIBS) $(builddir)/../common/liblanguage.la
@@ -36,6 +44,7 @@ libregion_la_LDFLAGS = $(PANEL_LDFLAGS)
 uidir   = $(pkgdatadir)/ui
 ui_DATA = \
 	gnome-region-panel.ui \
+	unity-region-panel.ui \
 	gnome-region-panel-input-chooser.ui \
 	$(NULL)
 
