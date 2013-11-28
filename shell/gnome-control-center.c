@@ -904,6 +904,9 @@ load_panel_plugins (GnomeControlCenter *shell)
   modules = g_io_modules_load_all_in_directory (PANELS_DIR);
   g_list_free (modules);
 
+  /* hardcoded fallback from pre-multiarching */
+  modules = g_io_modules_load_all_in_directory ("/usr/lib/control-center-1/panels");
+  g_list_free (modules);
 }
 
 
