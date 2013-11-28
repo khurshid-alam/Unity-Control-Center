@@ -7,6 +7,8 @@
 
 	<KeyListEntry name="email" _description="Launch email client"/>
 
+	<KeyListEntry name="terminal" _description="Launch terminal"/>
+
 	<KeyListEntry name="www" _description="Launch web browser"/>
 
 	<KeyListEntry name="home" _description="Home folder"/>
