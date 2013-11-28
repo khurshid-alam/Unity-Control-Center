@@ -40,6 +40,8 @@
 #include <GL/gl.h>
 #include <GL/glx.h>
 
+#include <webkit/webkit.h>
+
 #include "hostname-helper.h"
 #include "gsd-disk-space-helper.h"
 
@@ -920,6 +922,40 @@ info_panel_setup_graphics (CcInfoPanel  *self)
   gtk_label_set_mnemonic_widget (GTK_LABEL (widget), GTK_WIDGET (sw));
 }
 
+static gboolean            
+url_nav_callback (WebKitWebView             *web_view,
+              WebKitWebFrame            *frame,
+              WebKitNetworkRequest      *request,
+              WebKitWebNavigationAction *navigation_action,
+              WebKitWebPolicyDecision   *decision,
+              gpointer                   user_data)
+{
+    gtk_show_uri (gtk_widget_get_screen (user_data),
+                  webkit_network_request_get_uri (request),
+                  GDK_CURRENT_TIME, NULL);
+    return TRUE;
+}
+
+static void
+info_panel_setup_notice (CcInfoPanel  *self)
+{
+  GtkWidget *sw;
+  
+  sw = gtk_scrolled_window_new (NULL, NULL);
+  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw),
+                                  GTK_POLICY_AUTOMATIC,
+                                  GTK_POLICY_AUTOMATIC);
+
+  WebKitWebView *webView = WEBKIT_WEB_VIEW(webkit_web_view_new());
+  webkit_web_view_load_uri(webView, "file:///usr/share/gnome-control-center/searchingthedashlegalnotice.html");
+  g_signal_connect (G_OBJECT (webView), "navigation-policy-decision-requested",
+                    G_CALLBACK (url_nav_callback), sw);
+
+  gtk_container_add (GTK_CONTAINER (sw), webView);
+  gtk_notebook_append_page (WID ("notebook"), sw, NULL);
+  gtk_widget_show_all(sw);
+}
+
 static void
 default_app_changed (GtkAppChooserButton *button,
                      CcInfoPanel         *self)
@@ -1553,6 +1589,14 @@ info_panel_setup_selector (CcInfoPanel  *self)
                       _("Graphics"),
                       -1);
 
+  if (!g_strcmp0 (g_getenv ("XDG_CURRENT_DESKTOP"), "Unity"))
+    {
+      gtk_list_store_append (model, &iter);
+      gtk_list_store_set (model, &iter, section_name_column,
+                          _("Legal Notice"),
+                          -1);
+    }
+
   g_signal_connect (selection, "changed",
                     G_CALLBACK (on_section_changed), self);
   on_section_changed (selection, self);
@@ -2043,6 +2087,8 @@ cc_info_panel_init (CcInfoPanel *self)
   info_panel_setup_default_apps (self);
   info_panel_setup_media (self);
   info_panel_setup_graphics (self);
+  if (!g_strcmp0 (g_getenv ("XDG_CURRENT_DESKTOP"), "Unity"))
+    info_panel_setup_notice (self);
 }
 
 void
