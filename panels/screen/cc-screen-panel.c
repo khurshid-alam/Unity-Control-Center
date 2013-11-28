@@ -550,6 +550,13 @@ cc_screen_panel_init (CcScreenPanel *self)
 
   update_lock_screen_sensitivity (self);
 
+  /* bind the screen lock suspend checkbutton */
+  widget = WID ("screen_lock_suspend_checkbutton");
+  g_settings_bind (self->priv->lock_settings,
+                   "ubuntu-lock-on-suspend",
+                   widget, "active",
+                   G_SETTINGS_BIND_DEFAULT);
+
   widget = WID ("screen_vbox");
   gtk_widget_reparent (widget, (GtkWidget *) self);
   g_object_set (self, "valign", GTK_ALIGN_START, NULL);
