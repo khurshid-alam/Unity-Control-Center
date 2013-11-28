@@ -27,5 +27,8 @@
 void setup_system           (GtkBuilder *builder);
 void system_update_language (GtkBuilder  *builder,
                              const gchar *language);
+void locale_settings_changed (GSettings   *settings,
+                              const gchar *key,
+                              GtkBuilder  *dialog);
 
 #endif

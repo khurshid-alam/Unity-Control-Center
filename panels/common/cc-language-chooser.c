@@ -105,8 +105,8 @@ cc_add_user_languages (GtkTreeModel *model)
 
 	user_langs = cc_common_language_get_initial_languages ();
 
-	/* Add the current locale first */
-	name = cc_common_language_get_current_language ();
+	/* Add the current language first */
+	name = cc_common_language_get_property ("Language");
 	display = g_hash_table_lookup (user_langs, name);
 
         gtk_list_store_append (store, &iter);
@@ -118,8 +118,8 @@ cc_add_user_languages (GtkTreeModel *model)
 	g_hash_table_foreach (user_langs, (GHFunc) languages_foreach_cb, store);
 
 	/* And now the "Other..." selection */
-        gtk_list_store_append (store, &iter);
-        gtk_list_store_set (store, &iter, LOCALE_COL, NULL, DISPLAY_LOCALE_COL, _("Other..."), -1);
+//        gtk_list_store_append (store, &iter);
+//        gtk_list_store_set (store, &iter, LOCALE_COL, NULL, DISPLAY_LOCALE_COL, _("Other..."), -1);
 
         g_hash_table_destroy (user_langs);
 }

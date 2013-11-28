@@ -92,7 +92,7 @@ update_copy_button (GtkBuilder *dialog)
                 gtk_widget_set_sensitive (button, TRUE);
 }
 
-static void
+void
 locale_settings_changed (GSettings *settings,
                          const gchar *key,
                          GtkBuilder *dialog)
@@ -100,7 +100,7 @@ locale_settings_changed (GSettings *settings,
         GtkWidget *label;
         gchar *region, *display_region;
 
-        region = g_settings_get_string (locale_settings, "region");
+        region = cc_common_language_get_property ("FormatsLocale");
         if (!region || !region[0]) {
                 label = WID ("user_display_language");
                 region = g_strdup ((gchar*)g_object_get_data (G_OBJECT (label), "language"));
@@ -226,6 +226,16 @@ update_property (GDBusProxy *proxy,
         }
 }
 
+static gchar *
+strip_quotes (const gchar *str)
+{
+        if ((g_str_has_prefix (str, "\"") && g_str_has_suffix (str, "\""))
+          || (g_str_has_prefix (str, "'") && g_str_has_suffix (str, "'")))
+                return g_strndup (str + 1, strlen (str) - 2);
+        else
+                return g_strdup (str);
+}
+
 static void
 on_localed_properties_changed (GDBusProxy   *proxy,
                                GVariant     *changed_properties,
@@ -257,33 +267,43 @@ on_localed_properties_changed (GDBusProxy   *proxy,
                 const gchar **strv;
                 gsize len;
                 gint i;
-                const gchar *lang, *messages, *time;
+                gchar *lang, *language, *messages, *time;
                 gchar *name;
                 GtkWidget *label;
 
                 strv = g_variant_get_strv (v, &len);
 
-                lang = messages = time = NULL;
+                lang = language = messages = time = NULL;
                 for (i = 0; strv[i]; i++) {
                         if (g_str_has_prefix (strv[i], "LANG=")) {
-                                lang = strv[i] + strlen ("LANG=");
+                                lang = strip_quotes (strv[i] + strlen ("LANG="));
+                        }
+                        else if (g_str_has_prefix (strv[i], "LANGUAGE=")) {
+                                gchar *tmp = strip_quotes (strv[i] + strlen ("LANGUAGE="));
+                                gchar **tokens = g_strsplit (tmp, ":", 2);
+                                language = g_strdup (tokens[0]);
+                                g_free (tmp);
+                                g_strfreev (tokens);
                         }
                         else if (g_str_has_prefix (strv[i], "LC_MESSAGES=")) {
-                                messages = strv[i] + strlen ("LC_MESSAGES=");
+                                messages = strip_quotes (strv[i] + strlen ("LC_MESSAGES="));
                         }
                         else if (g_str_has_prefix (strv[i], "LC_TIME=")) {
-                                time = strv[i] + strlen ("LC_TIME=");
+                                time = strip_quotes (strv[i] + strlen ("LC_TIME="));
                         }
                 }
-                if (!messages) {
-                        messages = lang;
+                if (!language) {
+                        if (messages)
+                                language = g_strdup (messages);
+                        else
+                                language = g_strdup (lang);
                 }
                 if (!time) {
-                        time = lang;
+                        time = g_strdup (lang);
                 }
 
-                if (messages) {
-                        name = gdm_get_language_from_name (messages, NULL);
+                if (language) {
+                        name = gdm_get_language_from_name (language, NULL);
                         label = WID ("system_display_language");
                         gtk_label_set_text (GTK_LABEL (label), name);
                         g_free (name);
@@ -298,6 +318,10 @@ on_localed_properties_changed (GDBusProxy   *proxy,
                         g_object_set_data_full (G_OBJECT (label), "region", g_strdup (time), g_free);
                 }
                 g_variant_unref (v);
+                g_free (lang);
+                g_free (language);
+                g_free (messages);
+                g_free (time);
         }
 
         label = WID ("system_input_source");
@@ -396,27 +420,44 @@ copy_settings (GtkButton *button, GtkBuilder *dialog)
         GtkWidget *label;
         GVariantBuilder *b;
         gchar *s;
+        gchar *command;
+        gchar *lang;
+        GError *error = NULL;
+        gint i;
 
         label = WID ("user_display_language");
         language = g_object_get_data (G_OBJECT (label), "language");
         label = WID ("user_format");
         region = g_object_get_data (G_OBJECT (label), "region");
 
+        /* Get locale that corresponds to the language */
+        command = g_strconcat ("/usr/share/language-tools/language2locale ", language, NULL);
+        if (!g_spawn_command_line_sync (command, &lang, NULL, NULL, &error)) {
+                g_warning ("Couldn't get LANG locale: %s", error->message);
+                g_error_free (error);
+                g_free (command);
+                return;
+        }
+        g_free (command);
+        g_strchomp (lang);
+        if (strlen (lang) == 0) {
+                g_warning ("Couldn't get LANG locale -- Copying interrupted");
+                return;
+        }
+
         b = g_variant_builder_new (G_VARIANT_TYPE ("as"));
-        s = g_strconcat ("LANG=", language, NULL);
+        s = g_strconcat ("LANG=", lang, NULL);
+        g_variant_builder_add (b, "s", s);
+        g_free (lang);
+        g_free (s);
+        s = g_strconcat ("LANGUAGE=", language, NULL);
         g_variant_builder_add (b, "s", s);
         g_free (s);
-        if (g_strcmp0 (language, region) != 0) {
-                s = g_strconcat ("LC_TIME=", region, NULL);
-                g_variant_builder_add (b, "s", s);
-                g_free (s);
-                s = g_strconcat ("LC_NUMERIC=", region, NULL);
-                g_variant_builder_add (b, "s", s);
-                g_free (s);
-                s = g_strconcat ("LC_MONETARY=", region, NULL);
-                g_variant_builder_add (b, "s", s);
-                g_free (s);
-                s = g_strconcat ("LC_MEASUREMENT=", region, NULL);
+        const gchar *format_categories[] = { "LC_NUMERIC", "LC_TIME",
+           "LC_MONETARY", "LC_PAPER", "LC_IDENTIFICATION", "LC_NAME",
+           "LC_ADDRESS", "LC_TELEPHONE", "LC_MEASUREMENT", NULL };
+        for (i = 0; format_categories[i] != NULL; i++) {
+                s = g_strconcat (format_categories[i], "=", region, NULL);
                 g_variant_builder_add (b, "s", s);
                 g_free (s);
         }
@@ -525,7 +566,7 @@ setup_system (GtkBuilder *dialog)
         g_object_weak_ref (G_OBJECT (dialog), (GWeakNotify) g_object_unref, input_sources_settings);
 
         /* Display user settings */
-        language = cc_common_language_get_current_language ();
+        language = cc_common_language_get_property ("Language");
         system_update_language (dialog, language);
         g_free (language);
 

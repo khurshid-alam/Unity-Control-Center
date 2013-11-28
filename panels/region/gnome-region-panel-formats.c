@@ -31,6 +31,7 @@
 #include "cc-language-chooser.h"
 #include "gdm-languages.h"
 #include "gnome-region-panel-formats.h"
+#include "gnome-region-panel-system.h"
 
 static void
 display_date (GtkLabel *label, GDateTime *dt, const gchar *format)
@@ -149,6 +150,46 @@ update_examples_cb (GtkTreeSelection *selection, gpointer user_data)
         g_free (active_id);
 }
 
+static void
+set_formats_locale (const gchar *formats_locale)
+{
+	GDBusProxy  *proxy;
+	GError      *error = NULL;
+	gchar       *user_path;
+	GVariant    *ret;
+
+	user_path = g_strdup_printf ("/org/freedesktop/Accounts/User%i", getuid ());
+	proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+	                                       G_DBUS_PROXY_FLAGS_NONE,
+	                                       NULL,
+	                                       "org.freedesktop.Accounts",
+	                                       user_path,
+	                                       "org.freedesktop.Accounts.User",
+	                                       NULL,
+	                                       &error);
+	if (!proxy) {
+		g_warning ("Couldn't get accountsservice proxy for %s: %s", user_path, error->message);
+		g_error_free (error);
+		g_free (user_path);
+		return;
+	}
+
+	ret = g_dbus_proxy_call_sync (proxy,
+	                              "SetFormatsLocale",
+	                              g_variant_new ("(s)", formats_locale),
+	                              G_DBUS_CALL_FLAGS_NONE,
+	                              -1,
+	                              NULL,
+	                              &error);
+	if (!ret) {
+		g_warning ("Couldn't set FormatsLocale: %s", error->message);
+		g_error_free (error);
+	} else
+		g_variant_unref (ret);
+
+	g_object_unref (proxy);
+	g_free (user_path);
+}
 
 static void
 update_settings_cb (GtkTreeSelection *selection, gpointer user_data)
@@ -159,7 +200,6 @@ update_settings_cb (GtkTreeSelection *selection, gpointer user_data)
         gchar *active_id;
         GtkWidget *treeview;
         GSettings *locale_settings;
-        gchar *current_setting;
 
         if (!gtk_tree_selection_get_selected (selection, &model, &iter)) {
                 return;
@@ -169,13 +209,10 @@ update_settings_cb (GtkTreeSelection *selection, gpointer user_data)
         treeview = GTK_WIDGET (gtk_builder_get_object (builder, "region_selector"));
 
         locale_settings = g_object_get_data (G_OBJECT (treeview), "settings");
-        current_setting = g_settings_get_string (locale_settings, "region");
 
-        if (g_strcmp0 (active_id, current_setting) != 0) {
-                g_settings_set_string (locale_settings, "region", active_id);
-        }
+        set_formats_locale (active_id);
+        locale_settings_changed (locale_settings, NULL, builder);
 
-        g_free (current_setting);
         g_free (active_id);
 }
 
@@ -184,7 +221,7 @@ setting_changed_cb (GSettings *locale_settings, gchar *key, GtkTreeView *treevie
 {
         gchar *current_setting;
 
-        current_setting = g_settings_get_string (locale_settings, "region");
+        current_setting = cc_common_language_get_property ("FormatsLocale");
         select_region (treeview, current_setting);
         g_free (current_setting);
 }
@@ -213,7 +250,6 @@ static void
 populate_regions (GtkBuilder *builder, const gchar *current_lang)
 {
         gchar *current_region;
-        GSettings *locale_settings;
         GHashTable *ht;
         GHashTableIter htiter;
         GtkTreeModel *model;
@@ -228,11 +264,10 @@ populate_regions (GtkBuilder *builder, const gchar *current_lang)
         g_signal_handlers_block_by_func (selection, update_settings_cb, builder);
 
         model = gtk_tree_view_get_model (GTK_TREE_VIEW (treeview));
-        locale_settings = g_object_get_data (G_OBJECT (treeview), "settings");
 
         ht = cc_common_language_get_initial_regions (current_lang);
 
-        current_region = g_settings_get_string (locale_settings, "region");
+        current_region = cc_common_language_get_property ("FormatsLocale");
         if (!current_region || !current_region[0]) {
                 current_region = g_strdup (current_lang);
         }

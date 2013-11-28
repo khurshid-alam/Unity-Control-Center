@@ -224,6 +224,7 @@ construct_language_name (const char *language,
                          const char *codeset,
                          const char *modifier)
 {
+        const char *adj_codeset;
         char *name;
 
         g_assert (language[0] != 0);
@@ -231,12 +232,17 @@ construct_language_name (const char *language,
         g_assert (codeset == NULL || codeset[0] != 0);
         g_assert (modifier == NULL || modifier[0] != 0);
 
+        if (g_strcmp0 (codeset, "utf8") == 0) {
+                adj_codeset = "UTF-8";
+        } else
+                adj_codeset = codeset;
+
         name = g_strdup_printf ("%s%s%s%s%s%s%s",
                                 language,
                                 territory != NULL? "_" : "",
                                 territory != NULL? territory : "",
                                 codeset != NULL? "." : "",
-                                codeset != NULL? codeset : "",
+                                codeset != NULL? adj_codeset : "",
                                 modifier != NULL? "@" : "",
                                 modifier != NULL? modifier : "");
 
@@ -854,6 +860,7 @@ languages_parse_start_tag (GMarkupParseContext      *ctx,
         const char *ccode_longT;
         const char *ccode;
         const char *ccode_id;
+        const char *lang_common_name;
         const char *lang_name;
 
         if (! (g_str_equal (element_name, "iso_639_entry") || g_str_equal (element_name, "iso_639_3_entry"))
@@ -865,6 +872,7 @@ languages_parse_start_tag (GMarkupParseContext      *ctx,
         ccode_longB = NULL;
         ccode_longT = NULL;
         ccode_id = NULL;
+        lang_common_name = NULL;
         lang_name = NULL;
 
         while (*attr_names && *attr_values) {
@@ -901,12 +909,21 @@ languages_parse_start_tag (GMarkupParseContext      *ctx,
                                 }
                                 ccode_id = *attr_values;
                         }
+                } else if (g_str_equal (*attr_names, "common_name")) {
+                        /* skip if empty */
+                        if (**attr_values) {
+                                lang_common_name = *attr_values;
+                        }
                 } else if (g_str_equal (*attr_names, "name")) {
                         lang_name = *attr_values;
                 }
 
                 ++attr_names;
                 ++attr_values;
+        }
+
+        if (lang_common_name != NULL) {
+                lang_name = lang_common_name;
         }
 
         if (lang_name == NULL) {
@@ -1132,6 +1149,7 @@ gdm_get_language_from_name (const char *name,
         char *langinfo_codeset;
         char *translated_language;
         char *translated_territory;
+        char *modifier;
         gboolean is_utf8 = TRUE;
 
         g_return_val_if_fail (name != NULL, NULL);
@@ -1154,12 +1172,13 @@ gdm_get_language_from_name (const char *name,
         language_code = NULL;
         territory_code = NULL;
         codeset_code = NULL;
+        modifier = NULL;
 
         gdm_parse_language_name (name,
                                  &language_code,
                                  &territory_code,
                                  &codeset_code,
-                                 NULL);
+                                 &modifier);
 
         if (language_code == NULL) {
                 goto out;
@@ -1185,7 +1204,7 @@ gdm_get_language_from_name (const char *name,
                                         translated_territory);
         }
 
-        language_name_get_codeset_details (name, &langinfo_codeset, &is_utf8);
+//        language_name_get_codeset_details (name, &langinfo_codeset, &is_utf8);
 
         if (codeset_code == NULL && langinfo_codeset != NULL) {
             codeset_code = g_strdup (langinfo_codeset);
@@ -1197,6 +1216,10 @@ gdm_get_language_from_name (const char *name,
                                         codeset_code);
         }
 
+        if (modifier != NULL) {
+                g_string_append_printf (full_language, " - %s", modifier);
+        }
+
 out:
        g_free (language_code);
        g_free (territory_code);
@@ -1204,6 +1227,7 @@ out:
        g_free (langinfo_codeset);
        g_free (translated_language);
        g_free (translated_territory);
+       g_free (modifier);
 
        if (full_language->len == 0) {
                g_string_free (full_language, TRUE);

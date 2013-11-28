@@ -326,6 +326,66 @@ cc_common_language_get_current_language (void)
         return language;
 }
 
+gchar *
+cc_common_language_get_property (const gchar *prop_name)
+{
+	GDBusConnection  *bus;
+	gchar            *user_path;
+	GError           *error = NULL;
+	GVariant         *properties;
+	GVariantIter     *iter;
+	gchar            *key;
+	GVariant         *value;
+	gchar            *ret = NULL;
+
+	if (g_strcmp0 (prop_name, "Language") != 0 && g_strcmp0 (prop_name, "FormatsLocale") != 0) {
+		g_warning ("Invalid argument: '%s'", prop_name);
+		return ret;
+	}
+
+	bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, NULL);
+	user_path = g_strdup_printf ("/org/freedesktop/Accounts/User%i", getuid ());
+
+	properties = g_dbus_connection_call_sync (bus,
+	                                          "org.freedesktop.Accounts",
+	                                          user_path,
+	                                          "org.freedesktop.DBus.Properties",
+	                                          "GetAll",
+	                                          g_variant_new ("(s)", "org.freedesktop.Accounts.User"),
+	                                          G_VARIANT_TYPE ("(a{sv})"),
+	                                          G_DBUS_CALL_FLAGS_NONE,
+	                                          -1,
+	                                          NULL,
+	                                          &error);
+	if (!properties) {
+		g_warning ("Error calling GetAll() when retrieving properties for %s: %s", user_path, error->message);
+		g_error_free (error);
+                /* g_hash_table_lookup() is not NULL-safe, so don't return NULL */
+                if (g_strcmp0 (prop_name, "Language") == 0)
+                        ret = g_strdup ("en");
+                else
+                        ret = g_strdup ("en_US.UTF-8");
+		goto out;
+	}
+
+	g_variant_get (properties, "(a{sv})", &iter);
+	while (g_variant_iter_loop (iter, "{&sv}", &key, &value)) {
+		if (g_strcmp0 (key, prop_name) == 0) {
+			g_variant_get (value, "s", &ret);
+			break;
+		}
+	}
+
+	g_variant_unref (properties);
+	g_variant_iter_free (iter);
+
+out:
+	g_object_unref (bus);
+	g_free (user_path);
+
+	return ret;
+}
+
 static void
 languages_foreach_cb (gpointer key,
 		      gpointer value,
@@ -407,7 +467,7 @@ cc_common_language_select_current_language (GtkTreeView *treeview)
 	char *lang;
 	gboolean found;
 
-	lang = cc_common_language_get_current_language ();
+	lang = cc_common_language_get_property ("Language");
 	g_debug ("Trying to select lang '%s' in treeview", lang);
 	model = gtk_tree_view_get_model (treeview);
 	found = FALSE;
@@ -462,6 +522,7 @@ user_language_has_translations (const char *locale)
         return ret;
 }
 
+/*
 static void
 add_other_users_language (GHashTable *ht)
 {
@@ -541,6 +602,7 @@ add_other_users_language (GHashTable *ht)
 
         g_object_unref (proxy);
 }
+*/
 
 GHashTable *
 cc_common_language_get_initial_languages (void)
@@ -552,6 +614,7 @@ cc_common_language_get_initial_languages (void)
         ht = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
         /* Add some common languages first */
+/*
         g_hash_table_insert (ht, g_strdup ("en_US.utf8"), g_strdup (_("English")));
         if (gdm_language_has_translations ("en_GB"))
                 g_hash_table_insert (ht, g_strdup ("en_GB.utf8"), g_strdup (_("British English")));
@@ -572,12 +635,29 @@ cc_common_language_get_initial_languages (void)
         if (gdm_language_has_translations ("ar") ||
             gdm_language_has_translations ("ar_EG"))
                 g_hash_table_insert (ht, g_strdup ("ar_EG.utf8"), g_strdup (_("Arabic")));
-
+*/
         /* Add the languages used by other users on the system */
-        add_other_users_language (ht);
+//        add_other_users_language (ht);
 
-        /* Add current locale */
-        name = cc_common_language_get_current_language ();
+        /* Add installed languages */
+        gchar  *avail_languages;
+        GError *error = NULL;
+        if (g_spawn_command_line_sync ("/usr/share/language-tools/language-options",
+                                        &avail_languages, NULL, NULL, &error)) {
+                name = strtok (avail_languages, "\n");
+                while (name != NULL) {
+                        language = gdm_get_language_from_name (name, NULL);
+                        g_hash_table_insert (ht, g_strdup (name), language);
+                        name = strtok (NULL, "\n");
+                }
+                g_free (avail_languages);
+        } else {
+                g_warning ("Couldn't get available languages: %s", error->message);
+                g_error_free (error);
+        }
+
+        /* Add current language */
+        name = cc_common_language_get_property ("Language");
         if (g_hash_table_lookup (ht, name) == NULL) {
                 language = gdm_get_language_from_name (name, NULL);
                 g_hash_table_insert (ht, name, language);

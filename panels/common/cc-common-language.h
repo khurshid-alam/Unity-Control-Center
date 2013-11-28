@@ -45,6 +45,7 @@ guint    cc_common_language_add_available_languages (GtkListStore     *store,
                                                      GHashTable       *user_langs);
 gboolean cc_common_language_has_font                (const gchar  *locale);
 gchar   *cc_common_language_get_current_language    (void);
+gchar   *cc_common_language_get_property            (const gchar  *prop_name);
 
 GHashTable *cc_common_language_get_initial_languages   (void);
 GHashTable *cc_common_language_get_initial_regions     (const gchar *lang);
