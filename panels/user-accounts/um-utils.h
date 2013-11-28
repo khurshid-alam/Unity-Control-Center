@@ -65,6 +65,8 @@ gboolean is_valid_username                (const gchar     *name,
 void     generate_username_choices        (const gchar     *name,
                                            GtkListStore    *store);
 
+gboolean is_using_ecryptfs                (const gchar     *name);
+
 G_END_DECLS
 
 #endif

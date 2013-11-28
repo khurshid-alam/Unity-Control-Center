@@ -52,6 +52,7 @@ struct _UmPasswordDialog {
         GtkWidget *ok_button;
 
         UmUser *user;
+        gboolean using_ecryptfs;
 
         GtkWidget *old_password_label;
         GtkWidget *old_password_entry;
@@ -472,6 +473,38 @@ um_password_dialog_set_privileged (UmPasswordDialog *um,
         }
 }
 
+int _is_gdm_running = -1;
+gboolean
+is_gdm_running (void)
+{
+        if (_is_gdm_running == -1) {
+                GDBusProxy *proxy;
+                gchar *owner_name;
+
+                proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
+                                                       G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES |
+                                                       G_DBUS_PROXY_FLAGS_DO_NOT_CONNECT_SIGNALS |
+                                                       G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START,
+                                                       NULL,
+                                                       "org.gnome.DisplayManager",
+                                                       "/org/gnome/DisplayManager/Manager",
+                                                       "org.gnome.DisplayManager.Manager",
+                                                       NULL, NULL);
+
+                if (proxy == NULL)
+                        return FALSE;
+
+                owner_name = g_dbus_proxy_get_name_owner (proxy);
+
+                g_object_unref (proxy);
+                g_free (owner_name);
+
+                _is_gdm_running = (owner_name != NULL) ? 1 : 0;
+        }
+
+        return _is_gdm_running;
+}
+
 UmPasswordDialog *
 um_password_dialog_new (void)
 {
@@ -592,6 +625,13 @@ um_password_dialog_new (void)
                           G_CALLBACK (entry_size_changed), widget);
         um->normal_hint_label = widget;
 
+        if (!is_gdm_running ()) {
+                widget = (GtkWidget *) gtk_builder_get_object (builder, "password-normal-hint-label");
+                gtk_widget_hide (widget);
+                gtk_widget_hide (um->normal_hint_entry);
+                gtk_widget_hide (um->normal_hint_label);
+        }
+
         um->strength_indicator = (GtkWidget *) gtk_builder_get_object (builder, "strength-indicator");
 
         um->strength_indicator_label = (GtkWidget *) gtk_builder_get_object (builder, "strength-indicator-label");
@@ -626,6 +666,12 @@ visible_func (GtkTreeModel     *model,
 
                 gtk_tree_model_get (model, iter, 1, &mode, -1);
 
+                if (mode == 1 && !is_gdm_running ())
+                        return FALSE;
+
+                if (mode == 2 && um->using_ecryptfs)
+                        return FALSE;
+
                 if (mode == 3 && locked)
                         return FALSE;
 
@@ -651,6 +697,8 @@ um_password_dialog_set_user (UmPasswordDialog *um,
         }
         if (user) {
                 um->user = g_object_ref (user);
+
+                um->using_ecryptfs = is_using_ecryptfs (um_user_get_user_name (user));
 
                 pixbuf = um_user_render_icon (user, FALSE, 48);
                 gtk_image_set_from_pixbuf (GTK_IMAGE (um->user_icon), pixbuf);

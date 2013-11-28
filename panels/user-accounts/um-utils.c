@@ -746,3 +746,27 @@ generate_username_choices (const gchar  *name,
         g_string_free (item3, TRUE);
         g_string_free (item4, TRUE);
 }
+
+gboolean
+is_using_ecryptfs (const gchar *name)
+{
+        gboolean using_ecryptfs = FALSE;
+        int status;
+        gchar *prog;
+        gchar *cmd;
+
+        prog = g_find_program_in_path ("ecryptfs-verify");
+        if (prog != NULL) {
+                gchar *cmd = g_strdup_printf("'%s' -h -u '%s'", prog, name);
+
+                if (g_spawn_command_line_sync (cmd, NULL, NULL, &status, NULL)) {
+                        if (status == 0)
+                                using_ecryptfs = TRUE;
+                }
+
+                g_free (prog);
+                g_free (cmd);
+        }
+
+        return using_ecryptfs;
+}

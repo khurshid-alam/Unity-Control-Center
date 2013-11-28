@@ -629,7 +629,10 @@ show_user (UmUser *user, UmUserPanelPrivate *d)
         /* Autologin: show when local account */
         widget = get_widget (d, "autologin-switch");
         label = get_widget (d, "autologin-label");
-        show = um_user_is_local_account (user);
+        /* Don't show autologin option if ecryptfs is in use, because it won't
+           work if user turns it on. */
+        show = um_user_is_local_account (user) &&
+               !is_using_ecryptfs (um_user_get_user_name (user));
         gtk_widget_set_visible (widget, show);
         gtk_widget_set_visible (label, show);
 }
