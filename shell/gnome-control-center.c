@@ -38,6 +38,7 @@
 #include "cc-shell.h"
 #include "cc-shell-category-view.h"
 #include "cc-shell-model.h"
+#include "cc-shell-nav-bar.h"
 
 G_DEFINE_TYPE (GnomeControlCenter, gnome_control_center, CC_TYPE_SHELL)
 
@@ -76,6 +77,7 @@ struct _GnomeControlCenterPrivate
   GtkWidget  *search_entry;
   GtkWidget  *lock_button;
   GPtrArray  *custom_widgets;
+  GtkWidget  *nav_bar;
 
   GMenuTree  *menu_tree;
   GtkListStore *store;
@@ -238,6 +240,7 @@ activate_panel (GnomeControlCenter *shell,
   /* switch to the new panel */
   gtk_widget_show (box);
   notebook_select_page (priv->notebook, box);
+  cc_shell_nav_bar_show_detail_button (CC_SHELL_NAV_BAR(shell->priv->nav_bar), name);
 
   /* set the title of the window */
   icon_name = get_icon_name_from_g_icon (gicon);
@@ -300,6 +303,8 @@ shell_show_overview_page (GnomeControlCenter *center)
 
   /* clear any custom widgets */
   _shell_remove_all_custom_widgets (priv);
+
+  cc_shell_nav_bar_hide_detail_button (CC_SHELL_NAV_BAR (priv->nav_bar));
 }
 
 void
@@ -903,11 +908,8 @@ notebook_page_notify_cb (GtkNotebook              *notebook,
 
   child = notebook_get_selected_page (GTK_WIDGET (notebook));
 
-  /* make sure the home button is shown on all pages except the overview page */
-
   if (child == priv->scrolled_window || child == priv->search_scrolled)
     {
-      gtk_widget_hide (W (priv->builder, "home-button"));
       gtk_widget_show (W (priv->builder, "search-entry"));
       gtk_widget_hide (W (priv->builder, "lock-button"));
 
@@ -922,7 +924,6 @@ notebook_page_notify_cb (GtkNotebook              *notebook,
     }
   else
     {
-      gtk_widget_show (W (priv->builder, "home-button"));
       gtk_widget_hide (W (priv->builder, "search-entry"));
       /* set the scrolled window small so that it doesn't force
          the window to be larger than this panel */
@@ -1348,6 +1349,7 @@ gnome_control_center_init (GnomeControlCenter *self)
   GnomeControlCenterPrivate *priv;
   GdkScreen *screen;
   GtkWidget *frame;
+  GtkWidget *widget;
 
   priv = self->priv = CONTROL_CENTER_PRIVATE (self);
 
@@ -1402,8 +1404,14 @@ gnome_control_center_init (GnomeControlCenter *self)
   if (gtk_widget_get_direction (frame) == GTK_TEXT_DIR_RTL)
     g_object_set (frame, "xalign", 1.0, NULL);
 
-  g_signal_connect (gtk_builder_get_object (priv->builder, "home-button"),
-                    "clicked", G_CALLBACK (home_button_clicked_cb), self);
+  priv->nav_bar = cc_shell_nav_bar_new ();
+  widget = W (priv->builder, "hbox1");
+  gtk_box_pack_start (GTK_BOX (widget), priv->nav_bar, FALSE, FALSE, 0);
+  gtk_box_reorder_child (GTK_BOX (widget), priv->nav_bar, 0);
+  gtk_widget_show (priv->nav_bar);
+
+  g_signal_connect (priv->nav_bar,
+                    "home-clicked", G_CALLBACK (home_button_clicked_cb), self);
 
   /* keep a list of custom widgets to unload on panel change */
   priv->custom_widgets = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);

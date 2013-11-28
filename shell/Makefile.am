@@ -26,6 +26,8 @@ gnome_control_center_SOURCES =			\
 	cc-shell-item-view.h			\
 	cc-shell-model.c			\
 	cc-shell-model.h			\
+	cc-shell-nav-bar.c			\
+	cc-shell-nav-bar.h			\
 	cc-editable-entry.c			\
 	cc-editable-entry.h			\
 	cc-panel.c				\
