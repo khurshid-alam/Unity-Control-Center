@@ -401,8 +401,7 @@ set_dpms_value_for_combo (GtkComboBox *combo_box, CcScreenPanel *self)
       gtk_tree_model_get (model, &iter,
                           1, &value_tmp,
                           -1);
-      if (value == value_tmp ||
-          (value_tmp > value_prev && value < value_tmp))
+      if (value == value_tmp)
         {
           gtk_combo_box_set_active_iter (combo_box, &iter);
           return;

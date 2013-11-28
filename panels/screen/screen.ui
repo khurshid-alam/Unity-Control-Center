@@ -83,6 +83,10 @@
         <col id="0" translatable="yes">1 hour</col>
         <col id="1">3600</col>
       </row>
+      <row>
+	<col id="0" translatable="yes">Never</col>
+	<col id="1">0</col>
+      </row>
     </data>
   </object>
   <object class="GtkWindow" id="window1">
