@@ -28,19 +28,47 @@ gnome_control_center_SOURCES =			\
 	cc-shell-model.h			\
 	cc-shell-nav-bar.c			\
 	cc-shell-nav-bar.h			\
-	cc-editable-entry.c			\
-	cc-editable-entry.h			\
-	cc-panel.c				\
-	cc-panel.h				\
-	cc-shell.c				\
-	cc-shell.h				\
 	$(MARSHAL_FILES)
 
 gnome_control_center_LDADD =			\
+	libgnome-control-center.la		\
 	$(SHELL_LIBS)				\
 	$(CHEESE_LIBS)
 
 gnome_control_center_LDFLAGS = -export-dynamic
+
+lib_LTLIBRARIES = libgnome-control-center.la
+
+libgnome_control_center_include_HEADERS =      \
+	cc-panel.h                              \
+	cc-shell.h                              \
+	cc-editable-entry.h			\
+	$(NULL)
+
+libgnome_control_center_la_SOURCES =		\
+	cc-panel.c				\
+	cc-panel.h				\
+	cc-shell.c				\
+	cc-shell.h				\
+	cc-editable-entry.c			\
+	cc-editable-entry.h			\
+	$(NULL)
+
+libgnome_control_center_la_LDFLAGS =		\
+	-no-undefined				\
+	-version-info $(LIBGNOMECONTROLCENTER_CURRENT):$(LIBGNOMECONTROLCENTER_REVISION):$(LIBGNOMECONTROLCENTER_AGE) \
+	$(NULL)
+
+libgnome_control_center_la_LIBADD = 		\
+	$(LIBGNOME_CONTROL_CENTER_LIBS)		\
+	$(NULL)
+
+libgnome_control_center_la_LIBTOOLFLAGS = --tag=disable-static
+
+libgnome_control_center_includedir = $(includedir)/gnome-control-center-1/libgnome-control-center
+
+pkgconfigdir=$(libdir)/pkgconfig
+pkgconfig_DATA=libgnome-control-center.pc
 
 AM_CPPFLAGS =							\
 	-DGNOMELOCALEDIR="\"$(datadir)/locale\""		\
@@ -72,6 +100,7 @@ EXTRA_DIST =					\
 	gnome-control-center.desktop.in.in	\
 	gnomecc.directory.in			\
 	gnomecc.menu.in				\
+	libgnome-control-center.pc.in  \
 	cc-shell-marshal.list
 
 DISTCLEANFILES = gnome-control-center.desktop gnome-control-center.desktop.in gnomecc.directory gnomecc.menu
