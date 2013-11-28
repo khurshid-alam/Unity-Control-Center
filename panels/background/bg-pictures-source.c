@@ -335,7 +335,7 @@ add_single_file (BgPicturesSource *bg_source,
 		"shading", G_DESKTOP_BACKGROUND_SHADING_SOLID,
 		"placement", G_DESKTOP_BACKGROUND_STYLE_ZOOM,
 		NULL);
-  if (source_uri != NULL)
+  if (source_uri != NULL && !g_file_is_native (file))
     g_object_set (G_OBJECT (item), "source-url", source_uri, NULL);
 
   g_object_set_data (G_OBJECT (file), "item", item);
