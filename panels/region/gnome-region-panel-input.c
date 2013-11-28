@@ -1123,7 +1123,7 @@ update_button_sensitivity (GtkBuilder *builder)
   gtk_widget_set_sensitive (show_button, index >= 0);
   gtk_widget_set_sensitive (up_button, index > 0);
   gtk_widget_set_sensitive (down_button, index >= 0 && index < n_active - 1);
-  gtk_widget_set_sensitive (settings_button, settings_sensitive);
+  gtk_widget_set_visible (settings_button, settings_sensitive);
 }
 
 static void
