@@ -932,6 +932,7 @@ static void
 set_ac_battery_ui_mode (CcPowerPanel *self)
 {
   gboolean has_batteries = FALSE;
+  gboolean has_lid = FALSE;
   gboolean ret;
   GError *error = NULL;
   GPtrArray *devices;
@@ -964,7 +965,13 @@ set_ac_battery_ui_mode (CcPowerPanel *self)
         }
     }
   g_ptr_array_unref (devices);
+
+  has_lid = up_client_get_lid_is_present (self->priv->up_client);
+
 out:
+  gtk_widget_set_visible (WID (priv->builder, "combobox_lid_ac"), has_lid);
+  gtk_widget_set_visible (WID (priv->builder, "label_lid_action"), has_lid);
+  gtk_widget_set_visible (WID (priv->builder, "combobox_lid_battery"), has_batteries && has_lid);
   gtk_widget_set_visible (WID (priv->builder, "label_header_battery"), has_batteries);
   gtk_widget_set_visible (WID (priv->builder, "label_header_ac"), has_batteries);
   gtk_widget_set_visible (WID (priv->builder, "combobox_sleep_battery"), has_batteries);
@@ -1078,6 +1085,26 @@ cc_power_panel_init (CcPowerPanel *self)
 
   g_signal_connect (widget, "activate-link",
                     G_CALLBACK (activate_link_cb),
+                    self);
+
+  value = g_settings_get_enum (self->priv->gsd_settings, "lid-close-ac-action");
+  widget = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
+                                               "combobox_lid_ac"));
+  disable_unavailable_combo_items (self, GTK_COMBO_BOX (widget));
+  set_value_for_combo (GTK_COMBO_BOX (widget), value);
+  g_object_set_data (G_OBJECT(widget), "_gsettings_key", "lid-close-ac-action");
+  g_signal_connect (widget, "changed",
+                    G_CALLBACK (combo_enum_changed_cb),
+                    self);
+
+  value = g_settings_get_enum (self->priv->gsd_settings, "lid-close-battery-action");
+  widget = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
+                                               "combobox_lid_battery"));
+  disable_unavailable_combo_items (self, GTK_COMBO_BOX (widget));
+  set_value_for_combo (GTK_COMBO_BOX (widget), value);
+  g_object_set_data (G_OBJECT(widget), "_gsettings_key", "lid-close-battery-action");
+  g_signal_connect (widget, "changed",
+                    G_CALLBACK (combo_enum_changed_cb),
                     self);
 
   widget = WID (self->priv->builder, "vbox_power");
