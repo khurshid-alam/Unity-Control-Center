@@ -1931,7 +1931,7 @@ on_updates_button_clicked (GtkWidget   *widget,
 {
   GError *error;
   error = NULL;
-  g_spawn_command_line_async ("gpk-update-viewer", &error);
+  g_spawn_command_line_async ("update-manager", &error);
   if (error != NULL)
     {
       g_warning ("unable to launch Software Updates: %s", error->message);
