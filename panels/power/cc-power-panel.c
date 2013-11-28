@@ -39,6 +39,7 @@ struct _CcPowerPanelPrivate
 {
   GSettings     *lock_settings;
   GSettings     *gsd_settings;
+  GSettings     *power_settings;
   GCancellable  *cancellable;
   GtkBuilder    *builder;
   GDBusProxy    *proxy;
@@ -88,6 +89,11 @@ cc_power_panel_dispose (GObject *object)
     {
       g_object_unref (priv->gsd_settings);
       priv->gsd_settings = NULL;
+    }
+  if (priv->power_settings)
+    {
+      g_object_unref (priv->power_settings);
+      priv->power_settings = NULL;
     }
   if (priv->cancellable != NULL)
     {
@@ -1112,6 +1118,37 @@ cc_power_panel_init (CcPowerPanel *self)
 
   widget = WID (self->priv->builder, "vbox_power");
   gtk_widget_reparent (widget, (GtkWidget *) self);
+
+  /* Set up Unity-specific controls */
+  /* References:
+   *  https://wiki.ubuntu.com/Power
+   *  https://docs.google.com/document/d/1ILTJDiDCd25Npt2AmgzF8aOnZZECxTfM0hvsbWT2BxA/edit?pli=1#heading=h.i5lg1g344bsb
+   */
+  // First check the schema is installed
+  GSettingsSchemaSource *schema_source = g_settings_schema_source_ref (
+              g_settings_schema_source_get_default ());
+  GSettingsSchema *schema = g_settings_schema_source_lookup (
+              schema_source,
+              "com.canonical.indicator.power",
+              TRUE);
+  g_settings_schema_source_unref (schema_source);
+
+  if (schema)
+    {
+      widget = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
+                                                   "combobox_indicator"));
+      self->priv->power_settings = g_settings_new ("com.canonical.indicator.power");
+      g_settings_bind (self->priv->power_settings, "icon-policy",
+                       widget, "active-id", G_SETTINGS_BIND_DEFAULT);
+      g_settings_schema_unref (schema);
+    }
+  else
+    {
+      gtk_widget_hide (GTK_WIDGET (gtk_builder_get_object (self->priv->builder, "separator_indicator")));
+      gtk_widget_hide (GTK_WIDGET (gtk_builder_get_object (self->priv->builder, "label_indicator")));
+      gtk_widget_hide (GTK_WIDGET (gtk_builder_get_object (self->priv->builder, "combobox_indicator")));
+    }
+
 }
 
 void
