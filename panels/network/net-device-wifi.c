@@ -150,7 +150,7 @@ add_access_point (NetDeviceWifi *device_wifi, NMAccessPoint *ap, NMAccessPoint *
         ssid = nm_access_point_get_ssid (ap);
         if (ssid == NULL)
                 return;
-        ssid_text = nm_utils_escape_ssid (ssid->data, ssid->len);
+        ssid_text = nm_utils_ssid_to_utf8 (ssid);
         title = g_markup_escape_text (ssid_text, -1);
 
         is_active_ap = active && nm_utils_same_ssid (ssid, nm_access_point_get_ssid (active), TRUE);
@@ -172,6 +172,7 @@ add_access_point (NetDeviceWifi *device_wifi, NMAccessPoint *ap, NMAccessPoint *
                                            COLUMN_AP_OUT_OF_RANGE, FALSE,
                                            COLUMN_AP_IS_SAVED, FALSE,
                                            -1);
+        g_free (ssid_text);
         g_free (title);
 }
 
@@ -531,7 +532,7 @@ add_saved_connection (NetDeviceWifi *device_wifi, NMConnection *connection, NMDe
                 return;
 
         ssid = nm_setting_wireless_get_ssid (NM_SETTING_WIRELESS (setting));
-        ssid_text = nm_utils_escape_ssid (ssid->data, ssid->len);
+        ssid_text = nm_utils_ssid_to_utf8 (ssid);
         title = g_markup_escape_text (ssid_text, -1);
         g_debug ("got saved %s", title);
 
@@ -559,6 +560,7 @@ add_saved_connection (NetDeviceWifi *device_wifi, NMConnection *connection, NMDe
                                                    COLUMN_AP_IS_SAVED, TRUE,
                                                    -1);
         g_free (title);
+        g_free (ssid_text);
 }
 
 static void
@@ -1074,7 +1076,7 @@ wireless_try_to_connect (NetDeviceWifi *device_wifi,
                          const gchar *ap_object_path)
 {
         const GByteArray *ssid;
-        const gchar *ssid_tmp;
+        const gchar *ssid_tmp = NULL;
         GSList *list, *l;
         GSList *filtered;
         NMConnection *connection_activate = NULL;
@@ -1112,15 +1114,18 @@ wireless_try_to_connect (NetDeviceWifi *device_wifi,
                 ssid = nm_setting_wireless_get_ssid (setting_wireless);
                 if (ssid == NULL)
                         continue;
-                ssid_tmp = nm_utils_escape_ssid (ssid->data, ssid->len);
+                ssid_tmp = nm_utils_ssid_to_utf8 (ssid);
                 if (g_strcmp0 (ssid_target, ssid_tmp) == 0) {
                         g_debug ("we found an existing connection %s to activate!",
                                  nm_connection_get_id (connection));
                         connection_activate = connection;
                         break;
                 }
+                g_free (ssid_tmp);
+                ssid_tmp = NULL;
         }
 
+        g_free (ssid_tmp);
         g_slist_free (list);
         g_slist_free (filtered);
 
