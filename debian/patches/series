@@ -1,4 +1,3 @@
-ubuntu_update_lock_and_power_settings.patch
 git_region_update_input_switch.patch
 git_keyboard_update_input_switch.patch
 git_shell_use_view_style_class.patch

@@ -350,9 +350,7 @@ dpms_combo_changed_cb (GtkWidget *widget, CcScreenPanel *self)
                       1, &value,
                       -1);
 
-  /* set both battery and ac keys */
-  g_settings_set_int (self->priv->gsd_settings, "sleep-display-ac", value);
-  g_settings_set_int (self->priv->gsd_settings, "sleep-display-battery", value);
+  g_settings_set (self->priv->session_settings, "idle-delay", "u", value);
 
   set_idle_delay_from_dpms (self, value);
 }
@@ -398,7 +396,7 @@ set_dpms_value_for_combo (GtkComboBox *combo_box, CcScreenPanel *self)
   i = 0;
 
   /* try to make the UI match the AC setting */
-  value = g_settings_get_int (self->priv->gsd_settings, "sleep-display-ac");
+  g_settings_get (self->priv->session_settings, "idle-delay",  "u", &value);
   do
     {
       gtk_tree_model_get (model, &iter,
@@ -509,7 +507,7 @@ cc_screen_panel_init (CcScreenPanel *self)
   /* bind the auto dim checkbox */
   widget = WID ("screen_auto_reduce_checkbutton");
   g_settings_bind (self->priv->gsd_settings,
-                   "idle-dim-battery",
+                   "idle-dim",
                    widget, "active",
                    G_SETTINGS_BIND_DEFAULT);
 
