@@ -1,4 +1,3 @@
-ubuntu_update_translations_template.patch
 unity_no_zoom_controls.patch
 more-power-suspend-options.patch
 sanitize_ssid_convert_utf8.patch
