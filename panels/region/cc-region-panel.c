@@ -47,6 +47,12 @@ enum {
 	SYSTEM_PAGE
 };
 
+static gboolean
+is_unity (void)
+{
+	return g_strcmp0 (g_getenv ("XDG_CURRENT_DESKTOP"), "Unity") == 0;
+}
+
 static void
 cc_region_panel_set_page (CcRegionPanel *panel,
 			  const char    *page)
@@ -149,16 +155,24 @@ cc_region_panel_init (CcRegionPanel * self)
 		return;
 	}
 
-	prefs_widget = (GtkWidget *) gtk_builder_get_object (priv->builder,
-							     "region_notebook");
+	if (!is_unity ())
+		prefs_widget = (GtkWidget *) gtk_builder_get_object (priv->builder,
+								     "region_notebook");
+	else
+		prefs_widget = (GtkWidget *) gtk_builder_get_object (priv->builder,
+								     "vbox5");
+
 	gtk_widget_set_size_request (GTK_WIDGET (prefs_widget), -1, 400);
 
 	gtk_widget_reparent (prefs_widget, GTK_WIDGET (self));
 
         setup_input_tabs (priv->builder, self);
-	setup_language (priv->builder);
-	setup_formats (priv->builder);
-	setup_system (priv->builder);
+
+	if (!is_unity ()) {
+		setup_language (priv->builder);
+		setup_formats (priv->builder);
+		setup_system (priv->builder);
+	}
 }
 
 void
