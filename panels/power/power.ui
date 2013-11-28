@@ -40,12 +40,20 @@
         <col id="1">600</col>
       </row>
       <row>
+        <col id="0" translatable="yes">20 minutes</col>
+        <col id="1">1200</col>
+      </row>
+      <row>
         <col id="0" translatable="yes">30 minutes</col>
         <col id="1">1800</col>
       </row>
       <row>
         <col id="0" translatable="yes">1 hour</col>
         <col id="1">3600</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">2 hours</col>
+        <col id="1">7200</col>
       </row>
       <row>
         <col id="0" translatable="yes">Don't suspend</col>
