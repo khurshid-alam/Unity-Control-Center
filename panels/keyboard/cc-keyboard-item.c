@@ -143,14 +143,25 @@ _set_binding (CcKeyboardItem *item,
               const char     *value,
 	      gboolean        set_backend)
 {
+  /* don't reassign <Alt_L> or <Alt> key in the callback to the binding itself (as it's invalid for the cell renderer) */
+  if ((g_strcmp0 (value, "<Alt_L>") == 0) || (g_strcmp0 (value, "<Alt>") == 0))
+    return;
+
   g_free (item->binding);
   item->binding = g_strdup (value);
   binding_from_string (item->binding, &item->keyval, &item->keycode, &item->mask);
 
+  const char *key;
+  char *cheated_modifier = NULL;
+  if (g_strcmp0 (item->binding, "Alt_L") == 0)
+    cheated_modifier = g_strdup_printf ("<%s>", item->binding);
+
   if (set_backend == FALSE)
     return;
 
-  settings_set_binding (item->settings, item->key, item->binding);
+  settings_set_binding (item->settings, item->key, cheated_modifier ? cheated_modifier: item->binding);
+
+  g_free (cheated_modifier);
 }
 
 const char *
@@ -441,6 +452,13 @@ cc_keyboard_item_load_from_gsettings (CcKeyboardItem *item,
   item->settings = g_settings_new (item->schema);
   item->binding = settings_get_binding (item->settings, item->key);
   item->editable = g_settings_is_writable (item->settings, item->key);
+
+  if ((g_strcmp0 (item->binding, "<Alt>") == 0) || (g_strcmp0 (item->binding, "<Alt_L>") == 0))
+    {
+      g_free (item->binding);
+      item->binding = g_strdup ("Alt_L");
+    }
+
   binding_from_string (item->binding, &item->keyval, &item->keycode, &item->mask);
 
   signal_name = g_strdup_printf ("changed::%s", item->key);

@@ -1718,7 +1718,7 @@ setup_dialog (CcPanel *panel, GtkBuilder *builder)
   gtk_tree_view_append_column (treeview, column);
 
   renderer = (GtkCellRenderer *) g_object_new (GTK_TYPE_CELL_RENDERER_ACCEL,
-                                               "accel-mode", GTK_CELL_RENDERER_ACCEL_MODE_OTHER,
+                                               "accel-mode", GTK_CELL_RENDERER_ACCEL_MODE_MODIFIER_TAP,
                                                NULL);
 
   g_signal_connect (treeview, "button_press_event",
