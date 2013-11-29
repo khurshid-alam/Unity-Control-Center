@@ -408,9 +408,6 @@ panels/Makefile
 panels/common/Makefile
 panels/bluetooth/Makefile
 panels/bluetooth/unity-bluetooth-panel.desktop.in
-panels/datetime/Makefile
-panels/datetime/unity-datetime-panel.desktop.in
-panels/datetime/po-timezones/Makefile
 panels/display/Makefile
 panels/display/unity-display-panel.desktop.in
 panels/keyboard/Makefile

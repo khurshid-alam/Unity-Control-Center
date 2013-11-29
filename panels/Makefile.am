@@ -11,8 +11,7 @@ SUBDIRS= \
 	sound-nua \
 	keyboard \
 	universal-access \
-	user-accounts \
-	datetime
+	user-accounts
 
 if BUILD_WACOM
 SUBDIRS += wacom
