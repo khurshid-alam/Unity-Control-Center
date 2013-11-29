@@ -128,8 +128,6 @@ PKG_CHECK_MODULES(LIBUNITY_CONTROL_CENTER, $COMMON_MODULES)
 PKG_CHECK_MODULES(LIBLANGUAGE, $COMMON_MODULES gnome-desktop-3.0 fontconfig)
 PKG_CHECK_MODULES(LIBSHORTCUTS, $COMMON_MODULES x11)
 PKG_CHECK_MODULES(SHELL, $COMMON_MODULES libgnome-menu-3.0 gio-unix-2.0 x11)
-PKG_CHECK_MODULES(BACKGROUND_PANEL, $COMMON_MODULES libxml-2.0 gnome-desktop-3.0
-                  gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED_VERSION)
 PKG_CHECK_MODULES(DATETIME_PANEL, $COMMON_MODULES
                   gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION
                   polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION
@@ -408,8 +406,6 @@ Makefile
 shell/libunity-control-center.pc
 panels/Makefile
 panels/common/Makefile
-panels/background/Makefile
-panels/background/unity-background-panel.desktop.in
 panels/bluetooth/Makefile
 panels/bluetooth/unity-bluetooth-panel.desktop.in
 panels/datetime/Makefile
@@ -517,11 +513,6 @@ if test "x$have_cheese" = "xyes"; then
 	AC_MSG_NOTICE([** Cheese (Users panel webcam support)])
 else
 	AC_MSG_NOTICE([   Users panel webcam support disabled])
-fi
-if test "x$with_libsocialweb" = "xyes"; then
-	AC_MSG_NOTICE([** libsocialweb (Background panel Flickr support)])
-else
-	AC_MSG_NOTICE([   Background panel Flickr support disabled])
 fi
 if test "x$with_systemd" = "xyes"; then
 	AC_MSG_NOTICE([** systemd (Systemd session tracking)])
