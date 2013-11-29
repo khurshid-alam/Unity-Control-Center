@@ -54,7 +54,7 @@
 
 #include "cc-common-language.h"
 
-#define USER_ACCOUNTS_PERMISSION "org.gnome.controlcenter.user-accounts.administration"
+#define USER_ACCOUNTS_PERMISSION "com.canonical.controlcenter.user-accounts.administration"
 
 CC_PANEL_REGISTER (UmUserPanel, um_user_panel)
 

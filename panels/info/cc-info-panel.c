@@ -947,7 +947,7 @@ info_panel_setup_notice (CcInfoPanel  *self)
                                   GTK_POLICY_AUTOMATIC);
 
   WebKitWebView *webView = WEBKIT_WEB_VIEW(webkit_web_view_new());
-  webkit_web_view_load_uri(webView, "file:///usr/share/gnome-control-center/searchingthedashlegalnotice.html");
+  webkit_web_view_load_uri(webView, "file:///usr/share/unity-control-center/searchingthedashlegalnotice.html");
   g_signal_connect (G_OBJECT (webView), "navigation-policy-decision-requested",
                     G_CALLBACK (url_nav_callback), sw);
 

@@ -50,8 +50,7 @@ ui_DATA = \
 
 desktopdir = $(datadir)/applications
 Desktop_in_files =	\
-	gnome-region-panel.desktop.in \
-	unity-region-panel.desktop.in
+	unity-region-panel2.desktop.in
 desktop_DATA = $(Desktop_in_files:.desktop.in=.desktop)
 
 CLEANFILES = $(Desktop_in_files) $(desktop_DATA)

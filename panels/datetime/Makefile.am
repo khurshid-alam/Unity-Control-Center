@@ -175,7 +175,7 @@ libdate_time_la_LDFLAGS = $(PANEL_LDFLAGS)
 
 
 polkitdir = $(datadir)/polkit-1/actions
-polkit_in_files = org.gnome.controlcenter.datetime.policy.in
+polkit_in_files = com.canonical.controlcenter.datetime.policy.in
 
 @INTLTOOL_POLICY_RULE@
 polkit_DATA = $(polkit_in_files:.policy.in=.policy)
@@ -184,14 +184,14 @@ polkit_DATA = $(polkit_in_files:.policy.in=.policy)
 @INTLTOOL_DESKTOP_RULE@
 
 desktopdir = $(datadir)/applications
-desktop_in_files = gnome-datetime-panel.desktop.in
+desktop_in_files = unity-datetime-panel.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
 CLEANFILES =					\
 	$(desktop_in_files)			\
 	$(desktop_DATA)				\
 	$(dbus_built_sources)			\
-	org.gnome.controlcenter.datetime.policy
+	com.canonical.controlcenter.datetime.policy
 
 EXTRA_DIST =				\
 	timedated1-interface.xml	\

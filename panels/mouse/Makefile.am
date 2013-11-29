@@ -47,7 +47,7 @@ ui_DATA =				\
 	scroll-test.svg
 
 desktopdir = $(datadir)/applications
-Desktop_in_files = gnome-mouse-panel.desktop.in
+Desktop_in_files = unity-mouse-panel.desktop.in
 desktop_DATA = $(Desktop_in_files:.desktop.in=.desktop)
 
 INPUTDIR=$(top_srcdir)/../gnome-settings-daemon/plugins/common/

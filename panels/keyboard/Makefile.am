@@ -29,7 +29,7 @@ uidir   = $(pkgdatadir)/ui
 ui_DATA = gnome-keyboard-panel.ui
 
 desktopdir = $(datadir)/applications
-Desktop_in_files = gnome-keyboard-panel.desktop.in
+Desktop_in_files = unity-keyboard-panel.desktop.in
 desktop_DATA = $(Desktop_in_files:.desktop.in=.desktop)
 
 @INTLTOOL_XML_NOMERGE_RULE@
@@ -45,7 +45,7 @@ xml_in_files = 			\
 xml_DATA     = $(xml_in_files:.xml.in=.xml)
 
 pkgconfigdir = $(datadir)/pkgconfig
-pkgconfig_DATA = gnome-keybindings.pc
+pkgconfig_DATA = unity-keybindings.pc
 
 INCLUDES = \
 	-DGNOMELOCALEDIR="\"$(datadir)/locale\"" \
@@ -57,7 +57,7 @@ CLEANFILES = \
 	$(Desktop_in_files) \
 	$(desktop_DATA) \
 	$(xml_DATA)
-EXTRA_DIST = $(ui_DATA) $(xml_in_files) gnome-keybindings.pc.in
+EXTRA_DIST = $(ui_DATA) $(xml_in_files) unity-keybindings.pc.in
 
 
 -include $(top_srcdir)/git.mk

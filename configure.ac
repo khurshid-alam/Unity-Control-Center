@@ -1,6 +1,5 @@
-m4_define([gnome_control_center_version], 3.6.3)
-AC_INIT([gnome-control-center], [gnome_control_center_version],
-        [http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-control-center])
+m4_define([unity_control_center_version], 3.6.3)
+AC_INIT([unity-control-center], [unity_control_center_version])
 
 AC_CONFIG_SRCDIR([shell])
 AC_CONFIG_HEADERS([config.h])
@@ -19,19 +18,19 @@ AC_HEADER_STDC
 LT_PREREQ([2.2])
 LT_INIT
 
-# .so version for libgnome-control-center
-LIBGNOMECONTROLCENTER_CURRENT=1
-LIBGNOMECONTROLCENTER_REVISION=0
-LIBGNOMECONTROLCENTER_AGE=0
-AC_SUBST(LIBGNOMECONTROLCENTER_CURRENT)
-AC_SUBST(LIBGNOMECONTROLCENTER_REVISION)
-AC_SUBST(LIBGNOMECONTROLCENTER_AGE)
+# .so version for libunity-control-center
+LIBUNITYCONTROLCENTER_CURRENT=1
+LIBUNITYCONTROLCENTER_REVISION=0
+LIBUNITYCONTROLCENTER_AGE=0
+AC_SUBST(LIBUNITYCONTROLCENTER_CURRENT)
+AC_SUBST(LIBUNITYCONTROLCENTER_REVISION)
+AC_SUBST(LIBUNITYCONTROLCENTER_AGE)
 
 # Internationalization support
 
 IT_PROG_INTLTOOL([0.40.1])
 
-GETTEXT_PACKAGE=gnome-control-center-2.0
+GETTEXT_PACKAGE=unity-control-center
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Gettext package])
 
@@ -125,7 +124,7 @@ COMMON_MODULES="gtk+-3.0 >= $GTK_REQUIRED_VERSION
  gsettings-desktop-schemas >= $SCHEMAS_REQUIRED_VERSION
  libnotify >= $LIBNOTIFY_REQUIRED_VERSION"
 
-PKG_CHECK_MODULES(LIBGNOME_CONTROL_CENTER, $COMMON_MODULES)
+PKG_CHECK_MODULES(LIBUNITY_CONTROL_CENTER, $COMMON_MODULES)
 PKG_CHECK_MODULES(LIBLANGUAGE, $COMMON_MODULES gnome-desktop-3.0 fontconfig)
 PKG_CHECK_MODULES(LIBSHORTCUTS, $COMMON_MODULES x11)
 PKG_CHECK_MODULES(SHELL, $COMMON_MODULES libgnome-menu-3.0 gio-unix-2.0 x11)
@@ -145,7 +144,6 @@ PKG_CHECK_MODULES(MEDIA_PANEL, $COMMON_MODULES)
 PKG_CHECK_MODULES(MOUSE_PANEL, $COMMON_MODULES xi >= 1.2
                   gnome-settings-daemon >= $GSD_REQUIRED_VERSION x11)
 PKG_CHECK_MODULES(NETWORK_PANEL, $COMMON_MODULES)
-PKG_CHECK_MODULES(ONLINE_ACCOUNTS_PANEL, $COMMON_MODULES goa-1.0 goa-backend-1.0 >= $GOA_REQUIRED_VERSION)
 PKG_CHECK_MODULES(POWER_PANEL, $COMMON_MODULES upower-glib >= 0.9.1
                   gnome-settings-daemon >= $GSD_REQUIRED_VERSION)
 PKG_CHECK_MODULES(COLOR_PANEL, $COMMON_MODULES colord >= 0.1.8)
@@ -298,13 +296,13 @@ dnl =======================================
 dnl Panels
 dnl =======================================
 
-PANELS_DIR="${libdir}/control-center-1/panels"
+PANELS_DIR="${libdir}/unity-control-center-1/panels"
 AC_SUBST(PANELS_DIR)
 
 PANEL_CFLAGS="-I\$(top_srcdir)/ -DG_LOG_DOMAIN=\"\\\"\$(cappletname)-cc-panel\\\"\""
 AC_SUBST(PANEL_CFLAGS)
 
-PANEL_LIBS="\$(top_builddir)/shell/libgnome-control-center.la"
+PANEL_LIBS="\$(top_builddir)/shell/libunity-control-center.la"
 AC_SUBST(PANEL_LIBS)
 
 PANEL_LDFLAGS="-export_dynamic -avoid-version -module -no-undefined -export-symbols-regex '^g_io_module_(load|unload)'"
@@ -340,7 +338,7 @@ AC_ARG_ENABLE(update-mimedb,
                    enable_update_mimedb=yes)
 AM_CONDITIONAL(ENABLE_UPDATE_MIMEDB, test x$enable_update_mimedb = xyes)
 
-CONTROL_CENTER_VERSION=gnome_control_center_version
+CONTROL_CENTER_VERSION=unity_control_center_version
 AC_SUBST(CONTROL_CENTER_VERSION)
 
 dnl =======================================
@@ -407,41 +405,30 @@ fi
 
 AC_OUTPUT([
 Makefile
-shell/libgnome-control-center.pc
+shell/libunity-control-center.pc
 panels/Makefile
 panels/common/Makefile
 panels/background/Makefile
-panels/background/gnome-background-panel.desktop.in
+panels/background/unity-background-panel.desktop.in
 panels/bluetooth/Makefile
-panels/bluetooth/gnome-bluetooth-panel.desktop.in
+panels/bluetooth/unity-bluetooth-panel.desktop.in
 panels/datetime/Makefile
-panels/datetime/gnome-datetime-panel.desktop.in
+panels/datetime/unity-datetime-panel.desktop.in
 panels/datetime/po-timezones/Makefile
 panels/display/Makefile
-panels/display/gnome-display-panel.desktop.in
+panels/display/unity-display-panel.desktop.in
 panels/keyboard/Makefile
-panels/keyboard/gnome-keyboard-panel.desktop.in
-panels/keyboard/gnome-keybindings.pc
+panels/keyboard/unity-keyboard-panel.desktop.in
+panels/keyboard/unity-keybindings.pc
 panels/region/Makefile
-panels/region/gnome-region-panel.desktop.in
-panels/region/unity-region-panel.desktop.in
+panels/region/unity-region-panel2.desktop.in
 panels/mouse/Makefile
-panels/mouse/gnome-mouse-panel.desktop.in
-panels/online-accounts/Makefile
-panels/online-accounts/gnome-online-accounts-panel.desktop.in
-panels/online-accounts/icons/Makefile
-panels/online-accounts/icons/16x16/Makefile
-panels/online-accounts/icons/22x22/Makefile
-panels/online-accounts/icons/24x24/Makefile
-panels/online-accounts/icons/32x32/Makefile
-panels/online-accounts/icons/48x48/Makefile
-panels/online-accounts/icons/256x256/Makefile
+panels/mouse/unity-mouse-panel.desktop.in
 panels/sound-nua/Makefile
 panels/sound-nua/data/Makefile
-panels/sound-nua/data/gnome-sound-nua-panel.desktop.in
+panels/sound-nua/data/unity-sound-panel.desktop.in
 panels/sound/Makefile
 panels/sound/data/Makefile
-panels/sound/data/gnome-sound-panel.desktop.in
 panels/sound/data/symbolic-icons/Makefile
 panels/sound/data/symbolic-icons/scalable/Makefile
 panels/sound/data/symbolic-icons/scalable/status/Makefile
@@ -467,13 +454,12 @@ panels/sound/data/icons/48x48/devices/Makefile
 panels/sound/data/icons/scalable/Makefile
 panels/sound/data/icons/scalable/apps/Makefile
 panels/sound/data/icons/scalable/devices/Makefile
-panels/sound/data/sounds/Makefile
 panels/screen/Makefile
-panels/screen/gnome-screen-panel.desktop.in
+panels/screen/unity-screen-panel.desktop.in
 panels/info/Makefile
-panels/info/gnome-info-panel.desktop.in
+panels/info/unity-info-panel.desktop.in
 panels/power/Makefile
-panels/power/gnome-power-panel.desktop.in
+panels/power/unity-power-panel.desktop.in
 panels/power/icons/Makefile
 panels/power/icons/16x16/Makefile
 panels/power/icons/22x22/Makefile
@@ -482,7 +468,7 @@ panels/power/icons/32x32/Makefile
 panels/power/icons/48x48/Makefile
 panels/power/icons/256x256/Makefile
 panels/color/Makefile
-panels/color/gnome-color-panel.desktop.in
+panels/color/unity-color-panel.desktop.in
 panels/color/icons/Makefile
 panels/color/icons/16x16/Makefile
 panels/color/icons/22x22/Makefile
@@ -493,26 +479,25 @@ panels/color/icons/64x64/Makefile
 panels/color/icons/256x256/Makefile
 panels/color/icons/scalable/Makefile
 panels/printers/Makefile
-panels/printers/gnome-printers-panel.desktop.in
+panels/printers/unity-printers-panel.desktop.in
 panels/network/Makefile
-panels/network/gnome-network-panel.desktop.in
+panels/network/unity-network-panel.desktop.in
 panels/universal-access/Makefile
-panels/universal-access/gnome-universal-access-panel.desktop.in
+panels/universal-access/unity-universal-access-panel.desktop.in
 panels/user-accounts/Makefile
 panels/user-accounts/data/Makefile
-panels/user-accounts/data/gnome-user-accounts-panel.desktop.in
-panels/user-accounts/data/faces/Makefile
+panels/user-accounts/data/unity-user-accounts-panel.desktop.in
 panels/user-accounts/data/icons/Makefile
 panels/wacom/Makefile
 panels/wacom/calibrator/Makefile
-panels/wacom/gnome-wacom-panel.desktop.in
+panels/wacom/unity-wacom-panel.desktop.in
 po/Makefile.in
 shell/Makefile
-shell/gnome-control-center.desktop.in
+shell/unity-control-center.desktop.in
 man/Makefile
 ])
 
-AC_MSG_NOTICE([gnome-control-center was configured with the following options:])
+AC_MSG_NOTICE([unity-control-center was configured with the following options:])
 if test "x$have_networkmanager" = "xyes"; then
 	AC_MSG_NOTICE([** NetworkManager (Network panel)])
 else

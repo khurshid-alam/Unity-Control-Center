@@ -1100,11 +1100,11 @@ cc_date_time_panel_init (CcDateTimePanel *self)
   /* We ignore UTC <--> LocalRTC changes at the moment */
 
   /* add the lock button */
-  priv->permission = polkit_permission_new_sync ("org.gnome.controlcenter.datetime.configure", NULL, NULL, NULL);
+  priv->permission = polkit_permission_new_sync ("com.canonical.controlcenter.datetime.configure", NULL, NULL, NULL);
   if (priv->permission == NULL)
     {
       g_warning ("Your system does not have the '%s' PolicyKit files installed. Please check your installation",
-                 "org.gnome.controlcenter.datetime.configure");
+                 "com.canonical.controlcenter.datetime.configure");
       return;
     }
 

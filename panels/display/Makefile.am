@@ -46,7 +46,7 @@ iconssvgdir = $(datadir)/icons/hicolor/scalable/apps
 dist_iconssvg_DATA = icons/scalable/preferences-desktop-display.svg
 
 desktopdir = $(datadir)/applications
-Desktop_in_files = gnome-display-panel.desktop.in
+Desktop_in_files = unity-display-panel.desktop.in
 desktop_DATA = $(Desktop_in_files:.desktop.in=.desktop)
 
 INCLUDES   = $(PANEL_CFLAGS) \

@@ -75,7 +75,7 @@ uidir   = $(pkgdatadir)/ui
 ui_DATA = gnome-wacom-properties.ui wacom-stylus-page.ui button-mapping.ui
 
 desktopdir = $(datadir)/applications
-desktop_in_files = gnome-wacom-panel.desktop.in
+desktop_in_files = unity-wacom-panel.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
 WACOMDIR=$(top_srcdir)/../gnome-settings-daemon/plugins/wacom/

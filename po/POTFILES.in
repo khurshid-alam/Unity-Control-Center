@@ -6,25 +6,25 @@ panels/background/bg-colors-source.c
 panels/background/cc-background-chooser-dialog.c
 panels/background/cc-background-item.c
 panels/background/cc-background-panel.c
-panels/background/gnome-background-panel.desktop.in.in
-panels/bluetooth/gnome-bluetooth-panel.desktop.in.in
+panels/background/unity-background-panel.desktop.in.in
+panels/bluetooth/unity-bluetooth-panel.desktop.in.in
 [type: gettext/glade]panels/bluetooth/bluetooth.ui
 panels/bluetooth/cc-bluetooth-panel.c
 panels/color/cc-color-panel.c
 [type: gettext/glade]panels/color/color.ui
-panels/color/gnome-color-panel.desktop.in.in
+panels/color/unity-color-panel.desktop.in.in
 panels/common/cc-common-language.c
 panels/common/cc-language-chooser.c
 panels/common/gdm-languages.c
 [type: gettext/glade]panels/common/language-chooser.ui
 [type: gettext/glade]panels/datetime/datetime.ui
-panels/datetime/gnome-datetime-panel.desktop.in.in
-panels/datetime/org.gnome.controlcenter.datetime.policy.in
+panels/datetime/unity-datetime-panel.desktop.in.in
+panels/datetime/com.canonical.controlcenter.datetime.policy.in
 panels/display/cc-display-panel.c
 [type: gettext/glade]panels/display/display-capplet.ui
-panels/display/gnome-display-panel.desktop.in.in
+panels/display/unity-display-panel.desktop.in.in
 panels/info/cc-info-panel.c
-panels/info/gnome-info-panel.desktop.in.in
+panels/info/unity-info-panel.desktop.in.in
 [type: gettext/glade]panels/info/info.ui
 panels/keyboard/00-multimedia.xml.in
 panels/keyboard/01-input-sources.xml.in
@@ -33,17 +33,17 @@ panels/keyboard/01-screenshot.xml.in
 panels/keyboard/01-system.xml.in
 panels/keyboard/50-accessibility.xml.in
 panels/keyboard/cc-keyboard-option.c
-panels/keyboard/gnome-keyboard-panel.desktop.in.in
+panels/keyboard/unity-keyboard-panel.desktop.in.in
 [type: gettext/glade]panels/keyboard/gnome-keyboard-panel.ui
 panels/keyboard/keyboard-shortcuts.c
 panels/mouse/cc-mouse-panel.c
-panels/mouse/gnome-mouse-panel.desktop.in.in
+panels/mouse/unity-mouse-panel.desktop.in.in
 panels/mouse/gnome-mouse-properties.c
 [type: gettext/glade]panels/mouse/gnome-mouse-properties.ui
 panels/mouse/gnome-mouse-test.c
 [type: gettext/glade]panels/mouse/gnome-mouse-test.ui
 panels/network/cc-network-panel.c
-panels/network/gnome-network-panel.desktop.in.in
+panels/network/unity-network-panel.desktop.in.in
 panels/network/net-device-mobile.c
 panels/network/net-device-wifi.c
 panels/network/net-device-wired.c
@@ -56,15 +56,11 @@ panels/network/net-vpn.c
 [type: gettext/glade]panels/network/network-wifi.ui
 [type: gettext/glade]panels/network/network-wired.ui
 panels/network/panel-common.c
-panels/online-accounts/cc-online-accounts-add-account-dialog.c
-panels/online-accounts/cc-online-accounts-panel.c
-panels/online-accounts/gnome-online-accounts-panel.desktop.in.in
-[type: gettext/glade]panels/online-accounts/online-accounts.ui
 panels/power/cc-power-panel.c
-panels/power/gnome-power-panel.desktop.in.in
+panels/power/unity-power-panel.desktop.in.in
 [type: gettext/glade]panels/power/power.ui
 panels/printers/cc-printers-panel.c
-panels/printers/gnome-printers-panel.desktop.in.in
+panels/printers/unity-printers-panel.desktop.in.in
 [type: gettext/glade]panels/printers/jobs-dialog.ui
 [type: gettext/glade]panels/printers/new-printer-dialog.ui
 [type: gettext/glade]panels/printers/options-dialog.ui
@@ -76,19 +72,16 @@ panels/printers/pp-options-dialog.c
 panels/printers/pp-ppd-option-widget.c
 panels/printers/pp-ppd-selection-dialog.c
 [type: gettext/glade]panels/printers/printers.ui
-panels/region/gnome-region-panel.desktop.in.in
+panels/region/unity-region-panel2.desktop.in.in
 panels/region/gnome-region-panel-formats.c
 [type: gettext/glade]panels/region/gnome-region-panel-input-chooser.ui
 panels/region/gnome-region-panel-system.c
 [type: gettext/glade]panels/region/gnome-region-panel.ui
 panels/region/gtkentryaccel.c
-panels/screen/gnome-screen-panel.desktop.in.in
+panels/screen/unity-screen-panel.desktop.in.in
 [type: gettext/glade]panels/screen/screen.ui
 panels/sound/applet-main.c
 panels/sound/cc-sound-panel.c
-panels/sound/data/gnome-sound-applet.desktop.in
-panels/sound/data/gnome-sound-panel.desktop.in.in
-panels/sound/data/sounds/gnome-sounds-default.xml.in.in
 panels/sound/gvc-applet.c
 panels/sound/gvc-balance-bar.c
 panels/sound/gvc-channel-bar.c
@@ -99,21 +92,21 @@ panels/sound/gvc-sound-theme-chooser.c
 panels/sound/gvc-speaker-test.c
 panels/sound/gvc-stream-status-icon.c
 panels/sound/sound-theme-file-utils.c
-panels/sound-nua/data/gnome-sound-nua-panel.desktop.in.in
+panels/sound-nua/data/unity-sound-panel.desktop.in.in
 panels/sound-nua/gvc-balance-bar.c
 panels/sound-nua/gvc-mixer-dialog.c
 panels/universal-access/cc-ua-panel.c
-panels/universal-access/gnome-universal-access-panel.desktop.in.in
+panels/universal-access/unity-universal-access-panel.desktop.in.in
 [type: gettext/glade]panels/universal-access/uap.ui
 panels/universal-access/zoom-options.c
 [type: gettext/glade]panels/universal-access/zoom-options.ui
 [type: gettext/glade]panels/user-accounts/data/account-dialog.ui
 [type: gettext/glade]panels/user-accounts/data/account-fingerprint.ui
-panels/user-accounts/data/gnome-user-accounts-panel.desktop.in.in
+panels/user-accounts/data/unity-user-accounts-panel.desktop.in.in
 [type: gettext/glade]panels/user-accounts/data/password-dialog.ui
 [type: gettext/glade]panels/user-accounts/data/photo-dialog.ui
 [type: gettext/glade]panels/user-accounts/data/user-accounts-dialog.ui
-panels/user-accounts/org.gnome.controlcenter.user-accounts.policy.in
+panels/user-accounts/com.canonical.controlcenter.user-accounts.policy.in
 panels/user-accounts/pw-utils.c
 panels/user-accounts/run-passwd.c
 panels/user-accounts/um-account-dialog.c
@@ -131,16 +124,15 @@ panels/wacom/cc-wacom-mapping-panel.c
 panels/wacom/cc-wacom-nav-button.c
 panels/wacom/cc-wacom-page.c
 panels/wacom/cc-wacom-stylus-page.c
-panels/wacom/gnome-wacom-panel.desktop.in.in
+panels/wacom/unity-wacom-panel.desktop.in.in
 [type: gettext/glade]panels/wacom/gnome-wacom-properties.ui
 panels/wacom/gsd-wacom-device.c
 [type: gettext/glade]panels/wacom/wacom-stylus-page.ui
 shell/cc-shell-nav-bar.c
 shell/control-center.c
-shell/gnomecc.directory.in
-shell/gnome-control-center.desktop.in.in
+shell/unity-control-center.desktop.in.in
 [type: gettext/glade]shell/shell.ui
 panels/display/cc-rr-labeler.c
 panels/region/keyboard-shortcuts.c
-[type: gettext/glade]panels/region/ubuntu-region-panel.ui
+[type: gettext/glade]panels/region/gnome-region-panel.ui
 

@@ -35,13 +35,16 @@ libinfo_la_SOURCES =		\
 libinfo_la_LIBADD = $(PANEL_LIBS) $(INFO_PANEL_LIBS)
 libinfo_la_LDFLAGS = $(PANEL_LDFLAGS)
 
+legaldir = $(pkgdatadir)
+dist_legal_DATA = searchingthedashlegalnotice.html
+
 uidir = $(pkgdatadir)/ui
-dist_ui_DATA = info.ui GnomeLogoVerticalMedium.svg
+dist_ui_DATA = info.ui GnomeLogoVerticalMedium.svg UbuntuLogo.png
 
 @INTLTOOL_DESKTOP_RULE@
 
 desktopdir = $(datadir)/applications
-desktop_in_files = gnome-info-panel.desktop.in
+desktop_in_files = unity-info-panel.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
 SPACEDIR=$(top_srcdir)/../gnome-settings-daemon/plugins/housekeeping/

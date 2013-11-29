@@ -876,7 +876,7 @@ setup_model (GnomeControlCenter *shell)
 
   priv->store = (GtkListStore *) cc_shell_model_new ();
   priv->category_views = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
-  priv->menu_tree = gmenu_tree_new_for_path (MENUDIR "/gnomecc.menu", 0);
+  priv->menu_tree = gmenu_tree_new_for_path (MENUDIR "/unitycc.menu", 0);
 
   reload_menu (shell);
 

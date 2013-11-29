@@ -197,7 +197,7 @@ static char *
 get_save_path (const char *filename)
 {
   return g_build_filename (g_get_user_config_dir (),
-                           "gnome-control-center",
+                           "unity-control-center",
                            "backgrounds",
                            filename,
                            NULL);
@@ -354,7 +354,7 @@ get_screenshot_async (CcBackgroundPanel *panel,
   g_debug ("Trying to capture rectangle %dx%d (at %d,%d)",
            rectangle->width, rectangle->height, rectangle->x, rectangle->y);
 
-  path = g_build_filename (g_get_user_cache_dir (), "gnome-control-center", NULL);
+  path = g_build_filename (g_get_user_cache_dir (), "unity-control-center", NULL);
   g_mkdir_with_parents (path, 0700);
 
   tmpname = g_strdup_printf ("scr-%d.png", g_random_int ());
@@ -497,7 +497,7 @@ create_save_dir (void)
   char *path;
 
   path = g_build_filename (g_get_user_config_dir (),
-			   "gnome-control-center",
+			   "unity-control-center",
 			   "backgrounds",
 			   NULL);
   if (g_mkdir_with_parents (path, 0755) < 0)
