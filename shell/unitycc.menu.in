@@ -50,7 +50,7 @@
       <And>
         <Category>Settings</Category>
         <Category>X-GNOME-PersonalSettings</Category>
-        <Category>X-GNOME-Settings-Panel</Category>
+        <Category>X-Unity-Settings-Panel</Category>
       </And>
     </Include>
   </Menu> <!-- End Personal -->
@@ -63,7 +63,7 @@
       <And>
         <Category>Settings</Category>
         <Category>HardwareSettings</Category>
-        <Category>X-GNOME-Settings-Panel</Category>
+        <Category>X-Unity-Settings-Panel</Category>
       </And>
     </Include>
   </Menu> <!-- End Hardware -->
@@ -76,7 +76,7 @@
       <And>
         <Category>Settings</Category>
         <Category>X-GNOME-SystemSettings</Category>
-        <Category>X-GNOME-Settings-Panel</Category>
+        <Category>X-Unity-Settings-Panel</Category>
       </And>
     </Include>
   </Menu> <!-- End System -->
@@ -88,7 +88,7 @@
     <Include>
       <And>
         <Category>Settings</Category>
-        <Category>X-GNOME-Settings-Panel</Category>
+        <Category>X-Unity-Settings-Panel</Category>
         <Not>
           <Or>
             <Category>X-GNOME-PersonalSettings</Category>

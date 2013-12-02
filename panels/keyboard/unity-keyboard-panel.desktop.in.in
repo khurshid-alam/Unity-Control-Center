@@ -6,8 +6,8 @@ Icon=input-keyboard
 Terminal=false
 Type=Application
 StartupNotify=true
-Categories=GNOME;GTK;Settings;HardwareSettings;X-GNOME-Settings-Panel;
+Categories=GNOME;GTK;Settings;HardwareSettings;X-Unity-Settings-Panel;
 OnlyShowIn=Unity;
-X-GNOME-Settings-Panel=keyboard
+X-Unity-Settings-Panel=keyboard
 # Translators: those are keywords for the keyboard control-center panel
 _Keywords=Shortcut;Repeat;Blink;

@@ -6,8 +6,8 @@ Icon=input-tablet
 Terminal=false
 Type=Application
 StartupNotify=true
-Categories=GNOME;GTK;Settings;HardwareSettings;X-GNOME-Settings-Panel;
+Categories=GNOME;GTK;Settings;HardwareSettings;X-Unity-Settings-Panel;
 OnlyShowIn=Unity;
-X-GNOME-Settings-Panel=wacom
+X-Unity-Settings-Panel=wacom
 # Translators: those are keywords for the wacom tablet control-center panel
 _Keywords=Tablet;Wacom;Stylus;Eraser;Mouse;

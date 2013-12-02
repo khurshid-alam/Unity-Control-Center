@@ -22,7 +22,7 @@
 #include "cc-shell-model.h"
 #include <string.h>
 
-#define GNOME_SETTINGS_PANEL_ID_KEY "X-GNOME-Settings-Panel"
+#define GNOME_SETTINGS_PANEL_ID_KEY "X-Unity-Settings-Panel"
 #define GNOME_SETTINGS_PANEL_CATEGORY GNOME_SETTINGS_PANEL_ID_KEY
 #define GNOME_SETTINGS_PANEL_ID_KEYWORDS "Keywords"
 
@@ -176,7 +176,7 @@ cc_shell_model_add_item (CcShellModel   *model,
   if (!id)
     {
       /* Refuse to load desktop files without a panel ID, but
-       * with the X-GNOME-Settings-Panel category */
+       * with the X-Unity-Settings-Panel category */
       if (desktop_entry_has_panel_category (key_file))
         {
           g_warning ("Not loading desktop file '%s' because it uses the "

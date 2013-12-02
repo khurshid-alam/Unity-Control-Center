@@ -6,8 +6,8 @@ Icon=multimedia-volume-control
 Terminal=false
 Type=Application
 StartupNotify=true
-Categories=GNOME;GTK;Settings;HardwareSettings;X-GNOME-Settings-Panel;
+Categories=GNOME;GTK;Settings;HardwareSettings;X-Unity-Settings-Panel;
 OnlyShowIn=Unity;
-X-GNOME-Settings-Panel=sound-nua
+X-Unity-Settings-Panel=sound-nua
 # Translators: those are keywords for the sound control-center panel
 _Keywords=Card;Microphone;Volume;Fade;Balance;Bluetooth;Headset;

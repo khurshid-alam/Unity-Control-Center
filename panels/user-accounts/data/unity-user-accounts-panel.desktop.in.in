@@ -6,8 +6,8 @@ Icon=system-users
 Terminal=false
 Type=Application
 StartupNotify=true
-Categories=System;Settings;X-GNOME-Settings-Panel;X-GNOME-SystemSettings
+Categories=System;Settings;X-Unity-Settings-Panel;X-GNOME-SystemSettings
 OnlyShowIn=Unity;
-X-GNOME-Settings-Panel=user-accounts
+X-Unity-Settings-Panel=user-accounts
 # Translators: those are keywords for the user accounts control-center panel
 _Keywords=Login;Name;Fingerprint;Avatar;Logo;Face;Password;

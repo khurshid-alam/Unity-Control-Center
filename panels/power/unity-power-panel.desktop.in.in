@@ -6,8 +6,8 @@ Icon=gnome-power-manager
 Terminal=false
 Type=Application
 StartupNotify=true
-Categories=GNOME;GTK;Settings;DesktopSettings;X-GNOME-Settings-Panel;HardwareSettings
+Categories=GNOME;GTK;Settings;DesktopSettings;X-Unity-Settings-Panel;HardwareSettings
 OnlyShowIn=Unity;
-X-GNOME-Settings-Panel=power
+X-Unity-Settings-Panel=power
 # Translators: those are keywords for the power control-center panel
 _Keywords=Power;Sleep;Suspend;Hibernate;Battery;
