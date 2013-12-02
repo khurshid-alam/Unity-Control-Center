@@ -1,4 +1,5 @@
 SUBDIRS= \
+	appearance \
 	common \
 	screen \
 	power \
