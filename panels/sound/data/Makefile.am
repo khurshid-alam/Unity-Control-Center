@@ -7,6 +7,14 @@ SUBDIRS =			\
 
 @INTLTOOL_DESKTOP_RULE@
 
+appsdir = $(datadir)/applications
+apps_in_files = unity-sound-panel.desktop.in
+apps_DATA = $(apps_in_files:.desktop.in=.desktop)
+
+EXTRA_DIST =					\
+	unity-sound-panel.desktop.in.in		\
+	$(NULL)
+
 if MAINTAINER_MODE
 
 gtk_update_icon_cache = gtk-update-icon-cache -f -t $(datadir)/icons/hicolor
@@ -25,6 +33,7 @@ update-icon-cache:
 endif
 
 CLEANFILES =					\
+	unity-sound-panel.desktop		\
 	$(NULL)
 
 DISTCLEANFILES =				\

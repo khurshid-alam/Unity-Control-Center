@@ -421,11 +421,9 @@ panels/region/Makefile
 panels/region/unity-region-panel2.desktop.in
 panels/mouse/Makefile
 panels/mouse/unity-mouse-panel.desktop.in
-panels/sound-nua/Makefile
-panels/sound-nua/data/Makefile
-panels/sound-nua/data/unity-sound-panel.desktop.in
 panels/sound/Makefile
 panels/sound/data/Makefile
+panels/sound/data/unity-sound-panel.desktop.in
 panels/sound/data/symbolic-icons/Makefile
 panels/sound/data/symbolic-icons/scalable/Makefile
 panels/sound/data/symbolic-icons/scalable/status/Makefile

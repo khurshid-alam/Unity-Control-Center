@@ -56,13 +56,14 @@ typedef struct
 } GvcBalanceBarClass;
 
 GType               gvc_balance_bar_get_type            (void);
-
-GtkWidget *         gvc_balance_bar_new                 (const GvcChannelMap *map,
-                                                         GvcBalanceType btype);
+GtkWidget *         gvc_balance_bar_new                 (GvcBalanceType btype);
 
 void                gvc_balance_bar_set_size_group      (GvcBalanceBar *bar,
                                                          GtkSizeGroup  *group,
                                                          gboolean       symmetric);
+
+void                gvc_balance_bar_set_map (GvcBalanceBar *self,
+                                             const GvcChannelMap *channel_map);
 
 G_END_DECLS
 
