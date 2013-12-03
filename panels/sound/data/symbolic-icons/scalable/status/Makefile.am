@@ -1,6 +1,6 @@
 NULL =
 
-iconsdir = $(datadir)/icons/hicolor/scalable/status
+iconsdir = $(pkgdatadir)/icons/hicolor/scalable/status
 
 icons_DATA =						\
         audio-input-microphone-high-symbolic.svg	\
