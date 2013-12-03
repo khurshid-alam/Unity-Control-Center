@@ -2,7 +2,7 @@
 _Name=Sound
 _Comment=Change sound volume and sound events
 Exec=unity-control-center sound-nua
-Icon=multimedia-volume-control
+Icon=unity-sound-panel
 Terminal=false
 Type=Application
 StartupNotify=true

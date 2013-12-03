@@ -2373,7 +2373,7 @@ update_event_role_stream (GvcMixerControl                  *control,
         max_volume = pa_cvolume_max (&info->volume);
 
         gvc_mixer_stream_set_name (stream, _("System Sounds"));
-        gvc_mixer_stream_set_icon_name (stream, "multimedia-volume-control");
+        gvc_mixer_stream_set_icon_name (stream, "unity-sound-panel");
         gvc_mixer_stream_set_volume (stream, (guint)max_volume);
         gvc_mixer_stream_set_is_muted (stream, info->mute);
 
@@ -2918,7 +2918,7 @@ gvc_mixer_new_pa_context (GvcMixerControl *self)
                           "org.gnome.VolumeControl");
         pa_proplist_sets (proplist,
                           PA_PROP_APPLICATION_ICON_NAME,
-                          "multimedia-volume-control");
+                          "unity-sound-panel");
         pa_proplist_sets (proplist,
                           PA_PROP_APPLICATION_VERSION,
                           PACKAGE_VERSION);

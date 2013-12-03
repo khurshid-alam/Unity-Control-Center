@@ -35,15 +35,15 @@ libdisplay_la_LDFLAGS = $(PANEL_LDFLAGS)
 @INTLTOOL_DESKTOP_RULE@
 
 icons16dir = $(datadir)/icons/hicolor/16x16/apps
-dist_icons16_DATA = icons/16x16/preferences-desktop-display.png
+dist_icons16_DATA = icons/16x16/unity-display-panel.png
 icons22dir = $(datadir)/icons/hicolor/22x22/apps
-dist_icons22_DATA = icons/22x22/preferences-desktop-display.png
+dist_icons22_DATA = icons/22x22/unity-display-panel.png
 icons24dir = $(datadir)/icons/hicolor/24x24/apps
-dist_icons24_DATA = icons/24x24/preferences-desktop-display.png
+dist_icons24_DATA = icons/24x24/unity-display-panel.png
 icons32dir = $(datadir)/icons/hicolor/32x32/apps
-dist_icons32_DATA = icons/32x32/preferences-desktop-display.png
+dist_icons32_DATA = icons/32x32/unity-display-panel.png
 iconssvgdir = $(datadir)/icons/hicolor/scalable/apps
-dist_iconssvg_DATA = icons/scalable/preferences-desktop-display.svg
+dist_iconssvg_DATA = icons/scalable/unity-display-panel.svg
 
 desktopdir = $(datadir)/applications
 Desktop_in_files = unity-display-panel.desktop.in

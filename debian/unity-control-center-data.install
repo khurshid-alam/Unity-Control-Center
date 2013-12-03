@@ -2,6 +2,6 @@ etc/xdg/menus
 usr/share/unity-control-center
 usr/share/desktop-directories
 usr/share/locale
-#usr/share/icons FIXME: Need to move these
+usr/share/icons
 usr/share/polkit-1
 debian/source_unity-control-center.py /usr/share/apport/package-hooks

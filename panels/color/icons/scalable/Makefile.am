@@ -4,7 +4,7 @@ context = apps
 
 iconsdir = $(themedir)/$(size)/$(context)
 icons_DATA = 		 		\
-	preferences-color.svg
+	unity-color-panel.svg
 
 EXTRA_DIST =				\
 	$(icons_DATA)			\

@@ -7,7 +7,7 @@ context = apps
 iconsdir = $(themedir)/$(size)/$(context)
 
 icons_DATA = 			        	\
-	multimedia-volume-control.svg		\
+	unity-sound-panel.svg		\
 	$(NULL)
 
 EXTRA_DIST =		\

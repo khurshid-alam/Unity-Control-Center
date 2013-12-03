@@ -2,7 +2,7 @@
 _Name=Power
 _Comment=Power management settings
 Exec=unity-control-center power
-Icon=gnome-power-manager
+Icon=unity-power-panel
 Terminal=false
 Type=Application
 StartupNotify=true

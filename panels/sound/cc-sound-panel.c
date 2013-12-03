@@ -112,7 +112,7 @@ cc_sound_panel_init (CcSoundPanel *self)
 {
         gtk_icon_theme_append_search_path (gtk_icon_theme_get_default (),
                                            ICON_DATA_DIR);
-        gtk_window_set_default_icon_name ("multimedia-volume-control");
+        gtk_window_set_default_icon_name ("unity-sound-panel");
 
         self->control = gvc_mixer_control_new ("GNOME Volume Control Dialog");
         gvc_mixer_control_open (self->control);
