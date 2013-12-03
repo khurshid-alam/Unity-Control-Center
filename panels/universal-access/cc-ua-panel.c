@@ -505,10 +505,7 @@ hearing_sound_preferences_clicked (GtkButton  *button,
   CcShell *shell;
 
   shell = cc_panel_get_shell (CC_PANEL (panel));
-  if (g_strcmp0 (g_getenv ("XDG_CURRENT_DESKTOP"), "Unity") == 0)
-    cc_shell_set_active_panel_from_id (shell, "sound-nua", NULL, NULL);
-  else
-    cc_shell_set_active_panel_from_id (shell, "sound", NULL, NULL);
+  cc_shell_set_active_panel_from_id (shell, "sound", NULL, NULL);
 
   return TRUE;
 }
