@@ -63,8 +63,6 @@ Depends: ${misc:Depends},
          apg,
          desktop-file-utils,
          gkbd-capplet (>= 3.5.90),
-         unity-control-center-data (<< ${gnome:NextVersion}),
-         unity-control-center-data (>= ${source:Version}),
          gnome-desktop3-data,
          gnome-icon-theme (>= 2.24),
          gnome-icon-theme-symbolic,
@@ -109,15 +107,6 @@ Section: devel
 Depends: ${misc:Depends}
 Description: utilities to configure the GNOME desktop
  This package contains the file required to get the keydirs location
-
-Package: unity-control-center-data
-Architecture: all
-Section: gnome
-Depends: ${misc:Depends}
-Recommends: unity-control-center (>= ${source:Version})
-Description: configuration applets for GNOME - data files
- This package contains data files (icons, pixmaps, locales files) needed by
- the configuration applets in the unity-control-center package.
 
 Package: libunity-control-center-dev
 Architecture: any
