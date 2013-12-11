@@ -78,6 +78,7 @@ Recommends: cups-pk-helper,
             policykit-1-gnome,
             libcanberra-pulse,
             system-config-printer-gnome
+Conflicts: gnome-control-center-unity
 Replaces: gnome-bluetooth (<< 3.4.0), gnome-control-center-unity
 Breaks: gnome-power-manager (<< 3.0),
         gnome-session (<< 3.0),
@@ -85,8 +86,7 @@ Breaks: gnome-power-manager (<< 3.0),
         gnome-bluetooth (<< 3.4.0),
         compiz (<< 1:0.9.8+bzr330),
         metacity (<< 1:2.34.2),
-        unity (<< 6.2-0ubuntu2~),
-        gnome-control-center-unity
+        unity (<< 6.2-0ubuntu2~)
 Suggests: gnome-screensaver | xscreensaver,
           gnome-user-guide | ubuntu-docs,
           gstreamer0.10-pulseaudio,
