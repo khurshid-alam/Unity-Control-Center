@@ -25,7 +25,7 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 
 #. This refers to a slideshow background
-#: ../panels/background/background.ui.h:2
+#: ../panels/background/background.ui.h:2 ../panels/appearance/appearance.ui.h:9
 msgid "Changes throughout the day"
 msgstr "Spremembe preko dneva"
 
@@ -65,6 +65,7 @@ msgid "Select Background"
 msgstr "Izbor ozadja"
 
 #: ../panels/background/cc-background-chooser-dialog.c:218
+#: ../panels/appearance/cc-appearance-panel.c:1884
 msgid "Wallpapers"
 msgstr "Ozadja namizja"
 
@@ -77,6 +78,7 @@ msgid "Colors"
 msgstr "Barve"
 
 #: ../panels/background/cc-background-chooser-dialog.c:244
+#: ../panels/appearance/cc-appearance-panel.c:1906
 msgid "Flickr"
 msgstr "Flickr"
 
@@ -88,21 +90,25 @@ msgid "Select"
 msgstr "Izberi"
 
 #: ../panels/background/cc-background-item.c:148
+#: ../panels/appearance/cc-appearance-item.c:147
 msgid "multiple sizes"
 msgstr "različne velikosti"
 
 #. translators: 100 × 100px
 #. * Note that this is not an "x", but U+00D7 MULTIPLICATION SIGN
 #: ../panels/background/cc-background-item.c:152
+#: ../panels/appearance/cc-appearance-item.c:151
 #, c-format
 msgid "%d × %d"
 msgstr "%d × %d"
 
 #: ../panels/background/cc-background-item.c:281
+#: ../panels/appearance/cc-appearance-item.c:280
 msgid "No Desktop Background"
 msgstr "Ni ozadja namizja"
 
 #: ../panels/background/cc-background-panel.c:387
+#: ../panels/appearance/cc-appearance-panel.c:1174
 msgid "Current background"
 msgstr "Trenutno ozadje"
 
@@ -4086,6 +4092,7 @@ msgid "Zoom Options"
 msgstr "Možnosti približanja"
 
 #: ../panels/universal-access/zoom-options.ui.h:7
+#: ../panels/appearance/appearance.ui.h:2
 msgid "Zoom"
 msgstr "Približanje"
 
@@ -4434,6 +4441,7 @@ msgstr "Galerija"
 
 #: ../panels/user-accounts/data/photo-dialog.ui.h:4
 #: ../panels/user-accounts/um-photo-dialog.c:218
+#: ../panels/appearance/cc-appearance-panel.c:1082
 msgid "Browse for more pictures"
 msgstr "Brskanje med več slikami"
 
@@ -5226,38 +5234,167 @@ msgstr "Možnosti;Nastavitve;"
 msgid "All Settings"
 msgstr "Vse nastavitve"
 
+#: ../panels/appearance/appearance.ui.h:10
+msgid "Add wallpaper"
+msgstr "Dodaj sliko ozadja"
+
+#: ../panels/appearance/appearance.ui.h:11
+msgid "Remove wallpaper"
+msgstr "Odstrani sliko ozadja"
+
+#: ../panels/appearance/bg-colors-source.c:45
+msgid "Horizontal Gradient"
+msgstr "Vodoravni preliv"
+
+#: ../panels/appearance/bg-colors-source.c:46
+msgid "Vertical Gradient"
+msgstr "Navpični preliv"
+
+#: ../panels/appearance/bg-colors-source.c:47
+msgid "Solid Color"
+msgstr "Polna barva"
+
+#: ../panels/appearance/cc-appearance-panel.c:1891
+msgid "Pictures Folder"
+msgstr "Mapa slik"
+
+#: ../panels/appearance/cc-appearance-panel.c:1898
+msgid "Colors & Gradients"
+msgstr "Barve in prelivi"
+
+#: ../panels/appearance/gnome-unity-appearance-panel.desktop.in.h:1
+msgid "Appearance"
+msgstr "Videz"
+
+#: ../panels/appearance/appearance.ui.h:1
+msgid "Tile"
+msgstr "Razpostavi"
+
+#: ../panels/appearance/appearance.ui.h:3
+msgid "Center"
+msgstr "Sredinsko"
+
+#: ../panels/appearance/appearance.ui.h:4
+msgid "Scale"
+msgstr "Spremeni velikost"
+
+#: ../panels/appearance/appearance.ui.h:5
+msgid "Fill"
+msgstr "Polnilo"
+
+#: ../panels/appearance/appearance.ui.h:6
+msgid "Span"
+msgstr "Razpni"
+
+#: ../panels/appearance/appearance.ui.h:7
+msgid "<b>Background</b>"
+msgstr "<b>Ozadje</b>"
+
+#: ../panels/appearance/appearance.ui.h:12
+msgid "Add dots"
+msgstr "Dodaj pike"
+
+#: ../panels/appearance/appearance.ui.h:13
+msgid "<b>Theme</b>"
+msgstr "<b>Tema</b>"
+
+#: ../panels/appearance/appearance.ui.h:14
+msgid "<b>Launcher icon size</b>"
+msgstr "<b>Velikost ikon zaganjalnika</b>"
+
+#: ../panels/appearance/appearance.ui.h:15
+msgid "Look"
+msgstr "Videz"
+
+#: ../panels/appearance/appearance.ui.h:16
+msgid "<b>Auto-hide the Launcher</b>"
+msgstr "<b>Samodejno skrij zaganjalnik</b>"
+
+#: ../panels/appearance/appearance.ui.h:17
+msgid ""
+"<span size=\"small\">The launcher will reveal when moving the pointer to the "
+"defined hot spot.</span>"
+msgstr ""
+"<span size=\"small\">Zaganjalnik bo prikazan, ko boste kazalec premaknili na "
+"določeno vročo točko.</span>"
+
+#: ../panels/appearance/appearance.ui.h:18
+msgid "Reveal location:"
+msgstr "Vroča točka:"
+
+#: ../panels/appearance/appearance.ui.h:19
+msgid "Left side"
+msgstr "Leva stran"
+
+#: ../panels/appearance/appearance.ui.h:20
+msgid "Top left corner"
+msgstr "Zgornji levi kot"
+
+#: ../panels/appearance/appearance.ui.h:21
+msgid "Other reveal option"
+msgstr "Druga možnost razkritja"
+
+#: ../panels/appearance/appearance.ui.h:22
+msgid "Reveal sensitivity"
+msgstr "Občutljivost vroče točke"
+
+#: ../panels/appearance/appearance.ui.h:23
+msgid "<small>Low</small>"
+msgstr "<small>Nizka</small>"
+
+#: ../panels/appearance/appearance.ui.h:24
+msgid "<small>High</small>"
+msgstr "<small>Visoka</small>"
+
+#: ../panels/appearance/appearance.ui.h:25
+msgid ""
+"Some settings have been overriden by an external program, press \"Restore "
+"Default Behaviors\"  to reset the behavior and return control to this panel."
+msgstr ""
+"Nekatere nastavitve so prepisali zunanji programi. Pritisnite \"Obnovi "
+"privzeta obnašanja\" za ponastavitev obnašanja in vrnitev nadzora temu pultu."
+
+#: ../panels/appearance/appearance.ui.h:26
+msgid "Enable workspaces"
+msgstr "Omogoči delovne površine"
+
+#: ../panels/appearance/appearance.ui.h:27
+msgid "Add show desktop icon to the launcher"
+msgstr "Dodaj na zaganjalnik ikono pokaži namizje"
+
+#: ../panels/appearance/appearance.ui.h:28
+msgid "Restore Default Behaviours"
+msgstr "Obnovi privzeta obnašanja"
+
+#: ../panels/appearance/appearance.ui.h:29
+msgid "Behavior"
+msgstr "Obnašanje"
+
+#: ../panels/appearance/gnome-unity-appearance-panel.desktop.in.h:2
+msgid "Change the background and the theme"
+msgstr "Spremeni ozadje in temo"
+
+#. Translators: those are keywords for the appearance control-center panel
+#: ../panels/appearance/gnome-unity-appearance-panel.desktop.in.h:4
+msgid ""
+"Wallpaper;Background;Screen;Desktop;Theme;Appearance;Launcher;Unity;Menus;"
+msgstr "Ozadje;Zaslon;Namizje;Tema;Videz;Zaganjalnik;Unity;Meniji;"
+
+#: ../panels/appearance/cc-appearance-panel.c:1370
+msgid "default"
+msgstr "privzeto"
+
 #~ msgid "Security Key"
 #~ msgstr "Varnostni ključ"
 
 #~ msgid "Subnet Mask"
 #~ msgstr "Maska podomrežja"
 
-#~ msgid "Add wallpaper"
-#~ msgstr "Dodaj sliko ozadja"
-
-#~ msgid "Remove wallpaper"
-#~ msgstr "Odstrani sliko ozadja"
-
 #~ msgid "Swap colors"
 #~ msgstr "Izmenjuj barve"
 
 #~ msgid "Secondary color"
 #~ msgstr "Drugotna barva"
-
-#~ msgid "Horizontal Gradient"
-#~ msgstr "Vodoravni preliv"
-
-#~ msgid "Vertical Gradient"
-#~ msgstr "Navpični preliv"
-
-#~ msgid "Solid Color"
-#~ msgstr "Polna barva"
-
-#~ msgid "Pictures Folder"
-#~ msgstr "Mapa slik"
-
-#~ msgid "Colors & Gradients"
-#~ msgstr "Barve in prelivi"
 
 #~ msgid "Acti_on:"
 #~ msgstr "_Dejanje:"
@@ -7263,9 +7400,6 @@ msgstr "Vse nastavitve"
 
 #~ msgid "dots per inch"
 #~ msgstr "točk na palec"
-
-#~ msgid "Appearance"
-#~ msgstr "Videz"
 
 #~ msgid "Customize the look of the desktop"
 #~ msgstr "Prilagajanje videza namizja"

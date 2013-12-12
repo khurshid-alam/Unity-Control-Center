@@ -819,16 +819,19 @@ msgstr "Cy'udukaro"
 
 #: ../capplets/background/gnome-wp-capplet.c:1159
 #: ../capplets/background/gnome-wp-capplet.c:1168
+#: ../panels/appearance/bg-colors-source.c:47
 msgid "Solid Color"
 msgstr ""
 
 #: ../capplets/background/gnome-wp-capplet.c:1176
 #: ../capplets/background/gnome-wp-capplet.c:1185
+#: ../panels/appearance/bg-colors-source.c:45
 msgid "Horizontal Gradient"
 msgstr ""
 
 #: ../capplets/background/gnome-wp-capplet.c:1193
 #: ../capplets/background/gnome-wp-capplet.c:1202
+#: ../panels/appearance/bg-colors-source.c:46
 msgid "Vertical Gradient"
 msgstr ""
 
@@ -3902,3 +3905,177 @@ msgstr "Kuri Insanganyamatsiko"
 #, fuzzy
 msgid "Show help options"
 msgstr "Ifashayobora Amahitamo"
+
+#: ../panels/appearance/appearance.ui.h:1
+msgid "Tile"
+msgstr ""
+
+#: ../panels/appearance/appearance.ui.h:2
+msgid "Zoom"
+msgstr ""
+
+#: ../panels/appearance/appearance.ui.h:3
+msgid "Center"
+msgstr ""
+
+#: ../panels/appearance/appearance.ui.h:4
+msgid "Scale"
+msgstr ""
+
+#: ../panels/appearance/appearance.ui.h:5
+msgid "Fill"
+msgstr ""
+
+#: ../panels/appearance/appearance.ui.h:6
+msgid "Span"
+msgstr ""
+
+#: ../panels/appearance/appearance.ui.h:7
+msgid "<b>Background</b>"
+msgstr ""
+
+#. This refers to a slideshow background
+#: ../panels/appearance/appearance.ui.h:9
+msgid "Changes throughout the day"
+msgstr ""
+
+#: ../panels/appearance/appearance.ui.h:10
+msgid "Add wallpaper"
+msgstr ""
+
+#: ../panels/appearance/appearance.ui.h:11
+msgid "Remove wallpaper"
+msgstr ""
+
+#: ../panels/appearance/appearance.ui.h:12
+msgid "Add dots"
+msgstr ""
+
+#: ../panels/appearance/appearance.ui.h:13
+msgid "<b>Theme</b>"
+msgstr ""
+
+#: ../panels/appearance/appearance.ui.h:14
+msgid "<b>Launcher icon size</b>"
+msgstr ""
+
+#: ../panels/appearance/appearance.ui.h:15
+msgid "Look"
+msgstr ""
+
+#: ../panels/appearance/appearance.ui.h:16
+msgid "<b>Auto-hide the Launcher</b>"
+msgstr ""
+
+#: ../panels/appearance/appearance.ui.h:17
+msgid ""
+"<span size=\"small\">The launcher will reveal when moving the pointer to the "
+"defined hot spot.</span>"
+msgstr ""
+
+#: ../panels/appearance/appearance.ui.h:18
+msgid "Reveal location:"
+msgstr ""
+
+#: ../panels/appearance/appearance.ui.h:19
+msgid "Left side"
+msgstr ""
+
+#: ../panels/appearance/appearance.ui.h:20
+msgid "Top left corner"
+msgstr ""
+
+#: ../panels/appearance/appearance.ui.h:21
+msgid "Other reveal option"
+msgstr ""
+
+#: ../panels/appearance/appearance.ui.h:22
+msgid "Reveal sensitivity"
+msgstr ""
+
+#: ../panels/appearance/appearance.ui.h:23
+msgid "<small>Low</small>"
+msgstr ""
+
+#: ../panels/appearance/appearance.ui.h:24
+msgid "<small>High</small>"
+msgstr ""
+
+#: ../panels/appearance/appearance.ui.h:25
+msgid ""
+"Some settings have been overriden by an external program, press \"Restore "
+"Default Behaviors\"  to reset the behavior and return control to this panel."
+msgstr ""
+
+#: ../panels/appearance/appearance.ui.h:26
+msgid "Enable workspaces"
+msgstr ""
+
+#: ../panels/appearance/appearance.ui.h:27
+msgid "Add show desktop icon to the launcher"
+msgstr ""
+
+#: ../panels/appearance/appearance.ui.h:28
+msgid "Restore Default Behaviours"
+msgstr ""
+
+#: ../panels/appearance/appearance.ui.h:29
+msgid "Behavior"
+msgstr ""
+
+#: ../panels/appearance/gnome-unity-appearance-panel.desktop.in.h:1
+msgid "Appearance"
+msgstr ""
+
+#: ../panels/appearance/gnome-unity-appearance-panel.desktop.in.h:2
+msgid "Change the background and the theme"
+msgstr ""
+
+#. Translators: those are keywords for the appearance control-center panel
+#: ../panels/appearance/gnome-unity-appearance-panel.desktop.in.h:4
+msgid ""
+"Wallpaper;Background;Screen;Desktop;Theme;Appearance;Launcher;Unity;Menus;"
+msgstr ""
+
+#: ../panels/appearance/cc-appearance-item.c:147
+msgid "multiple sizes"
+msgstr ""
+
+#. translators: 100 × 100px
+#. * Note that this is not an "x", but U+00D7 MULTIPLICATION SIGN
+#: ../panels/appearance/cc-appearance-item.c:151
+#, c-format
+msgid "%d × %d"
+msgstr ""
+
+#: ../panels/appearance/cc-appearance-item.c:280
+msgid "No Desktop Background"
+msgstr ""
+
+#: ../panels/appearance/cc-appearance-panel.c:1082
+msgid "Browse for more pictures"
+msgstr ""
+
+#: ../panels/appearance/cc-appearance-panel.c:1174
+msgid "Current background"
+msgstr ""
+
+#: ../panels/appearance/cc-appearance-panel.c:1370
+msgid "default"
+msgstr ""
+
+#: ../panels/appearance/cc-appearance-panel.c:1884
+msgid "Wallpapers"
+msgstr ""
+
+#: ../panels/appearance/cc-appearance-panel.c:1891
+msgid "Pictures Folder"
+msgstr ""
+
+#: ../panels/appearance/cc-appearance-panel.c:1898
+msgid "Colors & Gradients"
+msgstr ""
+
+#: ../panels/appearance/cc-appearance-panel.c:1906
+msgid "Flickr"
+msgstr ""

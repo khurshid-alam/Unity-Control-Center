@@ -1,0 +1,207 @@
+# Sindhi translation for gnome-control-center
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
+# This file is distributed under the same license as the gnome-control-center package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gnome-control-center\n"
+"Report-Msgid-Bugs-To: https://launchpad.net/gnome-control-center-unity\n"
+"POT-Creation-Date: 2013-10-14 09:17+0000\n"
+"PO-Revision-Date: 2013-09-01 15:18+0000\n"
+"Last-Translator: Abdul-Rahim Nizamani <Unknown>\n"
+"Language-Team: Sindhi <sd@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2013-12-12 03:16+0000\n"
+"X-Generator: Launchpad (build 16869)\n"
+"Language: sd\n"
+
+#: ../panels/appearance/appearance.ui.h:1
+msgid "Tile"
+msgstr "ٽائل"
+
+#: ../panels/appearance/appearance.ui.h:2
+msgid "Zoom"
+msgstr "وڌاءُ"
+
+#: ../panels/appearance/appearance.ui.h:3
+msgid "Center"
+msgstr "وچ"
+
+#: ../panels/appearance/appearance.ui.h:4
+msgid "Scale"
+msgstr "پيمانو"
+
+#: ../panels/appearance/appearance.ui.h:5
+msgid "Fill"
+msgstr "ڀريل"
+
+#: ../panels/appearance/appearance.ui.h:6
+msgid "Span"
+msgstr "ڇڪيل"
+
+#: ../panels/appearance/appearance.ui.h:7
+msgid "<b>Background</b>"
+msgstr "<b>پس منظر</b>"
+
+#. This refers to a slideshow background
+#: ../panels/appearance/appearance.ui.h:9
+msgid "Changes throughout the day"
+msgstr "ڏيهاڙي بدلجندو رهندو"
+
+#: ../panels/appearance/appearance.ui.h:10
+msgid "Add wallpaper"
+msgstr "وال پيپر درج ڪريو"
+
+#: ../panels/appearance/appearance.ui.h:11
+msgid "Remove wallpaper"
+msgstr "وال پيپر هٽايو"
+
+#: ../panels/appearance/appearance.ui.h:12
+msgid "Add dots"
+msgstr "ٽٻڪا درج ڪريو"
+
+#: ../panels/appearance/appearance.ui.h:13
+msgid "<b>Theme</b>"
+msgstr "<b>ٿيم</b>"
+
+#: ../panels/appearance/appearance.ui.h:14
+msgid "<b>Launcher icon size</b>"
+msgstr "<b>لانچر نشانن جو قد</b>"
+
+#: ../panels/appearance/appearance.ui.h:15
+msgid "Look"
+msgstr "ڏيک"
+
+#: ../panels/appearance/appearance.ui.h:16
+msgid "<b>Auto-hide the Launcher</b>"
+msgstr "<b>لانچر پاڻمرادو لڪجي</b>"
+
+#: ../panels/appearance/appearance.ui.h:17
+msgid ""
+"<span size=\"small\">The launcher will reveal when moving the pointer to the "
+"defined hot spot.</span>"
+msgstr "ڊ"
+
+#: ../panels/appearance/appearance.ui.h:18
+msgid "Reveal location:"
+msgstr "پڌرائيءَ هنڌ:"
+
+#: ../panels/appearance/appearance.ui.h:19
+msgid "Left side"
+msgstr "کاٻو طرف"
+
+#: ../panels/appearance/appearance.ui.h:20
+msgid "Top left corner"
+msgstr "مٿين کاٻي ڪنڊ"
+
+#: ../panels/appearance/appearance.ui.h:21
+msgid "Other reveal option"
+msgstr "ٻيو پڌرائيءَ اختيار"
+
+#: ../panels/appearance/appearance.ui.h:22
+msgid "Reveal sensitivity"
+msgstr "پڌرائي حساسيت"
+
+#: ../panels/appearance/appearance.ui.h:23
+msgid "<small>Low</small>"
+msgstr "<small>گهٽ</small>"
+
+#: ../panels/appearance/appearance.ui.h:24
+msgid "<small>High</small>"
+msgstr "<small>وڌ</small>"
+
+#: ../panels/appearance/appearance.ui.h:25
+msgid ""
+"Some settings have been overriden by an external program, press \"Restore "
+"Default Behaviors\"  to reset the behavior and return control to this panel."
+msgstr ""
+"ڪجھ ترتيبون ڌارين پروگرامن طرفان تبديل ڪيون ويون آهن، ساڳي رويي  کي بحال ڪرڻ "
+"۽ ڪنٽرول هن پٽيءَ ڏانهن ورائڻ لاءِ ”ڊيفالٽ رويا بحال ڪريو“ بٽڻ دٻايو."
+
+#: ../panels/appearance/appearance.ui.h:26
+msgid "Enable workspaces"
+msgstr "ورڪ اسپيسون فعال ڪريو"
+
+#: ../panels/appearance/appearance.ui.h:27
+msgid "Add show desktop icon to the launcher"
+msgstr "لانچر ۾ ڊيسڪٽاپ ڏيکاريو نشان وجهو"
+
+#: ../panels/appearance/appearance.ui.h:28
+msgid "Restore Default Behaviours"
+msgstr "ڊيفالٽ رويا بحال ڪريو"
+
+#: ../panels/appearance/appearance.ui.h:29
+msgid "Behavior"
+msgstr "رويو"
+
+#: ../panels/appearance/gnome-unity-appearance-panel.desktop.in.h:1
+msgid "Appearance"
+msgstr "ڏيک"
+
+#: ../panels/appearance/gnome-unity-appearance-panel.desktop.in.h:2
+msgid "Change the background and the theme"
+msgstr "پسمنظر ۽ ٿيم بدلايو"
+
+#. Translators: those are keywords for the appearance control-center panel
+#: ../panels/appearance/gnome-unity-appearance-panel.desktop.in.h:4
+msgid ""
+"Wallpaper;Background;Screen;Desktop;Theme;Appearance;Launcher;Unity;Menus;"
+msgstr "وال پيپر;پسمنظر;اسڪرين;پردو;ڊيسڪٽاپ;ٿيم;ڏيک;لانچر;يونٽي;فهرستون;"
+
+#: ../panels/appearance/bg-colors-source.c:45
+msgid "Horizontal Gradient"
+msgstr "اُفقي جُهڪاء"
+
+#: ../panels/appearance/bg-colors-source.c:46
+msgid "Vertical Gradient"
+msgstr "عمودي جُهڪاء"
+
+#: ../panels/appearance/bg-colors-source.c:47
+msgid "Solid Color"
+msgstr "ٺوس رنگ"
+
+#: ../panels/appearance/cc-appearance-item.c:147
+msgid "multiple sizes"
+msgstr "مختلف ماپون"
+
+#. translators: 100 × 100px
+#. * Note that this is not an "x", but U+00D7 MULTIPLICATION SIGN
+#: ../panels/appearance/cc-appearance-item.c:151
+#, c-format
+msgid "%d × %d"
+msgstr "%d × %d"
+
+#: ../panels/appearance/cc-appearance-item.c:280
+msgid "No Desktop Background"
+msgstr "ڪوبه ڊيسڪٽاپ پس منظر نه"
+
+#: ../panels/appearance/cc-appearance-panel.c:1082
+msgid "Browse for more pictures"
+msgstr "وڌيڪ تصويرون ڦلهوريو"
+
+#: ../panels/appearance/cc-appearance-panel.c:1174
+msgid "Current background"
+msgstr "هاڻوڪو پس منظر"
+
+#: ../panels/appearance/cc-appearance-panel.c:1370
+msgid "default"
+msgstr "ڊيفالٽ"
+
+#: ../panels/appearance/cc-appearance-panel.c:1884
+msgid "Wallpapers"
+msgstr "وال پيپر"
+
+#: ../panels/appearance/cc-appearance-panel.c:1891
+msgid "Pictures Folder"
+msgstr "تصويرن وارو خانو"
+
+#: ../panels/appearance/cc-appearance-panel.c:1898
+msgid "Colors & Gradients"
+msgstr "رنگ ۽ هوائون"
+
+#: ../panels/appearance/cc-appearance-panel.c:1906
+msgid "Flickr"
+msgstr "فلِڪر"

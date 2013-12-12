@@ -3567,7 +3567,7 @@ msgstr "Namakan..."
 #: ../libslab/directory-tile.c:204 ../libslab/directory-tile.c:213
 #: ../libslab/document-tile.c:248 ../libslab/document-tile.c:257
 msgid "Send To..."
-msgstr "Hantar Kepada..."
+msgstr "Hantar Kepadata."
 
 #. make move to trash action
 #: ../libslab/directory-tile.c:228 ../libslab/document-tile.c:283

@@ -12,8 +12,10 @@
 # Claudio Saavedra <csaavedra@alumnos.utalca.cl>, 2007.
 # 
 # 
-# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011., 2011.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2010, 2011., 2012.
+# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011.
+, 2011.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2010, 2011.
+, 2012.
 #
 msgid ""
 msgstr ""
@@ -32,7 +34,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
 #. This refers to a slideshow background
-#: ../panels/background/background.ui.h:2
+#: ../panels/background/background.ui.h:2 ../panels/appearance/appearance.ui.h:9
 msgid "Changes throughout the day"
 msgstr "Cambia a lo largo del día"
 
@@ -72,6 +74,7 @@ msgid "Select Background"
 msgstr "Seleccionar fondo"
 
 #: ../panels/background/cc-background-chooser-dialog.c:218
+#: ../panels/appearance/cc-appearance-panel.c:1884
 msgid "Wallpapers"
 msgstr "Fondos de escritorio"
 
@@ -84,6 +87,7 @@ msgid "Colors"
 msgstr "Colores"
 
 #: ../panels/background/cc-background-chooser-dialog.c:244
+#: ../panels/appearance/cc-appearance-panel.c:1906
 msgid "Flickr"
 msgstr "Flickr"
 
@@ -95,21 +99,25 @@ msgid "Select"
 msgstr "Seleccionar"
 
 #: ../panels/background/cc-background-item.c:148
+#: ../panels/appearance/cc-appearance-item.c:147
 msgid "multiple sizes"
 msgstr "tamaños múltiples"
 
 #. translators: 100 × 100px
 #. * Note that this is not an "x", but U+00D7 MULTIPLICATION SIGN
 #: ../panels/background/cc-background-item.c:152
+#: ../panels/appearance/cc-appearance-item.c:151
 #, c-format
 msgid "%d × %d"
 msgstr "%d × %d"
 
 #: ../panels/background/cc-background-item.c:281
+#: ../panels/appearance/cc-appearance-item.c:280
 msgid "No Desktop Background"
 msgstr "Sin fondo de escritorio"
 
 #: ../panels/background/cc-background-panel.c:387
+#: ../panels/appearance/cc-appearance-panel.c:1174
 msgid "Current background"
 msgstr "Fondo actual"
 
@@ -4126,6 +4134,7 @@ msgid "Zoom Options"
 msgstr "Opciones de ampliación"
 
 #: ../panels/universal-access/zoom-options.ui.h:7
+#: ../panels/appearance/appearance.ui.h:2
 msgid "Zoom"
 msgstr "Ampliación"
 
@@ -5298,6 +5307,157 @@ msgstr "Preferencias;Configuración;"
 msgid "All Settings"
 msgstr "Todas las configuraciones"
 
+#: ../panels/appearance/appearance.ui.h:10
+msgid "Add wallpaper"
+msgstr "Añadir fondo"
+
+#: ../panels/appearance/appearance.ui.h:11
+msgid "Remove wallpaper"
+msgstr "Quitar fondo"
+
+#: ../panels/appearance/bg-colors-source.c:45
+msgid "Horizontal Gradient"
+msgstr "Degradado horizontal"
+
+#: ../panels/appearance/bg-colors-source.c:46
+msgid "Vertical Gradient"
+msgstr "Degradado vertical"
+
+#: ../panels/appearance/bg-colors-source.c:47
+msgid "Solid Color"
+msgstr "Color sólido"
+
+#: ../panels/appearance/cc-appearance-panel.c:1891
+msgid "Pictures Folder"
+msgstr "Carpeta de imágenes"
+
+#: ../panels/appearance/cc-appearance-panel.c:1898
+msgid "Colors & Gradients"
+msgstr "Colores y degradados"
+
+#: ../panels/appearance/gnome-unity-appearance-panel.desktop.in.h:1
+msgid "Appearance"
+msgstr "Apariencia"
+
+#: ../panels/appearance/appearance.ui.h:1
+msgid "Tile"
+msgstr "Mosaico"
+
+#: ../panels/appearance/appearance.ui.h:3
+msgid "Center"
+msgstr "Centrar"
+
+#: ../panels/appearance/appearance.ui.h:4
+msgid "Scale"
+msgstr "Escalar"
+
+#: ../panels/appearance/appearance.ui.h:5
+msgid "Fill"
+msgstr "Rellenar"
+
+#: ../panels/appearance/appearance.ui.h:6
+msgid "Span"
+msgstr "Expandir"
+
+#: ../panels/appearance/appearance.ui.h:7
+msgid "<b>Background</b>"
+msgstr "<b>Fondo</b>"
+
+#: ../panels/appearance/appearance.ui.h:12
+msgid "Add dots"
+msgstr "Añadir puntos"
+
+#: ../panels/appearance/appearance.ui.h:13
+msgid "<b>Theme</b>"
+msgstr "<b>Tema</b>"
+
+#: ../panels/appearance/appearance.ui.h:14
+msgid "<b>Launcher icon size</b>"
+msgstr "<b>Tamaño de iconos del lanzador</b>"
+
+#: ../panels/appearance/appearance.ui.h:15
+msgid "Look"
+msgstr "Aspecto"
+
+#: ../panels/appearance/appearance.ui.h:16
+msgid "<b>Auto-hide the Launcher</b>"
+msgstr "<b>Ocultar automáticamente el lanzador</b>"
+
+#: ../panels/appearance/appearance.ui.h:17
+msgid ""
+"<span size=\"small\">The launcher will reveal when moving the pointer to the "
+"defined hot spot.</span>"
+msgstr ""
+"<span size=\"small\">El lanzador se desplegará cuando se mueva el puntero al "
+"foco definido.</span>"
+
+#: ../panels/appearance/appearance.ui.h:18
+msgid "Reveal location:"
+msgstr "Revelar en:"
+
+#: ../panels/appearance/appearance.ui.h:19
+msgid "Left side"
+msgstr "Lado izquierdo"
+
+#: ../panels/appearance/appearance.ui.h:20
+msgid "Top left corner"
+msgstr "Esquina superior izquierda"
+
+#: ../panels/appearance/appearance.ui.h:21
+msgid "Other reveal option"
+msgstr "Otra opción de despliegue"
+
+#: ../panels/appearance/appearance.ui.h:22
+msgid "Reveal sensitivity"
+msgstr "Sensibilidad de despliegue"
+
+#: ../panels/appearance/appearance.ui.h:23
+msgid "<small>Low</small>"
+msgstr "<small>Baja</small>"
+
+#: ../panels/appearance/appearance.ui.h:24
+msgid "<small>High</small>"
+msgstr "<small>Alta</small>"
+
+#: ../panels/appearance/appearance.ui.h:25
+msgid ""
+"Some settings have been overriden by an external program, press \"Restore "
+"Default Behaviors\"  to reset the behavior and return control to this panel."
+msgstr ""
+"Algunas opciones han sido personalizadas con un programa externo. Pulse "
+"«Restaurar comportamiento predeterminado» para restablecer la configuración "
+"y retornar el control a este panel."
+
+#: ../panels/appearance/appearance.ui.h:26
+msgid "Enable workspaces"
+msgstr "Activar las áreas de trabajo"
+
+#: ../panels/appearance/appearance.ui.h:27
+msgid "Add show desktop icon to the launcher"
+msgstr "Añadir el icono «Mostrar el escritorio» al lanzador"
+
+#: ../panels/appearance/appearance.ui.h:28
+msgid "Restore Default Behaviours"
+msgstr "Restaurar comportamiento predeterminado"
+
+#: ../panels/appearance/appearance.ui.h:29
+msgid "Behavior"
+msgstr "Comportamiento"
+
+#: ../panels/appearance/gnome-unity-appearance-panel.desktop.in.h:2
+msgid "Change the background and the theme"
+msgstr "Cambiar el fondo y el tema"
+
+#. Translators: those are keywords for the appearance control-center panel
+#: ../panels/appearance/gnome-unity-appearance-panel.desktop.in.h:4
+msgid ""
+"Wallpaper;Background;Screen;Desktop;Theme;Appearance;Launcher;Unity;Menus;"
+msgstr "Fondo;Pantalla;Escritorio;Tema;Apariencia;Lanzador;Unity;Menús;"
+
+#: ../panels/appearance/cc-appearance-panel.c:1370
+msgid "default"
+msgstr "predeterminado"
+
 #~ msgid "Security Key"
 #~ msgstr "Clave de seguridad"
 
@@ -5425,32 +5585,11 @@ msgstr "Todas las configuraciones"
 #~ msgid "Enable h_orizontal scrolling"
 #~ msgstr "Activar desplazamiento _horizontal"
 
-#~ msgid "Add wallpaper"
-#~ msgstr "Añadir fondo"
-
-#~ msgid "Remove wallpaper"
-#~ msgstr "Quitar fondo"
-
 #~ msgid "Swap colors"
 #~ msgstr "Intercambiar colores"
 
 #~ msgid "Secondary color"
 #~ msgstr "Color secundario"
-
-#~ msgid "Horizontal Gradient"
-#~ msgstr "Gradiente horizontal"
-
-#~ msgid "Vertical Gradient"
-#~ msgstr "Gradiente vertical"
-
-#~ msgid "Solid Color"
-#~ msgstr "Color sólido"
-
-#~ msgid "Pictures Folder"
-#~ msgstr "Carpeta de imágenes"
-
-#~ msgid "Colors & Gradients"
-#~ msgstr "Colores y gradientes"
 
 #~ msgid "Take a screenshot"
 #~ msgstr "Capturar la pantalla"
@@ -7810,9 +7949,6 @@ msgstr "Todas las configuraciones"
 #~ msgid "dots per inch"
 #~ msgstr "puntos por pulgada"
 
-#~ msgid "Appearance"
-#~ msgstr "Apariencia"
-
 #~ msgid "Customize the look of the desktop"
 #~ msgstr "Personalice la apariencia del escritorio"
 
@@ -8580,4 +8716,5 @@ msgstr "Todas las configuraciones"
 #~ msgstr "No hay establecido ningún grupo para el URI «%s»"
 
 #~ msgid "No application with name '%s' registered a bookmark for '%s'"
-#~ msgstr "Ninguna aplicación con el nombre «%s» registró un marcador para «%s»"
+#~ msgstr ""
+#~ "Ninguna aplicación con el nombre «%s» registró un marcador para «%s»"

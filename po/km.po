@@ -23,7 +23,7 @@ msgstr ""
 "X-Language: km-KH\n"
 
 #. This refers to a slideshow background
-#: ../panels/background/background.ui.h:2
+#: ../panels/background/background.ui.h:2 ../panels/appearance/appearance.ui.h:9
 msgid "Changes throughout the day"
 msgstr "ផ្លាស់ប្ដូរ​រាល់​ថ្ងៃ"
 
@@ -63,6 +63,7 @@ msgid "Select Background"
 msgstr "ជ្រើស​ផ្ទៃ​ខា​ងក្រោយ"
 
 #: ../panels/background/cc-background-chooser-dialog.c:218
+#: ../panels/appearance/cc-appearance-panel.c:1884
 msgid "Wallpapers"
 msgstr "ផ្ទាំង​រូបភាព"
 
@@ -75,6 +76,7 @@ msgid "Colors"
 msgstr "ពណ៌"
 
 #: ../panels/background/cc-background-chooser-dialog.c:244
+#: ../panels/appearance/cc-appearance-panel.c:1906
 msgid "Flickr"
 msgstr "Flickr"
 
@@ -86,21 +88,25 @@ msgid "Select"
 msgstr "ជ្រើស"
 
 #: ../panels/background/cc-background-item.c:148
+#: ../panels/appearance/cc-appearance-item.c:147
 msgid "multiple sizes"
 msgstr "ទំហំ​ជាច្រើន"
 
 #. translators: 100 × 100px
 #. * Note that this is not an "x", but U+00D7 MULTIPLICATION SIGN
 #: ../panels/background/cc-background-item.c:152
+#: ../panels/appearance/cc-appearance-item.c:151
 #, c-format
 msgid "%d × %d"
 msgstr "%d × %d"
 
 #: ../panels/background/cc-background-item.c:281
+#: ../panels/appearance/cc-appearance-item.c:280
 msgid "No Desktop Background"
 msgstr "គ្មាន​ផ្ទៃខាងក្រោយ​របស់​ផ្ទៃតុ"
 
 #: ../panels/background/cc-background-panel.c:396
+#: ../panels/appearance/cc-appearance-panel.c:1174
 msgid "Current background"
 msgstr "ផ្ទៃខាងក្រោយ​បច្ចុប្បន្ន"
 
@@ -4067,6 +4073,7 @@ msgid "Zoom Options"
 msgstr "ជម្រើស​ពង្រីក"
 
 #: ../panels/universal-access/zoom-options.ui.h:7
+#: ../panels/appearance/appearance.ui.h:2
 msgid "Zoom"
 msgstr "ពង្រីក"
 
@@ -4429,6 +4436,7 @@ msgstr "វិចិត្រសាល"
 
 #: ../panels/user-accounts/data/photo-dialog.ui.h:4
 #: ../panels/user-accounts/um-photo-dialog.c:218
+#: ../panels/appearance/cc-appearance-panel.c:1082
 msgid "Browse for more pictures"
 msgstr "រកមើល​រូបភាព​ផ្សេងទៀត"
 
@@ -5234,6 +5242,157 @@ msgstr "ចំណូលចិត្ត;ការ​កំណត់;"
 msgid "All Settings"
 msgstr "ការ​កំណត់​ទាំងអស់"
 
+#: ../panels/appearance/appearance.ui.h:10
+msgid "Add wallpaper"
+msgstr "បន្ថែម​ផ្ទាំង​រូបភាព"
+
+#: ../panels/appearance/appearance.ui.h:11
+msgid "Remove wallpaper"
+msgstr "យក​ផ្ទាំង​រូបភាព​ចេញ"
+
+#: ../panels/appearance/appearance.ui.h:12
+msgid "Add dots"
+msgstr "បន្ថែម​ចំណុច"
+
+#: ../panels/appearance/appearance.ui.h:13
+msgid "<b>Theme</b>"
+msgstr "<b>ស្បែក</b>"
+
+#: ../panels/appearance/appearance.ui.h:14
+msgid "<b>Launcher icon size</b>"
+msgstr "<b>ទំហំ​រូបតំណាង​កម្មវិធី​បើក​ដំណើរការ</b>"
+
+#: ../panels/appearance/appearance.ui.h:15
+msgid "Look"
+msgstr "មើល"
+
+#: ../panels/appearance/appearance.ui.h:16
+msgid "<b>Auto-hide the Launcher</b>"
+msgstr "<b>លាក់​កម្មវិធី​បើក​ដំណើរការ​ស្វ័យប្រវត្តិ</b>"
+
+#: ../panels/appearance/appearance.ui.h:17
+msgid ""
+"<span size=\"small\">The launcher will reveal when moving the pointer to the "
+"defined hot spot.</span>"
+msgstr ""
+"<span size=\"small\">កម្មវិធី​បើក​ដំណើរការ​នឹង​បង្ហាញ នៅ​ពេល​ផ្លាស់ទី​ព្រួញ​កណ្ដុរ​ទៅកាន់ hot spot "
+"ដែល​បាន​កំណត់ ។</span>"
+
+#: ../panels/appearance/appearance.ui.h:18
+msgid "Reveal location:"
+msgstr "បង្ហាញ​ទីតាំង ៖"
+
+#: ../panels/appearance/appearance.ui.h:19
+msgid "Left side"
+msgstr "ផ្នែក​ខាងឆ្វេង"
+
+#: ../panels/appearance/appearance.ui.h:20
+msgid "Top left corner"
+msgstr "ជ្រុង​ខាងលើ​ផ្នែក​ខាងឆ្វេង"
+
+#: ../panels/appearance/appearance.ui.h:21
+msgid "Other reveal option"
+msgstr "ជម្រើស​បង្ហាញ​ផ្សេងទៀត"
+
+#: ../panels/appearance/appearance.ui.h:22
+msgid "Reveal sensitivity"
+msgstr "កម្រិត​បង្ហាញ"
+
+#: ../panels/appearance/appearance.ui.h:23
+msgid "<small>Low</small>"
+msgstr "<small>ទាប</small>"
+
+#: ../panels/appearance/appearance.ui.h:24
+msgid "<small>High</small>"
+msgstr "<small>ខ្ពស់</small>"
+
+#: ../panels/appearance/appearance.ui.h:25
+msgid ""
+"Some settings have been overriden by an external program, press \"Restore "
+"Default Behaviors\"  to reset the behavior and return control to this panel."
+msgstr ""
+"ការ​កំណត់​មួយ​ចំនួន​ត្រូវ​បាន​បដិសេធ​ដោយ​កម្មវិធី​ខាង​ក្រៅ ចុច \"ស្ដារ​ឥរិយាបថ​លំនាំដើម\"  ដើម្បី​កំណត់​ឥរិយាបថ​"
+"ឡើងវិញ និង​ត្រឡប់​វត្ថុ​បញ្ជា​ទៅកាន់​បន្ទះ​នេះ ។"
+
+#: ../panels/appearance/appearance.ui.h:28
+msgid "Restore Default Behaviours"
+msgstr "ស្ដារ​ឥរិយាបថ​លំនាំដើម"
+
+#: ../panels/appearance/appearance.ui.h:29
+msgid "Behavior"
+msgstr "ឥរិយាបថ"
+
+#: ../panels/appearance/bg-colors-source.c:45
+msgid "Horizontal Gradient"
+msgstr "ជម្រាល​ផ្ដេក"
+
+#: ../panels/appearance/bg-colors-source.c:46
+msgid "Vertical Gradient"
+msgstr "ជម្រាល​បញ្ឈរ"
+
+#: ../panels/appearance/bg-colors-source.c:47
+msgid "Solid Color"
+msgstr "ពណ៌​តាន់"
+
+#: ../panels/appearance/cc-appearance-panel.c:1370
+msgid "default"
+msgstr "លំនាំដើម"
+
+#: ../panels/appearance/cc-appearance-panel.c:1891
+msgid "Pictures Folder"
+msgstr "ថត​រូបភាព"
+
+#: ../panels/appearance/cc-appearance-panel.c:1898
+msgid "Colors & Gradients"
+msgstr "ពណ៌ ​និង​ជម្រាល"
+
+#: ../panels/appearance/gnome-unity-appearance-panel.desktop.in.h:1
+msgid "Appearance"
+msgstr "រូបរាង"
+
+#: ../panels/appearance/appearance.ui.h:1
+msgid "Tile"
+msgstr "ក្រឡា​ក្បឿង"
+
+#: ../panels/appearance/appearance.ui.h:3
+msgid "Center"
+msgstr "កណ្ដាល"
+
+#: ../panels/appearance/appearance.ui.h:4
+msgid "Scale"
+msgstr "មាត្រដ្ឋាន"
+
+#: ../panels/appearance/appearance.ui.h:5
+msgid "Fill"
+msgstr "បំពេញ"
+
+#: ../panels/appearance/appearance.ui.h:6
+msgid "Span"
+msgstr "វិសាលភាព"
+
+#: ../panels/appearance/appearance.ui.h:7
+msgid "<b>Background</b>"
+msgstr "<b>ផ្ទៃខាងក្រោយ</b>"
+
+#: ../panels/appearance/appearance.ui.h:26
+msgid "Enable workspaces"
+msgstr "បើក​តំបន់​ធ្វើការ"
+
+#: ../panels/appearance/appearance.ui.h:27
+msgid "Add show desktop icon to the launcher"
+msgstr "បន្ថែម​រូបតំណាង​ផ្ទៃតុ​ទៅ​កម្មវិធី​ចាប់ផ្ដើម"
+
+#: ../panels/appearance/gnome-unity-appearance-panel.desktop.in.h:2
+msgid "Change the background and the theme"
+msgstr "ប្ដូរ​រូបរាង និង​កម្មវិធី​ខាងក្រោយ"
+
+#. Translators: those are keywords for the appearance control-center panel
+#: ../panels/appearance/gnome-unity-appearance-panel.desktop.in.h:4
+msgid ""
+"Wallpaper;Background;Screen;Desktop;Theme;Appearance;Launcher;Unity;Menus;"
+msgstr ""
+"Wallpaper;Background;Screen;Desktop;Theme;Appearance;Launcher;Unity;Menus;"
+
 #~ msgid "Security Key"
 #~ msgstr "សោ​សុវត្ថិភាព"
 
@@ -5248,90 +5407,6 @@ msgstr "ការ​កំណត់​ទាំងអស់"
 
 #~ msgid "Secondary color"
 #~ msgstr "ពណ៌​បន្ទាប់បន្សំ"
-
-#~ msgid "Add wallpaper"
-#~ msgstr "បន្ថែម​ផ្ទាំង​រូបភាព"
-
-#~ msgid "Remove wallpaper"
-#~ msgstr "យក​ផ្ទាំង​រូបភាព​ចេញ"
-
-#~ msgid "Add dots"
-#~ msgstr "បន្ថែម​ចំណុច"
-
-#~ msgid "<b>Theme</b>"
-#~ msgstr "<b>ស្បែក</b>"
-
-#~ msgid "<b>Launcher icon size</b>"
-#~ msgstr "<b>ទំហំ​រូបតំណាង​កម្មវិធី​បើក​ដំណើរការ</b>"
-
-#~ msgid "Look"
-#~ msgstr "មើល"
-
-#~ msgid "<b>Auto-hide the Launcher</b>"
-#~ msgstr "<b>លាក់​កម្មវិធី​បើក​ដំណើរការ​ស្វ័យប្រវត្តិ</b>"
-
-#~ msgid ""
-#~ "<span size=\"small\">The launcher will reveal when moving the pointer to "
-#~ "the defined hot spot.</span>"
-#~ msgstr ""
-#~ "<span size=\"small\">កម្មវិធី​បើក​ដំណើរការ​នឹង​បង្ហាញ នៅ​ពេល​ផ្លាស់ទី​ព្រួញ​កណ្ដុរ​ទៅកាន់ hot "
-#~ "spot ដែល​បាន​កំណត់ ។</span>"
-
-#~ msgid "Reveal location:"
-#~ msgstr "បង្ហាញ​ទីតាំង ៖"
-
-#~ msgid "Left side"
-#~ msgstr "ផ្នែក​ខាងឆ្វេង"
-
-#~ msgid "Top left corner"
-#~ msgstr "ជ្រុង​ខាងលើ​ផ្នែក​ខាងឆ្វេង"
-
-#~ msgid "Other reveal option"
-#~ msgstr "ជម្រើស​បង្ហាញ​ផ្សេងទៀត"
-
-#~ msgid "Reveal sensitivity"
-#~ msgstr "កម្រិត​បង្ហាញ"
-
-#~ msgid "<small>Low</small>"
-#~ msgstr "<small>ទាប</small>"
-
-#~ msgid "<small>High</small>"
-#~ msgstr "<small>ខ្ពស់</small>"
-
-#~ msgid ""
-#~ "Some settings have been overriden by an external program, press \"Restore "
-#~ "Default Behaviors\"  to reset the behavior and return control to this "
-#~ "panel."
-#~ msgstr ""
-#~ "ការ​កំណត់​មួយ​ចំនួន​ត្រូវ​បាន​បដិសេធ​ដោយ​កម្មវិធី​ខាង​ក្រៅ ចុច \"ស្ដារ​ឥរិយាបថ​លំនាំដើម\"  ដើម្បី​កំណត់​"
-#~ "ឥរិយាបថ​ឡើងវិញ និង​ត្រឡប់​វត្ថុ​បញ្ជា​ទៅកាន់​បន្ទះ​នេះ ។"
-
-#~ msgid "Restore Default Behaviours"
-#~ msgstr "ស្ដារ​ឥរិយាបថ​លំនាំដើម"
-
-#~ msgid "Behavior"
-#~ msgstr "ឥរិយាបថ"
-
-#~ msgid "Horizontal Gradient"
-#~ msgstr "ជម្រាល​ផ្ដេក"
-
-#~ msgid "Vertical Gradient"
-#~ msgstr "ជម្រាល​បញ្ឈរ"
-
-#~ msgid "Solid Color"
-#~ msgstr "ពណ៌​តាន់"
-
-#~ msgid "default"
-#~ msgstr "លំនាំដើម"
-
-#~ msgid "Pictures Folder"
-#~ msgstr "ថត​រូបភាព"
-
-#~ msgid "Colors & Gradients"
-#~ msgstr "ពណ៌ ​និង​ជម្រាល"
-
-#~ msgid "Appearance"
-#~ msgstr "រូបរាង"
 
 #~ msgid "Wallpaper;Screen;Desktop;Theme;Appearance;Launcher;Unity;Menus;"
 #~ msgstr "Wallpaper;Screen;Desktop;Theme;Appearance;Launcher;Unity;Menus;"

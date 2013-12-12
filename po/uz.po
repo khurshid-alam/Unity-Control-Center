@@ -644,7 +644,7 @@ msgstr "Tizimda xatolik roʻy berdi"
 #. Update status message
 #: ../capplets/about-me/gnome-about-me-password.c:845
 msgid "Checking password..."
-msgstr "Maxfiy soʻz tekshirilmoqda..."
+msgstr "Maxfiy soʻz tekshirilmoqdata."
 
 #: ../capplets/about-me/gnome-about-me-password.c:932
 msgid "Click <b>Change password</b> to change your password."
@@ -3459,7 +3459,7 @@ msgstr ""
 #~ msgstr "Faqat moslamalarni qoʻllash va chiqish"
 
 #~ msgid "Connecting..."
-#~ msgstr "Aloqa oʻrnatilmoqda..."
+#~ msgstr "Aloqa oʻrnatilmoqdata."
 
 #~ msgid "Evolution Mail Reader 1.4"
 #~ msgstr "Evolution 1.4 pochta klienti"
@@ -3612,7 +3612,7 @@ msgstr ""
 #~ msgstr "<b>Tovush hodisalar</b>"
 
 #~ msgid "<span weight=\"bold\" size=\"x-large\">Testing...</span>"
-#~ msgstr "<span weight=\"bold\" size=\"x-large\">Sinalmoqda...</span>"
+#~ msgstr "<span weight=\"bold\" size=\"x-large\">Sinalmoqdata.</span>"
 
 #~ msgid "Click OK to finish."
 #~ msgstr "Tugatish uchun OK tugmasini bosing."

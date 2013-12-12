@@ -37,7 +37,7 @@ msgstr ""
 
 # Wechselndes Hintergrundbild
 #. This refers to a slideshow background
-#: ../panels/background/background.ui.h:2
+#: ../panels/background/background.ui.h:2 ../panels/appearance/appearance.ui.h:9
 msgid "Changes throughout the day"
 msgstr "Ändert sich im Laufe des Tages"
 
@@ -77,6 +77,7 @@ msgid "Select Background"
 msgstr "Hintergrund auswählen"
 
 #: ../panels/background/cc-background-chooser-dialog.c:218
+#: ../panels/appearance/cc-appearance-panel.c:1884
 msgid "Wallpapers"
 msgstr "Hintergrundbilder"
 
@@ -89,6 +90,7 @@ msgid "Colors"
 msgstr "Farben"
 
 #: ../panels/background/cc-background-chooser-dialog.c:244
+#: ../panels/appearance/cc-appearance-panel.c:1906
 msgid "Flickr"
 msgstr "Flickr"
 
@@ -100,21 +102,25 @@ msgid "Select"
 msgstr "Auswählen"
 
 #: ../panels/background/cc-background-item.c:148
+#: ../panels/appearance/cc-appearance-item.c:147
 msgid "multiple sizes"
 msgstr "mehrere Größen"
 
 #. translators: 100 × 100px
 #. * Note that this is not an "x", but U+00D7 MULTIPLICATION SIGN
 #: ../panels/background/cc-background-item.c:152
+#: ../panels/appearance/cc-appearance-item.c:151
 #, c-format
 msgid "%d × %d"
 msgstr "%d × %d"
 
 #: ../panels/background/cc-background-item.c:281
+#: ../panels/appearance/cc-appearance-item.c:280
 msgid "No Desktop Background"
 msgstr "Kein Arbeitsflächen-Hintergrund"
 
 #: ../panels/background/cc-background-panel.c:387
+#: ../panels/appearance/cc-appearance-panel.c:1174
 msgid "Current background"
 msgstr "Aktueller Hintergrund"
 
@@ -4149,6 +4155,7 @@ msgid "Zoom Options"
 msgstr "Vergrößerungsoptionen"
 
 #: ../panels/universal-access/zoom-options.ui.h:7
+#: ../panels/appearance/appearance.ui.h:2
 msgid "Zoom"
 msgstr "Vergrößerung"
 
@@ -4511,6 +4518,7 @@ msgstr "Galerie"
 
 #: ../panels/user-accounts/data/photo-dialog.ui.h:4
 #: ../panels/user-accounts/um-photo-dialog.c:218
+#: ../panels/appearance/cc-appearance-panel.c:1082
 msgid "Browse for more pictures"
 msgstr "Nach weiteren Bildern suchen"
 
@@ -5333,6 +5341,160 @@ msgstr "Einstellungen"
 msgid "All Settings"
 msgstr "Alle Einstellungen"
 
+#: ../panels/appearance/appearance.ui.h:10
+msgid "Add wallpaper"
+msgstr "Hintergrundbild hinzufügen"
+
+#: ../panels/appearance/appearance.ui.h:11
+msgid "Remove wallpaper"
+msgstr "Hintergrundbild entfernen"
+
+#: ../panels/appearance/bg-colors-source.c:45
+msgid "Horizontal Gradient"
+msgstr "Horizontaler Verlauf"
+
+#: ../panels/appearance/bg-colors-source.c:46
+msgid "Vertical Gradient"
+msgstr "Vertikaler Verlauf"
+
+#: ../panels/appearance/bg-colors-source.c:47
+msgid "Solid Color"
+msgstr "Einfarbig"
+
+#: ../panels/appearance/cc-appearance-panel.c:1891
+msgid "Pictures Folder"
+msgstr "Bilderordner"
+
+#: ../panels/appearance/cc-appearance-panel.c:1898
+msgid "Colors & Gradients"
+msgstr "Farben und Farbverläufe"
+
+#: ../panels/appearance/appearance.ui.h:1
+msgid "Tile"
+msgstr "Kacheln"
+
+#: ../panels/appearance/appearance.ui.h:3
+msgid "Center"
+msgstr "Zentrieren"
+
+#: ../panels/appearance/appearance.ui.h:4
+msgid "Scale"
+msgstr "Skalieren"
+
+#: ../panels/appearance/appearance.ui.h:5
+msgid "Fill"
+msgstr "Füllen"
+
+#: ../panels/appearance/appearance.ui.h:6
+msgid "Span"
+msgstr "Spannen"
+
+#: ../panels/appearance/appearance.ui.h:7
+msgid "<b>Background</b>"
+msgstr "<b>Hintergrund</b>"
+
+#: ../panels/appearance/appearance.ui.h:12
+msgid "Add dots"
+msgstr "Punkte hinzufügen"
+
+#: ../panels/appearance/appearance.ui.h:13
+msgid "<b>Theme</b>"
+msgstr "<b>Thema</b>"
+
+#: ../panels/appearance/appearance.ui.h:14
+msgid "<b>Launcher icon size</b>"
+msgstr "<b>Größe der Startersymbole</b>"
+
+#: ../panels/appearance/appearance.ui.h:15
+msgid "Look"
+msgstr "Erscheinungsbild"
+
+#: ../panels/appearance/appearance.ui.h:16
+msgid "<b>Auto-hide the Launcher</b>"
+msgstr "<b>Den Starter automatisch ausblenden</b>"
+
+#: ../panels/appearance/appearance.ui.h:17
+msgid ""
+"<span size=\"small\">The launcher will reveal when moving the pointer to the "
+"defined hot spot.</span>"
+msgstr ""
+"<span size=\"small\">Der Starter wird eingeblendet, wenn der Mauszeiger zu "
+"einem bestimmten Punkt bewegt wird.</span>"
+
+#: ../panels/appearance/appearance.ui.h:18
+msgid "Reveal location:"
+msgstr "Einblendepunkt:"
+
+#: ../panels/appearance/appearance.ui.h:19
+msgid "Left side"
+msgstr "Linke Seite"
+
+#: ../panels/appearance/appearance.ui.h:20
+msgid "Top left corner"
+msgstr "Obere linke Ecke"
+
+#: ../panels/appearance/appearance.ui.h:21
+msgid "Other reveal option"
+msgstr "Andere Einblendeeinstellung"
+
+#: ../panels/appearance/appearance.ui.h:22
+msgid "Reveal sensitivity"
+msgstr "Einblendeempfindlichkeit"
+
+#: ../panels/appearance/appearance.ui.h:23
+msgid "<small>Low</small>"
+msgstr "<small>Niedrig</small>"
+
+#: ../panels/appearance/appearance.ui.h:24
+msgid "<small>High</small>"
+msgstr "<small>Hoch</small>"
+
+#: ../panels/appearance/appearance.ui.h:25
+msgid ""
+"Some settings have been overriden by an external program, press \"Restore "
+"Default Behaviors\"  to reset the behavior and return control to this panel."
+msgstr ""
+"Einige Einstellungen wurden von einer externen Anwendung überschrieben, "
+"wählen Sie »Voreinstellungen wiederherstellen«, um zu den ursprünglichen "
+"Einstellungen zurückzukehren und dieser Anwendung wieder die Steuerung zu "
+"übertragen."
+
+#: ../panels/appearance/appearance.ui.h:26
+msgid "Enable workspaces"
+msgstr "Arbeitsflächen aktivieren"
+
+#: ../panels/appearance/appearance.ui.h:27
+msgid "Add show desktop icon to the launcher"
+msgstr "Symbol zum Anzeigen des Schreibtischs zum Starter hinzufügen"
+
+#: ../panels/appearance/appearance.ui.h:28
+msgid "Restore Default Behaviours"
+msgstr "Voreinstellungen wiederherstellen"
+
+#: ../panels/appearance/appearance.ui.h:29
+msgid "Behavior"
+msgstr "Verhalten"
+
+#: ../panels/appearance/gnome-unity-appearance-panel.desktop.in.h:1
+msgid "Appearance"
+msgstr "Darstellung"
+
+#: ../panels/appearance/gnome-unity-appearance-panel.desktop.in.h:2
+msgid "Change the background and the theme"
+msgstr "Den Hintergrund und das Thema ändern"
+
+#. Translators: those are keywords for the appearance control-center panel
+#: ../panels/appearance/gnome-unity-appearance-panel.desktop.in.h:4
+msgid ""
+"Wallpaper;Background;Screen;Desktop;Theme;Appearance;Launcher;Unity;Menus;"
+msgstr ""
+"Hintergrund;Arbeitsfläche;Bildschirm;Schreibtisch;Arbeitsumgebung;Thema;"
+"Erscheinung;Starter;Unity;Menüs;"
+
+#: ../panels/appearance/cc-appearance-panel.c:1370
+msgid "default"
+msgstr "Standard"
+
 #~ msgid "Security Key"
 #~ msgstr "Sicherheitsschlüssel"
 
@@ -5398,32 +5560,11 @@ msgstr "Alle Einstellungen"
 #~ msgid "Caribou"
 #~ msgstr "Caribou"
 
-#~ msgid "Add wallpaper"
-#~ msgstr "Hintergrundbild hinzufügen"
-
-#~ msgid "Remove wallpaper"
-#~ msgstr "Hintergrundbild entfernen"
-
 #~ msgid "Swap colors"
 #~ msgstr "Farben tauschen"
 
 #~ msgid "Secondary color"
 #~ msgstr "Zweite Farbe"
-
-#~ msgid "Horizontal Gradient"
-#~ msgstr "Horizontaler Verlauf"
-
-#~ msgid "Vertical Gradient"
-#~ msgstr "Vertikaler Verlauf"
-
-#~ msgid "Solid Color"
-#~ msgstr "Einfarbig"
-
-#~ msgid "Pictures Folder"
-#~ msgstr "Bilderordner"
-
-#~ msgid "Colors & Gradients"
-#~ msgstr "Farben und Farbverläufe"
 
 #~ msgid "Acti_on:"
 #~ msgstr "Akti_on:"
