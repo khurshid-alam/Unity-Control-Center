@@ -72,7 +72,7 @@ panels/printers/pp-options-dialog.c
 panels/printers/pp-ppd-option-widget.c
 panels/printers/pp-ppd-selection-dialog.c
 [type: gettext/glade]panels/printers/printers.ui
-panels/region/unity-region-panel2.desktop.in.in
+panels/region/unity-region-panel.desktop.in.in
 [type: gettext/glade]panels/region/unity-region-panel.ui
 panels/region/gnome-region-panel-formats.c
 [type: gettext/glade]panels/region/gnome-region-panel-input-chooser.ui

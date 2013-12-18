@@ -1,6 +1,6 @@
-unity-control-center (1.0+unity2) trusty; urgency=low
+unity-control-center (1.0+unity) UNRELEASED; urgency=low
 
   * Fork gnome-control-center so we can maintain it for Unity 7 until it is
     replaced by the Unity 8 equivalent.
 
- -- Robert Ancell <robert.ancell@canonical.com>  Fri, 29 Nov 2013 12:03:35 +1300
+ -- Robert Ancell <robert.ancell@canonical.com>  Wed, 18 Dec 2013 16:11:42 +1300

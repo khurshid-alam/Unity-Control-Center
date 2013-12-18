@@ -418,7 +418,7 @@ panels/keyboard/Makefile
 panels/keyboard/unity-keyboard-panel.desktop.in
 panels/keyboard/unity-keybindings.pc
 panels/region/Makefile
-panels/region/unity-region-panel2.desktop.in
+panels/region/unity-region-panel.desktop.in
 panels/mouse/Makefile
 panels/mouse/unity-mouse-panel.desktop.in
 panels/sound/Makefile
