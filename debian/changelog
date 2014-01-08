@@ -1,3 +1,10 @@
+unity-control-center (14.04.0-0ubuntu1) trusty; urgency=medium
+
+  * debian/control:
+    - Use updated gnome-control-center version to conflict with
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Thu, 09 Jan 2014 10:57:38 +1300
+
 unity-control-center (14.04.0) trusty; urgency=low
 
   * Fork gnome-control-center so we can maintain it for Unity 7 until it is
