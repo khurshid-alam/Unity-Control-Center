@@ -2,7 +2,7 @@ NULL =
 
 icondir = $(datadir)/icons/hicolor/48x48/apps
 icon_DATA = 				\
-	unity-power-panel.png			\
+	unity-power-panel.svg			\
 	$(NULL)
 
 EXTRA_DIST = \
