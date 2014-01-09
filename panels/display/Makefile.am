@@ -37,7 +37,7 @@ libdisplay_la_LDFLAGS = $(PANEL_LDFLAGS)
 icons24dir = $(datadir)/icons/hicolor/24x24/apps
 dist_icons24_DATA = icons/24x24/unity-display-panel.svg
 icons48dir = $(datadir)/icons/hicolor/48x48/apps
-dist_icons48_DATA = icons/32x32/unity-display-panel.svg
+dist_icons48_DATA = icons/48x48/unity-display-panel.svg
 
 desktopdir = $(datadir)/applications
 Desktop_in_files = unity-display-panel.desktop.in
