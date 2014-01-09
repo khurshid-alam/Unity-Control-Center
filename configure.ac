@@ -447,7 +447,6 @@ panels/sound/data/icons/48x48/Makefile
 panels/sound/data/icons/48x48/apps/Makefile
 panels/sound/data/icons/48x48/devices/Makefile
 panels/sound/data/icons/scalable/Makefile
-panels/sound/data/icons/scalable/apps/Makefile
 panels/sound/data/icons/scalable/devices/Makefile
 panels/screen/Makefile
 panels/screen/unity-screen-panel.desktop.in
@@ -456,12 +455,8 @@ panels/info/unity-info-panel.desktop.in
 panels/power/Makefile
 panels/power/unity-power-panel.desktop.in
 panels/power/icons/Makefile
-panels/power/icons/16x16/Makefile
-panels/power/icons/22x22/Makefile
 panels/power/icons/24x24/Makefile
-panels/power/icons/32x32/Makefile
 panels/power/icons/48x48/Makefile
-panels/power/icons/256x256/Makefile
 panels/color/Makefile
 panels/color/unity-color-panel.desktop.in
 panels/color/icons/Makefile
