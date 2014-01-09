@@ -8,7 +8,6 @@ iconsdir = $(themedir)/$(size)/$(context)
 
 icons_DATA = 			 	      	\
 	unity-sound-panel.png		\
-	unity-sound-panel.svg
 	$(NULL)
 
 EXTRA_DIST =		\
