@@ -24,7 +24,9 @@ def add_info(report):
 				package = apport.packaging.get_file_package(path)
 				if package == 'unity-control-center':
 					continue
+				if not package:
+					continue
 
 				plugin_packages.add(package)
-
-		report["usr_lib_unity-control-center"] = package_versions(*sorted(plugin_packages))
+		if plugin_packages:
+			report["usr_lib_unity-control-center"] = package_versions(*sorted(plugin_packages))
