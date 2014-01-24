@@ -1,12 +1,11 @@
 # Add files with translateable strings here.
 # Please keep this file sorted alphabetically.
 [encoding: UTF-8]
-[type: gettext/glade]panels/background/background.ui
-panels/background/bg-colors-source.c
-panels/background/cc-background-chooser-dialog.c
-panels/background/cc-background-item.c
-panels/background/cc-background-panel.c
-panels/background/unity-background-panel.desktop.in.in
+[type: gettext/glade]panels/appearance/appearance.ui
+panels/appearance/bg-colors-source.c
+panels/appearance/cc-appearance-item.c
+panels/appearance/cc-appearance-panel.c
+panels/appearance/unity-appearance-panel.desktop.in.in
 panels/bluetooth/unity-bluetooth-panel.desktop.in.in
 [type: gettext/glade]panels/bluetooth/bluetooth.ui
 panels/bluetooth/cc-bluetooth-panel.c
@@ -17,9 +16,6 @@ panels/common/cc-common-language.c
 panels/common/cc-language-chooser.c
 panels/common/gdm-languages.c
 [type: gettext/glade]panels/common/language-chooser.ui
-[type: gettext/glade]panels/datetime/datetime.ui
-panels/datetime/unity-datetime-panel.desktop.in.in
-panels/datetime/com.canonical.controlcenter.datetime.policy.in
 panels/display/cc-display-panel.c
 [type: gettext/glade]panels/display/display-capplet.ui
 panels/display/unity-display-panel.desktop.in.in
@@ -81,9 +77,7 @@ panels/region/gnome-region-panel-system.c
 panels/region/gtkentryaccel.c
 panels/screen/unity-screen-panel.desktop.in.in
 [type: gettext/glade]panels/screen/screen.ui
-panels/sound/applet-main.c
 panels/sound/cc-sound-panel.c
-panels/sound/gvc-applet.c
 panels/sound/gvc-balance-bar.c
 panels/sound/gvc-channel-bar.c
 panels/sound/gvc-combo-box.c
@@ -91,7 +85,6 @@ panels/sound/gvc-mixer-control.c
 panels/sound/gvc-mixer-dialog.c
 panels/sound/gvc-sound-theme-chooser.c
 panels/sound/gvc-speaker-test.c
-panels/sound/gvc-stream-status-icon.c
 panels/sound/sound-theme-file-utils.c
 panels/sound/data/unity-sound-panel.desktop.in.in
 panels/universal-access/cc-ua-panel.c
@@ -130,6 +123,7 @@ panels/wacom/gsd-wacom-device.c
 shell/cc-shell-nav-bar.c
 shell/control-center.c
 shell/unity-control-center.desktop.in.in
+shell/unitycc.directory.in
 [type: gettext/glade]shell/shell.ui
 panels/display/cc-rr-labeler.c
 panels/region/keyboard-shortcuts.c
