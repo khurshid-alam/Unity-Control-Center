@@ -8,10 +8,10 @@ dist_ui_DATA = \
 	display-overlay.png
 
 slideshowicondir = $(datadir)/icons/hicolor/scalable/categories/
-dist_slideshowicon_DATA = unity-slideshow-symbolic.svg
+dist_slideshowicon_DATA = ucc-slideshow-symbolic.svg
 
 slideshowemblemdir = $(datadir)/icons/hicolor/scalable/emblems/
-dist_slideshowemblem_DATA = unity-slideshow-emblem.svg
+dist_slideshowemblem_DATA = ucc-slideshow-emblem.svg
 
 INCLUDES =						\
 	$(PANEL_CFLAGS)					\

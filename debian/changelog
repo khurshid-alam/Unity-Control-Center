@@ -1,3 +1,10 @@
+unity-control-center (14.04.2-0ubuntu1) trusty; urgency=medium
+
+  * Rename unity-slideshow-* icons to ucc-slideshow-* so we don't conflict
+    with gnome-control-center-unity anymore
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Wed, 29 Jan 2014 11:11:31 +1300
+
 unity-control-center (14.04.1-0ubuntu2) trusty; urgency=medium
 
   * debian/source_unity-control-center.py:

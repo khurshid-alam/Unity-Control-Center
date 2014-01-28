@@ -84,7 +84,7 @@ get_slideshow_icon (void)
 {
 	GIcon *themed;
 	GEmblem *emblem;
-	themed = g_themed_icon_new ("unity-slideshow-emblem");
+	themed = g_themed_icon_new ("ucc-slideshow-emblem");
 	emblem = g_emblem_new_with_origin (themed, G_EMBLEM_ORIGIN_DEVICE);
 	g_object_unref (themed);
 	return emblem;
