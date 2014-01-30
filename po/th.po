@@ -14,47 +14,58 @@ msgstr ""
 "Project-Id-Version: gnome-control-center\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "control-center&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-09-21 14:06+0000\n"
-"PO-Revision-Date: 2012-09-23 16:25+0700\n"
+"POT-Creation-Date: 2014-01-08 23:25+0000\n"
+"PO-Revision-Date: 2014-01-09 06:16+0000\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
-"Language: th\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Launchpad-Export-Date: 2014-01-30 14:21+0000\n"
+"X-Generator: Launchpad (build 16916)\n"
+"Language: th\n"
+
+#: ../panels/background/background.ui.h:1
+#: ../panels/background/gnome-background-panel.desktop.in.in.h:1
+msgid "Background"
+msgstr "พื้นหลัง"
 
 #. This refers to a slideshow background
-#: ../panels/background/background.ui.h:2
+#: ../panels/background/background.ui.h:3
 msgid "Changes throughout the day"
 msgstr "เปลี่ยนแปลงตลอดวัน"
 
-#: ../panels/background/background.ui.h:3
+#: ../panels/background/background.ui.h:4
+msgid "Lock Screen"
+msgstr "ล็อคหน้าจอ"
+
+#: ../panels/background/background.ui.h:5
 msgctxt "background, style"
 msgid "Tile"
 msgstr "เรียงกระเบื้อง"
 
-#: ../panels/background/background.ui.h:4
+#: ../panels/background/background.ui.h:6
 msgctxt "background, style"
 msgid "Zoom"
 msgstr "ซูม"
 
-#: ../panels/background/background.ui.h:5
+#: ../panels/background/background.ui.h:7
 msgctxt "background, style"
 msgid "Center"
 msgstr "วางตรงกลาง"
 
-#: ../panels/background/background.ui.h:6
+#: ../panels/background/background.ui.h:8
 msgctxt "background, style"
 msgid "Scale"
 msgstr "ขยายพอดีหน้าจอ"
 
-#: ../panels/background/background.ui.h:7
+#: ../panels/background/background.ui.h:9
 msgctxt "background, style"
 msgid "Fill"
 msgstr "ยืดเต็มจอ"
 
-#: ../panels/background/background.ui.h:8
+#: ../panels/background/background.ui.h:10
 msgctxt "background, style"
 msgid "Span"
 msgstr "แสดงเต็มภาพ"
@@ -102,13 +113,9 @@ msgstr "%d × %d"
 msgid "No Desktop Background"
 msgstr "ไม่ใช้ภาพพื้นหลังพื้นโต๊ะ"
 
-#: ../panels/background/cc-background-panel.c:387
+#: ../panels/background/cc-background-panel.c:451
 msgid "Current background"
 msgstr "พื้นหลังปัจจุบัน"
-
-#: ../panels/background/gnome-background-panel.desktop.in.in.h:1
-msgid "Background"
-msgstr "พื้นหลัง"
 
 #: ../panels/background/gnome-background-panel.desktop.in.in.h:2
 msgid "Change the background"
@@ -120,12 +127,12 @@ msgid "Wallpaper;Screen;Desktop;"
 msgstr "ภาพพื้นหลัง;หน้าจอ;พื้นโต๊ะ;"
 
 #. TRANSLATORS: device type
-#: ../panels/bluetooth/bluetooth-properties.desktop.in.in.h:1
+#: ../panels/bluetooth/gnome-bluetooth-panel.desktop.in.in.h:1
 #: ../panels/network/panel-common.c:102
 msgid "Bluetooth"
 msgstr "บลูทูท"
 
-#: ../panels/bluetooth/bluetooth-properties.desktop.in.in.h:2
+#: ../panels/bluetooth/gnome-bluetooth-panel.desktop.in.in.h:2
 msgid "Configure Bluetooth settings"
 msgstr "ตั้งค่าบลูทูท"
 
@@ -141,304 +148,317 @@ msgstr "ลบอุปกรณ์ออก"
 msgid "Connection"
 msgstr "การเชื่อมต่อ"
 
-#: ../panels/bluetooth/bluetooth.ui.h:4
+#: ../panels/bluetooth/bluetooth.ui.h:4 ../panels/printers/printers.ui.h:14
+msgid "page 1"
+msgstr "หน้า 1"
+
+#: ../panels/bluetooth/bluetooth.ui.h:5 ../panels/printers/printers.ui.h:16
+msgid "page 2"
+msgstr "หน้า 2"
+
+#: ../panels/bluetooth/bluetooth.ui.h:6
 msgid "Paired"
 msgstr "จับคู่แล้ว"
 
-#: ../panels/bluetooth/bluetooth.ui.h:5 ../panels/wacom/cc-wacom-page.c:756
+#: ../panels/bluetooth/bluetooth.ui.h:7 ../panels/wacom/cc-wacom-page.c:756
 msgid "Type"
 msgstr "ชนิด"
 
-#: ../panels/bluetooth/bluetooth.ui.h:6
+#: ../panels/bluetooth/bluetooth.ui.h:8
 msgid "Address"
 msgstr "ที่อยู่"
 
-#: ../panels/bluetooth/bluetooth.ui.h:7
+#: ../panels/bluetooth/bluetooth.ui.h:9
 msgid "Mouse and Touchpad Settings"
 msgstr "ตั้งค่าเมาส์และทัชแพด"
 
-#: ../panels/bluetooth/bluetooth.ui.h:8 ../panels/universal-access/uap.ui.h:38
+#: ../panels/bluetooth/bluetooth.ui.h:10
+#: ../panels/universal-access/uap.ui.h:38
 msgid "Sound Settings"
 msgstr "ตั้งค่าเสียง"
 
-#: ../panels/bluetooth/bluetooth.ui.h:9
+#: ../panels/bluetooth/bluetooth.ui.h:11
 msgid "Keyboard Settings"
 msgstr "ตั้งค่าแป้นพิมพ์"
 
-#: ../panels/bluetooth/bluetooth.ui.h:10
+#: ../panels/bluetooth/bluetooth.ui.h:12
 msgid "Send Files..."
 msgstr "ส่งแฟ้ม..."
 
-#: ../panels/bluetooth/bluetooth.ui.h:11
+#: ../panels/bluetooth/bluetooth.ui.h:13
 msgid "Browse Files..."
 msgstr "ท่องดูแฟ้ม..."
 
 #. Translator: This string appears next to a toggle switch which controls enabling/disabling Bluetooth radio's on the device.
-#: ../panels/bluetooth/bluetooth.ui.h:13
+#: ../panels/bluetooth/bluetooth.ui.h:15
 msgctxt "Power"
 msgid "Bluetooth"
 msgstr "บลูทูท"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:290
+#: ../panels/bluetooth/cc-bluetooth-panel.c:340
 msgid "Yes"
 msgstr "ใช่"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:290
+#: ../panels/bluetooth/cc-bluetooth-panel.c:340
 msgid "No"
 msgstr "ไม่"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:405
+#: ../panels/bluetooth/cc-bluetooth-panel.c:454
 msgid "Bluetooth is disabled"
 msgstr "บลูทูทถูกปิดใช้งาน"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:410
+#: ../panels/bluetooth/cc-bluetooth-panel.c:459
 msgid "Bluetooth is disabled by hardware switch"
 msgstr "บลูทูทถูกปิดใช้งานด้วยสวิตช์ฮาร์ดแวร์"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:414
+#: ../panels/bluetooth/cc-bluetooth-panel.c:463
 msgid "No Bluetooth adapters found"
 msgstr "ไม่พบอะแดปเตอร์บลูทูท"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:547
+#: ../panels/bluetooth/cc-bluetooth-panel.c:590
 msgid "Visibility"
 msgstr "ความปรากฏเห็น"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:551
+#: ../panels/bluetooth/cc-bluetooth-panel.c:594
 #, c-format
 msgid "Visibility of “%s”"
 msgstr "ความปรากฏเห็นของ “%s”"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:595
+#: ../panels/bluetooth/cc-bluetooth-panel.c:638
 #, c-format
 msgid "Remove '%s' from the list of devices?"
 msgstr "ลบ '%s' ออกจากรายชื่ออุปกรณ์หรือไม่?"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:597
+#: ../panels/bluetooth/cc-bluetooth-panel.c:640
 msgid ""
 "If you remove the device, you will have to set it up again before next use."
-msgstr "ถ้าคุณลบอุปกรณ์นี้ คุณจะต้องตั้งค่าอุปกรณ์ใหม่อีกครั้งก่อนใช้ครั้งต่อไป"
+msgstr ""
+"ถ้าคุณลบอุปกรณ์นี้ คุณจะต้องตั้งค่าอุปกรณ์ใหม่อีกครั้งก่อนใช้ครั้งต่อไป"
 
 #. TRANSLATORS: this is where the user can click and import a profile
-#: ../panels/color/cc-color-panel.c:106
+#: ../panels/color/cc-color-panel.c:107
 msgid "Other profile…"
 msgstr "โพรไฟล์อื่น…"
 
 #. TRANSLATORS: this is a profile prefix to signify the
 #. * profile has been auto-generated for this hardware
-#: ../panels/color/cc-color-panel.c:119
+#: ../panels/color/cc-color-panel.c:120
 msgid "Default: "
 msgstr "ปริยาย: "
 
 #. TRANSLATORS: this is a profile prefix to signify the
 #. * profile his a standard space like AdobeRGB
-#: ../panels/color/cc-color-panel.c:126
+#: ../panels/color/cc-color-panel.c:127
 msgid "Colorspace: "
 msgstr "สเปซสี: "
 
 #. TRANSLATORS: this is a profile prefix to signify the
 #. * profile is a test profile
-#: ../panels/color/cc-color-panel.c:132
+#: ../panels/color/cc-color-panel.c:133
 msgid "Test profile: "
 msgstr "โพรไฟล์ทดสอบ: "
 
 #. TRANSLATORS: this is when the profile should be set for all users
-#: ../panels/color/cc-color-panel.c:185 ../panels/color/color.ui.h:11
+#: ../panels/color/cc-color-panel.c:186 ../panels/color/color.ui.h:11
 msgid "Set for all users"
 msgstr "กำหนดสำหรับผู้ใช้ทุกคน"
 
 #. TRANSLATORS: this is when the profile should be set for all users
-#: ../panels/color/cc-color-panel.c:192
+#: ../panels/color/cc-color-panel.c:193
 msgid "Create virtual device"
 msgstr "สร้างอุปกรณ์เสมือน"
 
 #. TRANSLATORS: an ICC profile is a file containing colorspace data
-#: ../panels/color/cc-color-panel.c:227
+#: ../panels/color/cc-color-panel.c:228
 msgid "Select ICC Profile File"
 msgstr "เลือกแฟ้มโพรไฟล์ ICC"
 
-#: ../panels/color/cc-color-panel.c:230
+#: ../panels/color/cc-color-panel.c:231
 msgid "_Import"
 msgstr "_นำเข้า"
 
 #. TRANSLATORS: filter name on the file->open dialog
-#: ../panels/color/cc-color-panel.c:241
+#: ../panels/color/cc-color-panel.c:242
 msgid "Supported ICC profiles"
 msgstr "โพรไฟล์ ICC ที่รองรับ"
 
 #. TRANSLATORS: filter name on the file->open dialog
-#: ../panels/color/cc-color-panel.c:248
+#: ../panels/color/cc-color-panel.c:249
 msgid "All files"
 msgstr "ทุกแฟ้ม"
 
 #. TRANSLATORS: this is the dialog title in the 'Add profile' UI
-#: ../panels/color/cc-color-panel.c:522
+#: ../panels/color/cc-color-panel.c:639
 msgid "Available Profiles for Displays"
 msgstr "โพรไฟล์ที่มีสำหรับจอแสดงผล"
 
 #. TRANSLATORS: this is the dialog title in the 'Add profile' UI
-#: ../panels/color/cc-color-panel.c:526
+#: ../panels/color/cc-color-panel.c:643
 msgid "Available Profiles for Scanners"
 msgstr "โพรไฟล์ที่มีสำหรับสแกนเนอร์"
 
 #. TRANSLATORS: this is the dialog title in the 'Add profile' UI
-#: ../panels/color/cc-color-panel.c:530
+#: ../panels/color/cc-color-panel.c:647
 msgid "Available Profiles for Printers"
 msgstr "โพรไฟล์ที่มีสำหรับเครื่องพิมพ์"
 
 #. TRANSLATORS: this is the dialog title in the 'Add profile' UI
-#: ../panels/color/cc-color-panel.c:534
+#: ../panels/color/cc-color-panel.c:651
 msgid "Available Profiles for Cameras"
 msgstr "โพรไฟล์ที่มีสำหรับกล้องถ่ายรูป"
 
 #. TRANSLATORS: this is the dialog title in the 'Add profile' UI
-#: ../panels/color/cc-color-panel.c:538
+#: ../panels/color/cc-color-panel.c:655
 msgid "Available Profiles for Webcams"
 msgstr "โพรไฟล์ที่มีสำหรับเว็บแคม"
 
 #. TRANSLATORS: this is the dialog title in the 'Add profile' UI
 #. * where the device type is not recognised
 #. Profiles that can be added to the device
-#: ../panels/color/cc-color-panel.c:543 ../panels/color/color.ui.h:2
+#: ../panels/color/cc-color-panel.c:660 ../panels/color/color.ui.h:2
 msgid "Available Profiles"
 msgstr "โพรไฟล์ที่มี"
 
 #. TRANSLATORS: column for device list
-#: ../panels/color/cc-color-panel.c:824
+#: ../panels/color/cc-color-panel.c:936
 #: ../panels/sound/gvc-mixer-dialog.c:1525
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1618
 msgid "Device"
 msgstr "อุปกรณ์"
 
 #. TRANSLATORS: column for device list
-#: ../panels/color/cc-color-panel.c:859
+#: ../panels/color/cc-color-panel.c:971
 msgid "Calibration"
 msgstr "การเทียบมาตรฐาน"
 
 #. TRANSLATORS: this is when the button is sensitive
-#: ../panels/color/cc-color-panel.c:891
+#: ../panels/color/cc-color-panel.c:1003
 msgid "Create a color profile for the selected device"
 msgstr "สร้างโพรไฟล์สีสำหรับอุปกรณ์ที่เลือก"
 
 #. TRANSLATORS: this is when the button is insensitive
-#: ../panels/color/cc-color-panel.c:905 ../panels/color/cc-color-panel.c:929
+#: ../panels/color/cc-color-panel.c:1017 ../panels/color/cc-color-panel.c:1041
 msgid ""
 "The measuring instrument is not detected. Please check it is turned on and "
 "correctly connected."
-msgstr "ตรวจไม่พบอุปกรณ์ตรวจวัด กรุณาตรวจสอบว่าได้เปิดอุปกรณ์หรือยัง และได้เชื่อมต่อถูกต้องหรือไม่"
+msgstr ""
+"ตรวจไม่พบอุปกรณ์ตรวจวัด กรุณาตรวจสอบว่าได้เปิดอุปกรณ์หรือยัง "
+"และได้เชื่อมต่อถูกต้องหรือไม่"
 
 #. TRANSLATORS: this is when the button is insensitive
-#: ../panels/color/cc-color-panel.c:938
+#: ../panels/color/cc-color-panel.c:1050
 msgid "The measuring instrument does not support printer profiling."
 msgstr "อุปกรณ์ตรวจวัดไม่รองรับการทำโพรไฟล์เครื่องพิมพ์"
 
 #. TRANSLATORS: this is when the button is insensitive
-#: ../panels/color/cc-color-panel.c:949
+#: ../panels/color/cc-color-panel.c:1061
 msgid "The device type is not currently supported."
 msgstr "ยังไม่รองรับอุปกรณ์ตรวจวัดชนิดนี้"
 
 #. TRANSLATORS: this is when an auto-added profile cannot be removed
-#: ../panels/color/cc-color-panel.c:1022
+#: ../panels/color/cc-color-panel.c:1133
 msgid "Cannot remove automatically added profile"
 msgstr "ไม่สามารถลบโพรไฟล์ที่เพิ่มแบบอัตโนมัติไว้"
 
 #. TRANSLATORS: this is when there is no profile for the device
-#: ../panels/color/cc-color-panel.c:1359
+#: ../panels/color/cc-color-panel.c:1464
 msgid "No profile"
 msgstr "ไม่มีโพรไฟล์"
 
-#: ../panels/color/cc-color-panel.c:1390
+#: ../panels/color/cc-color-panel.c:1495
 #, c-format
 msgid "%i year"
 msgid_plural "%i years"
 msgstr[0] "%i ปี"
 
-#: ../panels/color/cc-color-panel.c:1401
+#: ../panels/color/cc-color-panel.c:1506
 #, c-format
 msgid "%i month"
 msgid_plural "%i months"
 msgstr[0] "%i เดือน"
 
-#: ../panels/color/cc-color-panel.c:1412
+#: ../panels/color/cc-color-panel.c:1517
 #, c-format
 msgid "%i week"
 msgid_plural "%i weeks"
 msgstr[0] "%i สัปดาห์"
 
 #. fallback
-#: ../panels/color/cc-color-panel.c:1419
+#: ../panels/color/cc-color-panel.c:1524
 #, c-format
 msgid "Less than 1 week"
 msgstr "น้อยกว่า 1 สัปดาห์"
 
-#: ../panels/color/cc-color-panel.c:1481
+#: ../panels/color/cc-color-panel.c:1586
 msgctxt "Colorspace fallback"
 msgid "Default RGB"
 msgstr "RGB ปริยาย"
 
-#: ../panels/color/cc-color-panel.c:1486
+#: ../panels/color/cc-color-panel.c:1591
 msgctxt "Colorspace fallback"
 msgid "Default CMYK"
 msgstr "CMYK ปริยาย"
 
-#: ../panels/color/cc-color-panel.c:1491
+#: ../panels/color/cc-color-panel.c:1596
 msgctxt "Colorspace fallback"
 msgid "Default Gray"
 msgstr "โทนสีเทาปริยาย"
 
-#: ../panels/color/cc-color-panel.c:1609 ../panels/color/cc-color-panel.c:1650
-#: ../panels/color/cc-color-panel.c:1661 ../panels/color/cc-color-panel.c:1672
+#: ../panels/color/cc-color-panel.c:1714 ../panels/color/cc-color-panel.c:1755
+#: ../panels/color/cc-color-panel.c:1766 ../panels/color/cc-color-panel.c:1777
 msgid "Uncalibrated"
 msgstr "ยังไม่เทียบมาตรฐาน"
 
-#: ../panels/color/cc-color-panel.c:1612
+#: ../panels/color/cc-color-panel.c:1717
 msgid "This device is not color managed."
 msgstr "อุปกรณ์นี้ไม่มีการจัดการเรื่องสี"
 
-#: ../panels/color/cc-color-panel.c:1653
+#: ../panels/color/cc-color-panel.c:1758
 msgid "This device is using manufacturing calibrated data."
 msgstr "อุปกรณ์นี้กำลังใช้ค่ามาตรฐานจากโรงงาน"
 
-#: ../panels/color/cc-color-panel.c:1664
+#: ../panels/color/cc-color-panel.c:1769
 msgid ""
 "This device does not have a profile suitable for whole-screen color "
 "correction."
 msgstr "อุปกรณ์นี้ไม่มีโพรไฟล์ที่เหมาะสมสำหรับการปรับค่าสีทั้งหน้าจอ"
 
-#: ../panels/color/cc-color-panel.c:1697
+#: ../panels/color/cc-color-panel.c:1802
 msgid "This device has an old profile that may no longer be accurate."
 msgstr "อุปกรณ์นี้มีโพรไฟล์ที่เก่าซึ่งอาจไม่ถูกต้องแม่นยำอีกต่อไป"
 
 #. TRANSLATORS: this is when the calibration profile age is not
 #. * specified as it has been autogenerated from the hardware
-#: ../panels/color/cc-color-panel.c:1725
+#: ../panels/color/cc-color-panel.c:1830
 msgid "Not specified"
 msgstr "ไม่ระบุ"
 
 #. add the 'No devices detected' entry
-#: ../panels/color/cc-color-panel.c:1910
+#: ../panels/color/cc-color-panel.c:2015
 msgid "No devices supporting color management detected"
 msgstr "ตรวจไม่พบอุปกรณ์ใดที่รองรับการจัดการสี"
 
-#: ../panels/color/cc-color-panel.c:2139
+#: ../panels/color/cc-color-panel.c:2244
 msgctxt "Device kind"
 msgid "Display"
 msgstr "จอแสดงผล"
 
-#: ../panels/color/cc-color-panel.c:2141
+#: ../panels/color/cc-color-panel.c:2246
 msgctxt "Device kind"
 msgid "Scanner"
 msgstr "สแกนเนอร์"
 
-#: ../panels/color/cc-color-panel.c:2143
+#: ../panels/color/cc-color-panel.c:2248
 msgctxt "Device kind"
 msgid "Printer"
 msgstr "เครื่องพิมพ์"
 
-#: ../panels/color/cc-color-panel.c:2145
+#: ../panels/color/cc-color-panel.c:2250
 msgctxt "Device kind"
 msgid "Camera"
 msgstr "กล้องถ่ายรูป"
 
-#: ../panels/color/cc-color-panel.c:2147
+#: ../panels/color/cc-color-panel.c:2252
 msgctxt "Device kind"
 msgid "Webcam"
 msgstr "เว็บแคม"
@@ -515,7 +535,8 @@ msgstr "รุ่น:"
 #: ../panels/color/color.ui.h:21
 msgid ""
 "Image files can be dragged on this window to auto-complete the above fields."
-msgstr "คุณสามารถลากแฟ้มอิมเมจมาวางในหน้าต่างนี้ เพื่อเติมข้อมูลด้านบนโดยอัตโนมัติได้"
+msgstr ""
+"คุณสามารถลากแฟ้มอิมเมจมาวางในหน้าต่างนี้ เพื่อเติมข้อมูลด้านบนโดยอัตโนมัติได้"
 
 #: ../panels/color/gnome-color-panel.desktop.in.in.h:2
 msgid "Color management settings"
@@ -526,69 +547,32 @@ msgstr "ตั้งค่าการจัดการสี"
 msgid "Color;ICC;Profile;Calibrate;Printer;Display;"
 msgstr "สี;ICC;โพรไฟล์;เทียบมาตรฐาน;เครื่องพิมพ์;จอภาพ;"
 
-#. Add some common languages first
-#: ../panels/common/cc-common-language.c:523
-msgid "English"
-msgstr "อังกฤษ"
-
-#: ../panels/common/cc-common-language.c:525
-msgid "British English"
-msgstr "อังกฤษบริติช"
-
-#: ../panels/common/cc-common-language.c:528
-msgid "German"
-msgstr "เยอรมัน"
-
-#: ../panels/common/cc-common-language.c:531
-msgid "French"
-msgstr "ฝรั่งเศส"
-
-#: ../panels/common/cc-common-language.c:534
-msgid "Spanish"
-msgstr "สเปน"
-
-#: ../panels/common/cc-common-language.c:536
-msgid "Chinese (simplified)"
-msgstr "จีน (ตัวย่อ)"
-
-#: ../panels/common/cc-common-language.c:539
-msgid "Russian"
-msgstr "รัสเซีย"
-
-#: ../panels/common/cc-common-language.c:542
-msgid "Arabic"
-msgstr "อารบิก"
-
 #. Add some common regions
-#: ../panels/common/cc-common-language.c:571
+#: ../panels/common/cc-common-language.c:661
 msgid "United States"
 msgstr "สหรัฐอเมริกา"
 
-#: ../panels/common/cc-common-language.c:572
+#: ../panels/common/cc-common-language.c:662
 msgid "Germany"
 msgstr "เยอรมนี"
 
-#: ../panels/common/cc-common-language.c:573
+#: ../panels/common/cc-common-language.c:663
 msgid "France"
 msgstr "ฝรั่งเศส"
 
-#: ../panels/common/cc-common-language.c:574
+#: ../panels/common/cc-common-language.c:664
 msgid "Spain"
 msgstr "สเปน"
 
-#: ../panels/common/cc-common-language.c:575
+#: ../panels/common/cc-common-language.c:665
 msgid "China"
 msgstr "จีน"
-
-#: ../panels/common/cc-language-chooser.c:122
-msgid "Other..."
-msgstr "อื่นๆ..."
 
 #: ../panels/common/cc-language-chooser.c:296
 msgid "Select a region"
 msgstr "เลือกภูมิภาค"
 
-#: ../panels/common/gdm-languages.c:781
+#: ../panels/common/gdm-languages.c:787
 msgid "Unspecified"
 msgstr "ไม่ระบุ"
 
@@ -732,22 +716,22 @@ msgstr "ตั้งเวลาระบบและตั้งค่าเก
 msgid "To change time or date settings, you need to authenticate."
 msgstr "ในการตั้งเวลาหรือวันที่ คุณต้องยืนยันตัวบุคคลก่อน"
 
-#: ../panels/display/cc-display-panel.c:481
+#: ../panels/display/cc-display-panel.c:513
 msgctxt "display panel, rotation"
 msgid "Normal"
 msgstr "ปกติ"
 
-#: ../panels/display/cc-display-panel.c:482
+#: ../panels/display/cc-display-panel.c:514
 msgctxt "display panel, rotation"
 msgid "Counterclockwise"
 msgstr "ทวนเข็มนาฬิกา"
 
-#: ../panels/display/cc-display-panel.c:483
+#: ../panels/display/cc-display-panel.c:515
 msgctxt "display panel, rotation"
 msgid "Clockwise"
 msgstr "ตามเข็มนาฬิกา"
 
-#: ../panels/display/cc-display-panel.c:484
+#: ../panels/display/cc-display-panel.c:516
 msgctxt "display panel, rotation"
 msgid "180 Degrees"
 msgstr "180 องศา"
@@ -757,59 +741,70 @@ msgstr "180 องศา"
 #. * screen is the same as your external projector.  Here, "Mirrored" is being
 #. * used as an adjective.  For example, the Spanish translation could be
 #. * "Pantallas en Espejo".
-#.
-#: ../panels/display/cc-display-panel.c:623
+#. 
+#. Keep this string in sync with gnome-control-center/capplets/display/xrandr-capplet.c:get_display_name()
+#. Translators:  this is the feature where what you see on your
+#. * laptop's screen is the same as your external projector.
+#. * Here, "Mirrored" is being used as an adjective.  For example,
+#. * the Spanish translation could be "Pantallas en Espejo".
+#. 
+#: ../panels/display/cc-display-panel.c:659
+#: ../panels/display/cc-rr-labeler.c:449
 msgid "Mirrored Displays"
 msgstr "จอแสดงผลแสดงเหมือนกัน"
 
-#: ../panels/display/cc-display-panel.c:647
+#: ../panels/display/cc-display-panel.c:683
 #: ../panels/display/display-capplet.ui.h:1
 msgid "Monitor"
 msgstr "จอภาพ"
 
-#: ../panels/display/cc-display-panel.c:748
+#: ../panels/display/cc-display-panel.c:787
 #, c-format
 msgid "%d x %d (%s)"
 msgstr "%d x %d (%s)"
 
-#: ../panels/display/cc-display-panel.c:750
+#: ../panels/display/cc-display-panel.c:789
 #, c-format
 msgid "%d x %d"
 msgstr "%d x %d"
 
-#: ../panels/display/cc-display-panel.c:1659
+#: ../panels/display/cc-display-panel.c:1699
 msgid "Drag to change primary display."
 msgstr "ลากเพื่อเปลี่ยนจอแสดงผลหลัก"
 
-#: ../panels/display/cc-display-panel.c:1717
+#: ../panels/display/cc-display-panel.c:1757
 msgid ""
 "Select a monitor to change its properties; drag it to rearrange its "
 "placement."
 msgstr "เลือกจอภาพเพื่อปรับค่า; ลากจอภาพเพื่อจัดวางตำแหน่งใหม่"
 
-#: ../panels/display/cc-display-panel.c:2105
+#: ../panels/display/cc-display-panel.c:2172
 msgid "%a %R"
 msgstr "%a %R"
 
-#: ../panels/display/cc-display-panel.c:2107
+#: ../panels/display/cc-display-panel.c:2174
 msgid "%a %l:%M %p"
 msgstr "%a %l:%M %p"
 
-#: ../panels/display/cc-display-panel.c:2269
-#: ../panels/display/cc-display-panel.c:2321
+#: ../panels/display/cc-display-panel.c:2336
+#: ../panels/display/cc-display-panel.c:2388
 #, c-format
 msgid "Failed to apply configuration: %s"
 msgstr "เริ่มใช้ค่าตั้งไม่สำเร็จ: %s"
 
-#: ../panels/display/cc-display-panel.c:2349
+#: ../panels/display/cc-display-panel.c:2416
 msgid "Could not save the monitor configuration"
 msgstr "ไม่สามารถบันทึกค่าตั้งของจอภาพ"
 
-#: ../panels/display/cc-display-panel.c:2409
+#: ../panels/display/cc-display-panel.c:2476
 msgid "Could not detect displays"
 msgstr "ตรวจหาจอแสดงผลไม่สำเร็จ"
 
-#: ../panels/display/cc-display-panel.c:2603
+#: ../panels/display/cc-display-panel.c:2740
+msgid "All displays"
+msgstr ""
+
+#: ../panels/display/cc-display-panel.c:2897
 msgid "Could not get screen information"
 msgstr "ไม่สามารถอ่านข้อมูลเกี่ยวกับหน้าจอ"
 
@@ -821,16 +816,24 @@ msgstr "ความ_ละเอียด"
 msgid "R_otation"
 msgstr "การ_หมุน"
 
-#. Note that mirror is a verb in this string
+#: ../panels/display/display-capplet.ui.h:4
+msgid "L_auncher placement"
+msgstr ""
+
 #: ../panels/display/display-capplet.ui.h:5
+msgid "S_ticky edges"
+msgstr ""
+
+#. Note that mirror is a verb in this string
+#: ../panels/display/display-capplet.ui.h:7
 msgid "_Mirror displays"
 msgstr "จอแสดงผลแสดงเห_มือนกัน"
 
-#: ../panels/display/display-capplet.ui.h:6
+#: ../panels/display/display-capplet.ui.h:8
 msgid "Note: may limit resolution options"
 msgstr "หมายเหตุ: อาจทำให้เลือกความละเอียดได้จำกัด"
 
-#: ../panels/display/display-capplet.ui.h:7
+#: ../panels/display/display-capplet.ui.h:9
 msgid "_Detect Displays"
 msgstr "_ตรวจหาจอแสดงผล"
 
@@ -848,34 +851,34 @@ msgid "Panel;Projector;xrandr;Screen;Resolution;Refresh;"
 msgstr "แผงควบคุม;เครื่องฉาย;xrandr;หน้าจอ;ความละเอียด;รีเฟรช;"
 
 #. Translators: VESA is an techncial acronym, don't translate it.
-#: ../panels/info/cc-info-panel.c:413
+#: ../panels/info/cc-info-panel.c:435
 #, c-format
 msgid "VESA: %s"
 msgstr "VESA: %s"
 
 #. TRANSLATORS: device type
 #. TRANSLATORS: AP type
-#: ../panels/info/cc-info-panel.c:437 ../panels/network/panel-common.c:82
+#: ../panels/info/cc-info-panel.c:459 ../panels/network/panel-common.c:82
 #: ../panels/network/panel-common.c:162
 msgid "Unknown"
 msgstr "ไม่ทราบ"
 
 #. translators: This is the type of architecture, for example:
 #. * "64-bit" or "32-bit"
-#: ../panels/info/cc-info-panel.c:593
+#: ../panels/info/cc-info-panel.c:615
 #, c-format
 msgid "%d-bit"
 msgstr "%d บิต"
 
-#: ../panels/info/cc-info-panel.c:752
+#: ../panels/info/cc-info-panel.c:774
 msgid "Unknown model"
 msgstr "ไม่ทราบรุ่น"
 
-#: ../panels/info/cc-info-panel.c:835
+#: ../panels/info/cc-info-panel.c:857
 msgid "The next login will attempt to use the standard experience."
 msgstr "การเข้าระบบครั้งหน้าจะพยายามใช้เดสก์ท็อปแบบมาตรฐาน"
 
-#: ../panels/info/cc-info-panel.c:837
+#: ../panels/info/cc-info-panel.c:859
 msgid ""
 "The next login will use the fallback mode intended for unsupported graphics "
 "hardware."
@@ -883,52 +886,52 @@ msgstr "การเข้าระบบครั้งหน้าจะใช
 
 #. translators: The hardware is not able to run GNOME 3's
 #. * shell, so we use the GNOME "Fallback" session
-#: ../panels/info/cc-info-panel.c:879
+#: ../panels/info/cc-info-panel.c:901
 msgctxt "Experience"
 msgid "Fallback"
 msgstr "สำรอง"
 
 #. translators: The hardware is able to run GNOME 3's
 #. * shell, also called "Standard" experience
-#: ../panels/info/cc-info-panel.c:885
+#: ../panels/info/cc-info-panel.c:907
 msgctxt "Experience"
 msgid "Standard"
 msgstr "มาตรฐาน"
 
-#: ../panels/info/cc-info-panel.c:1227
+#: ../panels/info/cc-info-panel.c:1283
 msgid "Ask what to do"
 msgstr "ถามว่าจะให้ทำอะไร"
 
 # probably wrong spelling
-#: ../panels/info/cc-info-panel.c:1231
+#: ../panels/info/cc-info-panel.c:1287 ../panels/power/power.ui.h:11
 msgid "Do nothing"
 msgstr "ไม่ต้องทำอะไร"
 
-#: ../panels/info/cc-info-panel.c:1235
+#: ../panels/info/cc-info-panel.c:1291
 msgid "Open folder"
 msgstr "เปิดโฟลเดอร์"
 
-#: ../panels/info/cc-info-panel.c:1326
+#: ../panels/info/cc-info-panel.c:1382
 msgid "Other Media"
 msgstr "สื่ออื่นๆ"
 
-#: ../panels/info/cc-info-panel.c:1357
+#: ../panels/info/cc-info-panel.c:1413
 msgid "Select an application for audio CDs"
 msgstr "เลือกโปรแกรมสำหรับซีดีเพลง"
 
-#: ../panels/info/cc-info-panel.c:1358
+#: ../panels/info/cc-info-panel.c:1414
 msgid "Select an application for video DVDs"
 msgstr "เลือกโปรแกรมสำหรับดีวีดีภาพยนตร์"
 
-#: ../panels/info/cc-info-panel.c:1359
+#: ../panels/info/cc-info-panel.c:1415
 msgid "Select an application to run when a music player is connected"
 msgstr "เลือกโปรแกรมที่จะเรียกเมื่อมีการเชื่อมต่อกับเครื่องเล่นเพลง"
 
-#: ../panels/info/cc-info-panel.c:1360
+#: ../panels/info/cc-info-panel.c:1416
 msgid "Select an application to run when a camera is connected"
 msgstr "เลือกโปรแกรมที่จะเรียกเมื่อมีการเชื่อมต่อกับกล้องถ่ายรูป"
 
-#: ../panels/info/cc-info-panel.c:1361
+#: ../panels/info/cc-info-panel.c:1417
 msgid "Select an application for software CDs"
 msgstr "เลือกโปรแกรมสำหรับซีดีซอฟต์แวร์"
 
@@ -936,94 +939,98 @@ msgstr "เลือกโปรแกรมสำหรับซีดีซอ
 #. * strings, just here to fix capitalization of the English originals.
 #. * If the shared-mime-info translation works for your language,
 #. * simply leave these untranslated.
-#.
-#: ../panels/info/cc-info-panel.c:1373
+#. 
+#: ../panels/info/cc-info-panel.c:1429
 msgid "audio DVD"
 msgstr "ดีวีดีเพลง"
 
-#: ../panels/info/cc-info-panel.c:1374
+#: ../panels/info/cc-info-panel.c:1430
 msgid "blank Blu-ray disc"
 msgstr "แผ่นบลูเรย์เปล่า"
 
-#: ../panels/info/cc-info-panel.c:1375
+#: ../panels/info/cc-info-panel.c:1431
 msgid "blank CD disc"
 msgstr "แผ่นซีดีเปล่า"
 
-#: ../panels/info/cc-info-panel.c:1376
+#: ../panels/info/cc-info-panel.c:1432
 msgid "blank DVD disc"
 msgstr "แผ่นดีวีดีเปล่า"
 
-#: ../panels/info/cc-info-panel.c:1377
+#: ../panels/info/cc-info-panel.c:1433
 msgid "blank HD DVD disc"
 msgstr "แผ่นดีวีดีเปล่าความจุสูง"
 
-#: ../panels/info/cc-info-panel.c:1378
+#: ../panels/info/cc-info-panel.c:1434
 msgid "Blu-ray video disc"
 msgstr "แผ่นภาพยนตร์บลูเรย์"
 
-#: ../panels/info/cc-info-panel.c:1379
+#: ../panels/info/cc-info-panel.c:1435
 msgid "e-book reader"
 msgstr "เครื่องอ่านอีบุ๊ก"
 
-#: ../panels/info/cc-info-panel.c:1380
+#: ../panels/info/cc-info-panel.c:1436
 msgid "HD DVD video disc"
 msgstr "แผ่นดีวีดีภาพยนตร์ความจุสูง"
 
-#: ../panels/info/cc-info-panel.c:1381
+#: ../panels/info/cc-info-panel.c:1437
 msgid "Picture CD"
 msgstr "ซีดีรูปภาพ"
 
-#: ../panels/info/cc-info-panel.c:1382
+#: ../panels/info/cc-info-panel.c:1438
 msgid "Super Video CD"
 msgstr "ซูเปอร์วิดีโอซีดี"
 
-#: ../panels/info/cc-info-panel.c:1383
+#: ../panels/info/cc-info-panel.c:1439
 msgid "Video CD"
 msgstr "วิดีโอซีดี"
 
-#: ../panels/info/cc-info-panel.c:1384
+#: ../panels/info/cc-info-panel.c:1440
 msgid "Windows software"
 msgstr "ซอฟต์แวร์สำหรับวินโดวส์"
 
-#: ../panels/info/cc-info-panel.c:1385
+#: ../panels/info/cc-info-panel.c:1441
 msgid "Software"
 msgstr "ซอฟต์แวร์"
 
-#: ../panels/info/cc-info-panel.c:1508
+#: ../panels/info/cc-info-panel.c:1564
 #: ../panels/keyboard/keyboard-shortcuts.c:1667
 msgid "Section"
 msgstr "หัวข้อ"
 
-#: ../panels/info/cc-info-panel.c:1517 ../panels/info/info.ui.h:11
+#: ../panels/info/cc-info-panel.c:1573 ../panels/info/info.ui.h:11
 msgid "Overview"
 msgstr "ทั่วไป"
 
-#: ../panels/info/cc-info-panel.c:1523 ../panels/info/info.ui.h:18
+#: ../panels/info/cc-info-panel.c:1579 ../panels/info/info.ui.h:18
 msgid "Default Applications"
 msgstr "โปรแกรมหลัก"
 
-#: ../panels/info/cc-info-panel.c:1528 ../panels/info/info.ui.h:26
+#: ../panels/info/cc-info-panel.c:1584 ../panels/info/info.ui.h:26
 msgid "Removable Media"
 msgstr "สื่อถอดเสียบ"
 
-#: ../panels/info/cc-info-panel.c:1533 ../panels/info/info.ui.h:10
+#: ../panels/info/cc-info-panel.c:1589 ../panels/info/info.ui.h:10
 msgid "Graphics"
 msgstr "กราฟิกส์"
 
-#: ../panels/info/cc-info-panel.c:1735
+#: ../panels/info/cc-info-panel.c:1596
+msgid "Legal Notice"
+msgstr ""
+
+#: ../panels/info/cc-info-panel.c:1799
 #, c-format
 msgid "Version %s"
 msgstr "รุ่น %s"
 
-#: ../panels/info/cc-info-panel.c:1785
+#: ../panels/info/cc-info-panel.c:1851
 msgid "Install Updates"
 msgstr "ติดตั้งรุ่นใหม่"
 
-#: ../panels/info/cc-info-panel.c:1789
+#: ../panels/info/cc-info-panel.c:1855
 msgid "System Up-To-Date"
 msgstr "ระบบเป็นรุ่นใหม่ล่าสุดแล้ว"
 
-#: ../panels/info/cc-info-panel.c:1793
+#: ../panels/info/cc-info-panel.c:1859
 msgid "Checking for Updates"
 msgstr "กำลังตรวจสอบซอฟต์แวร์รุ่นใหม่"
 
@@ -1038,11 +1045,11 @@ msgstr "ข้อมูลเกี่ยวกับระบบ"
 #. sure that you use the same "translation" for those keywords
 #: ../panels/info/gnome-info-panel.desktop.in.in.h:4
 msgid ""
-"device;system;information;memory;processor;version;default;application;"
-"fallback;preferred;cd;dvd;usb;audio;video;disc;removable;media;autorun;"
+"device;system;information;memory;processor;version;default;application;fallba"
+"ck;preferred;cd;dvd;usb;audio;video;disc;removable;media;autorun;"
 msgstr ""
-"อุปกรณ์;ระบบ;ข้อมูล;หน่วยความจำ;ตัวประมวลผล;รุ่น;ปริยาย;โปรแกรม;สำรอง;โปรแกรมหลักๆ;ซีดี;"
-"ดีวีดี;usb;เสียง;วีดิทัศน์;ดิสก์;ถอดเสียบ;สื่อ;autorun;"
+"อุปกรณ์;ระบบ;ข้อมูล;หน่วยความจำ;ตัวประมวลผล;รุ่น;ปริยาย;โปรแกรม;สำรอง;โปรแกรม"
+"หลักๆ;ซีดี;ดีวีดี;usb;เสียง;วีดิทัศน์;ดิสก์;ถอดเสียบ;สื่อ;autorun;"
 
 #: ../panels/info/info.ui.h:1
 msgid "Select how other media should be handled"
@@ -1196,12 +1203,12 @@ msgid "Typing"
 msgstr "การพิมพ์"
 
 #: ../panels/keyboard/01-input-sources.xml.in.h:2
-#: ../panels/region/gnome-region-panel.ui.h:26
+#: ../panels/region/gnome-region-panel.ui.h:25
 msgid "Switch to next source"
 msgstr "สลับไปยังช่องทางถัดไป"
 
 #: ../panels/keyboard/01-input-sources.xml.in.h:3
-#: ../panels/region/gnome-region-panel.ui.h:24
+#: ../panels/region/gnome-region-panel.ui.h:23
 msgid "Switch to previous source"
 msgstr "สลับไปยังช่องทางก่อนหน้า"
 
@@ -1222,14 +1229,18 @@ msgid "Launch email client"
 msgstr "เรียกโปรแกรมอ่าน-เขียนเมล"
 
 #: ../panels/keyboard/01-launchers.xml.in.h:5
+msgid "Launch terminal"
+msgstr ""
+
+#: ../panels/keyboard/01-launchers.xml.in.h:6
 msgid "Launch web browser"
 msgstr "เรียกเว็บเบราว์เซอร์"
 
-#: ../panels/keyboard/01-launchers.xml.in.h:6
+#: ../panels/keyboard/01-launchers.xml.in.h:7
 msgid "Home folder"
 msgstr "โฟลเดอร์บ้าน"
 
-#: ../panels/keyboard/01-launchers.xml.in.h:7
+#: ../panels/keyboard/01-launchers.xml.in.h:8
 msgid "Search"
 msgstr "ค้นหา"
 
@@ -1237,35 +1248,32 @@ msgstr "ค้นหา"
 msgid "Screenshots"
 msgstr "ภาพหน้าจอ"
 
-#. translators: Pictures is the name of the XDG Pictures directory
+#: ../panels/keyboard/01-screenshot.xml.in.h:2
+msgid "Take a screenshot"
+msgstr "จับภาพหน้าจอ"
+
 #: ../panels/keyboard/01-screenshot.xml.in.h:3
-msgid "Save a screenshot to Pictures"
-msgstr "จับภาพหน้าจอไปเก็บไว้ที่โฟลเดอร์ \"รูปภาพ\""
+msgid "Take a screenshot of a window"
+msgstr "จับภาพหน้าจอของหน้าต่าง"
 
-#. translators: Pictures is the name of the XDG Pictures directory
+#: ../panels/keyboard/01-screenshot.xml.in.h:4
+msgid "Take a screenshot of an area"
+msgstr ""
+
 #: ../panels/keyboard/01-screenshot.xml.in.h:5
-msgid "Save a screenshot of a window to Pictures"
-msgstr "จับภาพหน้าต่างไปเก็บไว้ที่โฟลเดอร์ \"รูปภาพ\""
-
-#. translators: Pictures is the name of the XDG Pictures directory
-#: ../panels/keyboard/01-screenshot.xml.in.h:7
-msgid "Save a screenshot of an area to Pictures"
-msgstr "จับภาพพื้นที่หน้าจอไปเก็บไว้ที่โฟลเดอร์ \"รูปภาพ\""
-
-#: ../panels/keyboard/01-screenshot.xml.in.h:8
 msgid "Copy a screenshot to clipboard"
 msgstr "จับภาพหน้าจอเข้าไปไว้ในคลิปบอร์ด"
 
-#: ../panels/keyboard/01-screenshot.xml.in.h:9
+#: ../panels/keyboard/01-screenshot.xml.in.h:6
 msgid "Copy a screenshot of a window to clipboard"
 msgstr "จับภาพหน้าต่างเข้าไปไว้ในคลิปบอร์ด"
 
-#: ../panels/keyboard/01-screenshot.xml.in.h:10
+#: ../panels/keyboard/01-screenshot.xml.in.h:7
 msgid "Copy a screenshot of an area to clipboard"
 msgstr "จับภาพพื้นที่หน้าจอเข้าไปไว้ในคลิปบอร์ด"
 
 #: ../panels/keyboard/01-system.xml.in.h:1
-#: ../panels/region/gnome-region-panel.ui.h:39
+#: ../panels/region/gnome-region-panel.ui.h:41
 msgid "System"
 msgstr "ระบบ"
 
@@ -1322,6 +1330,7 @@ msgstr "เปิดหรือปิดการแสดงสีตัดก
 #: ../panels/sound/gvc-mixer-control.c:1834
 #: ../panels/user-accounts/um-fingerprint-dialog.c:215
 #: ../panels/user-accounts/um-fingerprint-dialog.c:216
+#: ../panels/region/keyboard-shortcuts.c:594
 msgid "Disabled"
 msgstr "ไม่ใช้"
 
@@ -1437,11 +1446,11 @@ msgid ""
 "To edit a shortcut, click the row and hold down the new keys or press "
 "Backspace to clear."
 msgstr ""
-"ถ้าต้องการแก้ไขปุ่มลัด คลิกที่รายการที่ต้องการแล้วกดปุ่มลัดชุดใหม่ หรือกดปุ่ม Backspace "
-"ถ้าต้องการล้างปุ่มลัด"
+"ถ้าต้องการแก้ไขปุ่มลัด คลิกที่รายการที่ต้องการแล้วกดปุ่มลัดชุดใหม่ "
+"หรือกดปุ่ม Backspace ถ้าต้องการล้างปุ่มลัด"
 
 #: ../panels/keyboard/gnome-keyboard-panel.ui.h:23
-#: ../panels/region/gnome-region-panel.ui.h:29
+#: ../panels/region/gnome-region-panel.ui.h:28
 msgid "Shortcuts"
 msgstr "ปุ่มลัด"
 
@@ -1455,6 +1464,7 @@ msgid "<Unknown Action>"
 msgstr "<ปฏิบัติการที่ไม่รู้จัก>"
 
 #: ../panels/keyboard/keyboard-shortcuts.c:1273
+#: ../panels/region/keyboard-shortcuts.c:724
 #, c-format
 msgid ""
 "The shortcut \"%s\" cannot be used because it will become impossible to type "
@@ -1465,6 +1475,7 @@ msgstr ""
 "กรุณาใช้ปุ่มอย่าง Control, Alt หรือ Shift ประกอบด้วย"
 
 #: ../panels/keyboard/keyboard-shortcuts.c:1305
+#: ../panels/region/keyboard-shortcuts.c:750
 #, c-format
 msgid ""
 "The shortcut \"%s\" is already used for\n"
@@ -1474,16 +1485,18 @@ msgstr ""
 "\"%s\""
 
 #: ../panels/keyboard/keyboard-shortcuts.c:1310
+#: ../panels/region/keyboard-shortcuts.c:755
 #, c-format
 msgid ""
 "If you reassign the shortcut to \"%s\", the \"%s\" shortcut will be disabled."
 msgstr "ถ้าคุณกำหนดปุ่มลัดนี้ซ้ำให้เป็น \"%s\" ปุ่มลัด \"%s\" ก็จะถูกปิดไป"
 
 #: ../panels/keyboard/keyboard-shortcuts.c:1316
+#: ../panels/region/keyboard-shortcuts.c:761
 msgid "_Reassign"
 msgstr "_กำหนดซ้ำ"
 
-#: ../panels/mouse/cc-mouse-panel.c:152
+#: ../panels/mouse/cc-mouse-panel.c:163
 msgid "_Test Your Settings"
 msgstr "_ทดสอบค่าตั้งของคุณ"
 
@@ -1552,9 +1565,10 @@ msgstr "_คลิกด้วยการแตะ"
 msgid "Two _finger scroll"
 msgstr "เลื่อนหน้าจอด้วย_สองนิ้ว"
 
-#: ../panels/mouse/gnome-mouse-properties.ui.h:18
-msgid "C_ontent sticks to fingers"
-msgstr "เ_นื้อหาเลื่อนไปตามนิ้ว"
+#. Translators: This switch reverses the scrolling direction for touchpads. The term used comes from OS X so use the same translation if possible.
+#: ../panels/mouse/gnome-mouse-properties.ui.h:19
+msgid "_Natural scrolling"
+msgstr ""
 
 #: ../panels/mouse/gnome-mouse-test.c:134
 #: ../panels/mouse/gnome-mouse-test.ui.h:1
@@ -1589,23 +1603,23 @@ msgstr "ดับเบิลคลิก ปุ่มรอง"
 msgid "Single click, secondary button"
 msgstr "คลิกเดียว ปุ่มรอง"
 
-#: ../panels/network/cc-network-panel.c:615
+#: ../panels/network/cc-network-panel.c:649
 msgid "Network proxy"
 msgstr "พร็อกซีเครือข่าย"
 
-#: ../panels/network/cc-network-panel.c:799 ../panels/network/net-vpn.c:278
+#: ../panels/network/cc-network-panel.c:841 ../panels/network/net-vpn.c:278
 #, c-format
 msgid "%s VPN"
 msgstr "VPN %s"
 
 #. TRANSLATORS: the user is running a NM that is not API compatible
-#: ../panels/network/cc-network-panel.c:866
+#: ../panels/network/cc-network-panel.c:908
 msgid "The system network services are not compatible with this version."
 msgstr "บริการเครือข่ายของระบบเข้ากันไม่ได้กับรุ่นนี้"
 
 #. TRANSLATORS: this is to disable the radio hardware in the
 #. * network panel
-#: ../panels/network/cc-network-panel.c:1001
+#: ../panels/network/cc-network-panel.c:1096
 msgid "Air_plane Mode"
 msgstr "โหมดเ_ครื่องบิน"
 
@@ -1629,113 +1643,106 @@ msgstr "เพิ่มช่องเชื่อมต่อ"
 
 #. Translators: network device speed
 #: ../panels/network/net-device-mobile.c:261
-#: ../panels/network/net-device-wifi.c:770
+#: ../panels/network/net-device-wifi.c:727
 #: ../panels/network/net-device-wired.c:126
 #, c-format
 msgid "%d Mb/s"
 msgstr "%d Mb/s"
 
-#. TRANSLATORS: this is when the access point is not shown
-#. * in the list and the user has to enter the SSID manually
-#.
-#: ../panels/network/net-device-wifi.c:203
-msgid "Connect to a Hidden Network"
-msgstr "เชื่อมต่อไปยังเครือข่ายที่ซ่อนตัวอยู่"
-
 #. TRANSLATORS: this WEP WiFi security
-#: ../panels/network/net-device-wifi.c:302
-#: ../panels/network/net-device-wifi.c:481
+#: ../panels/network/net-device-wifi.c:259
+#: ../panels/network/net-device-wifi.c:438
 msgid "WEP"
 msgstr "WEP"
 
 #. TRANSLATORS: this WPA WiFi security
-#: ../panels/network/net-device-wifi.c:306
-#: ../panels/network/net-device-wifi.c:485
+#: ../panels/network/net-device-wifi.c:263
+#: ../panels/network/net-device-wifi.c:442
 msgid "WPA"
 msgstr "WPA"
 
 #. TRANSLATORS: this WPA WiFi security
-#: ../panels/network/net-device-wifi.c:310
+#: ../panels/network/net-device-wifi.c:267
 msgid "WPA2"
 msgstr "WPA2"
 
 #. TRANSLATORS: this Enterprise WiFi security
-#: ../panels/network/net-device-wifi.c:315
+#: ../panels/network/net-device-wifi.c:272
 msgid "Enterprise"
 msgstr "Enterprise"
 
-#: ../panels/network/net-device-wifi.c:320
-#: ../panels/network/net-device-wifi.c:476
+#: ../panels/network/net-device-wifi.c:277
+#: ../panels/network/net-device-wifi.c:433
 msgctxt "Wifi security"
 msgid "None"
 msgstr "ไม่มี"
 
-#: ../panels/network/net-device-wifi.c:697
+#: ../panels/network/net-device-wifi.c:654
 msgid "never"
 msgstr "ยังไม่เคยใช้"
 
-#: ../panels/network/net-device-wifi.c:707
+#: ../panels/network/net-device-wifi.c:664
 msgid "today"
 msgstr "วันนี้"
 
-#: ../panels/network/net-device-wifi.c:709
+#: ../panels/network/net-device-wifi.c:666
 msgid "yesterday"
 msgstr "เมื่อวาน"
 
-#: ../panels/network/net-device-wifi.c:711
+#: ../panels/network/net-device-wifi.c:668
 #, c-format
 msgid "%i day ago"
 msgid_plural "%i days ago"
 msgstr[0] "%i วันก่อน"
 
 #. TRANSLATORS: VPN status
-#: ../panels/network/net-device-wifi.c:780
+#: ../panels/network/net-device-wifi.c:737
 #: ../panels/network/panel-common.c:277
 msgid "Not connected"
 msgstr "ไม่ได้เชื่อมต่อ"
 
-#: ../panels/network/net-device-wifi.c:782
-#: ../panels/network/net-device-wifi.c:2086
+#: ../panels/network/net-device-wifi.c:739
+#: ../panels/network/net-device-wifi.c:2104
 msgid "Out of range"
 msgstr "อยู่นอกรัศมี"
 
-#: ../panels/network/net-device-wifi.c:813
+#: ../panels/network/net-device-wifi.c:770
 msgctxt "Signal strength"
 msgid "None"
 msgstr "ไม่มี"
 
-#: ../panels/network/net-device-wifi.c:815
+#: ../panels/network/net-device-wifi.c:772
 msgctxt "Signal strength"
 msgid "Weak"
 msgstr "อ่อน"
 
-#: ../panels/network/net-device-wifi.c:817
+#: ../panels/network/net-device-wifi.c:774
 msgctxt "Signal strength"
 msgid "Ok"
 msgstr "ใช้ได้"
 
-#: ../panels/network/net-device-wifi.c:819
+#: ../panels/network/net-device-wifi.c:776
 msgctxt "Signal strength"
 msgid "Good"
 msgstr "ดี"
 
-#: ../panels/network/net-device-wifi.c:821
+#: ../panels/network/net-device-wifi.c:778
 msgctxt "Signal strength"
 msgid "Excellent"
 msgstr "ดีมาก"
 
-#: ../panels/network/net-device-wifi.c:1005
+#: ../panels/network/net-device-wifi.c:962
 #, c-format
 msgid ""
 "Network details for %s including password and any custom configuration will "
 "be lost."
 msgstr "รายละเอียดเกี่ยวกับ %s รวมถึงรหัสผ่านและค่าปรับแต่งใดๆ จะถูกลบทิ้ง"
 
-#: ../panels/network/net-device-wifi.c:1016
+#: ../panels/network/net-device-wifi.c:973
 msgid "Forget"
 msgstr "ลบทิ้ง"
 
-#: ../panels/network/net-device-wifi.c:1552
+#: ../panels/network/net-device-wifi.c:1559
 msgid ""
 "If you have a connection to the Internet other than wireless, you can use it "
 "to share your internet connection with others."
@@ -1743,40 +1750,43 @@ msgstr ""
 "ถ้าคุณมีการเชื่อมต่อไปยังอินเทอร์เน็ตทางอื่นนอกเหนือจากเครือข่ายไร้สาย "
 "คุณก็สามารถใช้แบ่งปันการเชื่อมต่ออินเทอร์เน็ตให้ผู้อื่นใช้ได้"
 
-#: ../panels/network/net-device-wifi.c:1556
+#: ../panels/network/net-device-wifi.c:1563
 #, c-format
 msgid "Switching on the wireless hotspot will disconnect you from <b>%s</b>."
 msgstr "การเปิดใช้จุดแพร่สัญญาณไร้สายจะเป็นการตัดการเชื่อมต่อจาก <b>%s</b>"
 
-#: ../panels/network/net-device-wifi.c:1560
+#: ../panels/network/net-device-wifi.c:1567
 msgid ""
 "It is not possible to access the internet through your wireless while the "
 "hotspot is active."
-msgstr "คุณจะไม่สามารถเข้าถึงอินเทอร์เน็ตผ่านเครือข่ายไร้สายได้ในระหว่างเปิดใช้จุดแพร่สัญญาณ"
+msgstr ""
+"คุณจะไม่สามารถเข้าถึงอินเทอร์เน็ตผ่านเครือข่ายไร้สายได้ในระหว่างเปิดใช้จุดแพร"
+"่สัญญาณ"
 
-#: ../panels/network/net-device-wifi.c:1626
+#: ../panels/network/net-device-wifi.c:1633
 msgid "Stop hotspot and disconnect any users?"
 msgstr "จะปิดจุดแพร่สัญญาณและตัดการเชื่อมต่อกับผู้ใช้ทั้งหมดหรือไม่?"
 
-#: ../panels/network/net-device-wifi.c:1629
+#: ../panels/network/net-device-wifi.c:1636
 msgid "_Stop Hotspot"
 msgstr "ปิ_ดจุดแพร่สัญญาณ"
 
 #. TRANSLATORS: this is when the use leaves the PAC textbox blank
-#: ../panels/network/net-proxy.c:67
+#: ../panels/network/net-proxy.c:73
 msgid ""
 "Web Proxy Autodiscovery is used when a Configuration URL is not provided."
-msgstr "การตรวจหาเว็บพร็อกซีอัตโนมัติจะใช้เมื่อไม่มีการกำหนด URL สำหรับตั้งค่าไว้"
+msgstr ""
+"การตรวจหาเว็บพร็อกซีอัตโนมัติจะใช้เมื่อไม่มีการกำหนด URL สำหรับตั้งค่าไว้"
 
 #. TRANSLATORS: WPAD is bad: if you enable it on an untrusted
 #. * network, then anyone else on that network can tell your
 #. * machine that it should proxy all of your web traffic
 #. * through them.
-#: ../panels/network/net-proxy.c:75
+#: ../panels/network/net-proxy.c:81
 msgid "This is not recommended for untrusted public networks."
 msgstr "ไม่แนะนำให้ใช้ในเครือข่ายสาธารณะที่ไม่น่าเชื่อถือ"
 
-#: ../panels/network/net-proxy.c:367
+#: ../panels/network/net-proxy.c:515
 msgid "Proxy"
 msgstr "พร็อกซี"
 
@@ -1795,19 +1805,19 @@ msgid "IP Address"
 msgstr "ที่อยู่ไอพี"
 
 #: ../panels/network/network-mobile.ui.h:4
-#: ../panels/network/network-wifi.ui.h:13
+#: ../panels/network/network-wifi.ui.h:14
 #: ../panels/network/network-wired.ui.h:3 ../panels/network/panel-common.c:684
 msgid "IPv6 Address"
 msgstr "ที่อยู่ IPv6"
 
 #: ../panels/network/network-mobile.ui.h:5
-#: ../panels/network/network-wifi.ui.h:14
+#: ../panels/network/network-wifi.ui.h:15
 #: ../panels/network/network-wired.ui.h:4
 msgid "Default Route"
 msgstr "เส้นทางปริยาย"
 
 #: ../panels/network/network-mobile.ui.h:6
-#: ../panels/network/network-wifi.ui.h:15
+#: ../panels/network/network-wifi.ui.h:16
 #: ../panels/network/network-wired.ui.h:5
 msgid "DNS"
 msgstr "DNS"
@@ -1855,6 +1865,10 @@ msgstr "พร็อกซี _FTP"
 #: ../panels/network/network-proxy.ui.h:9
 msgid "_Socks Host"
 msgstr "โฮสต์ _Socks"
+
+#: ../panels/network/network-proxy.ui.h:10
+msgid "Apply system wide"
+msgstr ""
 
 #: ../panels/network/network.ui.h:1
 msgid "Select the interface to use for the new service"
@@ -1918,64 +1932,68 @@ msgid "_Use as Hotspot..."
 msgstr "ใ_ช้เป็นจุดแพร่สัญญาณ..."
 
 #: ../panels/network/network-wifi.ui.h:5
+msgid "Connect to a Hidden Network"
+msgstr "เชื่อมต่อไปยังเครือข่ายที่ซ่อนตัวอยู่"
+
+#: ../panels/network/network-wifi.ui.h:6
 msgid "_Disconnect"
 msgstr "_ตัดการเชื่อมต่อ"
 
-#: ../panels/network/network-wifi.ui.h:6
+#: ../panels/network/network-wifi.ui.h:7
 msgid "_Connect"
 msgstr "เ_ชื่อมต่อ"
 
-#: ../panels/network/network-wifi.ui.h:7
+#: ../panels/network/network-wifi.ui.h:8
 msgid "Last used"
 msgstr "ใช้ครั้งล่าสุด"
 
-#: ../panels/network/network-wifi.ui.h:8
+#: ../panels/network/network-wifi.ui.h:9
 #: ../panels/network/network-wired.ui.h:1
 msgid "Hardware Address"
 msgstr "ที่อยู่ฮาร์ดแวร์"
 
-#: ../panels/network/network-wifi.ui.h:9
+#: ../panels/network/network-wifi.ui.h:10
 msgid "Security"
 msgstr "การรักษาความปลอดภัย"
 
-#: ../panels/network/network-wifi.ui.h:10
+#: ../panels/network/network-wifi.ui.h:11
 msgid "Strength"
 msgstr "ความแรง"
 
-#: ../panels/network/network-wifi.ui.h:11
+#: ../panels/network/network-wifi.ui.h:12
 msgid "Link speed"
 msgstr "อัตราเร็วลิงก์"
 
-#: ../panels/network/network-wifi.ui.h:12
+#: ../panels/network/network-wifi.ui.h:13
 #: ../panels/network/network-wired.ui.h:2 ../panels/network/panel-common.c:683
 msgid "IPv4 Address"
 msgstr "ที่อยู่ IPv4"
 
-#: ../panels/network/network-wifi.ui.h:16
+#: ../panels/network/network-wifi.ui.h:17
 msgid "_Forget Network"
 msgstr "_ลบเครือข่ายทิ้ง"
 
-#: ../panels/network/network-wifi.ui.h:17
+#: ../panels/network/network-wifi.ui.h:18
 msgid "_Settings..."
 msgstr "_ตั้งค่า..."
 
-#: ../panels/network/network-wifi.ui.h:18
+#: ../panels/network/network-wifi.ui.h:19
 msgid "Switch off to connect to a wireless network"
 msgstr "ปิดเพื่อเชื่อมต่อไปยังเครือข่ายไร้สาย"
 
-#: ../panels/network/network-wifi.ui.h:19
+#: ../panels/network/network-wifi.ui.h:20
 msgid "Network Name"
 msgstr "ชื่อเครือข่าย"
 
-#: ../panels/network/network-wifi.ui.h:20
+#: ../panels/network/network-wifi.ui.h:21
 msgid "Connected Devices"
 msgstr "อุปกรณ์ที่เชื่อมต่อ"
 
-#: ../panels/network/network-wifi.ui.h:21
+#: ../panels/network/network-wifi.ui.h:22
 msgid "Security type"
 msgstr "ระบบรักษาความปลอดภัย"
 
-#: ../panels/network/network-wifi.ui.h:22
+#: ../panels/network/network-wifi.ui.h:23
 msgid "Security key"
 msgstr "กุญแจระบบรักษาความปลอดภัย"
 
@@ -2283,40 +2301,40 @@ msgid "Connection dependency failed"
 msgstr "สิ่งที่ต้องใช้สำหรับการเชื่อมต่อล้มเหลว"
 
 #. translators: This is the title of the "Add Account" dialog.
-#: ../panels/online-accounts/cc-online-accounts-add-account-dialog.c:249
+#: ../panels/online-accounts/cc-online-accounts-add-account-dialog.c:253
 #: ../panels/online-accounts/online-accounts.ui.h:2
 msgid "Add Account"
 msgstr "เพิ่มบัญชี"
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:383
+#: ../panels/online-accounts/cc-online-accounts-panel.c:374
 msgid "Error logging into the account"
 msgstr "เกิดข้อผิดพลาดขณะเข้าระบบด้วยบัญชีนี้"
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:437
+#: ../panels/online-accounts/cc-online-accounts-panel.c:428
 msgid "Expired credentials. Please log in again."
 msgstr "ข้อมูลลับหมดอายุแล้ว กรุณาเข้าระบบใหม่อีกครั้ง"
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:440
+#: ../panels/online-accounts/cc-online-accounts-panel.c:431
 msgid "_Log In"
 msgstr "เ_ข้าระบบ"
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:676
+#: ../panels/online-accounts/cc-online-accounts-panel.c:678
 msgid "Error creating account"
 msgstr "เกิดข้อผิดพลาดขณะสร้างบัญชี"
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:718
+#: ../panels/online-accounts/cc-online-accounts-panel.c:732
 msgid "Error removing account"
 msgstr "เกิดข้อผิดพลาดขณะลบบัญชี"
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:754
+#: ../panels/online-accounts/cc-online-accounts-panel.c:768
 msgid "Are you sure you want to remove the account?"
 msgstr "ยืนยันที่จะลบบัญชีหรือไม่?"
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:756
+#: ../panels/online-accounts/cc-online-accounts-panel.c:770
 msgid "This will not remove the account on the server."
 msgstr "การลบนี้จะไม่มีการลบบัญชีที่เซิร์ฟเวอร์"
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:757
+#: ../panels/online-accounts/cc-online-accounts-panel.c:771
 msgid "_Remove"
 msgstr "_ลบออก"
 
@@ -2331,7 +2349,8 @@ msgstr "จัดการบัญชีออนไลน์"
 #. Translators: those are keywords for the online-accounts control-center panel
 #: ../panels/online-accounts/gnome-online-accounts-panel.desktop.in.in.h:4
 msgid "Google;Facebook;Twitter;Yahoo;Web;Online;Chat;Calendar;Mail;Contact;"
-msgstr "กูเกิล;เฟซบุ๊ก;ทวิตเตอร์;ยาฮู;เว็บ;ออนไลน์;แช็ต;ปฏิทิน;เมล;ที่อยู่ติดต่อ;"
+msgstr ""
+"กูเกิล;เฟซบุ๊ก;ทวิตเตอร์;ยาฮู;เว็บ;ออนไลน์;แช็ต;ปฏิทิน;เมล;ที่อยู่ติดต่อ;"
 
 #: ../panels/online-accounts/online-accounts.ui.h:1
 msgid "No online accounts configured"
@@ -2350,20 +2369,20 @@ msgid ""
 "Adding an account allows your applications to access it for documents, mail, "
 "contacts, calendar, chat and more."
 msgstr ""
-"การเพิ่มบัญชีจะช่วยให้โปรแกรมต่างๆ ของคุณสามารถเข้าถึงเอกสาร เมล ผู้ติดต่อ ปฏิทิน การสนทนา "
-"และอื่นๆ จากบัญชีนั้นๆ"
+"การเพิ่มบัญชีจะช่วยให้โปรแกรมต่างๆ ของคุณสามารถเข้าถึงเอกสาร เมล ผู้ติดต่อ "
+"ปฏิทิน การสนทนา และอื่นๆ จากบัญชีนั้นๆ"
 
-#: ../panels/power/cc-power-panel.c:157
+#: ../panels/power/cc-power-panel.c:166
 msgid "Unknown time"
 msgstr "ไม่ทราบเวลา"
 
-#: ../panels/power/cc-power-panel.c:163
+#: ../panels/power/cc-power-panel.c:172
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "%i นาที"
 
-#: ../panels/power/cc-power-panel.c:175
+#: ../panels/power/cc-power-panel.c:184
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -2371,176 +2390,177 @@ msgstr[0] "%i ชั่วโมง"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: ../panels/power/cc-power-panel.c:183
+#: ../panels/power/cc-power-panel.c:192
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
-#: ../panels/power/cc-power-panel.c:184
+#: ../panels/power/cc-power-panel.c:193
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "ชั่วโมง"
 
-#: ../panels/power/cc-power-panel.c:185
+#: ../panels/power/cc-power-panel.c:194
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "นาที"
 
 #. TRANSLATORS: %1 is a time string, e.g. "1 hour 5 minutes"
-#: ../panels/power/cc-power-panel.c:228
+#: ../panels/power/cc-power-panel.c:237
 #, c-format
 msgid "Charging - %s until fully charged"
 msgstr "กำลังประจุไฟ - อีก %s จะเต็ม"
 
 #. TRANSLATORS: %1 is a time string, e.g. "1 hour 5 minutes"
-#: ../panels/power/cc-power-panel.c:236
+#: ../panels/power/cc-power-panel.c:245
 #, c-format
 msgid "Caution low battery, %s remaining"
 msgstr "ระวัง แบตเตอรี่เหลือไฟต่ำ อีก %s จะหมด"
 
 #. TRANSLATORS: %1 is a time string, e.g. "1 hour 5 minutes"
-#: ../panels/power/cc-power-panel.c:244
+#: ../panels/power/cc-power-panel.c:253
 #, c-format
 msgid "Using battery power - %s remaining"
 msgstr "กำลังใช้ไฟจากแบตเตอรี่ - ใช้ได้อีก %s"
 
 #. TRANSLATORS: primary battery
-#: ../panels/power/cc-power-panel.c:261
+#: ../panels/power/cc-power-panel.c:270
 msgid "Charging"
 msgstr "กำลังประจุไฟ"
 
 #. TRANSLATORS: primary battery
-#: ../panels/power/cc-power-panel.c:266
+#: ../panels/power/cc-power-panel.c:275
 msgid "Using battery power"
 msgstr "กำลังใช้ไฟจากแบตเตอรี่"
 
 #. TRANSLATORS: primary battery
-#: ../panels/power/cc-power-panel.c:270
+#: ../panels/power/cc-power-panel.c:279
 msgid "Charging - fully charged"
 msgstr "กำลังประจุไฟ - เต็มแล้ว"
 
 #. TRANSLATORS: primary battery
-#: ../panels/power/cc-power-panel.c:274
+#: ../panels/power/cc-power-panel.c:283
 msgid "Empty"
 msgstr "ไม่มีประจุเหลืออยู่"
 
 #. TRANSLATORS: %1 is a time string, e.g. "1 hour 5 minutes"
-#: ../panels/power/cc-power-panel.c:342
+#: ../panels/power/cc-power-panel.c:351
 #, c-format
 msgid "Caution low UPS, %s remaining"
 msgstr "คำเตือน UPS เหลือไฟต่ำ อีก %s จะหมด"
 
 #. TRANSLATORS: %1 is a time string, e.g. "1 hour 5 minutes"
-#: ../panels/power/cc-power-panel.c:348
+#: ../panels/power/cc-power-panel.c:357
 #, c-format
 msgid "Using UPS power - %s remaining"
 msgstr "กำลังใช้ไฟจาก UPS - ใช้ได้อีก %s"
 
 #. TRANSLATORS: UPS battery
-#: ../panels/power/cc-power-panel.c:366
+#: ../panels/power/cc-power-panel.c:375
 msgid "Caution low UPS"
 msgstr "ระวัง UPS เหลือไฟต่ำ"
 
 #. TRANSLATORS: UPS battery
-#: ../panels/power/cc-power-panel.c:371
+#: ../panels/power/cc-power-panel.c:380
 msgid "Using UPS power"
 msgstr "กำลังใช้ไฟจาก UPS"
 
 #. TRANSLATORS: secondary battery is normally in the media bay
-#: ../panels/power/cc-power-panel.c:423
+#: ../panels/power/cc-power-panel.c:432
 msgid "Your secondary battery is fully charged"
 msgstr "แบตเตอรี่สำรองของคุณประจุไฟเต็มแล้ว"
 
 #. TRANSLATORS: secondary battery is normally in the media bay
-#: ../panels/power/cc-power-panel.c:427
+#: ../panels/power/cc-power-panel.c:436
 msgid "Your secondary battery is empty"
 msgstr "แบตเตอรี่สำรองของคุณไม่มีประจุไฟเหลืออยู่"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:510
+#: ../panels/power/cc-power-panel.c:519
 msgid "Wireless mouse"
 msgstr "เมาส์ไร้สาย"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:514
+#: ../panels/power/cc-power-panel.c:523
 msgid "Wireless keyboard"
 msgstr "แป้นพิมพ์ไร้สาย"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:518
+#: ../panels/power/cc-power-panel.c:527
 msgid "Uninterruptible power supply"
 msgstr "อุปกรณ์จ่ายไฟสำรอง"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:522
+#: ../panels/power/cc-power-panel.c:531
 msgid "Personal digital assistant"
 msgstr "เครื่องช่วยงานส่วนบุคคลแบบดิจิทัล"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:526
+#: ../panels/power/cc-power-panel.c:535
 msgid "Cellphone"
 msgstr "โทรศัพท์เคลื่อนที่"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:530
+#: ../panels/power/cc-power-panel.c:539
 msgid "Media player"
 msgstr "เครื่องเล่นสื่อ"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:534
+#: ../panels/power/cc-power-panel.c:543
 msgid "Tablet"
 msgstr "แท็บเล็ต"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:538
+#: ../panels/power/cc-power-panel.c:547
 msgid "Computer"
 msgstr "คอมพิวเตอร์"
 
 #. TRANSLATORS: secondary battery, misc
-#: ../panels/power/cc-power-panel.c:542
+#: ../panels/power/cc-power-panel.c:551
 msgid "Battery"
 msgstr "แบตเตอรี่"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:553
+#: ../panels/power/cc-power-panel.c:562
 msgctxt "Battery power"
 msgid "Charging"
 msgstr "กำลังประจุไฟ"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:560
+#: ../panels/power/cc-power-panel.c:569
 msgctxt "Battery power"
 msgid "Caution"
 msgstr "ระวัง"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:565
+#: ../panels/power/cc-power-panel.c:574
 msgctxt "Battery power"
 msgid "Low"
 msgstr "ต่ำ"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:570
+#: ../panels/power/cc-power-panel.c:579
 msgctxt "Battery power"
 msgid "Good"
 msgstr "ดี"
 
 #. TRANSLATORS: primary battery
-#: ../panels/power/cc-power-panel.c:575
+#: ../panels/power/cc-power-panel.c:584
 msgctxt "Battery power"
 msgid "Charging - fully charged"
 msgstr "กำลังประจุไฟ - เต็มแล้ว"
 
 #. TRANSLATORS: primary battery
-#: ../panels/power/cc-power-panel.c:579
+#: ../panels/power/cc-power-panel.c:588
 msgctxt "Battery power"
 msgid "Empty"
 msgstr "ไม่มีประจุเหลืออยู่"
 
-#: ../panels/power/cc-power-panel.c:1075
+#: ../panels/power/cc-power-panel.c:1091
 msgid ""
 "Tip: <a href=\"screen\">screen brightness</a> affects how much power is used"
-msgstr "คำแนะนำ: <a href=\"screen\">ความสว่างของจอ</a> มีผลกับปริมาณการใช้พลังงาน"
+msgstr ""
+"คำแนะนำ: <a href=\"screen\">ความสว่างของจอ</a> มีผลกับปริมาณการใช้พลังงาน"
 
 #: ../panels/power/gnome-power-panel.desktop.in.in.h:1
 msgid "Power"
@@ -2571,215 +2591,248 @@ msgstr "5 นาที"
 msgid "10 minutes"
 msgstr "10 นาที"
 
-#: ../panels/power/power.ui.h:5 ../panels/screen/screen.ui.h:8
+#: ../panels/power/power.ui.h:5
+msgid "20 minutes"
+msgstr ""
+
+#: ../panels/power/power.ui.h:6 ../panels/screen/screen.ui.h:8
 msgid "30 minutes"
 msgstr "30 นาที"
 
-#: ../panels/power/power.ui.h:6 ../panels/screen/screen.ui.h:9
+#: ../panels/power/power.ui.h:7 ../panels/screen/screen.ui.h:9
 msgid "1 hour"
 msgstr "1 ชั่วโมง"
 
-#: ../panels/power/power.ui.h:7
+#: ../panels/power/power.ui.h:8
+msgid "2 hours"
+msgstr ""
+
+#: ../panels/power/power.ui.h:9
 msgid "Don't suspend"
 msgstr "ไม่ต้องพักเครื่อง"
 
-#: ../panels/power/power.ui.h:8
+#: ../panels/power/power.ui.h:10
+msgid "Suspend"
+msgstr "พักเครื่อง"
+
+#: ../panels/power/power.ui.h:12
+msgid "When battery is present"
+msgstr ""
+
+#: ../panels/power/power.ui.h:13
+msgid "When battery is charging/in use"
+msgstr ""
+
+#: ../panels/power/power.ui.h:14 ../panels/screen/screen.ui.h:10
+msgid "Never"
+msgstr "ไม่เลย"
+
+#: ../panels/power/power.ui.h:15
 msgid "On battery power"
 msgstr "เมื่อใช้ไฟจากแบตเตอรี่"
 
-#: ../panels/power/power.ui.h:9
+#: ../panels/power/power.ui.h:16
 msgid "When plugged in"
 msgstr "เมื่อเสียบปลั๊กไฟ"
 
-#: ../panels/power/power.ui.h:10
+#: ../panels/power/power.ui.h:17
 msgid "Suspend when inactive for"
 msgstr "พักเครื่องเมื่อไม่มีการใช้งานเป็นเวลา"
 
-#: ../panels/power/power.ui.h:11
+#: ../panels/power/power.ui.h:18
 msgid "When power is _critically low"
 msgstr "เมื่อพลังงานเหลือต่ำถึงขีด_วิกฤติ"
 
+#: ../panels/power/power.ui.h:19
+msgid "When the lid is closed"
+msgstr ""
+
+#: ../panels/power/power.ui.h:20
+msgid "Show battery status in the _menu bar"
+msgstr ""
+
 #. Translators: The printer is low on toner
-#: ../panels/printers/cc-printers-panel.c:589
+#: ../panels/printers/cc-printers-panel.c:592
 msgid "Low on toner"
 msgstr "ผงหมึกใกล้หมด"
 
 #. Translators: The printer has no toner left
-#: ../panels/printers/cc-printers-panel.c:591
+#: ../panels/printers/cc-printers-panel.c:594
 msgid "Out of toner"
 msgstr "ผงหมึกหมด"
 
 #. Translators: "Developer" is a chemical for photo development,
 #. * http://en.wikipedia.org/wiki/Photographic_developer
-#: ../panels/printers/cc-printers-panel.c:594
+#: ../panels/printers/cc-printers-panel.c:597
 msgid "Low on developer"
 msgstr "น้ำยาใกล้หมด"
 
 #. Translators: "Developer" is a chemical for photo development,
 #. * http://en.wikipedia.org/wiki/Photographic_developer
-#: ../panels/printers/cc-printers-panel.c:597
+#: ../panels/printers/cc-printers-panel.c:600
 msgid "Out of developer"
 msgstr "น้ำยาหมด"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../panels/printers/cc-printers-panel.c:599
+#: ../panels/printers/cc-printers-panel.c:602
 msgid "Low on a marker supply"
 msgstr ""
 
 #. Translators: "marker" is one color bin of the printer
-#: ../panels/printers/cc-printers-panel.c:601
+#: ../panels/printers/cc-printers-panel.c:604
 msgid "Out of a marker supply"
 msgstr ""
 
 #. Translators: One or more covers on the printer are open
-#: ../panels/printers/cc-printers-panel.c:603
+#: ../panels/printers/cc-printers-panel.c:606
 msgid "Open cover"
-msgstr ""
+msgstr "เปิดปก"
 
 #. Translators: One or more doors on the printer are open
-#: ../panels/printers/cc-printers-panel.c:605
+#: ../panels/printers/cc-printers-panel.c:608
 msgid "Open door"
-msgstr ""
+msgstr "เปิดประตู"
 
 #. Translators: At least one input tray is low on media
-#: ../panels/printers/cc-printers-panel.c:607
+#: ../panels/printers/cc-printers-panel.c:610
 msgid "Low on paper"
 msgstr "กระดาษใกล้หมด"
 
 #. Translators: At least one input tray is empty
-#: ../panels/printers/cc-printers-panel.c:609
+#: ../panels/printers/cc-printers-panel.c:612
 msgid "Out of paper"
 msgstr "กระดาษหมด"
 
 #. Translators: The printer is offline
-#: ../panels/printers/cc-printers-panel.c:611
+#: ../panels/printers/cc-printers-panel.c:614
 msgctxt "printer state"
 msgid "Offline"
 msgstr "ออฟไลน์"
 
 #. Translators: Someone has paused the Printer
-#: ../panels/printers/cc-printers-panel.c:613
+#: ../panels/printers/cc-printers-panel.c:616
 msgctxt "printer state"
 msgid "Paused"
 msgstr "พักพิมพ์"
 
 #. Translators: The printer marker supply waste receptacle is almost full
-#: ../panels/printers/cc-printers-panel.c:615
+#: ../panels/printers/cc-printers-panel.c:618
 msgid "Waste receptacle almost full"
 msgstr ""
 
 #. Translators: The printer marker supply waste receptacle is full
-#: ../panels/printers/cc-printers-panel.c:617
+#: ../panels/printers/cc-printers-panel.c:620
 msgid "Waste receptacle full"
 msgstr ""
 
 #. Translators: Optical photo conductors are used in laser printers
-#: ../panels/printers/cc-printers-panel.c:619
+#: ../panels/printers/cc-printers-panel.c:622
 msgid "The optical photo conductor is near end of life"
 msgstr ""
 
 #. Translators: Optical photo conductors are used in laser printers
-#: ../panels/printers/cc-printers-panel.c:621
+#: ../panels/printers/cc-printers-panel.c:624
 msgid "The optical photo conductor is no longer functioning"
 msgstr ""
 
 #. Translators: Printer's state (printer is being configured right now)
-#: ../panels/printers/cc-printers-panel.c:724
+#: ../panels/printers/cc-printers-panel.c:727
 msgctxt "printer state"
 msgid "Configuring"
 msgstr "กำลังตั้งค่า"
 
 #. Translators: Printer's state (can start new job without waiting)
-#: ../panels/printers/cc-printers-panel.c:781
+#: ../panels/printers/cc-printers-panel.c:784
 msgctxt "printer state"
 msgid "Ready"
 msgstr "พร้อม"
 
 #. Translators: Printer's state (jobs are processing)
-#: ../panels/printers/cc-printers-panel.c:785
+#: ../panels/printers/cc-printers-panel.c:788
 msgctxt "printer state"
 msgid "Processing"
 msgstr "กำลังดำเนินการ"
 
 #. Translators: Printer's state (no jobs can be processed)
-#: ../panels/printers/cc-printers-panel.c:789
+#: ../panels/printers/cc-printers-panel.c:792
 msgctxt "printer state"
 msgid "Stopped"
 msgstr "หยุด"
 
 #. Translators: Toner supply
-#: ../panels/printers/cc-printers-panel.c:906
+#: ../panels/printers/cc-printers-panel.c:909
 msgid "Toner Level"
 msgstr "ระดับผงหมึก"
 
 #. Translators: Ink supply
-#: ../panels/printers/cc-printers-panel.c:909
+#: ../panels/printers/cc-printers-panel.c:912
 msgid "Ink Level"
 msgstr "ระดับน้ำหมึก"
 
 #. Translators: By supply we mean ink, toner, staples, water, ...
-#: ../panels/printers/cc-printers-panel.c:912
+#: ../panels/printers/cc-printers-panel.c:915
 msgid "Supply Level"
 msgstr "ระดับแหล่งจ่าย"
 
 #. Translators: Printer's state (printer is being installed right now)
-#: ../panels/printers/cc-printers-panel.c:930
+#: ../panels/printers/cc-printers-panel.c:933
 msgctxt "printer state"
 msgid "Installing"
 msgstr "กำลังติดตั้ง"
 
 #. Translators: There are no printers available (none is configured or CUPS is not running)
-#: ../panels/printers/cc-printers-panel.c:1107
+#: ../panels/printers/cc-printers-panel.c:1110
 msgid "No printers available"
 msgstr "ไม่มีเครื่องพิมพ์"
 
 #. Translators: there is n active print jobs on this printer
-#: ../panels/printers/cc-printers-panel.c:1411
+#: ../panels/printers/cc-printers-panel.c:1414
 #, c-format
 msgid "%u active"
 msgid_plural "%u active"
 msgstr[0] "ทำงานอยู่ %u"
 
 #. Translators: Addition of the new printer failed.
-#: ../panels/printers/cc-printers-panel.c:1731
+#: ../panels/printers/cc-printers-panel.c:1734
 msgid "Failed to add new printer."
 msgstr "เพิ่มเครื่องพิมพ์เครื่องใหม่ไม่สำเร็จ"
 
-#: ../panels/printers/cc-printers-panel.c:1896
+#: ../panels/printers/cc-printers-panel.c:1899
 msgid "Select PPD File"
 msgstr "เลือกแฟ้ม PPD"
 
-#: ../panels/printers/cc-printers-panel.c:1905
+#: ../panels/printers/cc-printers-panel.c:1908
 msgid ""
-"PostScript Printer Description files (*.ppd, *.PPD, *.ppd.gz, *.PPD.gz, *."
-"PPD.GZ)"
+"PostScript Printer Description files (*.ppd, *.PPD, *.ppd.gz, *.PPD.gz, "
+"*.PPD.GZ)"
 msgstr ""
-"แฟ้มบรรยายเครื่องพิมพ์โพสต์สคริปต์ (*.ppd, *.PPD, *.ppd.gz, *.PPD.gz, *.PPD.GZ)"
+"แฟ้มบรรยายเครื่องพิมพ์โพสต์สคริปต์ (*.ppd, *.PPD, *.ppd.gz, *.PPD.gz, "
+"*.PPD.GZ)"
 
-#: ../panels/printers/cc-printers-panel.c:2210
+#: ../panels/printers/cc-printers-panel.c:2213
 msgid "No suitable driver found"
 msgstr "ไม่พบไดรเวอร์ที่เหมาะสม"
 
-#: ../panels/printers/cc-printers-panel.c:2279
+#: ../panels/printers/cc-printers-panel.c:2282
 msgid "Searching for preferred drivers..."
 msgstr "กำลังค้นหาไดรเวอร์สำหรับเครื่องพิมพ์..."
 
-#: ../panels/printers/cc-printers-panel.c:2294
+#: ../panels/printers/cc-printers-panel.c:2297
 msgid "Select from database..."
 msgstr "เลือกจากฐานข้อมูล..."
 
-#: ../panels/printers/cc-printers-panel.c:2303
+#: ../panels/printers/cc-printers-panel.c:2306
 msgid "Provide PPD File..."
 msgstr "ป้อนแฟ้ม PPD..."
 
 #. Translators: Name of job which makes printer to print test page
-#: ../panels/printers/cc-printers-panel.c:2454
-#: ../panels/printers/cc-printers-panel.c:2477
+#: ../panels/printers/cc-printers-panel.c:2457
+#: ../panels/printers/cc-printers-panel.c:2480
 msgid "Test page"
 msgstr "หน้าทดสอบ"
 
 #. Translators: The XML file containing user interface can not be loaded
-#: ../panels/printers/cc-printers-panel.c:2880
+#: ../panels/printers/cc-printers-panel.c:2883
 #, c-format
 msgid "Could not load ui: %s"
 msgstr "อ่านส่วนติดต่อผู้ใช้ไม่สำเร็จ: %s"
@@ -2826,7 +2879,7 @@ msgid "Cancel Print Job"
 msgstr "ยกเลิกงานพิมพ์"
 
 #: ../panels/printers/new-printer-dialog.ui.h:2
-#: ../panels/user-accounts/um-account-dialog.c:1044
+#: ../panels/user-accounts/um-account-dialog.c:1070
 msgid "_Add"
 msgstr "เ_พิ่ม"
 
@@ -2839,6 +2892,7 @@ msgid "Search for network printers or filter result"
 msgstr "ค้นหาเครื่องพิมพ์ในเครือข่ายหรือกรองผลการค้นหา"
 
 #: ../panels/printers/options-dialog.ui.h:2
+#: ../panels/region/gnome-region-panel.ui.h:31
 msgid "Options"
 msgstr "ตัวเลือก"
 
@@ -2848,7 +2902,7 @@ msgstr "กำลังโหลดตัวเลือก..."
 
 #: ../panels/printers/ppd-selection-dialog.ui.h:2
 #: ../panels/user-accounts/data/photo-dialog.ui.h:8
-#: ../panels/user-accounts/um-account-dialog.c:1043
+#: ../panels/user-accounts/um-account-dialog.c:1069
 msgid "Cancel"
 msgstr "ยกเลิก"
 
@@ -3140,17 +3194,9 @@ msgstr "แ_สดง"
 msgid "Model"
 msgstr "รุ่น"
 
-#: ../panels/printers/printers.ui.h:14
-msgid "page 1"
-msgstr "หน้า 1"
-
 #: ../panels/printers/printers.ui.h:15
 msgid "label"
 msgstr "ฉลาก"
-
-#: ../panels/printers/printers.ui.h:16
-msgid "page 2"
-msgstr "หน้า 2"
 
 #: ../panels/printers/printers.ui.h:17
 msgid "Setting new driver..."
@@ -3197,11 +3243,11 @@ msgstr "เปลี่ยนค่าตั้งเกี่ยวกับภ
 msgid "Language;Layout;Keyboard;"
 msgstr "ภาษา;ผังแป้นพิมพ์;แป้นพิมพ์;"
 
-#: ../panels/region/gnome-region-panel-formats.c:142
+#: ../panels/region/gnome-region-panel-formats.c:143
 msgid "Imperial"
 msgstr "อังกฤษ"
 
-#: ../panels/region/gnome-region-panel-formats.c:144
+#: ../panels/region/gnome-region-panel-formats.c:145
 msgid "Metric"
 msgstr "เมตริก"
 
@@ -3213,28 +3259,31 @@ msgstr "เลือกช่องทางป้อนข้อความเ
 msgid "Select an input source to add"
 msgstr "เลือกช่องทางป้อนข้อความที่จะเพิ่ม"
 
-#: ../panels/region/gnome-region-panel-system.c:470
+#: ../panels/region/gnome-region-panel-system.c:512
 msgid ""
 "The login screen, system accounts and new user accounts use the system-wide "
 "Region and Language settings."
-msgstr "หน้าจอเข้าระบบ บัญชีระบบ และบัญชีผู้ใช้ใหม่ จะใช้ค่าตั้งภูมิภาคและภาษาโดยรวมของระบบ"
+msgstr ""
+"หน้าจอเข้าระบบ บัญชีระบบ และบัญชีผู้ใช้ใหม่ "
+"จะใช้ค่าตั้งภูมิภาคและภาษาโดยรวมของระบบ"
 
-#: ../panels/region/gnome-region-panel-system.c:475
-#: ../panels/region/gnome-region-panel.ui.h:31
+#: ../panels/region/gnome-region-panel-system.c:517
+#: ../panels/region/gnome-region-panel.ui.h:33
 msgid ""
 "The login screen, system accounts and new user accounts use the system-wide "
 "Region and Language settings. You may change the system settings to match "
 "yours."
 msgstr ""
-"หน้าจอเข้าระบบ บัญชีระบบ และบัญชีผู้ใช้ใหม่ จะใช้ค่าตั้งภูมิภาคและภาษาโดยรวมของระบบ "
+"หน้าจอเข้าระบบ บัญชีระบบ และบัญชีผู้ใช้ใหม่ "
+"จะใช้ค่าตั้งภูมิภาคและภาษาโดยรวมของระบบ "
 "คุณอาจเปลี่ยนค่าตั้งของระบบให้ตรงกับที่คุณใช้ก็ได้"
 
-#: ../panels/region/gnome-region-panel-system.c:478
+#: ../panels/region/gnome-region-panel-system.c:520
 msgid "Copy Settings"
 msgstr "คัดลอกค่าตั้ง"
 
-#: ../panels/region/gnome-region-panel-system.c:481
-#: ../panels/region/gnome-region-panel.ui.h:38
+#: ../panels/region/gnome-region-panel-system.c:523
+#: ../panels/region/gnome-region-panel.ui.h:40
 msgid "Copy Settings..."
 msgstr "คัดลอกค่าตั้ง..."
 
@@ -3243,129 +3292,139 @@ msgid "Region and Language"
 msgstr "ภูมิภาคและภาษา"
 
 #: ../panels/region/gnome-region-panel.ui.h:2
-msgid "Select a display language (change will be applied next time you log in)"
-msgstr "เลือกภาษาของการแสดงผล (การเปลี่ยนแปลงจะเริ่มมีผลเมื่อคุณเข้าระบบครั้งหน้า)"
+msgid ""
+"Select a display language (change will be applied next time you log in)"
+msgstr ""
+"เลือกภาษาของการแสดงผล (การเปลี่ยนแปลงจะเริ่มมีผลเมื่อคุณเข้าระบบครั้งหน้า)"
 
 #: ../panels/region/gnome-region-panel.ui.h:3
 msgid "Add Language"
 msgstr "เพิ่มภาษา"
 
 #: ../panels/region/gnome-region-panel.ui.h:4
-msgid "Remove Language"
-msgstr "ลบภาษา"
-
-#: ../panels/region/gnome-region-panel.ui.h:5
 msgid "Install languages..."
 msgstr "ติดตั้งภาษา..."
 
-#: ../panels/region/gnome-region-panel.ui.h:6
+#: ../panels/region/gnome-region-panel.ui.h:5
 msgid "Language"
 msgstr "ภาษา"
 
-#: ../panels/region/gnome-region-panel.ui.h:7
+#: ../panels/region/gnome-region-panel.ui.h:6
 msgid "Select a region (change will be applied the next time you log in)"
 msgstr "เลือกภูมิภาค (การเปลี่ยนแปลงจะเริ่มมีผลเมื่อคุณเข้าระบบครั้งหน้า)"
 
-#: ../panels/region/gnome-region-panel.ui.h:8
+#: ../panels/region/gnome-region-panel.ui.h:7
 msgid "Add Region"
 msgstr "เพิ่มภูมิภาค"
 
-#: ../panels/region/gnome-region-panel.ui.h:9
+#: ../panels/region/gnome-region-panel.ui.h:8
 msgid "Remove Region"
 msgstr "ลบภูมิภาค"
 
-#: ../panels/region/gnome-region-panel.ui.h:10
+#: ../panels/region/gnome-region-panel.ui.h:9
 msgid "Dates"
 msgstr "วันที่"
 
-#: ../panels/region/gnome-region-panel.ui.h:11
+#: ../panels/region/gnome-region-panel.ui.h:10
 msgid "Times"
 msgstr "เวลา"
 
-#: ../panels/region/gnome-region-panel.ui.h:12
+#: ../panels/region/gnome-region-panel.ui.h:11
 msgid "Numbers"
 msgstr "ตัวเลข"
 
-#: ../panels/region/gnome-region-panel.ui.h:13
+#: ../panels/region/gnome-region-panel.ui.h:12
 msgid "Currency"
 msgstr "สกุลเงิน"
 
-#: ../panels/region/gnome-region-panel.ui.h:14
+#: ../panels/region/gnome-region-panel.ui.h:13
 msgid "Measurement"
 msgstr "หน่วยความยาว"
 
-#: ../panels/region/gnome-region-panel.ui.h:15
+#: ../panels/region/gnome-region-panel.ui.h:14
 msgid "Examples"
 msgstr "ตัวอย่าง"
 
-#: ../panels/region/gnome-region-panel.ui.h:16
+#: ../panels/region/gnome-region-panel.ui.h:15
 msgid "Formats"
 msgstr "รูปแบบ"
 
-#: ../panels/region/gnome-region-panel.ui.h:17
+#: ../panels/region/gnome-region-panel.ui.h:16
 msgid "Select keyboards or other input sources"
 msgstr "เลือกแป้นพิมพ์หรือช่องทางป้อนข้อความอื่นๆ"
 
-#: ../panels/region/gnome-region-panel.ui.h:18
+#: ../panels/region/gnome-region-panel.ui.h:17
 msgid "Add Input Source"
 msgstr "เพิ่มช่องทางป้อนข้อความ"
 
-#: ../panels/region/gnome-region-panel.ui.h:19
+#: ../panels/region/gnome-region-panel.ui.h:18
 msgid "Remove Input Source"
 msgstr "ลบช่องทางป้อนข้อความ"
 
-#: ../panels/region/gnome-region-panel.ui.h:20
+#: ../panels/region/gnome-region-panel.ui.h:19
 msgid "Move Input Source Up"
 msgstr "เลื่อนช่องทางป้อนข้อความขึ้น"
 
-#: ../panels/region/gnome-region-panel.ui.h:21
+#: ../panels/region/gnome-region-panel.ui.h:20
 msgid "Move Input Source Down"
 msgstr "เลื่อนช่องทางป้อนข้อความลง"
 
-#: ../panels/region/gnome-region-panel.ui.h:22
+#: ../panels/region/gnome-region-panel.ui.h:21
 msgid "Input Source Settings"
 msgstr "ตั้งค่าช่องทางป้อนข้อความ"
 
-#: ../panels/region/gnome-region-panel.ui.h:23
+#: ../panels/region/gnome-region-panel.ui.h:22
 msgid "Show Keyboard Layout"
 msgstr "แสดงผังแป้นพิมพ์"
 
-#: ../panels/region/gnome-region-panel.ui.h:25
+#: ../panels/region/gnome-region-panel.ui.h:24
 msgid "Ctrl+Alt+Space"
 msgstr "Ctrl+Alt+Space"
 
-#: ../panels/region/gnome-region-panel.ui.h:27
+#: ../panels/region/gnome-region-panel.ui.h:26
 msgid "Ctrl+Alt+Shift+Space"
 msgstr "Ctrl+Alt+Shift+Space"
 
-#: ../panels/region/gnome-region-panel.ui.h:28
+#: ../panels/region/gnome-region-panel.ui.h:27
 msgid "Shortcut Settings"
 msgstr "ตั้งค่าปุ่มลัด"
 
+#: ../panels/region/gnome-region-panel.ui.h:29
+msgid "Use the same source for all windows"
+msgstr ""
+
 #: ../panels/region/gnome-region-panel.ui.h:30
+msgid "Allow different sources for each window"
+msgstr ""
+
+#: ../panels/region/gnome-region-panel.ui.h:32
 msgid "Input Sources"
 msgstr "ช่องทางป้อนข้อความ"
 
 #. 'display' means 'output' here, as in 'translated messages that are displayed to the user'
-#: ../panels/region/gnome-region-panel.ui.h:33
+#: ../panels/region/gnome-region-panel.ui.h:35
 msgid "Display language:"
 msgstr "ภาษาข้อความ:"
 
-#: ../panels/region/gnome-region-panel.ui.h:34
+#: ../panels/region/gnome-region-panel.ui.h:36
 msgid "Input source:"
 msgstr "ช่องทางป้อนข้อความ:"
 
-#: ../panels/region/gnome-region-panel.ui.h:35
+#: ../panels/region/gnome-region-panel.ui.h:37
 msgid "Format:"
 msgstr "รูปแบบ:"
 
-#: ../panels/region/gnome-region-panel.ui.h:36
+#: ../panels/region/gnome-region-panel.ui.h:38
 msgid "Your settings"
 msgstr "ค่าตั้งของคุณ"
 
-#: ../panels/region/gnome-region-panel.ui.h:37
+#: ../panels/region/gnome-region-panel.ui.h:39
 msgid "System settings"
 msgstr "ค่าตั้งระบบ"
+
+#: ../panels/region/gtkentryaccel.c:180
+msgid "New accelerator…"
+msgstr ""
 
 #: ../panels/screen/gnome-screen-panel.desktop.in.in.h:1
 msgid "Brightness & Lock"
@@ -3400,36 +3459,40 @@ msgstr "2 นาที"
 msgid "3 minutes"
 msgstr "3 นาที"
 
-#: ../panels/screen/screen.ui.h:10
+#: ../panels/screen/screen.ui.h:11
 msgid "_Dim screen to save power"
 msgstr "ห_รี่จอภาพเพื่อประหยัดพลังงาน"
 
-#: ../panels/screen/screen.ui.h:11
+#: ../panels/screen/screen.ui.h:12
 msgid "Brightness"
 msgstr "ความสว่าง"
 
-#: ../panels/screen/screen.ui.h:12
+#: ../panels/screen/screen.ui.h:13
 msgid "_Turn screen off when inactive for:"
 msgstr "_ปิดหน้าจอเมื่อไม่มีการใช้งานเป็นเวลา:"
 
-#: ../panels/screen/screen.ui.h:13
+#: ../panels/screen/screen.ui.h:14
 msgid "_Lock screen after:"
 msgstr "_ล็อคหน้าจอหลังจาก:"
 
-#. To translators: This asks whether you want to lock the screen (through the screensaver) when you're detected to be physically in your home (your house, etc.)
 #: ../panels/screen/screen.ui.h:15
+msgid "Require my password when waking from suspend"
+msgstr ""
+
+#. To translators: This asks whether you want to lock the screen (through the screensaver) when you're detected to be physically in your home (your house, etc.)
+#: ../panels/screen/screen.ui.h:17
 msgid "Don't lock when at home"
 msgstr "ไม่ต้องล็อคเมื่ออยู่บ้าน"
 
-#: ../panels/screen/screen.ui.h:16
+#: ../panels/screen/screen.ui.h:18
 msgid "Locations..."
 msgstr "สถานที่..."
 
-#: ../panels/screen/screen.ui.h:17
+#: ../panels/screen/screen.ui.h:19
 msgid "Show _notifications when locked"
 msgstr "แ_จ้งเหตุขณะล็อคจอภาพ"
 
-#: ../panels/screen/screen.ui.h:18
+#: ../panels/screen/screen.ui.h:20
 msgid "Lock"
 msgstr "ล็อค"
 
@@ -3454,10 +3517,12 @@ msgid "Show desktop volume control"
 msgstr "แสดงเครื่องมือปรับความดังเสียงของเดสก์ท็อป"
 
 #: ../panels/sound/data/gnome-sound-panel.desktop.in.in.h:1
+#: ../panels/sound-nua/data/gnome-sound-nua-panel.desktop.in.in.h:1
 msgid "Sound"
 msgstr "เสียง"
 
 #: ../panels/sound/data/gnome-sound-panel.desktop.in.in.h:2
+#: ../panels/sound-nua/data/gnome-sound-nua-panel.desktop.in.in.h:2
 msgid "Change sound volume and sound events"
 msgstr "ปรับความดังเสียงและตั้งค่าเสียงสำหรับเหตุการณ์ต่างๆ"
 
@@ -3491,6 +3556,7 @@ msgid "Sonar"
 msgstr "โซนาร์"
 
 #: ../panels/sound/gvc-applet.c:270 ../panels/sound/gvc-mixer-dialog.c:1656
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1770
 msgid "Output"
 msgstr "เสียงออก"
 
@@ -3499,6 +3565,7 @@ msgid "Sound Output Volume"
 msgstr "ความดังของเสียงออก"
 
 #: ../panels/sound/gvc-applet.c:276 ../panels/sound/gvc-mixer-dialog.c:1697
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1903
 msgid "Input"
 msgstr "เสียงเข้า"
 
@@ -3507,44 +3574,53 @@ msgid "Microphone Volume"
 msgstr "ความดังของไมโครโฟน"
 
 #: ../panels/sound/gvc-balance-bar.c:111
+#: ../panels/sound-nua/gvc-balance-bar.c:111
 msgctxt "balance"
 msgid "Left"
 msgstr "ซ้าย"
 
 #: ../panels/sound/gvc-balance-bar.c:112
+#: ../panels/sound-nua/gvc-balance-bar.c:112
 msgctxt "balance"
 msgid "Right"
 msgstr "ขวา"
 
 #: ../panels/sound/gvc-balance-bar.c:115
+#: ../panels/sound-nua/gvc-balance-bar.c:115
 msgctxt "balance"
 msgid "Rear"
 msgstr "หลัง"
 
 #: ../panels/sound/gvc-balance-bar.c:116
+#: ../panels/sound-nua/gvc-balance-bar.c:116
 msgctxt "balance"
 msgid "Front"
 msgstr "หน้า"
 
 #: ../panels/sound/gvc-balance-bar.c:119
+#: ../panels/sound-nua/gvc-balance-bar.c:119
 msgctxt "balance"
 msgid "Minimum"
 msgstr "ต่ำสุด"
 
 #: ../panels/sound/gvc-balance-bar.c:120
+#: ../panels/sound-nua/gvc-balance-bar.c:120
 msgctxt "balance"
 msgid "Maximum"
 msgstr "สูงสุด"
 
 #: ../panels/sound/gvc-balance-bar.c:295
+#: ../panels/sound-nua/gvc-balance-bar.c:295
 msgid "_Balance:"
 msgstr "_สมดุล:"
 
 #: ../panels/sound/gvc-balance-bar.c:298
+#: ../panels/sound-nua/gvc-balance-bar.c:298
 msgid "_Fade:"
 msgstr "เ_ฟด:"
 
 #: ../panels/sound/gvc-balance-bar.c:301
+#: ../panels/sound-nua/gvc-balance-bar.c:301
 msgid "_Subwoofer:"
 msgstr "_ซับวูฟเฟอร์:"
 
@@ -3588,20 +3664,24 @@ msgid "_Test Speakers"
 msgstr "_ทดสอบลำโพง"
 
 #: ../panels/sound/gvc-mixer-dialog.c:426
+#: ../panels/sound-nua/gvc-mixer-dialog.c:343
 msgid "Peak detect"
 msgstr "ตรวจหายอดคลื่น"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1506
 #: ../panels/sound/gvc-sound-theme-chooser.c:595
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1600
 msgid "Name"
 msgstr "ชื่อ"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1588
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1702
 #, c-format
 msgid "Speaker Testing for %s"
 msgstr "การทดสอบลำโพงสำหรับ %s"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1642
+#: ../panels/sound-nua/gvc-mixer-dialog.c:2043
 msgid "_Output volume:"
 msgstr "ความดังเสียง_ออก:"
 
@@ -3614,10 +3694,12 @@ msgid "Settings for the selected device:"
 msgstr "ค่าตั้งสำหรับอุปกรณ์ที่เลือก:"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1704
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1950
 msgid "_Input volume:"
 msgstr "ความดังเสียงเ_ข้า:"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1727
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1983
 msgid "Input level:"
 msgstr "ระดับเสียงเข้า:"
 
@@ -3626,18 +3708,22 @@ msgid "C_hoose a device for sound input:"
 msgstr "เ_ลือกอุปกรณ์สำหรับเสียงเข้า:"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1782
+#: ../panels/sound-nua/gvc-mixer-dialog.c:2004
 msgid "Sound Effects"
 msgstr "เอฟเฟ็กต์เสียง"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1789
+#: ../panels/sound-nua/gvc-mixer-dialog.c:2011
 msgid "_Alert volume:"
 msgstr "ความดังเสียงแ_จ้งเตือน:"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1802
+#: ../panels/sound-nua/gvc-mixer-dialog.c:2024
 msgid "Applications"
 msgstr "โปรแกรม"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1806
+#: ../panels/sound-nua/gvc-mixer-dialog.c:2028
 msgid "No application is currently playing or recording audio."
 msgstr "ไม่มีโปรแกรมที่เล่นหรืออัดเสียงอยู่"
 
@@ -3703,8 +3789,45 @@ msgstr "ปิดเสียงอยู่"
 msgid "Custom"
 msgstr "กำหนดเอง"
 
-#: ../panels/universal-access/cc-ua-panel.c:286
-#: ../panels/universal-access/cc-ua-panel.c:292
+#. Translators: those are keywords for the sound control-center panel
+#: ../panels/sound-nua/data/gnome-sound-nua-panel.desktop.in.in.h:4
+msgid "Card;Microphone;Volume;Fade;Balance;Bluetooth;Headset;"
+msgstr "การ์ด;ไมโครโฟน;ความดัง;เฟด;สมดุล;บลูทูท;ชุดหูฟัง;"
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:776
+#: ../panels/sound-nua/gvc-mixer-dialog.c:946
+#, c-format
+msgid "Settings for %s"
+msgstr ""
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:802
+#: ../panels/sound-nua/gvc-mixer-dialog.c:955
+msgid "Mode:"
+msgstr ""
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1775
+msgid "Play sound through"
+msgstr ""
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1800
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1932
+msgid "Settings for the selected device"
+msgstr ""
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1873
+msgid "Test:"
+msgstr ""
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1880
+msgid "Test Sound"
+msgstr "เสียงทดสอบ"
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1907
+msgid "Record sound from"
+msgstr ""
+
+#: ../panels/universal-access/cc-ua-panel.c:289
+#: ../panels/universal-access/cc-ua-panel.c:295
 msgid "No shortcut set"
 msgstr "ไม่มีการกำหนดปุ่มลัด"
 
@@ -3715,11 +3838,12 @@ msgstr "ปรับแต่งการเข้าถึงหลากหล
 #. Translators: those are keywords for the universal access control-center panel
 #: ../panels/universal-access/gnome-universal-access-panel.desktop.in.in.h:4
 msgid ""
-"Keyboard;Mouse;a11y;Accessibility;Contrast;Zoom;Screen Reader;text;font;size;"
-"AccessX;Sticky Keys;Slow Keys;Bounce Keys;Mouse Keys;"
+"Keyboard;Mouse;a11y;Accessibility;Contrast;Zoom;Screen "
+"Reader;text;font;size;AccessX;Sticky Keys;Slow Keys;Bounce Keys;Mouse Keys;"
 msgstr ""
-"แป้นพิมพ์;เมาส์;a11y;สิ่งอำนวยความสะดวก;ความต่างระดับสี;ซูม;อ่านหน้าจอ;ข้อความ;แบบอักษร;"
-"ขนาด;AccessX;ค้างปุ่มกด;พิมพ์แบบช้า;ป้องกันการกดแป้นรัว;บังคับเมาส์ด้วยแป้น;"
+"แป้นพิมพ์;เมาส์;a11y;สิ่งอำนวยความสะดวก;ความต่างระดับสี;ซูม;อ่านหน้าจอ;ข้อควา"
+"ม;แบบอักษร;ขนาด;AccessX;ค้างปุ่มกด;พิมพ์แบบช้า;ป้องกันการกดแป้นรัว;บังคับเมาส"
+"์ด้วยแป้น;"
 
 #: ../panels/universal-access/uap.ui.h:1
 msgctxt "universal access, contrast"
@@ -4312,13 +4436,15 @@ msgstr "นิ้วชี้ซ้า_ย"
 
 #: ../panels/user-accounts/data/account-fingerprint.ui.h:12
 msgid "_Other finger:"
-msgstr "นิ้ว_อื่น: "
+msgstr "นิ้ว_อื่น:"
 
 #: ../panels/user-accounts/data/account-fingerprint.ui.h:13
 msgid ""
 "Your fingerprint was successfully saved. You should now be able to log in "
 "using your fingerprint reader."
-msgstr "บันทึกลายนิ้วมือของคุณสำเร็จแล้ว คุณควรสามารถเข้าระบบโดยใช้เครื่องอ่านลายนิ้วมือได้แล้ว"
+msgstr ""
+"บันทึกลายนิ้วมือของคุณสำเร็จแล้ว "
+"คุณควรสามารถเข้าระบบโดยใช้เครื่องอ่านลายนิ้วมือได้แล้ว"
 
 #: ../panels/user-accounts/data/gnome-user-accounts-panel.desktop.in.in.h:1
 msgid "User Accounts"
@@ -4362,8 +4488,8 @@ msgid ""
 "This hint may be displayed at the login screen.  It will be visible to all "
 "users of this system.  Do <b>not</b> include the password here."
 msgstr ""
-"คำใบ้นี้อาจแสดงในหน้าจอเข้าระบบ และจะปรากฏต่อผู้ใช้ทั้งหมดในระบบนี้ <b>อย่า</"
-"b>ใส่รหัสผ่านไว้ในนี้"
+"คำใบ้นี้อาจแสดงในหน้าจอเข้าระบบ และจะปรากฏต่อผู้ใช้ทั้งหมดในระบบนี้ "
+"<b>อย่า</b>ใส่รหัสผ่านไว้ในนี้"
 
 #: ../panels/user-accounts/data/password-dialog.ui.h:8
 msgid "C_onfirm password"
@@ -4400,8 +4526,9 @@ msgstr "แ_สดงรหัสผ่าน"
 #: ../panels/user-accounts/data/password-dialog.ui.h:16
 msgid "How to choose a strong password"
 msgstr ""
-"<a href=\"http://www.bu.ac.th/hotnews/apr_june46/password/"
-"\">การตั้งรหัสผ่านให้ถูกวิธี</a>"
+"<a "
+"href=\"http://www.bu.ac.th/hotnews/apr_june46/password/\">การตั้งรหัสผ่านให้ถ"
+"ูกวิธี</a>"
 
 #: ../panels/user-accounts/data/password-dialog.ui.h:17
 msgid "Ch_ange"
@@ -4478,7 +4605,7 @@ msgid "Authentication is required to change user data"
 msgstr "ต้องยืนยันตัวบุคคลเพื่อจะเปลี่ยนข้อมูลของผู้ใช้"
 
 #: ../panels/user-accounts/pw-utils.c:94
-#: ../panels/user-accounts/um-password-dialog.c:569
+#: ../panels/user-accounts/um-password-dialog.c:607
 msgctxt "Password strength"
 msgid "Too short"
 msgstr "สั้นเกินไป"
@@ -4489,25 +4616,25 @@ msgid "Not good enough"
 msgstr "ยังไม่ดีเท่าที่ควร"
 
 #: ../panels/user-accounts/pw-utils.c:108
-#: ../panels/user-accounts/um-password-dialog.c:570
+#: ../panels/user-accounts/um-password-dialog.c:608
 msgctxt "Password strength"
 msgid "Weak"
 msgstr "หละหลวม"
 
 #: ../panels/user-accounts/pw-utils.c:111
-#: ../panels/user-accounts/um-password-dialog.c:571
+#: ../panels/user-accounts/um-password-dialog.c:609
 msgctxt "Password strength"
 msgid "Fair"
 msgstr "พอใช้"
 
 #: ../panels/user-accounts/pw-utils.c:114
-#: ../panels/user-accounts/um-password-dialog.c:572
+#: ../panels/user-accounts/um-password-dialog.c:610
 msgctxt "Password strength"
 msgid "Good"
 msgstr "ดี"
 
 #: ../panels/user-accounts/pw-utils.c:117
-#: ../panels/user-accounts/um-password-dialog.c:573
+#: ../panels/user-accounts/um-password-dialog.c:611
 msgctxt "Password strength"
 msgid "Strong"
 msgstr "แน่นหนา"
@@ -4517,7 +4644,7 @@ msgid "Authentication failed"
 msgstr "ยืนยันตัวบุคคลไม่ผ่าน"
 
 #: ../panels/user-accounts/run-passwd.c:504
-#: ../panels/user-accounts/um-password-dialog.c:239
+#: ../panels/user-accounts/um-password-dialog.c:240
 #, c-format
 msgid "The new password is too short"
 msgstr "รหัสผ่านใหม่สั้นเกินไป"
@@ -4566,20 +4693,20 @@ msgstr "ข้อผิดพลาดไม่ทราบสาเหตุ"
 msgid "Failed to add account"
 msgstr "เพิ่มบัญชีไม่สำเร็จ"
 
-#: ../panels/user-accounts/um-account-dialog.c:378
-#: ../panels/user-accounts/um-account-dialog.c:419
+#: ../panels/user-accounts/um-account-dialog.c:404
+#: ../panels/user-accounts/um-account-dialog.c:445
 msgid "Failed to register account"
 msgstr "ลงทะเบียนบัญชีไม่สำเร็จ"
 
-#: ../panels/user-accounts/um-account-dialog.c:551
+#: ../panels/user-accounts/um-account-dialog.c:577
 msgid "No supported way to authenticate with this domain"
 msgstr "ไม่มีวิธีการยืนยันตัวบุคคลที่รองรับสำหรับโดเมนนี้"
 
-#: ../panels/user-accounts/um-account-dialog.c:605
+#: ../panels/user-accounts/um-account-dialog.c:631
 msgid "Failed to join domain"
 msgstr "เข้าร่วมในโดเมนไม่สำเร็จ"
 
-#: ../panels/user-accounts/um-account-dialog.c:662
+#: ../panels/user-accounts/um-account-dialog.c:688
 msgid "Failed to log into domain"
 msgstr "เข้าระบบในโดเมนไม่สำเร็จ"
 
@@ -4613,7 +4740,9 @@ msgstr "_ลบลายนิ้วมือ"
 msgid ""
 "Do you want to delete your registered fingerprints so fingerprint login is "
 "disabled?"
-msgstr "คุณต้องการลบลายนิ้วมือของคุณเองที่ได้ลงทะเบียนไว้ เพื่อปิดการเข้าระบบด้วยลายนิ้วมือหรือไม่?"
+msgstr ""
+"คุณต้องการลบลายนิ้วมือของคุณเองที่ได้ลงทะเบียนไว้ "
+"เพื่อปิดการเข้าระบบด้วยลายนิ้วมือหรือไม่?"
 
 #: ../panels/user-accounts/um-fingerprint-dialog.c:455
 msgid "Done!"
@@ -4648,14 +4777,15 @@ msgstr "กรุณาติดต่อผู้ดูแลระบบขอ
 #. * The variable is the name of the device, for example:
 #. * "To enable fingerprint login, you need to save one of your fingerprints, using the
 #. * 'Digital Persona U.are.U 4000/4000B' device."
-#.
+#. 
 #: ../panels/user-accounts/um-fingerprint-dialog.c:740
 #, c-format
 msgid ""
 "To enable fingerprint login, you need to save one of your fingerprints, "
 "using the '%s' device."
 msgstr ""
-"ในการเปิดใช้การเข้าระบบด้วยลายนิ้วมือ คุณต้องบันทึกลายนิ้วมือของคุณก่อน โดยใช้อุปกรณ์ '%s'"
+"ในการเปิดใช้การเข้าระบบด้วยลายนิ้วมือ คุณต้องบันทึกลายนิ้วมือของคุณก่อน "
+"โดยใช้อุปกรณ์ '%s'"
 
 #: ../panels/user-accounts/um-fingerprint-dialog.c:747
 msgid "Selecting finger"
@@ -4669,47 +4799,47 @@ msgstr "เก็บลายนิ้วมือ"
 msgid "Summary"
 msgstr "สรุป"
 
-#: ../panels/user-accounts/um-password-dialog.c:96
+#: ../panels/user-accounts/um-password-dialog.c:97
 msgid "_Generate a password"
 msgstr "สุ่_มรหัสผ่าน"
 
-#: ../panels/user-accounts/um-password-dialog.c:150
+#: ../panels/user-accounts/um-password-dialog.c:151
 msgid "Please choose another password."
 msgstr "กรุณาตั้งรหัสผ่านใหม่"
 
-#: ../panels/user-accounts/um-password-dialog.c:159
+#: ../panels/user-accounts/um-password-dialog.c:160
 msgid "Please type your current password again."
 msgstr "กรุณาป้อนรหัสผ่านปัจจุบันของคุณอีกครั้ง"
 
-#: ../panels/user-accounts/um-password-dialog.c:165
+#: ../panels/user-accounts/um-password-dialog.c:166
 msgid "Password could not be changed"
 msgstr "ไม่สามารถเปลี่ยนรหัสผ่านได้"
 
-#: ../panels/user-accounts/um-password-dialog.c:236
+#: ../panels/user-accounts/um-password-dialog.c:237
 msgid "You need to enter a new password"
 msgstr "คุณต้องป้อนรหัสผ่านใหม่ที่จะตั้ง"
 
-#: ../panels/user-accounts/um-password-dialog.c:245
+#: ../panels/user-accounts/um-password-dialog.c:246
 msgid "You need to confirm the password"
 msgstr "คุณต้องป้อนรหัสผ่านที่ตั้งใหม่อีกครั้งเพื่อยืนยัน"
 
-#: ../panels/user-accounts/um-password-dialog.c:248
+#: ../panels/user-accounts/um-password-dialog.c:249
 msgid "The passwords do not match"
 msgstr "รหัสผ่านไม่ตรงกัน"
 
-#: ../panels/user-accounts/um-password-dialog.c:254
+#: ../panels/user-accounts/um-password-dialog.c:255
 msgid "You need to enter your current password"
 msgstr "คุณต้องป้อนรหัสผ่านปัจจุบันของคุณ"
 
-#: ../panels/user-accounts/um-password-dialog.c:257
+#: ../panels/user-accounts/um-password-dialog.c:258
 msgid "The current password is not correct"
 msgstr "รหัสผ่านปัจจุบันที่ป้อนไม่ถูกต้อง"
 
-#: ../panels/user-accounts/um-password-dialog.c:347
+#: ../panels/user-accounts/um-password-dialog.c:348
 msgid "Passwords do not match"
 msgstr "รหัสผ่านไม่ตรงกัน"
 
-#: ../panels/user-accounts/um-password-dialog.c:409
+#: ../panels/user-accounts/um-password-dialog.c:410
 msgid "Wrong password"
 msgstr "รหัสผ่านไม่ถูกต้อง"
 
@@ -4730,21 +4860,21 @@ msgstr "ท่องดูรูปภาพเพิ่มเติม..."
 msgid "Used by %s"
 msgstr "ใช้โดย %s"
 
-#: ../panels/user-accounts/um-realm-manager.c:379
+#: ../panels/user-accounts/um-realm-manager.c:408
 #, c-format
 msgid "No such domain or realm found"
 msgstr "ไม่พบโดเมนหรือ realm ดังกล่าว"
 
-#: ../panels/user-accounts/um-realm-manager.c:780
+#: ../panels/user-accounts/um-realm-manager.c:809
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "ไม่สามารถเข้าระบบในนาม %s ที่โดเมน %s"
 
-#: ../panels/user-accounts/um-realm-manager.c:785
+#: ../panels/user-accounts/um-realm-manager.c:814
 msgid "Invalid password, please try again"
 msgstr "รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่"
 
-#: ../panels/user-accounts/um-realm-manager.c:789
+#: ../panels/user-accounts/um-realm-manager.c:818
 #, c-format
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "ไม่สามารถเชื่อมต่อกับโดเมน %s: %s"
@@ -4780,7 +4910,9 @@ msgstr "%s ยังคงเข้าระบบอยู่"
 msgid ""
 "Deleting a user while they are logged in can leave the system in an "
 "inconsistent state."
-msgstr "การลบบัญชีผู้ใช้ในระหว่างที่ผู้ใช้นั้นกำลังเข้าระบบอยู่ จะทำให้ระบบอยู่ในสถานะที่สับสน"
+msgstr ""
+"การลบบัญชีผู้ใช้ในระหว่างที่ผู้ใช้นั้นกำลังเข้าระบบอยู่ "
+"จะทำให้ระบบอยู่ในสถานะที่สับสน"
 
 #: ../panels/user-accounts/um-user-panel.c:453
 #, c-format
@@ -4791,7 +4923,9 @@ msgstr "คุณต้องการเก็บรักษาแฟ้มต
 msgid ""
 "It is possible to keep the home directory, mail spool and temporary files "
 "around when deleting a user account."
-msgstr "ในการลบบัญชีผู้ใช้ คุณสามารถเก็บรักษาไดเรกทอรีบ้าน, ถุงเมล และแฟ้มชั่วคราวของผู้ใช้ไว้ได้"
+msgstr ""
+"ในการลบบัญชีผู้ใช้ คุณสามารถเก็บรักษาไดเรกทอรีบ้าน, ถุงเมล "
+"และแฟ้มชั่วคราวของผู้ใช้ไว้ได้"
 
 #: ../panels/user-accounts/um-user-panel.c:460
 msgid "_Delete Files"
@@ -4816,15 +4950,15 @@ msgctxt "Password mode"
 msgid "None"
 msgstr "ไม่มีรหัสผ่าน"
 
-#: ../panels/user-accounts/um-user-panel.c:871
+#: ../panels/user-accounts/um-user-panel.c:875
 msgid "Failed to contact the accounts service"
 msgstr "ติดต่อบริการบัญชีผู้ใช้ไม่สำเร็จ"
 
-#: ../panels/user-accounts/um-user-panel.c:873
+#: ../panels/user-accounts/um-user-panel.c:877
 msgid "Please make sure that the AccountService is installed and enabled."
 msgstr "กรุณาตรวจสอบให้แน่ใจว่าได้ติดตั้งและเปิดใช้งาน AccountService"
 
-#: ../panels/user-accounts/um-user-panel.c:913
+#: ../panels/user-accounts/um-user-panel.c:917
 msgid ""
 "To make changes,\n"
 "click the * icon first"
@@ -4832,12 +4966,12 @@ msgstr ""
 "หากต้องการเปลี่ยนแปลง\n"
 "ให้คลิกที่ไอคอน * ก่อน"
 
-#: ../panels/user-accounts/um-user-panel.c:951
+#: ../panels/user-accounts/um-user-panel.c:955
 msgid "Create a user account"
 msgstr "สร้างบัญชีผู้ใช้"
 
-#: ../panels/user-accounts/um-user-panel.c:962
-#: ../panels/user-accounts/um-user-panel.c:1273
+#: ../panels/user-accounts/um-user-panel.c:966
+#: ../panels/user-accounts/um-user-panel.c:1278
 msgid ""
 "To create a user account,\n"
 "click the * icon first"
@@ -4845,12 +4979,12 @@ msgstr ""
 "หากต้องการสร้างบัญชีผู้ใช้\n"
 "ให้คลิกที่ไอคอน * ก่อน"
 
-#: ../panels/user-accounts/um-user-panel.c:971
+#: ../panels/user-accounts/um-user-panel.c:975
 msgid "Delete the selected user account"
 msgstr "ลบบัญชีผู้ใช้ที่เลือก"
 
-#: ../panels/user-accounts/um-user-panel.c:983
-#: ../panels/user-accounts/um-user-panel.c:1278
+#: ../panels/user-accounts/um-user-panel.c:987
+#: ../panels/user-accounts/um-user-panel.c:1283
 msgid ""
 "To delete the selected user account,\n"
 "click the * icon first"
@@ -4858,11 +4992,11 @@ msgstr ""
 "หากต้องการลบบัญชีผู้ใช้ที่เลือก\n"
 "ให้คลิกที่ไอคอน * ก่อน"
 
-#: ../panels/user-accounts/um-user-panel.c:1176
+#: ../panels/user-accounts/um-user-panel.c:1180
 msgid "My Account"
 msgstr "บัญชีของฉัน"
 
-#: ../panels/user-accounts/um-user-panel.c:1186
+#: ../panels/user-accounts/um-user-panel.c:1190
 msgid "Other Accounts"
 msgstr "บัญชีอื่นๆ"
 
@@ -4909,7 +5043,8 @@ msgstr "การปรับเทียบมาตรฐานหน้าจ
 msgid ""
 "Please tap the target markers as they appear on screen to calibrate the "
 "tablet."
-msgstr "กรุณาแตะที่เครื่องหมายเป้าที่ปรากฏบนหน้าจอเพื่อปรับเทียบมาตรฐานแท็บเล็ต"
+msgstr ""
+"กรุณาแตะที่เครื่องหมายเป้าที่ปรากฏบนหน้าจอเพื่อปรับเทียบมาตรฐานแท็บเล็ต"
 
 #: ../panels/wacom/calibrator/gui_gtk.c:368
 msgid "Mis-click detected, restarting..."
@@ -5036,67 +5171,67 @@ msgstr "โหมดการจับตำแหน่ง"
 msgid "Left-Handed Orientation"
 msgstr "สำหรับมือถนัดซ้าย"
 
-#: ../panels/wacom/gsd-wacom-device.c:1010
+#: ../panels/wacom/gsd-wacom-device.c:1013
 #, c-format
 msgid "Left Ring Mode #%d"
 msgstr "โหมดวงแหวนสัมผัสซ้าย #%d"
 
-#: ../panels/wacom/gsd-wacom-device.c:1019
+#: ../panels/wacom/gsd-wacom-device.c:1023
 #, c-format
 msgid "Right Ring Mode #%d"
 msgstr "โหมดวงแหวนสัมผัสขวา #%d"
 
-#: ../panels/wacom/gsd-wacom-device.c:1049
+#: ../panels/wacom/gsd-wacom-device.c:1054
 #, c-format
 msgid "Left Touchstrip Mode #%d"
 msgstr "โหมดแถบสัมผัสซ้าย #%d"
 
-#: ../panels/wacom/gsd-wacom-device.c:1058
+#: ../panels/wacom/gsd-wacom-device.c:1064
 #, c-format
 msgid "Right Touchstrip Mode #%d"
 msgstr "โหมดแถบสัมผัสขวา #%d"
 
-#: ../panels/wacom/gsd-wacom-device.c:1075
+#: ../panels/wacom/gsd-wacom-device.c:1081
 #, c-format
 msgid "Left Touchring Mode Switch"
 msgstr "ปุ่มเปลี่ยนโหมดวงแหวนสัมผัสซ้าย"
 
-#: ../panels/wacom/gsd-wacom-device.c:1077
+#: ../panels/wacom/gsd-wacom-device.c:1083
 #, c-format
 msgid "Right Touchring Mode Switch"
 msgstr "ปุ่มเปลี่ยนโหมดวงแหวนสัมผัสขวา"
 
-#: ../panels/wacom/gsd-wacom-device.c:1080
+#: ../panels/wacom/gsd-wacom-device.c:1086
 #, c-format
 msgid "Left Touchstrip Mode Switch"
 msgstr "ปุ่มเปลี่ยนโหมดแถบสัมผัสซ้าย"
 
-#: ../panels/wacom/gsd-wacom-device.c:1082
+#: ../panels/wacom/gsd-wacom-device.c:1088
 #, c-format
 msgid "Right Touchstrip Mode Switch"
 msgstr "ปุ่มเปลี่ยนโหมดแถบสัมผัสขวา"
 
-#: ../panels/wacom/gsd-wacom-device.c:1087
+#: ../panels/wacom/gsd-wacom-device.c:1093
 #, c-format
 msgid "Mode Switch #%d"
 msgstr "ปุ่มเปลี่ยนโหมด #%d"
 
-#: ../panels/wacom/gsd-wacom-device.c:1159
+#: ../panels/wacom/gsd-wacom-device.c:1164
 #, c-format
 msgid "Left Button #%d"
 msgstr "ปุ่มซ้าย #%d"
 
-#: ../panels/wacom/gsd-wacom-device.c:1162
+#: ../panels/wacom/gsd-wacom-device.c:1167
 #, c-format
 msgid "Right Button #%d"
 msgstr "ปุ่มขวา #%d"
 
-#: ../panels/wacom/gsd-wacom-device.c:1165
+#: ../panels/wacom/gsd-wacom-device.c:1170
 #, c-format
 msgid "Top Button #%d"
 msgstr "ปุ่มบน #%d"
 
-#: ../panels/wacom/gsd-wacom-device.c:1168
+#: ../panels/wacom/gsd-wacom-device.c:1173
 #, c-format
 msgid "Bottom Button #%d"
 msgstr "ปุ่มล่าง #%d"
@@ -5169,6 +5304,10 @@ msgstr "ปุ่มล่าง"
 msgid "Tip Pressure Feel"
 msgstr "การรับแรงกดของปลายปากกา"
 
+#: ../shell/cc-shell-nav-bar.c:117
+msgid "_All Settings"
+msgstr "ค่าตั้ง_ทั้งหมด"
+
 #: ../shell/control-center.c:58
 msgid "Enable verbose mode"
 msgstr "เปิดใช้ข้อความละเอียด"
@@ -5199,13 +5338,17 @@ msgstr ""
 "%s\n"
 "เรียก '%s --help' เพื่อดูตัวเลือกทั้งหมดที่มีสำหรับบรรทัดคำสั่ง\n"
 
-#: ../shell/control-center.c:211
-msgid "Help"
-msgstr "วิธีใช้"
+#: ../shell/control-center.c:269
+msgid "Contents"
+msgstr ""
 
-#: ../shell/control-center.c:212
+#: ../shell/control-center.c:272 ../shell/control-center.c:288
 msgid "Quit"
 msgstr "ออก"
+
+#: ../shell/control-center.c:274 ../shell/control-center.c:287
+msgid "Help"
+msgstr "วิธีใช้"
 
 #: ../shell/gnomecc.directory.in.h:1
 msgid "Control Center"
@@ -5219,1035 +5362,15 @@ msgstr "ตั้งค่าระบบ"
 msgid "Preferences;Settings;"
 msgstr "ปรับแต่ง;ตั้งค่า;"
 
-#: ../shell/shell.ui.h:2
-msgid "All Settings"
-msgstr "ค่าตั้งทั้งหมด"
-
-#~ msgid "Add wallpaper"
-#~ msgstr "เพิ่มภาพพื้นหลัง"
-
-#~ msgid "Remove wallpaper"
-#~ msgstr "ลบภาพพื้นหลังออก"
-
-#~ msgid "Seco_ndary click:"
-#~ msgstr "คลิกที่สอ_ง:"
-
-#~ msgid "Horizontal Gradient"
-#~ msgstr "ไล่ระดับสีแนวนอน"
-
-#~ msgid "Vertical Gradient"
-#~ msgstr "ไล่ระดับสีแนวตั้ง"
-
-#~ msgid "Solid Color"
-#~ msgstr "สีล้วน"
-
-#~ msgid "Pictures Folder"
-#~ msgstr "โฟลเดอร์รูปภาพ"
-
-#~ msgid "Colors & Gradients"
-#~ msgstr "สี & การไล่ระดับสี"
-
-#~ msgid "Could not get session bus while applying display configuration"
-#~ msgstr "ไม่สามารถอ่านบัสของวาระขณะเริ่มใช้ค่าตั้งของจอแสดงผล"
-
-#~ msgid "Acti_on:"
-#~ msgstr "_ปฏิบัติการ:"
-
-#~ msgid "Take a screenshot"
-#~ msgstr "จับภาพหน้าจอ"
-
-#~ msgid "Shortcut"
-#~ msgstr "ปุ่มลัด"
-
-#~ msgid "A_cceleration:"
-#~ msgstr "ความเร่_ง:"
-
-#~ msgid "Double-Click Timeout"
-#~ msgstr "ความเร็วของดับเบิลคลิก"
-
-#~ msgid "Drag Threshold"
-#~ msgstr "ระยะเริ่มลาก"
-
-#~ msgid "Drag and Drop"
-#~ msgstr "การลากวาง"
-
-#~ msgid "Enable _mouse clicks with touchpad"
-#~ msgstr "เปิดใช้การคลิ_กเมาส์ด้วยทัชแพด"
-
-#~ msgid "Enable h_orizontal scrolling"
-#~ msgstr "เปิดใช้การเลื่อนหน้าจอแนว_นอน"
-
-#~ msgid "Scrolling"
-#~ msgstr "การเลื่อนหน้าจอ"
-
-#~ msgid "Sh_ow position of pointer when the Control key is pressed"
-#~ msgstr "แ_สดงตำแหน่งของตัวชี้เมื่อกดปุ่ม Control"
-
-#~ msgid "Thr_eshold:"
-#~ msgstr "_ระยะเริ่มลาก:"
-
-#~ msgid "To test your settings, try to double-click on the face."
-#~ msgstr "ทดสอบค่าตั้งของคุณได้ โดยลองดับเบิลคลิกที่รูปหน้า"
-
-#~ msgid "_Disabled"
-#~ msgstr "ไ_ม่ใช้"
-
-#~ msgid "_Edge scrolling"
-#~ msgstr "เลื่อนหน้าจอที่_ขอบทัชแพด"
-
-#~ msgid "_Left-handed"
-#~ msgstr "เ_มาส์มือซ้าย"
-
-#~ msgid "_Right-handed"
-#~ msgstr "เมาส์มือ_ขวา"
-
-#~ msgid "_Sensitivity:"
-#~ msgstr "_ความตอบสนอง:"
-
-#~ msgid "_Timeout:"
-#~ msgstr "_ภายใน:"
-
-#~ msgctxt "Wireless access point"
-#~ msgid "Other..."
-#~ msgstr "อื่นๆ..."
-
-#~ msgid "Hotspot"
-#~ msgstr "จุดแพร่สัญญาณ"
-
-#~ msgid "Not connected to the internet."
-#~ msgstr "ไม่ได้เชื่อมต่ออินเทอร์เน็ต"
-
-#~ msgid "Create the hotspot anyway?"
-#~ msgstr "จะสร้างจุดแพร่สัญญาณต่อไปหรือไม่?"
-
-#~ msgid "Disconnect from %s and create a new hotspot?"
-#~ msgstr "จะตัดการเชื่อมต่อกับ %s แล้วสร้างจุดแพร่สัญญาณอันใหม่หรือไม่?"
-
-#~ msgid "This is your only connection to the internet."
-#~ msgstr "นี่เป็นช่องทางเชื่อมต่ออินเทอร์เน็ตเพียงช่องทางเดียวของคุณ"
-
-#~ msgid "Device Off"
-#~ msgstr "ปิดอุปกรณ์"
-
-#~ msgid "Disable VPN"
-#~ msgstr "ปิดใช้งาน VPN"
-
-#~ msgid "Speed"
-#~ msgstr "ความเร็ว"
-
-#~ msgid "Subnet Mask"
-#~ msgstr "แมสก์เครือข่ายย่อย"
-
-#~ msgid "Unlock"
-#~ msgstr "ปลดล็อค"
-
-#~ msgid "_Network Name"
-#~ msgstr "_ชื่อเครือข่าย"
-
-#~ msgid "_Stop Hotspot..."
-#~ msgstr "ปิ_ดจุดแพร่สัญญาณ..."
-
-#~ msgid "To add a new account, first select the account type"
-#~ msgstr "กรุณาเลือกชนิดของบัญชีที่จะเพิ่ม"
-
-#~ msgid "_Add..."
-#~ msgstr "เ_พิ่ม..."
-
-#~ msgid "Select an account"
-#~ msgstr "เลือกบัญชี"
-
-#~ msgid "Battery charging"
-#~ msgstr "แบตเตอรี่กำลังประจุไฟ"
-
-#~ msgid "Battery discharging"
-#~ msgstr "แบตเตอรี่กำลังจ่ายไฟ"
-
-#~ msgid "UPS discharging"
-#~ msgstr "UPS กำลังจ่ายไฟ"
-
-#~ msgid "%s until charged (%.0lf%%)"
-#~ msgstr "อีก %s จะเต็ม (%.01f%%)"
-
-#~ msgid "%s until empty (%.0lf%%)"
-#~ msgstr "อีก %s จะหมด (%.01f%%)"
-
-#~ msgid "%.0lf%% charged"
-#~ msgstr "ประจุไฟ %.0lf%%"
-
-#~ msgid "A_ddress:"
-#~ msgstr "_ที่อยู่:"
-
-#~ msgid "_Search by Address"
-#~ msgstr "_ค้นหาจากที่อยู่"
-
-#~ msgid ""
-#~ "FirewallD is not running. Network printer detection needs services mdns, "
-#~ "ipp, ipp-client and samba-client enabled on firewall."
-#~ msgstr ""
-#~ "FirewallD ไม่ได้ทำงานอยู่ การตรวจหาเครื่องพิมพ์ในเครือข่ายต้องเปิดทางให้กับบริการ mdns, "
-#~ "ipp, ipp-client และ samba-client ที่ไฟร์วอลล์ด้วย"
-
-#~ msgid "Devices"
-#~ msgstr "อุปกรณ์"
-
-#~ msgctxt "printer type"
-#~ msgid "Local"
-#~ msgstr "ต่อตรง"
-
-#~ msgctxt "printer type"
-#~ msgid "Network"
-#~ msgstr "เครือข่าย"
-
-#~ msgid "Device types"
-#~ msgstr "ชนิดของอุปกรณ์"
-
-#~ msgid "Opening firewall for mDNS connections"
-#~ msgstr "กำลังเปิดไฟร์วอลล์สำหรับการเชื่อมต่อ mDNS"
-
-#~ msgid "Opening firewall for Samba connections"
-#~ msgstr "กำลังเปิดไฟร์วอลล์สำหรับการเชื่อมต่อ Samba"
-
-#~ msgid "Opening firewall for IPP connections"
-#~ msgstr "กำลังเปิดไฟร์วอลล์สำหรับการเชื่อมต่อ IPP"
-
-#~ msgid "Add User"
-#~ msgstr "เพิ่มผู้ใช้"
-
-#~ msgid "Remove User"
-#~ msgstr "ลบผู้ใช้"
-
-#~ msgid "_Back"
-#~ msgstr "_ย้อนกลับ"
-
-#~ msgid "Choose a Layout"
-#~ msgstr "เลือกผังแป้นพิมพ์"
-
-#~ msgid "Preview"
-#~ msgstr "ดูตัวอย่าง"
-
-#~ msgid "Add Layout"
-#~ msgstr "เพิ่มผังแป้นพิมพ์"
-
-#~ msgid "Allow different layouts for individual windows"
-#~ msgstr "ใช้ผังแป้นพิมพ์ต่างกันสำหรับแต่ละหน้าต่าง"
-
-#~ msgid "Layouts"
-#~ msgstr "ผังแป้นพิมพ์"
-
-#~ msgid "Move Up"
-#~ msgstr "เลื่อนขึ้น"
-
-#~ msgid "New windows use the default layout"
-#~ msgstr "หน้าต่างเปิดใหม่ใช้ผังแป้นพิมพ์ปริยาย"
-
-#~ msgid "New windows use the previous window's layout"
-#~ msgstr "หน้าต่างเปิดใหม่ใช้ผังแป้นพิมพ์เหมือนหน้าต่างก่อนหน้า"
-
-#~ msgid "Preview Layout"
-#~ msgstr "ดูตัวอย่างผังแป้นพิมพ์"
-
-#~ msgid "Remove Layout"
-#~ msgstr "ลบผังแป้นพิมพ์"
-
-#~ msgid ""
-#~ "Replace the current keyboard layout settings with the\n"
-#~ "default settings"
-#~ msgstr ""
-#~ "แทนที่ค่าตั้งผังแป้นพิมพ์ปัจจุบัน\n"
-#~ "ด้วยค่าปริยาย"
-
-#~ msgid "Reset to De_faults"
-#~ msgstr "_กลับไปใช้ค่าปริยาย"
-
-#~ msgid "Use the same layout for all windows"
-#~ msgstr "ใช้ผังแป้นพิมพ์เดียวกันหมดทุกหน้าต่าง"
-
-#~ msgid "View and edit keyboard layout options"
-#~ msgstr "แสดงและแก้ไขตัวเลือกสำหรับผังแป้นพิมพ์"
-
-#~ msgid "Layout"
-#~ msgstr "ผังแป้นพิมพ์"
-
-#~ msgid "Co_nnector:"
-#~ msgstr "_ช่องเชื่อมต่อ:"
-
-#~ msgid "Hardware"
-#~ msgstr "ฮาร์ดแวร์"
-
-#~ msgid "C_hoose a device to configure:"
-#~ msgstr "เ_ลือกอุปกรณ์ที่จะตั้งค่า:"
-
-#~ msgid "Change contrast:"
-#~ msgstr "เปลี่ยนความต่างระดับสี:"
-
-#~ msgid "Decrease size:"
-#~ msgstr "ลดขนาด:"
-
-#~ msgid "Increase size:"
-#~ msgstr "เพิ่มขนาด:"
-
-#~ msgid "Type here to test settings"
-#~ msgstr "ลองพิมพ์ที่นี่เพื่อทดสอบ"
-
-#~ msgid "Typing Assistant"
-#~ msgstr "เครื่องมือช่วยพิมพ์"
-
-#~ msgid "_Text size:"
-#~ msgstr "_ขนาดตัวอักษร:"
-
-#~ msgctxt "universal access, seeing"
-#~ msgid "Display"
-#~ msgstr "การแสดงผล"
-
-#~ msgctxt "universal access, seeing"
-#~ msgid "Zoom"
-#~ msgstr "ซูม"
-
-#~ msgid "Centered"
-#~ msgstr "วางตรงกลาง"
-
-#~ msgid "Show"
-#~ msgstr "แสดง"
-
-#~ msgid "Cr_eate"
-#~ msgstr "_สร้าง"
-
-#~ msgid "Create new account"
-#~ msgstr "สร้างบัญชีผู้ใช้ใหม่"
-
-#~ msgid "_Account Type"
-#~ msgstr "_ชนิดของบัญชี"
-
-#~ msgid "Choose a generated password"
-#~ msgstr "เลือกรหัสผ่านจากการสุ่ม"
-
-#~ msgid "Account _type"
-#~ msgstr "_ชนิดของบัญชี"
-
-#~ msgid "More choices..."
-#~ msgstr "เลือกเพิ่มเติม..."
-
-#~ msgid "Wacom Graphics Tablet"
-#~ msgstr "แท็บเล็ตกราฟิกส์ Wacom"
-
-#~ msgid "System Info"
-#~ msgstr "ข้อมูลระบบ"
-
-#~ msgid "_Photos:"
-#~ msgstr "_ภาพถ่าย:"
-
-#~ msgid "Toggle contrast"
-#~ msgstr "เปิด/ปิดความต่างระดับสี"
-
-#~ msgid "Toggle magnifier"
-#~ msgstr "เปิด/ปิดแว่นขยาย"
-
-#~ msgid "Toggle screen reader"
-#~ msgstr "เปิด/ปิดโปรแกรมอ่านหน้าจอ"
-
-#~ msgid "New shortcut..."
-#~ msgstr "ปุ่มลัดใหม่..."
-
-#~ msgid "Accelerator key"
-#~ msgstr "ปุ่มลัด"
-
-#~ msgid "Accelerator modifiers"
-#~ msgstr "ปุ่มประกอบปุ่มลัด"
-
-#~ msgid "Accelerator keycode"
-#~ msgstr "รหัสปุ่มของปุ่มลัด"
-
-#~ msgid "Accel Mode"
-#~ msgstr "โหมดของปุ่มลัด"
-
-#~ msgid "The type of accelerator."
-#~ msgstr "ชนิดของปุ่มลัด"
-
-#~ msgid "Error saving the new shortcut"
-#~ msgstr "เกิดข้อผิดพลาดขณะบันทึกปุ่มลัด"
-
-#~ msgid "Too many custom shortcuts"
-#~ msgstr "ปุ่มลัดที่กำหนดเองมีมากเกินไป"
-
-#~ msgid "Media and Autorun"
-#~ msgstr "สื่อและ Autorun"
-
-#~ msgid "Configure media and autorun preferences"
-#~ msgstr "ตั้งค่าสื่อและ autorun"
-
-#~ msgid "cd;dvd;usb;audio;video;disc;"
-#~ msgstr "ซีดี;ดีวีดี;usb;เพลง;ภาพยนตร์;วีดิทัศน์;แผ่น;"
-
-#~ msgid "Ask me"
-#~ msgstr "ถาม"
-
-#~ msgid "Shutdown"
-#~ msgstr "ปิดเครื่อง"
-
-#~ msgid "Suspend"
-#~ msgstr "พักเครื่อง"
-
-#~ msgid ""
-#~ "Only profiles that are compatible with the device will be listed above."
-#~ msgstr "จะแสดงเฉพาะโพรไฟล์ที่เข้ากันได้กับอุปกรณ์เท่านั้น"
-
-#~ msgid "_Turn off after:"
-#~ msgstr "ปิ_ดหลังจาก:"
-
-#~ msgid "Mute"
-#~ msgstr "ปิดเสียง"
-
-#~ msgid "GConf key to which this property editor is attached"
-#~ msgstr "คีย์ของ GConf ที่เครื่องมือแก้ไขคุณสมบัตินี้แนบอยู่ด้วย"
-
-#~ msgid "Callback"
-#~ msgstr "เรียกกลับ"
-
-#~ msgid "Issue this callback when the value associated with key gets changed"
-#~ msgstr "ใช้การเรียกกลับหากค่าที่ติดกับคีย์เปลี่ยนไป"
-
-#~ msgid "Change set"
-#~ msgstr "ชุดการเปลี่ยนแปลง"
-
-#~ msgid ""
-#~ "GConf change set containing data to be forwarded to the gconf client on "
-#~ "apply"
-#~ msgstr ""
-#~ "ชุดการเปลี่ยนแปลงของ GConf ซึ่งเก็บข้อมูลที่จะส่งต่อไปยังไคลเอนต์ของ gconf เมื่อจะเริ่มใช้"
-
-#~ msgid "Conversion to widget callback"
-#~ msgstr "การแปลงค่าเป็น callback ของวิดเจ็ต"
-
-#~ msgid ""
-#~ "Callback to be issued when data are to be converted from GConf to the "
-#~ "widget"
-#~ msgstr "callback จะถูกกำหนดขึ้นเวลาข้อมูลถูกแปลงจาก GConf ไปเป็นวิดเจ็ต"
-
-#~ msgid "Conversion from widget callback"
-#~ msgstr "การแปลงจากค่า callback ของวิดเจ็ต"
-
-#~ msgid ""
-#~ "Callback to be issued when data are to be converted to GConf from the "
-#~ "widget"
-#~ msgstr "callback จะถูกกำหนดขึ้นเวลาข้อมูลถูกแปลงจากวิดเจ็ตไปเป็น GConf"
-
-#~ msgid "UI Control"
-#~ msgstr "ตัวควบคุม UI"
-
-#~ msgid "Object that controls the property (normally a widget)"
-#~ msgstr "วัตถุที่ทำหน้าที่ควบคุมคุณสมบัติ (โดยปกติจะเป็นวิดเจ็ต)"
-
-#~ msgid "Property editor object data"
-#~ msgstr "ข้อมูลของวัตถุเครื่องมือแก้ไขคุณสมบัติ"
-
-#~ msgid "Custom data required by the specific property editor"
-#~ msgstr "ข้อมูลกำหนดเองที่ต้องใช้สำหรับเครื่องมือแก้ไขคุณสมบัติ"
-
-#~ msgid "Property editor data freeing callback"
-#~ msgstr "callback เมื่อปล่อยข้อมูลของเครื่องมือแก้ไขคุณสมบัติ"
-
-#~ msgid ""
-#~ "Callback to be issued when property editor object data is to be freed"
-#~ msgstr "callback ที่จะเรียกเมื่อข้อมูลของเครื่องมือแก้ไขคุณสมบัติจะถูกปล่อย"
-
-#~ msgid ""
-#~ "Couldn't find the file '%s'.\n"
-#~ "\n"
-#~ "Please make sure it exists and try again, or choose a different "
-#~ "background picture."
-#~ msgstr ""
-#~ "ไม่พบแฟ้ม '%s'\n"
-#~ "\n"
-#~ "กรุณาตรวจดูว่าภาพนี้มีอยู่จริงแล้วลองใหม่ หรือเลือกภาพพื้นหลังอื่น"
-
-#~ msgid ""
-#~ "I don't know how to open the file '%s'.\n"
-#~ "Perhaps it's a kind of picture that is not yet supported.\n"
-#~ "\n"
-#~ "Please select a different picture instead."
-#~ msgstr ""
-#~ "ไม่รู้จักชนิดของแฟ้ม '%s'\n"
-#~ "แฟ้มอาจจะเป็นรูปภาพชนิดที่โปรแกรมยังไม่รองรับ\n"
-#~ "\n"
-#~ "กรุณาเลือกภาพอื่น"
-
-#~ msgid "Please select an image."
-#~ msgstr "กรุณาเลือกภาพที่จะใช้"
-
-#~ msgid "Create a user"
-#~ msgstr "สร้างบัญชีผู้ใช้"
-
-#~ msgid "Upside-down"
-#~ msgstr "กลับหัว"
-
-#~ msgid "On AC _power:"
-#~ msgstr "เมื่อใช้ไ_ฟ AC:"
-
-#~ msgid "Put the computer to sleep when inactive:"
-#~ msgstr "ให้เครื่องหลับเมื่อไม่มีการใช้งาน:"
-
-#~ msgid "Locked"
-#~ msgstr "ล็อคอยู่"
-
-#~ msgid ""
-#~ "Dialog is unlocked.\n"
-#~ "Click to prevent further changes"
-#~ msgstr ""
-#~ "กล่องโต้ตอบไม่ได้ล็อคไว้\n"
-#~ "คลิกเพื่อล็อคป้องกันการแก้ไข"
-
-#~ msgid ""
-#~ "Dialog is locked.\n"
-#~ "Click to make changes"
-#~ msgstr ""
-#~ "กล่องโต้ตอบถูกล็อคอยู่\n"
-#~ "คลิกเพื่อเริ่มแก้ไข"
-
-#~ msgid ""
-#~ "System policy prevents changes.\n"
-#~ "Contact your system administrator"
-#~ msgstr ""
-#~ "นโยบายของระบบได้ป้องกันการเปลี่ยนแปลงไว้\n"
-#~ "กรุณาติดต่อผู้ดูแลระบบของคุณ"
-
-#~ msgid "24-Hour Time"
-#~ msgstr "เวลาแบบ 24 ชั่วโมง"
-
-#~ msgid "Photos"
-#~ msgstr "ภาพถ่าย"
-
-#~ msgid "Use default layout in new windows"
-#~ msgstr "ใช้ผังแป้นพิมพ์ปริยายในหน้าต่างใหม่"
-
-#~ msgid "Use previous window's layout in new windows"
-#~ msgstr "ใช้ผังแป้นพิมพ์ของหน้าต่างก่อนหน้าในหน้าต่างใหม่"
-
-#~ msgid "When the power button is pressed:"
-#~ msgstr "เมื่อกดปุ่มเปิด/ปิดเครื่อง:"
-
-#~ msgid "When the sleep button is pressed:"
-#~ msgstr "เมื่อกดปุ่มหลับเครื่อง:"
-
-#~ msgid "Keyboard;Mouse;a11y;Accessibility;"
-#~ msgstr "แป้นพิมพ์;เมาส์;สิ่งอำนวยความสะดวก;"
-
-#~ msgid "Password"
-#~ msgstr "รหัสผ่าน"
-
-#~ msgid "Current network location"
-#~ msgstr "สถานที่เครือข่ายปัจจุบัน"
-
-#~ msgid "More backgrounds URL"
-#~ msgstr "URL สำหรับภาพพื้นหลังเพิ่มเติม"
-
-#~ msgid "More themes URL"
-#~ msgstr "URL สำหรับชุดตกแต่งเพิ่มเติม"
-
-#~ msgid ""
-#~ "Set this to your current location name. This is used to determine the "
-#~ "appropriate network proxy configuration."
-#~ msgstr ""
-#~ "กำหนดค่านี้เป็นชื่อสถานที่ปัจจุบันของคุณ ค่านี้จะใช้พิจารณาค่าที่เหมาะสมสำหรับพร็อกซีเครือข่าย"
-
-#~ msgid ""
-#~ "URL for where to get more desktop backgrounds. If set to an empty string "
-#~ "the link will not appear."
-#~ msgstr "URL สำหรับหาภาพพื้นหลังพื้นโต๊ะเพิ่มเติม ถ้ากำหนดเป็นข้อความว่าง ก็จะไม่แสดงลิงก์"
-
-#~ msgid ""
-#~ "URL for where to get more desktop themes. If set to an empty string the "
-#~ "link will not appear."
-#~ msgstr "URL สำหรับหาชุดตกแต่งเดสก์ท็อปเพิ่มเติม ถ้ากำหนดเป็นข้อความว่าง ก็จะไม่แสดงลิงก์"
-
-#~ msgid "12 hour format"
-#~ msgstr "แบบ AM/PM"
-
-#~ msgid "24 hour format"
-#~ msgstr "แบบ 24 ชั่วโมง"
-
-#~ msgid "Preferred Applications"
-#~ msgstr "เลือกโปรแกรมหลักๆ"
-
-#~ msgid "Start the preferred visual assistive technology"
-#~ msgstr "เรียกโปรแกรมอำนวยความสะดวกสำหรับสายตาที่กำหนดไว้"
-
-#~ msgid "Visual Assistance"
-#~ msgstr "สิ่งอำนวยความสะดวกสำหรับสายตา"
-
-#~ msgid "Error setting default browser: %s"
-#~ msgstr "เกิดข้อผิดพลาดขณะกำหนดเบราว์เซอร์ปริยาย: %s"
-
-#~ msgid "Error setting default mailer: %s"
-#~ msgstr "เกิดข้อผิดพลาดขณะกำหนดโปรแกรมรับส่งเมลปริยาย: %s"
-
-#~ msgid "Please make sure that the applet is properly installed"
-#~ msgstr "กรุณาตรวจสอบการติดตั้งแอพเพล็ตว่าเรียบร้อยดีหรือไม่"
-
-#~ msgid "All %s occurrences will be replaced with actual link"
-#~ msgstr "ข้อความ '%s' ทั้งหมดจะถูกแทนด้วยลิงก์จริง"
-
-#~ msgid "Co_mmand:"
-#~ msgstr "_คำสั่ง:"
-
-#~ msgid "E_xecute flag:"
-#~ msgstr "_ตัวเลือกเพิ่มเติม:"
-
-#~ msgid "Instant Messenger"
-#~ msgstr "ข้อความทันใจ"
-
-#~ msgid "Mail Reader"
-#~ msgstr "โปรแกรมอ่านเมล"
-
-#~ msgid "Mobility"
-#~ msgstr "อุปกรณ์พกพา"
-
-#~ msgid "Run at st_art"
-#~ msgstr "เรียกเมื่อเ_ข้าระบบ"
-
-#~ msgid "Run in t_erminal"
-#~ msgstr "เรียกใช้ในเทอร์_มินัล"
-
-#~ msgid "Terminal Emulator"
-#~ msgstr "โปรแกรมจำลองเทอร์มินัล"
-
-#~ msgid "Text Editor"
-#~ msgstr "เครื่องมือแก้ไขข้อความ"
-
-#~ msgid "Visual"
-#~ msgstr "ด้านการมองเห็น"
-
-#~ msgid "_Run at start"
-#~ msgstr "เ_รียกเมื่อเข้าระบบ"
-
-#~ msgid "Banshee Music Player"
-#~ msgstr "โปรแกรมเล่นเพลง Banshee"
-
-#~ msgid "Debian Terminal Emulator"
-#~ msgstr "เทอร์มินัลปริยายของเดเบียน"
-
-#~ msgid "GNOME Magnifier without Screen Reader"
-#~ msgstr "แว่นขยายของ GNOME ซึ่งไม่มีโปรแกรมอ่านหน้าจอ"
-
-#~ msgid "GNOME OnScreen Keyboard"
-#~ msgstr "แป้นพิมพ์บนจอของ GNOME"
-
-#~ msgid "GNOME Terminal"
-#~ msgstr "เทอร์มินัลของ GNOME"
-
-#~ msgid "KDE Magnifier without Screen Reader"
-#~ msgstr "แว่นขยายของ KDE ซึ่งไม่มีโปรแกรมอ่านหน้าจอ"
-
-#~ msgid "Linux Screen Reader"
-#~ msgstr "โปรแกรมอ่านหน้าจอสำหรับลินุกซ์"
-
-#~ msgid "Linux Screen Reader with Magnifier"
-#~ msgstr "โปรแกรมอ่านหน้าจอสำหรับลินุกซ์ พร้อมแว่นขยาย"
-
-#~ msgid "Muine Music Player"
-#~ msgstr "โปรแกรมเล่นเพลง Muine"
-
-#~ msgid "Orca with Magnifier"
-#~ msgstr "Orca พร้อมแว่นขยาย"
-
-#~ msgid "Rhythmbox Music Player"
-#~ msgstr "โปรแกรมเล่นเพลง Rhythmbox"
-
-#~ msgid "Standard XTerminal"
-#~ msgstr "เทอร์มินัลปกติของ X"
-
-#~ msgid "Totem Movie Player"
-#~ msgstr "โปรแกรมเล่นภาพยนตร์ Totem"
-
-#~ msgid "Upside Down"
-#~ msgstr "กลับหัว"
-
-#~ msgid "Desktop"
-#~ msgstr "เดสก์ท็อป"
-
-#~ msgid "Error unsetting accelerator in configuration database: %s"
-#~ msgstr "เกิดข้อผิดพลาดขณะลบปุ่มลัดออกจากฐานข้อมูลค่าปรับแต่ง: %s"
-
-#~ msgid "Keyboard _model:"
-#~ msgstr "รุ่_นแป้นพิมพ์:"
-
-#~ msgid "List of keyboard layouts selected for usage"
-#~ msgstr "รายชื่อผังแป้นพิมพ์ที่ถูกเลือกเพื่อใช้งาน"
-
-#~ msgid "Move the selected keyboard layout down in the list"
-#~ msgstr "เลื่อนลำดับในรายชื่อของผังแป้นพิมพ์ที่เลือกลง"
-
-#~ msgid "Move the selected keyboard layout up in the list"
-#~ msgstr "เลื่อนลำดับในรายชื่อของผังแป้นพิมพ์ที่เลือกขึ้น"
-
-#~ msgid "Print a diagram of the selected keyboard layout"
-#~ msgstr "แสดงแผนผังของผังแป้นพิมพ์ที่เลือก"
-
-#~ msgid "Remove the selected keyboard layout from the list"
-#~ msgstr "ลบผังแป้นพิมพ์ที่เลือกออกจากรายชื่อ"
-
-#~ msgid "Select a keyboard layout to be added to the list"
-#~ msgstr "เลือกผังแป้นพิมพ์ที่จะเพิ่มเข้าในรายชื่อ"
-
-#~ msgid "_Pointer can be controlled using the keypad"
-#~ msgstr "เ_ปิดใช้การบังคับตัวชี้เมาส์ด้วยแป้นกดเลข"
-
-#~ msgid "_Type to test settings:"
-#~ msgstr "ลองพิมพ์เพื่อ_ทดสอบ:"
-
-#~ msgid "By _country"
-#~ msgstr "ตาม_ประเทศ"
-
-#~ msgid "_Country:"
-#~ msgstr "ประเ_ทศ:"
-
-#~ msgid "_Variants:"
-#~ msgstr "แ_บบย่อย:"
-
-#~ msgid "Choose a Keyboard Model"
-#~ msgstr "เลือกรุ่นแป้นพิมพ์"
-
-#~ msgid "_Models:"
-#~ msgstr "รุ่_นแป้นพิมพ์:"
-
-#~ msgid "_Vendors:"
-#~ msgstr "ผู้_จำหน่าย:"
-
-#~ msgid "Vendors"
-#~ msgstr "ผู้จำหน่าย"
-
-#~ msgid "Choose type of click _beforehand"
-#~ msgstr "เลือกชนิดของการคลิกไว้_ล่วงหน้า"
-
-#~ msgid "Choose type of click with mo_use gestures"
-#~ msgstr "เลือกชนิดของการคลิกด้วยท่า_ขยับเมาส์"
-
-#~ msgid "D_rag click:"
-#~ msgstr "คลิกเ_พื่อลาก:"
-
-#~ msgid "Dwell Click"
-#~ msgstr "การคลิกด้วยการวางแช่"
-
-#~ msgid "Show click type _window"
-#~ msgstr "แสดง_หน้าต่างเลือกชนิดการคลิก"
-
-#~ msgid ""
-#~ "You can also use the Dwell Click panel applet to choose the click type."
-#~ msgstr "คุณสามารถใช้แอพเพล็ต \"คลิกโดยวางแช่\" บนพาเนลในการเลือกวิธีคลิกได้เช่นกัน"
-
-#~ msgid "_Initiate click when stopping pointer movement"
-#~ msgstr "เริ่มการคลิ_กเมื่อหยุดเคลื่อนเมาส์"
-
-#~ msgid "_Single click:"
-#~ msgstr "_คลิกเดียว:"
-
-#~ msgid "_Trigger secondary click by holding down the primary button"
-#~ msgstr "_สร้างคลิกที่สองโดยกดปุ่มแรกของเมาส์"
-
-#~ msgid "Set the system proxy settings"
-#~ msgstr "ตั้งค่าพร็อกซีของระบบ"
-
-#~ msgid "Preparing connection"
-#~ msgstr "กำลังเตรียมการเชื่อมต่อ"
-
-#~ msgid "Configuring connection"
-#~ msgstr "กำลังตั้งค่าการเชื่อมต่อ"
-
-#~ msgid "Authenticating"
-#~ msgstr "กำลังยืนยันตัวบุคคล"
-
-#~ msgid "Getting network address"
-#~ msgstr "กำลังขอที่อยู่เครือข่าย"
-
-#~ msgid "Secure HTTP Proxy:"
-#~ msgstr "พร็อกซี HTTP นิรภัย:"
-
-#~ msgid "LowContrast"
-#~ msgstr "สีไม่ตัดกัน"
-
-#~ msgid "On"
-#~ msgstr "เปิด"
-
-#~ msgid "Show Universal Access status"
-#~ msgstr "แสดงสถานะการเข้าถึงหลากหลาย"
-
-#~ msgid "Use an alternative form of text input"
-#~ msgstr "ใช้การป้อนข้อความแบบอื่น"
-
-#~ msgctxt "Account type"
-#~ msgid "Supervised"
-#~ msgstr "มีการกำกับดูแล"
-
-#~ msgid ""
-#~ "A guest account will allow anyone to temporarily log in to this computer "
-#~ "without a password.  For security, remote logins to this account are not "
-#~ "allowed.\n"
-#~ "\n"
-#~ "<b>When the guest user logs out, all files and data associated with the "
-#~ "account will be deleted.</b>"
-#~ msgstr ""
-#~ "บัญชีผู้มาเยือนจะอนุญาตให้ใครก็ได้เข้าระบบในคอมพิวเตอร์เครื่องนี้ได้แบบชั่วคราวโดยไม่ต้องใช้รหัสผ่าน "
-#~ "เพื่อความปลอดภัย จะไม่อนุญาตให้เข้าระบบด้วยบัญชีนี้จากเครื่องอื่นในเครือข่าย\n"
-#~ "\n"
-#~ "<b>เมื่อผู้มาเยือนออกจากระบบ แฟ้มและข้อมูลที่เชื่อมโยงกับบัญชีนี้จะถูกลบทิ้งทั้งหมด</b>"
-
-#~ msgid "Accounts"
-#~ msgstr "บัญชี"
-
-#~ msgid "Address Book Card:"
-#~ msgstr "บัตรในสมุดที่อยู่:"
-
-#~ msgid "Allow guests to log in to this computer"
-#~ msgstr "อนุญาตให้ผู้มาเยือนเข้าระบบในคอมพิวเตอร์เครื่องนี้"
-
-#~ msgid "E-mail address:"
-#~ msgstr "ที่อยู่อีเมล:"
-
-#~ msgid "Open"
-#~ msgstr "เปิด"
-
-#~ msgid "Restrictions:"
-#~ msgstr "ข้อจำกัด:"
-
-#~ msgid "Show Shutdown, Suspend and Restart actions"
-#~ msgstr "แสดงคำสั่งปิดเครื่อง พักเครื่อง และเปิดเครื่องใหม่"
-
-#~ msgid "Show list of users"
-#~ msgstr "แสดงรายชื่อผู้ใช้"
-
-#~ msgid "Show password hints"
-#~ msgstr "แสดงคำใบ้ของรหัสผ่าน"
-
-#~ msgid "Example preferences panel"
-#~ msgstr "แผงปรับแต่งตัวอย่าง"
-
-#~ msgid "Foo;Bar;Baz;"
-#~ msgstr "ขี้หมูรา;ขี้หมาแห้ง;"
-
-#~ msgid "Orange"
-#~ msgstr "ส้ม"
-
-#~ msgid "Chocolate"
-#~ msgstr "ช็อกโกเลต"
-
-#~ msgid "Chameleon"
-#~ msgstr "กิ้งก่า"
-
-#~ msgid "Blue"
-#~ msgstr "น้ำเงิน"
-
-#~ msgid "Plum"
-#~ msgstr "เหมย"
-
-#~ msgid "Aluminium"
-#~ msgstr "อะลูมิเนียม"
-
-#~ msgid "Location already exists"
-#~ msgstr "สถานที่นี้มีอยู่ก่อนแล้ว"
-
-#~ msgid "Set your network proxy preferences"
-#~ msgstr "ตั้งค่าพร็อกซีของเครือข่าย"
-
-#~ msgid "Web;Location;"
-#~ msgstr "เว็บ;สถานที่;"
-
-#~ msgid "<b>Di_rect internet connection</b>"
-#~ msgstr "<b>ต่ออินเทอร์เน็ตโดย_ตรง</b>"
-
-#~ msgid "<b>_Manual proxy configuration</b>"
-#~ msgstr "<b>ตั้งค่าพร็อกซีเอ_ง</b>"
-
-#~ msgid "<b>_Use authentication</b>"
-#~ msgstr "<b>ใ_ช้การยืนยันตัวบุคคล</b>"
-
-#~ msgid "Autoconfiguration _URL:"
-#~ msgstr "_URL สำหรับตั้งค่าอัตโนมัติ:"
-
-#~ msgid "C_reate"
-#~ msgstr "_สร้าง"
-
-#~ msgid "Create New Location"
-#~ msgstr "เพิ่มสถานที่ใหม่"
-
-#~ msgid "HTTP Proxy Details"
-#~ msgstr "รายละเอียดพร็อกซี HTTP"
-
-#~ msgid "H_TTP proxy:"
-#~ msgstr "พร็อกซี H_TTP:"
-
-#~ msgid "Ignore Host List"
-#~ msgstr "รายชื่อโฮสต์ที่ไม่ผ่านพร็อกซี"
-
-#~ msgid "Ignored Hosts"
-#~ msgstr "โฮสต์ที่ไม่ผ่านพร็อกซี"
-
-#~ msgid "Network Proxy Preferences"
-#~ msgstr "ตั้งค่าพร็อกซีเครือข่าย"
-
-#~ msgid "S_ocks host:"
-#~ msgstr "โฮสต์ S_ocks:"
-
-#~ msgid "The location already exists."
-#~ msgstr "สถานที่นี้มีอยู่ก่อนแล้ว"
-
-#~ msgid "U_sername:"
-#~ msgstr "_ชื่อผู้ใช้:"
-
-#~ msgid "_Delete Location"
-#~ msgstr "_ลบสถานที่"
-
-#~ msgid "_FTP proxy:"
-#~ msgstr "พร็อกซี _FTP:"
-
-#~ msgid "_Location name:"
-#~ msgstr "_ชื่อสถานที่:"
-
-#~ msgid "_Secure HTTP proxy:"
-#~ msgstr "พร็อกซี _Secure HTTP:"
-
-#~ msgid "_Use the same proxy for all protocols"
-#~ msgstr "ใ_ช้พร็อกซีเดียวกันสำหรับทุกโพรโทคอล"
-
-#~ msgid "Slide Show"
-#~ msgstr "การแสดงสไลด์"
-
-#~ msgid "Image"
-#~ msgstr "รูปภาพ"
-
-#~ msgid "Set time automatically"
-#~ msgstr "ตั้งเวลาโดยอัตโนมัติ"
-
-#~ msgid "_Detect monitors"
-#~ msgstr "_ตรวจหาจอภาพต่างๆ"
-
-#~ msgid "_Mirror Screens"
-#~ msgstr "หน้าจอแสดงเห_มือนกัน"
-
-#~ msgid "Mirror Screens"
-#~ msgstr "หน้าจอแสดงเหมือนกัน"
-
-#~ msgid "_Application font:"
-#~ msgstr "แบบอักษรของโ_ปรแกรม:"
-
-#~ msgid "Open with \"%s\""
-#~ msgstr "เปิดด้วย \"%s\""
-
-#~ msgid "_Open"
-#~ msgstr "_เปิด"
-
-#~ msgid "Image/label border"
-#~ msgstr "เส้นขอบรูป/ป้าย"
-
-#~ msgid "Width of border around the label and image in the alert dialog"
-#~ msgstr "ความกว้างของเส้นขอบรอบป้ายและรูปภาพในกล่องโต้ตอบแจ้งเหตุ"
-
-#~ msgid "The type of alert"
-#~ msgstr "ชนิดของการแจ้งเหตุ"
-
-#~ msgid "The buttons shown in the alert dialog"
-#~ msgstr "ปุ่มที่จะแสดงในกล่องโต้ตอบแจ้งเหตุ"
-
-#~ msgid "Show more _details"
-#~ msgstr "แสดง_รายละเอียดเพิ่มเติม"
-
-#~ msgid "Place your left thumb on %s"
-#~ msgstr "วางนิ้วหัวแม่มือซ้ายของคุณลงบน %s"
-
-#~ msgid "Swipe your left thumb on %s"
-#~ msgstr "กลิ้งนิ้วหัวแม่มือซ้ายของคุณลงบน %s"
-
-#~ msgid "Place your left index finger on %s"
-#~ msgstr "วางนิ้วชี้ซ้ายของคุณลงบน %s"
-
-#~ msgid "Swipe your left index finger on %s"
-#~ msgstr "กลิ้งนิ้วชี้ซ้ายของคุณลงบน %s"
-
-#~ msgid "Place your left middle finger on %s"
-#~ msgstr "วางนิ้วกลางซ้ายของคุณลงบน %s"
-
-#~ msgid "Swipe your left middle finger on %s"
-#~ msgstr "กลิ้งนิ้วกลางซ้ายของคุณลงบน %s"
-
-#~ msgid "Place your left ring finger on %s"
-#~ msgstr "วางนิ้วนางซ้ายของคุณลงบน %s"
-
-#~ msgid "Swipe your left ring finger on %s"
-#~ msgstr "กลิ้งนิ้วนางซ้ายของคุณลงบน %s"
-
-#~ msgid "Place your left little finger on %s"
-#~ msgstr "วางนิ้วก้อยซ้ายของคุณลงบน %s"
-
-#~ msgid "Swipe your left little finger on %s"
-#~ msgstr "กลิ้งนิ้วก้อยซ้ายของคุณลงบน %s"
-
-#~ msgid "Place your right thumb on %s"
-#~ msgstr "วางนิ้วหัวแม่มือขวาของคุณลงบน %s"
-
-#~ msgid "Swipe your right thumb on %s"
-#~ msgstr "กลิ้งนิ้วหัวแม่มือขวาของคุณลงบน %s"
-
-#~ msgid "Place your right index finger on %s"
-#~ msgstr "วางนิ้วชี้ขวาของคุณลงบน %s"
-
-#~ msgid "Swipe your right index finger on %s"
-#~ msgstr "กลิ้งนิ้วชี้ขวาของคุณลงบน %s"
-
-#~ msgid "Place your right middle finger on %s"
-#~ msgstr "วางนิ้วกลางขวาของคุณลงบน %s"
-
-#~ msgid "Swipe your right middle finger on %s"
-#~ msgstr "กลิ้งนิ้วกลางขวาของคุณลงบน %s"
-
-#~ msgid "Place your right ring finger on %s"
-#~ msgstr "วางนิ้วนางขวาของคุณลงบน %s"
-
-#~ msgid "Swipe your right ring finger on %s"
-#~ msgstr "กลิ้งนิ้วนางขวาของคุณลงบน %s"
-
-#~ msgid "Place your right little finger on %s"
-#~ msgstr "วางนิ้วก้อยขวาของคุณลงบน %s"
-
-#~ msgid "Swipe your right little finger on %s"
-#~ msgstr "กลิ้งนิ้วก้อยขวาของคุณลงบน %s"
-
-#~ msgid "Place your finger on the reader again"
-#~ msgstr "วางนิ้วของคุณบนเครื่องอ่านอีกครั้ง"
-
-#~ msgid "Swipe your finger again"
-#~ msgstr "กลิ้งนิ้วของคุณอีกครั้ง"
-
-#~ msgid "Swipe was too short, try again"
-#~ msgstr "คุณกลิ้งสั้นเกินไป กรุณาลองใหม่อีกครั้ง"
-
-#~ msgid "Your finger was not centered, try swiping your finger again"
-#~ msgstr "นิ้วของคุณไม่ได้กึ่งกลาง กรุณาลองกลิ้งนิ้วใหม่อีกครั้ง"
-
-#~ msgid "Remove your finger, and try swiping your finger again"
-#~ msgstr "กรุณาเอานิ้วออก แล้วลองกลิ้งนิ้วใหม่อีกครั้ง"
-
-#~ msgid "No Image"
-#~ msgstr "ไม่มีรูป"
-
-#~ msgid ""
-#~ "There was an error while trying to get the addressbook information\n"
-#~ "Evolution Data Server can't handle the protocol"
-#~ msgstr ""
-#~ "เกิดข้อผิดพลาดขณะพยายามอ่านข้อมูลสมุดที่อยู่\n"
-#~ "Evolution Data Server ไม่สามารถจัดการกับโพรโทคอลได้"
-
-#~ msgid "Unable to open address book"
-#~ msgstr "เปิดสมุดที่อยู่ไม่สำเร็จ"
-
-#~ msgid "C_ompany:"
-#~ msgstr "_บริษัท:"
-
-#~ msgid "Change Passwo_rd..."
-#~ msgstr "เปลี่ยนรหัส_ผ่าน..."
-
-#~ msgid "Ci_ty:"
-#~ msgstr "เมือง/_อำเภอ:"
-
-#~ msgid "Cou_ntry:"
-#~ msgstr "_ประเทศ:"
-
-#~ msgid "Disable _Fingerprint Login..."
-#~ msgstr "ปิดการเข้าระบบด้วยลาย_นิ้วมือ..."
+#: ../panels/region/gnome-unity-region-panel.desktop.in.in.h:1
+msgid "Text Entry"
+msgstr ""
+
+#: ../panels/region/gnome-unity-region-panel.desktop.in.in.h:2
+msgid "Change your keyboard or input method settings"
+msgstr ""
+
+#. Translators: those are keywords for the region control-center panel
+#: ../panels/region/gnome-unity-region-panel.desktop.in.in.h:4
+msgid "Language;Layout;Keyboard;Input Method;Text Entry;"
+msgstr ""

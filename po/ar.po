@@ -14,50 +14,60 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-20 06:40+0200\n"
-"PO-Revision-Date: 2012-09-20 06:40+0200\n"
+"POT-Creation-Date: 2014-01-08 23:25+0000\n"
+"PO-Revision-Date: 2014-01-09 06:43+0000\n"
 "Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
-"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
-"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Virtaal 0.7.0\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n % 100 >= "
+"3 && n % 100 <= 10 ? 3 : n % 100 >= 11 && n % 100 <= 99 ? 4 : 5;\n"
+"X-Launchpad-Export-Date: 2014-01-30 14:21+0000\n"
+"X-Generator: Launchpad (build 16916)\n"
 "X-Project-Style: gnome\n"
+"Language: ar\n"
+
+#: ../panels/background/background.ui.h:1
+#: ../panels/background/gnome-background-panel.desktop.in.in.h:1
+msgid "Background"
+msgstr "الخلفية"
 
 #. This refers to a slideshow background
-#: ../panels/background/background.ui.h:2
+#: ../panels/background/background.ui.h:3
 msgid "Changes throughout the day"
 msgstr "تتغير طوال اليوم"
 
-#: ../panels/background/background.ui.h:3
+#: ../panels/background/background.ui.h:4
+msgid "Lock Screen"
+msgstr "أقفل الشاشة"
+
+#: ../panels/background/background.ui.h:5
 msgctxt "background, style"
 msgid "Tile"
 msgstr "مبلّطة"
 
-#: ../panels/background/background.ui.h:4
+#: ../panels/background/background.ui.h:6
 msgctxt "background, style"
 msgid "Zoom"
 msgstr "مُقرَّبة"
 
-#: ../panels/background/background.ui.h:5
+#: ../panels/background/background.ui.h:7
 msgctxt "background, style"
 msgid "Center"
 msgstr "موسَّطة"
 
-#: ../panels/background/background.ui.h:6
+#: ../panels/background/background.ui.h:8
 msgctxt "background, style"
 msgid "Scale"
 msgstr "محجّمة"
 
-#: ../panels/background/background.ui.h:7
+#: ../panels/background/background.ui.h:9
 msgctxt "background, style"
 msgid "Fill"
 msgstr "مملوءة"
 
-#: ../panels/background/background.ui.h:8
+#: ../panels/background/background.ui.h:10
 msgctxt "background, style"
 msgid "Span"
 msgstr "موسّعة"
@@ -105,13 +115,9 @@ msgstr "%d × %d"
 msgid "No Desktop Background"
 msgstr "لا خلفية لسطح المكتب"
 
-#: ../panels/background/cc-background-panel.c:387
+#: ../panels/background/cc-background-panel.c:451
 msgid "Current background"
 msgstr "الخلفية الحالية"
-
-#: ../panels/background/gnome-background-panel.desktop.in.in.h:1
-msgid "Background"
-msgstr "الخلفية"
 
 #: ../panels/background/gnome-background-panel.desktop.in.in.h:2
 msgid "Change the background"
@@ -123,12 +129,12 @@ msgid "Wallpaper;Screen;Desktop;"
 msgstr "خلفية;شاشة;سطح المكتب;"
 
 #. TRANSLATORS: device type
-#: ../panels/bluetooth/bluetooth-properties.desktop.in.in.h:1
+#: ../panels/bluetooth/gnome-bluetooth-panel.desktop.in.in.h:1
 #: ../panels/network/panel-common.c:102
 msgid "Bluetooth"
 msgstr "بلوتوث"
 
-#: ../panels/bluetooth/bluetooth-properties.desktop.in.in.h:2
+#: ../panels/bluetooth/gnome-bluetooth-panel.desktop.in.in.h:2
 msgid "Configure Bluetooth settings"
 msgstr "ضبط إعدادات بلوتوث"
 
@@ -144,211 +150,221 @@ msgstr "أزِل الجهاز"
 msgid "Connection"
 msgstr "الاتصال"
 
-#: ../panels/bluetooth/bluetooth.ui.h:4
+#: ../panels/bluetooth/bluetooth.ui.h:4 ../panels/printers/printers.ui.h:14
+msgid "page 1"
+msgstr "صفحة 1"
+
+#: ../panels/bluetooth/bluetooth.ui.h:5 ../panels/printers/printers.ui.h:16
+msgid "page 2"
+msgstr "صفحة 2"
+
+#: ../panels/bluetooth/bluetooth.ui.h:6
 msgid "Paired"
 msgstr "مقترن"
 
-#: ../panels/bluetooth/bluetooth.ui.h:5 ../panels/wacom/cc-wacom-page.c:756
+#: ../panels/bluetooth/bluetooth.ui.h:7 ../panels/wacom/cc-wacom-page.c:756
 msgid "Type"
 msgstr "النوع"
 
-#: ../panels/bluetooth/bluetooth.ui.h:6
+#: ../panels/bluetooth/bluetooth.ui.h:8
 msgid "Address"
 msgstr "العنوان"
 
-#: ../panels/bluetooth/bluetooth.ui.h:7
+#: ../panels/bluetooth/bluetooth.ui.h:9
 msgid "Mouse and Touchpad Settings"
 msgstr "إعدادات الفأرة ولوحة اللمس"
 
-#: ../panels/bluetooth/bluetooth.ui.h:8 ../panels/universal-access/uap.ui.h:38
+#: ../panels/bluetooth/bluetooth.ui.h:10
+#: ../panels/universal-access/uap.ui.h:38
 msgid "Sound Settings"
 msgstr "إعدادات الصوت"
 
-#: ../panels/bluetooth/bluetooth.ui.h:9
+#: ../panels/bluetooth/bluetooth.ui.h:11
 msgid "Keyboard Settings"
 msgstr "إعدادات لوحة المفاتيح"
 
-#: ../panels/bluetooth/bluetooth.ui.h:10
+#: ../panels/bluetooth/bluetooth.ui.h:12
 msgid "Send Files..."
 msgstr "أرسل ملفات..."
 
-#: ../panels/bluetooth/bluetooth.ui.h:11
+#: ../panels/bluetooth/bluetooth.ui.h:13
 msgid "Browse Files..."
 msgstr "تصفح الملفات..."
 
 #. Translator: This string appears next to a toggle switch which controls enabling/disabling Bluetooth radio's on the device.
-#: ../panels/bluetooth/bluetooth.ui.h:13
+#: ../panels/bluetooth/bluetooth.ui.h:15
 msgctxt "Power"
 msgid "Bluetooth"
 msgstr "بلوتوث"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:290
+#: ../panels/bluetooth/cc-bluetooth-panel.c:340
 msgid "Yes"
 msgstr "نعم"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:290
+#: ../panels/bluetooth/cc-bluetooth-panel.c:340
 msgid "No"
 msgstr "لا"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:405
+#: ../panels/bluetooth/cc-bluetooth-panel.c:454
 msgid "Bluetooth is disabled"
 msgstr "بلوتوث معطّل"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:410
+#: ../panels/bluetooth/cc-bluetooth-panel.c:459
 msgid "Bluetooth is disabled by hardware switch"
 msgstr "بلوتوث معطّل من مفتاح العتاد"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:414
+#: ../panels/bluetooth/cc-bluetooth-panel.c:463
 msgid "No Bluetooth adapters found"
 msgstr "لم يعثر على محولات بلوتوث"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:547
+#: ../panels/bluetooth/cc-bluetooth-panel.c:590
 msgid "Visibility"
 msgstr "الظهور"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:551
+#: ../panels/bluetooth/cc-bluetooth-panel.c:594
 #, c-format
 msgid "Visibility of “%s”"
 msgstr "ظهور ”%s“"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:595
+#: ../panels/bluetooth/cc-bluetooth-panel.c:638
 #, c-format
 msgid "Remove '%s' from the list of devices?"
 msgstr "أأزيل '%s' من قائمة الأجهزة؟"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:597
+#: ../panels/bluetooth/cc-bluetooth-panel.c:640
 msgid ""
 "If you remove the device, you will have to set it up again before next use."
 msgstr "إذا أزلت الجهاز، فستحتاج لإعداده مرة أخرى قبل استخدامه مجددا."
 
 #. TRANSLATORS: this is where the user can click and import a profile
-#: ../panels/color/cc-color-panel.c:106
+#: ../panels/color/cc-color-panel.c:107
 msgid "Other profile…"
 msgstr "تشكيل آخر…"
 
 #. TRANSLATORS: this is a profile prefix to signify the
 #. * profile has been auto-generated for this hardware
-#: ../panels/color/cc-color-panel.c:119
+#: ../panels/color/cc-color-panel.c:120
 msgid "Default: "
 msgstr "المبدئي: "
 
 #. TRANSLATORS: this is a profile prefix to signify the
 #. * profile his a standard space like AdobeRGB
-#: ../panels/color/cc-color-panel.c:126
+#: ../panels/color/cc-color-panel.c:127
 msgid "Colorspace: "
 msgstr "نطاق الألوان: "
 
 #. TRANSLATORS: this is a profile prefix to signify the
 #. * profile is a test profile
-#: ../panels/color/cc-color-panel.c:132
+#: ../panels/color/cc-color-panel.c:133
 msgid "Test profile: "
 msgstr "تشكيل اختبار: "
 
 #. TRANSLATORS: this is when the profile should be set for all users
-#: ../panels/color/cc-color-panel.c:185 ../panels/color/color.ui.h:11
+#: ../panels/color/cc-color-panel.c:186 ../panels/color/color.ui.h:11
 msgid "Set for all users"
 msgstr "اضبط لجميع المستخدمين"
 
 #. TRANSLATORS: this is when the profile should be set for all users
-#: ../panels/color/cc-color-panel.c:192
+#: ../panels/color/cc-color-panel.c:193
 msgid "Create virtual device"
 msgstr "أنشئ جهاز افتراضي"
 
 #. TRANSLATORS: an ICC profile is a file containing colorspace data
-#: ../panels/color/cc-color-panel.c:227
+#: ../panels/color/cc-color-panel.c:228
 msgid "Select ICC Profile File"
 msgstr "اختر ملف تشكيل ICC"
 
-#: ../panels/color/cc-color-panel.c:230
+#: ../panels/color/cc-color-panel.c:231
 msgid "_Import"
 msgstr "ا_ستورد"
 
 #. TRANSLATORS: filter name on the file->open dialog
-#: ../panels/color/cc-color-panel.c:241
+#: ../panels/color/cc-color-panel.c:242
 msgid "Supported ICC profiles"
 msgstr "تشكيلات ICC المدعومة"
 
 #. TRANSLATORS: filter name on the file->open dialog
-#: ../panels/color/cc-color-panel.c:248
+#: ../panels/color/cc-color-panel.c:249
 msgid "All files"
 msgstr "كلّ الملفات"
 
 #. TRANSLATORS: this is the dialog title in the 'Add profile' UI
-#: ../panels/color/cc-color-panel.c:522
+#: ../panels/color/cc-color-panel.c:639
 msgid "Available Profiles for Displays"
 msgstr "التشكيلات المتوفرة لشاشات العرض"
 
 #. TRANSLATORS: this is the dialog title in the 'Add profile' UI
-#: ../panels/color/cc-color-panel.c:526
+#: ../panels/color/cc-color-panel.c:643
 msgid "Available Profiles for Scanners"
 msgstr "التشكيلات المتوفرة للماسحات الضوئية"
 
 #. TRANSLATORS: this is the dialog title in the 'Add profile' UI
-#: ../panels/color/cc-color-panel.c:530
+#: ../panels/color/cc-color-panel.c:647
 msgid "Available Profiles for Printers"
 msgstr "التشكيلات المتوفرة للطابعات"
 
 #. TRANSLATORS: this is the dialog title in the 'Add profile' UI
-#: ../panels/color/cc-color-panel.c:534
+#: ../panels/color/cc-color-panel.c:651
 msgid "Available Profiles for Cameras"
 msgstr "التشكيلات المتوفرة للكاميرات"
 
 #. TRANSLATORS: this is the dialog title in the 'Add profile' UI
-#: ../panels/color/cc-color-panel.c:538
+#: ../panels/color/cc-color-panel.c:655
 msgid "Available Profiles for Webcams"
 msgstr "التشكيلات المتوفرة لكاميرات الوِب"
 
 #. TRANSLATORS: this is the dialog title in the 'Add profile' UI
 #. * where the device type is not recognised
 #. Profiles that can be added to the device
-#: ../panels/color/cc-color-panel.c:543 ../panels/color/color.ui.h:2
+#: ../panels/color/cc-color-panel.c:660 ../panels/color/color.ui.h:2
 msgid "Available Profiles"
 msgstr "التشكيلات المتوفرة"
 
 #. TRANSLATORS: column for device list
-#: ../panels/color/cc-color-panel.c:824
+#: ../panels/color/cc-color-panel.c:936
 #: ../panels/sound/gvc-mixer-dialog.c:1525
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1618
 msgid "Device"
 msgstr "الجهاز"
 
 #. TRANSLATORS: column for device list
-#: ../panels/color/cc-color-panel.c:859
+#: ../panels/color/cc-color-panel.c:971
 msgid "Calibration"
 msgstr "المعايرة"
 
 #. TRANSLATORS: this is when the button is sensitive
-#: ../panels/color/cc-color-panel.c:891
+#: ../panels/color/cc-color-panel.c:1003
 msgid "Create a color profile for the selected device"
 msgstr "أنشئ تشكيل لون للجهاز المختار"
 
 #. TRANSLATORS: this is when the button is insensitive
-#: ../panels/color/cc-color-panel.c:905 ../panels/color/cc-color-panel.c:929
+#: ../panels/color/cc-color-panel.c:1017 ../panels/color/cc-color-panel.c:1041
 msgid ""
 "The measuring instrument is not detected. Please check it is turned on and "
 "correctly connected."
 msgstr "لم تُكتشف أداة القياس. رجاءً تأكد من تشغيلها وتوصيلها بشكل صحيح."
 
 #. TRANSLATORS: this is when the button is insensitive
-#: ../panels/color/cc-color-panel.c:938
+#: ../panels/color/cc-color-panel.c:1050
 msgid "The measuring instrument does not support printer profiling."
 msgstr "أداة القياس لا تدعم تشكيل الطابعة."
 
 #. TRANSLATORS: this is when the button is insensitive
-#: ../panels/color/cc-color-panel.c:949
+#: ../panels/color/cc-color-panel.c:1061
 msgid "The device type is not currently supported."
 msgstr "نوع الجهاز غير مدعوم حاليًا."
 
 #. TRANSLATORS: this is when an auto-added profile cannot be removed
-#: ../panels/color/cc-color-panel.c:1022
+#: ../panels/color/cc-color-panel.c:1133
 msgid "Cannot remove automatically added profile"
 msgstr "لا يمكن إزالة التشكيل المُضاف آليًا"
 
 #. TRANSLATORS: this is when there is no profile for the device
-#: ../panels/color/cc-color-panel.c:1359
+#: ../panels/color/cc-color-panel.c:1464
 msgid "No profile"
 msgstr "لا تشكيل"
 
-#: ../panels/color/cc-color-panel.c:1390
+#: ../panels/color/cc-color-panel.c:1495
 #, c-format
 msgid "%i year"
 msgid_plural "%i years"
@@ -359,7 +375,7 @@ msgstr[3] "%i سنوات"
 msgstr[4] "%i سنة"
 msgstr[5] "%i سنة"
 
-#: ../panels/color/cc-color-panel.c:1401
+#: ../panels/color/cc-color-panel.c:1506
 #, c-format
 msgid "%i month"
 msgid_plural "%i months"
@@ -370,7 +386,7 @@ msgstr[3] "%i شهور"
 msgstr[4] "%i شهرا"
 msgstr[5] "%i شهر"
 
-#: ../panels/color/cc-color-panel.c:1412
+#: ../panels/color/cc-color-panel.c:1517
 #, c-format
 msgid "%i week"
 msgid_plural "%i weeks"
@@ -382,81 +398,81 @@ msgstr[4] "%i أسبوعا"
 msgstr[5] "%i أسبوع"
 
 #. fallback
-#: ../panels/color/cc-color-panel.c:1419
+#: ../panels/color/cc-color-panel.c:1524
 #, c-format
 msgid "Less than 1 week"
 msgstr "أقلّ من أسبوع"
 
-#: ../panels/color/cc-color-panel.c:1481
+#: ../panels/color/cc-color-panel.c:1586
 msgctxt "Colorspace fallback"
 msgid "Default RGB"
 msgstr "ح‌خ‌ز المبدئي"
 
-#: ../panels/color/cc-color-panel.c:1486
+#: ../panels/color/cc-color-panel.c:1591
 msgctxt "Colorspace fallback"
 msgid "Default CMYK"
 msgstr "زق‌ص‌س المبدئي"
 
-#: ../panels/color/cc-color-panel.c:1491
+#: ../panels/color/cc-color-panel.c:1596
 msgctxt "Colorspace fallback"
 msgid "Default Gray"
 msgstr "الرمادي المبدئي"
 
-#: ../panels/color/cc-color-panel.c:1609 ../panels/color/cc-color-panel.c:1650
-#: ../panels/color/cc-color-panel.c:1661 ../panels/color/cc-color-panel.c:1672
+#: ../panels/color/cc-color-panel.c:1714 ../panels/color/cc-color-panel.c:1755
+#: ../panels/color/cc-color-panel.c:1766 ../panels/color/cc-color-panel.c:1777
 msgid "Uncalibrated"
 msgstr "غير مُعايَر"
 
-#: ../panels/color/cc-color-panel.c:1612
+#: ../panels/color/cc-color-panel.c:1717
 msgid "This device is not color managed."
 msgstr "الجهاز ليس مُدار الألوان."
 
-#: ../panels/color/cc-color-panel.c:1653
+#: ../panels/color/cc-color-panel.c:1758
 msgid "This device is using manufacturing calibrated data."
 msgstr "هذا الجهاز يستخدم بيانات التصنيع المعايرة."
 
-#: ../panels/color/cc-color-panel.c:1664
+#: ../panels/color/cc-color-panel.c:1769
 msgid ""
 "This device does not have a profile suitable for whole-screen color "
 "correction."
 msgstr "ليس لهذا الجهاز تشكيل مناسب لتصحيح ألون كامل الشاشة."
 
-#: ../panels/color/cc-color-panel.c:1697
+#: ../panels/color/cc-color-panel.c:1802
 msgid "This device has an old profile that may no longer be accurate."
 msgstr "هذا الجهاز يحوي تشكيل ربما لم يعد دقيقا."
 
 #. TRANSLATORS: this is when the calibration profile age is not
 #. * specified as it has been autogenerated from the hardware
-#: ../panels/color/cc-color-panel.c:1725
+#: ../panels/color/cc-color-panel.c:1830
 msgid "Not specified"
 msgstr "غير محدّد"
 
 #. add the 'No devices detected' entry
-#: ../panels/color/cc-color-panel.c:1910
+#: ../panels/color/cc-color-panel.c:2015
 msgid "No devices supporting color management detected"
 msgstr "لم يُعثر على جهاز يدعم إدارة الألوان"
 
-#: ../panels/color/cc-color-panel.c:2139
+#: ../panels/color/cc-color-panel.c:2244
 msgctxt "Device kind"
 msgid "Display"
 msgstr "شاشة"
 
-#: ../panels/color/cc-color-panel.c:2141
+#: ../panels/color/cc-color-panel.c:2246
 msgctxt "Device kind"
 msgid "Scanner"
 msgstr "ماسحة"
 
-#: ../panels/color/cc-color-panel.c:2143
+#: ../panels/color/cc-color-panel.c:2248
 msgctxt "Device kind"
 msgid "Printer"
 msgstr "طابعة"
 
-#: ../panels/color/cc-color-panel.c:2145
+#: ../panels/color/cc-color-panel.c:2250
 msgctxt "Device kind"
 msgid "Camera"
 msgstr "كامرة"
 
-#: ../panels/color/cc-color-panel.c:2147
+#: ../panels/color/cc-color-panel.c:2252
 msgctxt "Device kind"
 msgid "Webcam"
 msgstr "كامرة شبكية"
@@ -544,69 +560,32 @@ msgstr "إعدادات إدارة الألوان"
 msgid "Color;ICC;Profile;Calibrate;Printer;Display;"
 msgstr "لون;ألوان;تشكيل;معايرة;طابعة;شاشة;"
 
-#. Add some common languages first
-#: ../panels/common/cc-common-language.c:523
-msgid "English"
-msgstr "الإنجليزية"
-
-#: ../panels/common/cc-common-language.c:525
-msgid "British English"
-msgstr "الإنجليزية البريطانية"
-
-#: ../panels/common/cc-common-language.c:528
-msgid "German"
-msgstr "الألمانية"
-
-#: ../panels/common/cc-common-language.c:531
-msgid "French"
-msgstr "الفرنسيّة"
-
-#: ../panels/common/cc-common-language.c:534
-msgid "Spanish"
-msgstr "الإسبانية"
-
-#: ../panels/common/cc-common-language.c:536
-msgid "Chinese (simplified)"
-msgstr "الصينية (المبسطة)"
-
-#: ../panels/common/cc-common-language.c:539
-msgid "Russian"
-msgstr "الروسية"
-
-#: ../panels/common/cc-common-language.c:542
-msgid "Arabic"
-msgstr "العربية"
-
 #. Add some common regions
-#: ../panels/common/cc-common-language.c:571
+#: ../panels/common/cc-common-language.c:661
 msgid "United States"
 msgstr "الولايات المتّحدة"
 
-#: ../panels/common/cc-common-language.c:572
+#: ../panels/common/cc-common-language.c:662
 msgid "Germany"
 msgstr "ألمانيا"
 
-#: ../panels/common/cc-common-language.c:573
+#: ../panels/common/cc-common-language.c:663
 msgid "France"
 msgstr "فرنسا"
 
-#: ../panels/common/cc-common-language.c:574
+#: ../panels/common/cc-common-language.c:664
 msgid "Spain"
 msgstr "إسبانيا"
 
-#: ../panels/common/cc-common-language.c:575
+#: ../panels/common/cc-common-language.c:665
 msgid "China"
 msgstr "الصّين"
-
-#: ../panels/common/cc-language-chooser.c:122
-msgid "Other..."
-msgstr "أخرى..."
 
 #: ../panels/common/cc-language-chooser.c:296
 msgid "Select a region"
 msgstr "اختر منطقة"
 
-#: ../panels/common/gdm-languages.c:781
+#: ../panels/common/gdm-languages.c:787
 msgid "Unspecified"
 msgstr "غير محدّد"
 
@@ -750,22 +729,22 @@ msgstr "غيّر إعدادات الوقت والتاريخ للنظام"
 msgid "To change time or date settings, you need to authenticate."
 msgstr "لتغيير إعدادات الوقت والتاريخ، تحتاج للاستيثاق."
 
-#: ../panels/display/cc-display-panel.c:481
+#: ../panels/display/cc-display-panel.c:513
 msgctxt "display panel, rotation"
 msgid "Normal"
 msgstr "طبيعي"
 
-#: ../panels/display/cc-display-panel.c:482
+#: ../panels/display/cc-display-panel.c:514
 msgctxt "display panel, rotation"
 msgid "Counterclockwise"
 msgstr "عكس عقارب الساعة"
 
-#: ../panels/display/cc-display-panel.c:483
+#: ../panels/display/cc-display-panel.c:515
 msgctxt "display panel, rotation"
 msgid "Clockwise"
 msgstr "مع عقارب الساعة"
 
-#: ../panels/display/cc-display-panel.c:484
+#: ../panels/display/cc-display-panel.c:516
 msgctxt "display panel, rotation"
 msgid "180 Degrees"
 msgstr "180 درجة"
@@ -775,59 +754,70 @@ msgstr "180 درجة"
 #. * screen is the same as your external projector.  Here, "Mirrored" is being
 #. * used as an adjective.  For example, the Spanish translation could be
 #. * "Pantallas en Espejo".
-#.
-#: ../panels/display/cc-display-panel.c:623
+#. 
+#. Keep this string in sync with gnome-control-center/capplets/display/xrandr-capplet.c:get_display_name()
+#. Translators:  this is the feature where what you see on your
+#. * laptop's screen is the same as your external projector.
+#. * Here, "Mirrored" is being used as an adjective.  For example,
+#. * the Spanish translation could be "Pantallas en Espejo".
+#. 
+#: ../panels/display/cc-display-panel.c:659
+#: ../panels/display/cc-rr-labeler.c:449
 msgid "Mirrored Displays"
 msgstr "شاشات متطابقة"
 
-#: ../panels/display/cc-display-panel.c:647
+#: ../panels/display/cc-display-panel.c:683
 #: ../panels/display/display-capplet.ui.h:1
 msgid "Monitor"
 msgstr "الشاشة"
 
-#: ../panels/display/cc-display-panel.c:748
+#: ../panels/display/cc-display-panel.c:787
 #, c-format
 msgid "%d x %d (%s)"
 msgstr "‏%d ×‏ %d ‏(%s)"
 
-#: ../panels/display/cc-display-panel.c:750
+#: ../panels/display/cc-display-panel.c:789
 #, c-format
 msgid "%d x %d"
 msgstr "%d × %d"
 
-#: ../panels/display/cc-display-panel.c:1659
+#: ../panels/display/cc-display-panel.c:1699
 msgid "Drag to change primary display."
 msgstr "اسحب لتغيير جهاز العرض المبدئي."
 
-#: ../panels/display/cc-display-panel.c:1717
+#: ../panels/display/cc-display-panel.c:1757
 msgid ""
 "Select a monitor to change its properties; drag it to rearrange its "
 "placement."
 msgstr "اختر شاشة لتغيير خصائصها، واسحبها لتغيير ترتيبها."
 
-#: ../panels/display/cc-display-panel.c:2105
+#: ../panels/display/cc-display-panel.c:2172
 msgid "%a %R"
 msgstr "‏%a ‏%R"
 
-#: ../panels/display/cc-display-panel.c:2107
+#: ../panels/display/cc-display-panel.c:2174
 msgid "%a %l:%M %p"
 msgstr "%A %Ol:%OM %p"
 
-#: ../panels/display/cc-display-panel.c:2269
-#: ../panels/display/cc-display-panel.c:2321
+#: ../panels/display/cc-display-panel.c:2336
+#: ../panels/display/cc-display-panel.c:2388
 #, c-format
 msgid "Failed to apply configuration: %s"
 msgstr "فشل تطبيق الإعداد: %s"
 
-#: ../panels/display/cc-display-panel.c:2349
+#: ../panels/display/cc-display-panel.c:2416
 msgid "Could not save the monitor configuration"
 msgstr "تعذّر حفظ إعدادات الشاشة"
 
-#: ../panels/display/cc-display-panel.c:2409
+#: ../panels/display/cc-display-panel.c:2476
 msgid "Could not detect displays"
 msgstr "تعذّر اكتشاف أجهزة العرض"
 
-#: ../panels/display/cc-display-panel.c:2603
+#: ../panels/display/cc-display-panel.c:2740
+msgid "All displays"
+msgstr "جميع الشاشات"
+
+#: ../panels/display/cc-display-panel.c:2897
 msgid "Could not get screen information"
 msgstr "تعذّرت معرفة معلومات الشاشة"
 
@@ -839,16 +829,24 @@ msgstr "ال_ميز"
 msgid "R_otation"
 msgstr "ال_دوران"
 
-#. Note that mirror is a verb in this string
+#: ../panels/display/display-capplet.ui.h:4
+msgid "L_auncher placement"
+msgstr "موضع ال_شريط"
+
 #: ../panels/display/display-capplet.ui.h:5
+msgid "S_ticky edges"
+msgstr "حواف _قاسية"
+
+#. Note that mirror is a verb in this string
+#: ../panels/display/display-capplet.ui.h:7
 msgid "_Mirror displays"
 msgstr "ا_نسخ الشاشات"
 
-#: ../panels/display/display-capplet.ui.h:6
+#: ../panels/display/display-capplet.ui.h:8
 msgid "Note: may limit resolution options"
 msgstr "ملاحظة: قد يقلل من خيارات الميز"
 
-#: ../panels/display/display-capplet.ui.h:7
+#: ../panels/display/display-capplet.ui.h:9
 msgid "_Detect Displays"
 msgstr "اكتشف ال_شاشات"
 
@@ -866,34 +864,34 @@ msgid "Panel;Projector;xrandr;Screen;Resolution;Refresh;"
 msgstr "لوحة;عرض;شاشة;ميز;"
 
 #. Translators: VESA is an techncial acronym, don't translate it.
-#: ../panels/info/cc-info-panel.c:413
+#: ../panels/info/cc-info-panel.c:435
 #, c-format
 msgid "VESA: %s"
 msgstr "VESA: %s"
 
 #. TRANSLATORS: device type
 #. TRANSLATORS: AP type
-#: ../panels/info/cc-info-panel.c:437 ../panels/network/panel-common.c:82
+#: ../panels/info/cc-info-panel.c:459 ../panels/network/panel-common.c:82
 #: ../panels/network/panel-common.c:162
 msgid "Unknown"
 msgstr "غير معروف"
 
 #. translators: This is the type of architecture, for example:
 #. * "64-bit" or "32-bit"
-#: ../panels/info/cc-info-panel.c:593
+#: ../panels/info/cc-info-panel.c:615
 #, c-format
 msgid "%d-bit"
 msgstr "%d بتة"
 
-#: ../panels/info/cc-info-panel.c:752
+#: ../panels/info/cc-info-panel.c:774
 msgid "Unknown model"
 msgstr "طِراز غير معروف"
 
-#: ../panels/info/cc-info-panel.c:835
+#: ../panels/info/cc-info-panel.c:857
 msgid "The next login will attempt to use the standard experience."
 msgstr "الولوج التالي سيحاول استخدام الواجهة الاعتيادية."
 
-#: ../panels/info/cc-info-panel.c:837
+#: ../panels/info/cc-info-panel.c:859
 msgid ""
 "The next login will use the fallback mode intended for unsupported graphics "
 "hardware."
@@ -903,51 +901,51 @@ msgstr ""
 
 #. translators: The hardware is not able to run GNOME 3's
 #. * shell, so we use the GNOME "Fallback" session
-#: ../panels/info/cc-info-panel.c:879
+#: ../panels/info/cc-info-panel.c:901
 msgctxt "Experience"
 msgid "Fallback"
 msgstr "احتياطية"
 
 #. translators: The hardware is able to run GNOME 3's
 #. * shell, also called "Standard" experience
-#: ../panels/info/cc-info-panel.c:885
+#: ../panels/info/cc-info-panel.c:907
 msgctxt "Experience"
 msgid "Standard"
 msgstr "اعتيادية"
 
-#: ../panels/info/cc-info-panel.c:1227
+#: ../panels/info/cc-info-panel.c:1283
 msgid "Ask what to do"
 msgstr "اسأل ما الذي يجب فعله"
 
-#: ../panels/info/cc-info-panel.c:1231
+#: ../panels/info/cc-info-panel.c:1287 ../panels/power/power.ui.h:11
 msgid "Do nothing"
 msgstr "لا تفعل شيئا"
 
-#: ../panels/info/cc-info-panel.c:1235
+#: ../panels/info/cc-info-panel.c:1291
 msgid "Open folder"
 msgstr "افتح المجلّد"
 
-#: ../panels/info/cc-info-panel.c:1326
+#: ../panels/info/cc-info-panel.c:1382
 msgid "Other Media"
 msgstr "وسائط أخرى"
 
-#: ../panels/info/cc-info-panel.c:1357
+#: ../panels/info/cc-info-panel.c:1413
 msgid "Select an application for audio CDs"
 msgstr "اختر تطبيقا لاسطوانات الصوت"
 
-#: ../panels/info/cc-info-panel.c:1358
+#: ../panels/info/cc-info-panel.c:1414
 msgid "Select an application for video DVDs"
 msgstr "اختر تطبيقا لاسطوانات الفديو"
 
-#: ../panels/info/cc-info-panel.c:1359
+#: ../panels/info/cc-info-panel.c:1415
 msgid "Select an application to run when a music player is connected"
 msgstr "اختر تطبيقا لتشغيله عند توصيل مشغّل موسيقى"
 
-#: ../panels/info/cc-info-panel.c:1360
+#: ../panels/info/cc-info-panel.c:1416
 msgid "Select an application to run when a camera is connected"
 msgstr "اختر تطبيقا لتشغيله عند توصيل كمرة"
 
-#: ../panels/info/cc-info-panel.c:1361
+#: ../panels/info/cc-info-panel.c:1417
 msgid "Select an application for software CDs"
 msgstr "اختر تطبيقا لاسطوانات البرامج"
 
@@ -955,100 +953,104 @@ msgstr "اختر تطبيقا لاسطوانات البرامج"
 #. * strings, just here to fix capitalization of the English originals.
 #. * If the shared-mime-info translation works for your language,
 #. * simply leave these untranslated.
-#.
-#: ../panels/info/cc-info-panel.c:1373
+#. 
+#: ../panels/info/cc-info-panel.c:1429
 msgid "audio DVD"
 msgstr "دي‌ڤي‌دي صوتي"
 
-#: ../panels/info/cc-info-panel.c:1374
+#: ../panels/info/cc-info-panel.c:1430
 msgid "blank Blu-ray disc"
 msgstr "قرص Blu-Ray فارغ"
 
-#: ../panels/info/cc-info-panel.c:1375
+#: ../panels/info/cc-info-panel.c:1431
 msgid "blank CD disc"
 msgstr "اسطوانة فارغة"
 
-#: ../panels/info/cc-info-panel.c:1376
+#: ../panels/info/cc-info-panel.c:1432
 msgid "blank DVD disc"
 msgstr "قرص دي‌ڤي‌دي فارغ"
 
-#: ../panels/info/cc-info-panel.c:1377
+#: ../panels/info/cc-info-panel.c:1433
 msgid "blank HD DVD disc"
 msgstr "قرص دي‌ڤي‌دي إتش‌دي فارغ"
 
-#: ../panels/info/cc-info-panel.c:1378
+#: ../panels/info/cc-info-panel.c:1434
 msgid "Blu-ray video disc"
 msgstr "قرص Blu-Ray فديو فارغ"
 
-#: ../panels/info/cc-info-panel.c:1379
+#: ../panels/info/cc-info-panel.c:1435
 msgid "e-book reader"
 msgstr "قارئ كتب إلكتروني"
 
-#: ../panels/info/cc-info-panel.c:1380
+#: ../panels/info/cc-info-panel.c:1436
 msgid "HD DVD video disc"
 msgstr "قرص دي‌ڤي‌دي إتش‌دي فديو فارغ"
 
-#: ../panels/info/cc-info-panel.c:1381
+#: ../panels/info/cc-info-panel.c:1437
 msgid "Picture CD"
 msgstr "اسطوانة صور"
 
-#: ../panels/info/cc-info-panel.c:1382
+#: ../panels/info/cc-info-panel.c:1438
 msgid "Super Video CD"
 msgstr "اسطوانة فديو فائقة"
 
-#: ../panels/info/cc-info-panel.c:1383
+#: ../panels/info/cc-info-panel.c:1439
 msgid "Video CD"
 msgstr "اسطوانة فديو"
 
-#: ../panels/info/cc-info-panel.c:1384
+#: ../panels/info/cc-info-panel.c:1440
 msgid "Windows software"
 msgstr "برمجيات وندوز"
 
-#: ../panels/info/cc-info-panel.c:1385
+#: ../panels/info/cc-info-panel.c:1441
 msgid "Software"
 msgstr "برمجيات"
 
-#: ../panels/info/cc-info-panel.c:1508
+#: ../panels/info/cc-info-panel.c:1564
 #: ../panels/keyboard/keyboard-shortcuts.c:1667
 msgid "Section"
 msgstr "القسم"
 
-#: ../panels/info/cc-info-panel.c:1517 ../panels/info/info.ui.h:11
+#: ../panels/info/cc-info-panel.c:1573 ../panels/info/info.ui.h:11
 msgid "Overview"
 msgstr "عام"
 
-#: ../panels/info/cc-info-panel.c:1523 ../panels/info/info.ui.h:18
+#: ../panels/info/cc-info-panel.c:1579 ../panels/info/info.ui.h:18
 msgid "Default Applications"
 msgstr "التطبيقات المبدئية"
 
-#: ../panels/info/cc-info-panel.c:1528 ../panels/info/info.ui.h:26
+#: ../panels/info/cc-info-panel.c:1584 ../panels/info/info.ui.h:26
 msgid "Removable Media"
 msgstr "الوسائط المنفصلة"
 
-#: ../panels/info/cc-info-panel.c:1533 ../panels/info/info.ui.h:10
+#: ../panels/info/cc-info-panel.c:1589 ../panels/info/info.ui.h:10
 msgid "Graphics"
 msgstr "الرسوميات"
 
-#: ../panels/info/cc-info-panel.c:1735
+#: ../panels/info/cc-info-panel.c:1596
+msgid "Legal Notice"
+msgstr "إشعار قانوني"
+
+#: ../panels/info/cc-info-panel.c:1799
 #, c-format
 msgid "Version %s"
 msgstr "الإصدارة %s"
 
-#: ../panels/info/cc-info-panel.c:1785
+#: ../panels/info/cc-info-panel.c:1851
 msgid "Install Updates"
 msgstr "ثبّت التّحديثات"
 
-#: ../panels/info/cc-info-panel.c:1789
+#: ../panels/info/cc-info-panel.c:1855
 msgid "System Up-To-Date"
 msgstr "النظام مُحدّث"
 
-#: ../panels/info/cc-info-panel.c:1793
+#: ../panels/info/cc-info-panel.c:1859
 msgid "Checking for Updates"
 msgstr "يبحث عن تحديثات"
 
 #: ../panels/info/gnome-info-panel.desktop.in.in.h:1
 msgid "Details"
-msgstr "تفاصيل"
+msgstr "التفاصيل"
 
 #: ../panels/info/gnome-info-panel.desktop.in.in.h:2
 msgid "System Information"
@@ -1057,8 +1059,8 @@ msgstr "معلومات النظام"
 #. sure that you use the same "translation" for those keywords
 #: ../panels/info/gnome-info-panel.desktop.in.in.h:4
 msgid ""
-"device;system;information;memory;processor;version;default;application;"
-"fallback;preferred;cd;dvd;usb;audio;video;disc;removable;media;autorun;"
+"device;system;information;memory;processor;version;default;application;fallba"
+"ck;preferred;cd;dvd;usb;audio;video;disc;removable;media;autorun;"
 msgstr ""
 "جهاز;نظام;معلومات;ذاكرة;معالج;إصدارة;تطبيق;مبدئي;احتياطي;مفضل;قرص مضغوط;دي "
 "في دي;يو اس بي;صوت;فيديو;قرص;قابل للفصل;وسائط;تشغيل تلقائي"
@@ -1215,12 +1217,12 @@ msgid "Typing"
 msgstr "الكتابة"
 
 #: ../panels/keyboard/01-input-sources.xml.in.h:2
-#: ../panels/region/gnome-region-panel.ui.h:26
+#: ../panels/region/gnome-region-panel.ui.h:25
 msgid "Switch to next source"
 msgstr "تحول إلى المصدر التالي"
 
 #: ../panels/keyboard/01-input-sources.xml.in.h:3
-#: ../panels/region/gnome-region-panel.ui.h:24
+#: ../panels/region/gnome-region-panel.ui.h:23
 msgid "Switch to previous source"
 msgstr "تحول إلى المصدر السابق"
 
@@ -1241,14 +1243,18 @@ msgid "Launch email client"
 msgstr "شغّل عميل البريد الإلكتروني"
 
 #: ../panels/keyboard/01-launchers.xml.in.h:5
+msgid "Launch terminal"
+msgstr "شغّل الطرفية"
+
+#: ../panels/keyboard/01-launchers.xml.in.h:6
 msgid "Launch web browser"
 msgstr "شغّل متصفّح الوِب"
 
-#: ../panels/keyboard/01-launchers.xml.in.h:6
+#: ../panels/keyboard/01-launchers.xml.in.h:7
 msgid "Home folder"
 msgstr "مجلّد المنزل"
 
-#: ../panels/keyboard/01-launchers.xml.in.h:7
+#: ../panels/keyboard/01-launchers.xml.in.h:8
 msgid "Search"
 msgstr "ابحث"
 
@@ -1256,35 +1262,32 @@ msgstr "ابحث"
 msgid "Screenshots"
 msgstr "لقطات الشاشة"
 
-#. translators: Pictures is the name of the XDG Pictures directory
+#: ../panels/keyboard/01-screenshot.xml.in.h:2
+msgid "Take a screenshot"
+msgstr "التقط صورة للشاشة"
+
 #: ../panels/keyboard/01-screenshot.xml.in.h:3
-msgid "Save a screenshot to Pictures"
-msgstr "احفظ لقطة شاشة في مجلد الصور"
+msgid "Take a screenshot of a window"
+msgstr "التقط صورة لنافذة"
 
-#. translators: Pictures is the name of the XDG Pictures directory
+#: ../panels/keyboard/01-screenshot.xml.in.h:4
+msgid "Take a screenshot of an area"
+msgstr "التقط صورة لمنطقة محددة"
+
 #: ../panels/keyboard/01-screenshot.xml.in.h:5
-msgid "Save a screenshot of a window to Pictures"
-msgstr "احفظ لقطة شاشة لنافذة في مجلد الصور"
-
-#. translators: Pictures is the name of the XDG Pictures directory
-#: ../panels/keyboard/01-screenshot.xml.in.h:7
-msgid "Save a screenshot of an area to Pictures"
-msgstr "احفظ لقطة شاشة لمنطقة في مجلد الصور"
-
-#: ../panels/keyboard/01-screenshot.xml.in.h:8
 msgid "Copy a screenshot to clipboard"
 msgstr "انسخ اللقطة إلى الحافظة"
 
-#: ../panels/keyboard/01-screenshot.xml.in.h:9
+#: ../panels/keyboard/01-screenshot.xml.in.h:6
 msgid "Copy a screenshot of a window to clipboard"
 msgstr "انسخ لقطة النافذة إلى الحافظة"
 
-#: ../panels/keyboard/01-screenshot.xml.in.h:10
+#: ../panels/keyboard/01-screenshot.xml.in.h:7
 msgid "Copy a screenshot of an area to clipboard"
 msgstr "انسخ لقطة المنطقة المحددة إلى الحافظة"
 
 #: ../panels/keyboard/01-system.xml.in.h:1
-#: ../panels/region/gnome-region-panel.ui.h:39
+#: ../panels/region/gnome-region-panel.ui.h:41
 msgid "System"
 msgstr "النظام"
 
@@ -1341,6 +1344,7 @@ msgstr "شغّل أو عطّل التباين العال"
 #: ../panels/sound/gvc-mixer-control.c:1834
 #: ../panels/user-accounts/um-fingerprint-dialog.c:215
 #: ../panels/user-accounts/um-fingerprint-dialog.c:216
+#: ../panels/region/keyboard-shortcuts.c:594
 msgid "Disabled"
 msgstr "معطّل"
 
@@ -1460,7 +1464,7 @@ msgstr ""
 "مفتاح التّراجع لمسحها."
 
 #: ../panels/keyboard/gnome-keyboard-panel.ui.h:23
-#: ../panels/region/gnome-region-panel.ui.h:29
+#: ../panels/region/gnome-region-panel.ui.h:28
 msgid "Shortcuts"
 msgstr "الاختصارات"
 
@@ -1474,6 +1478,7 @@ msgid "<Unknown Action>"
 msgstr "<إجراء غير معروف>"
 
 #: ../panels/keyboard/keyboard-shortcuts.c:1273
+#: ../panels/region/keyboard-shortcuts.c:724
 #, c-format
 msgid ""
 "The shortcut \"%s\" cannot be used because it will become impossible to type "
@@ -1484,6 +1489,7 @@ msgstr ""
 "حاول رجاءً استخدام مفتاح مع Ctrl أو Alt أو Shift في نفس الوقت."
 
 #: ../panels/keyboard/keyboard-shortcuts.c:1305
+#: ../panels/region/keyboard-shortcuts.c:750
 #, c-format
 msgid ""
 "The shortcut \"%s\" is already used for\n"
@@ -1493,16 +1499,18 @@ msgstr ""
 "\"%s\""
 
 #: ../panels/keyboard/keyboard-shortcuts.c:1310
+#: ../panels/region/keyboard-shortcuts.c:755
 #, c-format
 msgid ""
 "If you reassign the shortcut to \"%s\", the \"%s\" shortcut will be disabled."
 msgstr "إذا أعدت تعيين الاختصار \"%s\" فسيُعطّل الاختصار \"%s\"."
 
 #: ../panels/keyboard/keyboard-shortcuts.c:1316
+#: ../panels/region/keyboard-shortcuts.c:761
 msgid "_Reassign"
 msgstr "أعِد ال_تعيين"
 
-#: ../panels/mouse/cc-mouse-panel.c:152
+#: ../panels/mouse/cc-mouse-panel.c:163
 msgid "_Test Your Settings"
 msgstr "اختبر إ_عداداتك"
 
@@ -1571,9 +1579,10 @@ msgstr "الن_قر بالإصبع"
 msgid "Two _finger scroll"
 msgstr "اللف بأ_صبعين"
 
-#: ../panels/mouse/gnome-mouse-properties.ui.h:18
-msgid "C_ontent sticks to fingers"
-msgstr "يلت_صق المحتوى بالإصابع"
+#. Translators: This switch reverses the scrolling direction for touchpads. The term used comes from OS X so use the same translation if possible.
+#: ../panels/mouse/gnome-mouse-properties.ui.h:19
+msgid "_Natural scrolling"
+msgstr "تمرير _طبيعي"
 
 #: ../panels/mouse/gnome-mouse-test.c:134
 #: ../panels/mouse/gnome-mouse-test.ui.h:1
@@ -1608,23 +1617,23 @@ msgstr "نقرة مزدوجة، الزر الثانوي"
 msgid "Single click, secondary button"
 msgstr "نقرة مفردة، الزر الثانوي"
 
-#: ../panels/network/cc-network-panel.c:615
+#: ../panels/network/cc-network-panel.c:649
 msgid "Network proxy"
 msgstr "وسيط الشبكة"
 
-#: ../panels/network/cc-network-panel.c:799 ../panels/network/net-vpn.c:278
+#: ../panels/network/cc-network-panel.c:841 ../panels/network/net-vpn.c:278
 #, c-format
 msgid "%s VPN"
 msgstr "ش‌خ‌ف %s"
 
 #. TRANSLATORS: the user is running a NM that is not API compatible
-#: ../panels/network/cc-network-panel.c:866
+#: ../panels/network/cc-network-panel.c:908
 msgid "The system network services are not compatible with this version."
 msgstr "لا تتوافق خدمات الشبكة في النظام مع هذه الإصدارة."
 
 #. TRANSLATORS: this is to disable the radio hardware in the
 #. * network panel
-#: ../panels/network/cc-network-panel.c:1001
+#: ../panels/network/cc-network-panel.c:1096
 msgid "Air_plane Mode"
 msgstr "وضع ال_طائرة"
 
@@ -1648,60 +1657,53 @@ msgstr "أضف اتصالًا جديدا"
 
 #. Translators: network device speed
 #: ../panels/network/net-device-mobile.c:261
-#: ../panels/network/net-device-wifi.c:770
+#: ../panels/network/net-device-wifi.c:727
 #: ../panels/network/net-device-wired.c:126
 #, c-format
 msgid "%d Mb/s"
 msgstr "%d م.بايت\\ث"
 
-#. TRANSLATORS: this is when the access point is not shown
-#. * in the list and the user has to enter the SSID manually
-#.
-#: ../panels/network/net-device-wifi.c:203
-msgid "Connect to a Hidden Network"
-msgstr "اتّصل بشبكة مخفية"
-
 #. TRANSLATORS: this WEP WiFi security
-#: ../panels/network/net-device-wifi.c:302
-#: ../panels/network/net-device-wifi.c:481
+#: ../panels/network/net-device-wifi.c:259
+#: ../panels/network/net-device-wifi.c:438
 msgid "WEP"
 msgstr "WEP"
 
 #. TRANSLATORS: this WPA WiFi security
-#: ../panels/network/net-device-wifi.c:306
-#: ../panels/network/net-device-wifi.c:485
+#: ../panels/network/net-device-wifi.c:263
+#: ../panels/network/net-device-wifi.c:442
 msgid "WPA"
 msgstr "WPA"
 
 #. TRANSLATORS: this WPA WiFi security
-#: ../panels/network/net-device-wifi.c:310
+#: ../panels/network/net-device-wifi.c:267
 msgid "WPA2"
 msgstr "WPA2"
 
 #. TRANSLATORS: this Enterprise WiFi security
-#: ../panels/network/net-device-wifi.c:315
+#: ../panels/network/net-device-wifi.c:272
 msgid "Enterprise"
 msgstr "مؤسسة"
 
-#: ../panels/network/net-device-wifi.c:320
-#: ../panels/network/net-device-wifi.c:476
+#: ../panels/network/net-device-wifi.c:277
+#: ../panels/network/net-device-wifi.c:433
 msgctxt "Wifi security"
 msgid "None"
 msgstr "بدون"
 
-#: ../panels/network/net-device-wifi.c:697
+#: ../panels/network/net-device-wifi.c:654
 msgid "never"
 msgstr "أبدًا"
 
-#: ../panels/network/net-device-wifi.c:707
+#: ../panels/network/net-device-wifi.c:664
 msgid "today"
 msgstr "اليوم"
 
-#: ../panels/network/net-device-wifi.c:709
+#: ../panels/network/net-device-wifi.c:666
 msgid "yesterday"
 msgstr "الأمس"
 
-#: ../panels/network/net-device-wifi.c:711
+#: ../panels/network/net-device-wifi.c:668
 #, c-format
 msgid "%i day ago"
 msgid_plural "%i days ago"
@@ -1713,53 +1715,53 @@ msgstr[4] "منذ %i يوما"
 msgstr[5] "منذ %i يوم"
 
 #. TRANSLATORS: VPN status
-#: ../panels/network/net-device-wifi.c:780
+#: ../panels/network/net-device-wifi.c:737
 #: ../panels/network/panel-common.c:277
 msgid "Not connected"
 msgstr "غير متّصِل"
 
-#: ../panels/network/net-device-wifi.c:782
-#: ../panels/network/net-device-wifi.c:2086
+#: ../panels/network/net-device-wifi.c:739
+#: ../panels/network/net-device-wifi.c:2104
 msgid "Out of range"
 msgstr "خارج المدى"
 
-#: ../panels/network/net-device-wifi.c:813
+#: ../panels/network/net-device-wifi.c:770
 msgctxt "Signal strength"
 msgid "None"
 msgstr "لا إشارة"
 
-#: ../panels/network/net-device-wifi.c:815
+#: ../panels/network/net-device-wifi.c:772
 msgctxt "Signal strength"
 msgid "Weak"
 msgstr "ضعيفة"
 
-#: ../panels/network/net-device-wifi.c:817
+#: ../panels/network/net-device-wifi.c:774
 msgctxt "Signal strength"
 msgid "Ok"
 msgstr "معقولة"
 
-#: ../panels/network/net-device-wifi.c:819
+#: ../panels/network/net-device-wifi.c:776
 msgctxt "Signal strength"
 msgid "Good"
 msgstr "جيّدة"
 
-#: ../panels/network/net-device-wifi.c:821
+#: ../panels/network/net-device-wifi.c:778
 msgctxt "Signal strength"
 msgid "Excellent"
 msgstr "ممتازة"
 
-#: ../panels/network/net-device-wifi.c:1005
+#: ../panels/network/net-device-wifi.c:962
 #, c-format
 msgid ""
 "Network details for %s including password and any custom configuration will "
 "be lost."
 msgstr "ستُفقد تفاصيل الشبكة لـ %s بما في ذلك كلمة السر وأي إعدادات مُخصصة."
 
-#: ../panels/network/net-device-wifi.c:1016
+#: ../panels/network/net-device-wifi.c:973
 msgid "Forget"
 msgstr "انس"
 
-#: ../panels/network/net-device-wifi.c:1552
+#: ../panels/network/net-device-wifi.c:1559
 msgid ""
 "If you have a connection to the Internet other than wireless, you can use it "
 "to share your internet connection with others."
@@ -1767,27 +1769,27 @@ msgstr ""
 "إذا كان لديك اتصال بالإنترنت غير الاتصال اللاسلكي فيمكنك مشاركة اتصالك "
 "بالإنترنت مع الآخرين."
 
-#: ../panels/network/net-device-wifi.c:1556
+#: ../panels/network/net-device-wifi.c:1563
 #, c-format
 msgid "Switching on the wireless hotspot will disconnect you from <b>%s</b>."
 msgstr "تشغيل نقطة الاتصال اللاسلكي ستفصلك عن <b>%s</b>."
 
-#: ../panels/network/net-device-wifi.c:1560
+#: ../panels/network/net-device-wifi.c:1567
 msgid ""
 "It is not possible to access the internet through your wireless while the "
 "hotspot is active."
 msgstr "لا يمكن استخدام الاتصال اللاسلكي عند تفعيل نقطة الاتصال."
 
-#: ../panels/network/net-device-wifi.c:1626
+#: ../panels/network/net-device-wifi.c:1633
 msgid "Stop hotspot and disconnect any users?"
 msgstr "إيقاف نقطة الاتصال وقطع الاتصال عن أي مستخدمين؟"
 
-#: ../panels/network/net-device-wifi.c:1629
+#: ../panels/network/net-device-wifi.c:1636
 msgid "_Stop Hotspot"
 msgstr "أو_قف نقطة الاتصال"
 
 #. TRANSLATORS: this is when the use leaves the PAC textbox blank
-#: ../panels/network/net-proxy.c:67
+#: ../panels/network/net-proxy.c:73
 msgid ""
 "Web Proxy Autodiscovery is used when a Configuration URL is not provided."
 msgstr "يستخدم الاكتشاف التلقائي للوسيط في حال لم يُعطَ مسار للإعداد."
@@ -1796,11 +1798,11 @@ msgstr "يستخدم الاكتشاف التلقائي للوسيط في حال 
 #. * network, then anyone else on that network can tell your
 #. * machine that it should proxy all of your web traffic
 #. * through them.
-#: ../panels/network/net-proxy.c:75
+#: ../panels/network/net-proxy.c:81
 msgid "This is not recommended for untrusted public networks."
 msgstr "لا يُنصَح بهذا مع الشبكات العامة غير الموثوقة."
 
-#: ../panels/network/net-proxy.c:367
+#: ../panels/network/net-proxy.c:515
 msgid "Proxy"
 msgstr "الوسيط"
 
@@ -1819,19 +1821,19 @@ msgid "IP Address"
 msgstr "عنوان IP"
 
 #: ../panels/network/network-mobile.ui.h:4
-#: ../panels/network/network-wifi.ui.h:13
+#: ../panels/network/network-wifi.ui.h:14
 #: ../panels/network/network-wired.ui.h:3 ../panels/network/panel-common.c:684
 msgid "IPv6 Address"
 msgstr "عنوان IPv6"
 
 #: ../panels/network/network-mobile.ui.h:5
-#: ../panels/network/network-wifi.ui.h:14
+#: ../panels/network/network-wifi.ui.h:15
 #: ../panels/network/network-wired.ui.h:4
 msgid "Default Route"
 msgstr "السبيل المبدئي"
 
 #: ../panels/network/network-mobile.ui.h:6
-#: ../panels/network/network-wifi.ui.h:15
+#: ../panels/network/network-wifi.ui.h:16
 #: ../panels/network/network-wired.ui.h:5
 msgid "DNS"
 msgstr "DNS"
@@ -1879,6 +1881,10 @@ msgstr "وسيط _FTP"
 #: ../panels/network/network-proxy.ui.h:9
 msgid "_Socks Host"
 msgstr "مستضيف _Socks"
+
+#: ../panels/network/network-proxy.ui.h:10
+msgid "Apply system wide"
+msgstr "طبّق على مستوى النظام"
 
 #: ../panels/network/network.ui.h:1
 msgid "Select the interface to use for the new service"
@@ -1942,64 +1948,68 @@ msgid "_Use as Hotspot..."
 msgstr "ا_ستخدم كنقطة اتصال..."
 
 #: ../panels/network/network-wifi.ui.h:5
+msgid "Connect to a Hidden Network"
+msgstr "اتّصل بشبكة مخفية"
+
+#: ../panels/network/network-wifi.ui.h:6
 msgid "_Disconnect"
 msgstr "ا_قطع الاتصال"
 
-#: ../panels/network/network-wifi.ui.h:6
+#: ../panels/network/network-wifi.ui.h:7
 msgid "_Connect"
 msgstr "اتّ_صل"
 
-#: ../panels/network/network-wifi.ui.h:7
+#: ../panels/network/network-wifi.ui.h:8
 msgid "Last used"
 msgstr "آخر استخدام"
 
-#: ../panels/network/network-wifi.ui.h:8
+#: ../panels/network/network-wifi.ui.h:9
 #: ../panels/network/network-wired.ui.h:1
 msgid "Hardware Address"
 msgstr "عنوان العتاد"
 
-#: ../panels/network/network-wifi.ui.h:9
+#: ../panels/network/network-wifi.ui.h:10
 msgid "Security"
 msgstr "الأمن"
 
-#: ../panels/network/network-wifi.ui.h:10
+#: ../panels/network/network-wifi.ui.h:11
 msgid "Strength"
 msgstr "الشدة"
 
-#: ../panels/network/network-wifi.ui.h:11
+#: ../panels/network/network-wifi.ui.h:12
 msgid "Link speed"
 msgstr "سرعة الوصلة"
 
-#: ../panels/network/network-wifi.ui.h:12
+#: ../panels/network/network-wifi.ui.h:13
 #: ../panels/network/network-wired.ui.h:2 ../panels/network/panel-common.c:683
 msgid "IPv4 Address"
 msgstr "عنوان IPv4"
 
-#: ../panels/network/network-wifi.ui.h:16
+#: ../panels/network/network-wifi.ui.h:17
 msgid "_Forget Network"
 msgstr "ان_سَ الشبكة"
 
-#: ../panels/network/network-wifi.ui.h:17
+#: ../panels/network/network-wifi.ui.h:18
 msgid "_Settings..."
 msgstr "الإ_عدادات..."
 
-#: ../panels/network/network-wifi.ui.h:18
+#: ../panels/network/network-wifi.ui.h:19
 msgid "Switch off to connect to a wireless network"
 msgstr "أطفئ للاتصال بشبكة لاسلكية"
 
-#: ../panels/network/network-wifi.ui.h:19
+#: ../panels/network/network-wifi.ui.h:20
 msgid "Network Name"
 msgstr "اسم الشبكة"
 
-#: ../panels/network/network-wifi.ui.h:20
+#: ../panels/network/network-wifi.ui.h:21
 msgid "Connected Devices"
 msgstr "الأجهزة الموصّلة"
 
-#: ../panels/network/network-wifi.ui.h:21
+#: ../panels/network/network-wifi.ui.h:22
 msgid "Security type"
 msgstr "نوع الأمن"
 
-#: ../panels/network/network-wifi.ui.h:22
+#: ../panels/network/network-wifi.ui.h:23
 msgid "Security key"
 msgstr "مفتاح الأمن"
 
@@ -2264,7 +2274,7 @@ msgstr ""
 #. TRANSLATORS: device status reason
 #: ../panels/network/panel-common.c:437
 msgid "Existing connection was assumed"
-msgstr ""
+msgstr "تم افتراض اتصال موجود"
 
 #. TRANSLATORS: device status reason
 #: ../panels/network/panel-common.c:441
@@ -2284,17 +2294,17 @@ msgstr "لم تُدرج شريحة الهاتف"
 #. TRANSLATORS: device status reason
 #: ../panels/network/panel-common.c:453
 msgid "SIM Pin required"
-msgstr ""
+msgstr "مطلوب رمز Pin لبطاقة SIM"
 
 #. TRANSLATORS: device status reason
 #: ../panels/network/panel-common.c:457
 msgid "SIM Puk required"
-msgstr ""
+msgstr "مطلوب رمز puk لبطاقة SIM"
 
 #. TRANSLATORS: device status reason
 #: ../panels/network/panel-common.c:461
 msgid "SIM wrong"
-msgstr ""
+msgstr "خطأ في بطاقة SIM"
 
 #. TRANSLATORS: device status reason
 #: ../panels/network/panel-common.c:465
@@ -2307,40 +2317,40 @@ msgid "Connection dependency failed"
 msgstr "فشلت اعتمادية الاتصال"
 
 #. translators: This is the title of the "Add Account" dialog.
-#: ../panels/online-accounts/cc-online-accounts-add-account-dialog.c:249
+#: ../panels/online-accounts/cc-online-accounts-add-account-dialog.c:253
 #: ../panels/online-accounts/online-accounts.ui.h:2
 msgid "Add Account"
 msgstr "أضف حسابا"
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:383
+#: ../panels/online-accounts/cc-online-accounts-panel.c:374
 msgid "Error logging into the account"
 msgstr "خطأ عند الولوج إلى الحساب"
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:437
+#: ../panels/online-accounts/cc-online-accounts-panel.c:428
 msgid "Expired credentials. Please log in again."
 msgstr "بيانات اعتماد مُنتهية. رجاءً لُج مجددا."
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:440
+#: ../panels/online-accounts/cc-online-accounts-panel.c:431
 msgid "_Log In"
 msgstr "لُ_ج"
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:676
+#: ../panels/online-accounts/cc-online-accounts-panel.c:678
 msgid "Error creating account"
 msgstr "خطأ أثناء إنشاء الحساب"
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:718
+#: ../panels/online-accounts/cc-online-accounts-panel.c:732
 msgid "Error removing account"
 msgstr "خطأ أثناء إزالة الحساب"
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:754
+#: ../panels/online-accounts/cc-online-accounts-panel.c:768
 msgid "Are you sure you want to remove the account?"
 msgstr "أمتأكد أنك تريد إزالة الحساب؟"
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:756
+#: ../panels/online-accounts/cc-online-accounts-panel.c:770
 msgid "This will not remove the account on the server."
 msgstr "هذا لن يزيل الحساب على الخادوم."
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:757
+#: ../panels/online-accounts/cc-online-accounts-panel.c:771
 msgid "_Remove"
 msgstr "أ_زل"
 
@@ -2377,11 +2387,11 @@ msgstr ""
 "إضافة حساب تتيح للتطبيقات استخدامه للوصول إلى المستندات، والبريد، "
 "والمتراسلين، والتقويم، والدردشة، وغيرها."
 
-#: ../panels/power/cc-power-panel.c:157
+#: ../panels/power/cc-power-panel.c:166
 msgid "Unknown time"
 msgstr "وقت غير معروف"
 
-#: ../panels/power/cc-power-panel.c:163
+#: ../panels/power/cc-power-panel.c:172
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
@@ -2392,7 +2402,7 @@ msgstr[3] "%i دقائق"
 msgstr[4] "%i دقيقة"
 msgstr[5] "%i دقيقة"
 
-#: ../panels/power/cc-power-panel.c:175
+#: ../panels/power/cc-power-panel.c:184
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -2405,12 +2415,12 @@ msgstr[5] "%i ساعة"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: ../panels/power/cc-power-panel.c:183
+#: ../panels/power/cc-power-panel.c:192
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
-#: ../panels/power/cc-power-panel.c:184
+#: ../panels/power/cc-power-panel.c:193
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "ساعة"
@@ -2420,7 +2430,7 @@ msgstr[3] "ساعات"
 msgstr[4] "ساعة"
 msgstr[5] "ساعة"
 
-#: ../panels/power/cc-power-panel.c:185
+#: ../panels/power/cc-power-panel.c:194
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "دقيقة"
@@ -2431,157 +2441,157 @@ msgstr[4] "دقيقة"
 msgstr[5] "دقيقة"
 
 #. TRANSLATORS: %1 is a time string, e.g. "1 hour 5 minutes"
-#: ../panels/power/cc-power-panel.c:228
+#: ../panels/power/cc-power-panel.c:237
 #, c-format
 msgid "Charging - %s until fully charged"
 msgstr "يشحن - %s حتى يكتمل الشحن"
 
 #. TRANSLATORS: %1 is a time string, e.g. "1 hour 5 minutes"
-#: ../panels/power/cc-power-panel.c:236
+#: ../panels/power/cc-power-panel.c:245
 #, c-format
 msgid "Caution low battery, %s remaining"
 msgstr "تحذير انخفاض البطارية، تبقى %s"
 
 #. TRANSLATORS: %1 is a time string, e.g. "1 hour 5 minutes"
-#: ../panels/power/cc-power-panel.c:244
+#: ../panels/power/cc-power-panel.c:253
 #, c-format
 msgid "Using battery power - %s remaining"
 msgstr "استخدام طاقة البطارية - تبقى %s"
 
 #. TRANSLATORS: primary battery
-#: ../panels/power/cc-power-panel.c:261
+#: ../panels/power/cc-power-panel.c:270
 msgid "Charging"
 msgstr "يشحن"
 
 #. TRANSLATORS: primary battery
-#: ../panels/power/cc-power-panel.c:266
+#: ../panels/power/cc-power-panel.c:275
 msgid "Using battery power"
 msgstr "استخدام طاقة البطارية"
 
 #. TRANSLATORS: primary battery
-#: ../panels/power/cc-power-panel.c:270
+#: ../panels/power/cc-power-panel.c:279
 msgid "Charging - fully charged"
 msgstr "يشحن - اكتمل الشحن"
 
 #. TRANSLATORS: primary battery
-#: ../panels/power/cc-power-panel.c:274
+#: ../panels/power/cc-power-panel.c:283
 msgid "Empty"
 msgstr "فارغة"
 
 #. TRANSLATORS: %1 is a time string, e.g. "1 hour 5 minutes"
-#: ../panels/power/cc-power-panel.c:342
+#: ../panels/power/cc-power-panel.c:351
 #, c-format
 msgid "Caution low UPS, %s remaining"
 msgstr "تحذير انخفاض مزود الطاقة الغير منقطعة، تبقى %s"
 
 #. TRANSLATORS: %1 is a time string, e.g. "1 hour 5 minutes"
-#: ../panels/power/cc-power-panel.c:348
+#: ../panels/power/cc-power-panel.c:357
 #, c-format
 msgid "Using UPS power - %s remaining"
 msgstr "استخدام مزود الطاقة الغير منقطعة - تبقى %s"
 
 #. TRANSLATORS: UPS battery
-#: ../panels/power/cc-power-panel.c:366
+#: ../panels/power/cc-power-panel.c:375
 msgid "Caution low UPS"
 msgstr "تحذير انخفاض مزود الطاقة الغير منقطعة"
 
 #. TRANSLATORS: UPS battery
-#: ../panels/power/cc-power-panel.c:371
+#: ../panels/power/cc-power-panel.c:380
 msgid "Using UPS power"
 msgstr "استخدام طاقة مزود الطاقة الغير منقطعة"
 
 #. TRANSLATORS: secondary battery is normally in the media bay
-#: ../panels/power/cc-power-panel.c:423
+#: ../panels/power/cc-power-panel.c:432
 msgid "Your secondary battery is fully charged"
 msgstr "بطاريتك الثانوية مكتملة الشحن"
 
 #. TRANSLATORS: secondary battery is normally in the media bay
-#: ../panels/power/cc-power-panel.c:427
+#: ../panels/power/cc-power-panel.c:436
 msgid "Your secondary battery is empty"
 msgstr "بطاريتك الثانوية فارغة"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:510
+#: ../panels/power/cc-power-panel.c:519
 msgid "Wireless mouse"
 msgstr "فأرة لا سلكية"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:514
+#: ../panels/power/cc-power-panel.c:523
 msgid "Wireless keyboard"
 msgstr "لوحة مفاتيح لا سلكية"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:518
+#: ../panels/power/cc-power-panel.c:527
 msgid "Uninterruptible power supply"
 msgstr "مزود طاقة غير منقطعة"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:522
+#: ../panels/power/cc-power-panel.c:531
 msgid "Personal digital assistant"
 msgstr "مساعد رقمي شخصي PDA"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:526
+#: ../panels/power/cc-power-panel.c:535
 msgid "Cellphone"
 msgstr "هاتف خليوي"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:530
+#: ../panels/power/cc-power-panel.c:539
 msgid "Media player"
 msgstr "مشغل وسائط"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:534
+#: ../panels/power/cc-power-panel.c:543
 msgid "Tablet"
 msgstr "لوحي"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:538
+#: ../panels/power/cc-power-panel.c:547
 msgid "Computer"
 msgstr "حاسوب"
 
 #. TRANSLATORS: secondary battery, misc
-#: ../panels/power/cc-power-panel.c:542
+#: ../panels/power/cc-power-panel.c:551
 msgid "Battery"
 msgstr "بطارية"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:553
+#: ../panels/power/cc-power-panel.c:562
 msgctxt "Battery power"
 msgid "Charging"
 msgstr "تشحن"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:560
+#: ../panels/power/cc-power-panel.c:569
 msgctxt "Battery power"
 msgid "Caution"
 msgstr "إنتباه"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:565
+#: ../panels/power/cc-power-panel.c:574
 msgctxt "Battery power"
 msgid "Low"
 msgstr "منخفضة"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:570
+#: ../panels/power/cc-power-panel.c:579
 msgctxt "Battery power"
 msgid "Good"
 msgstr "جيّدة"
 
 #. TRANSLATORS: primary battery
-#: ../panels/power/cc-power-panel.c:575
+#: ../panels/power/cc-power-panel.c:584
 msgctxt "Battery power"
 msgid "Charging - fully charged"
 msgstr "تشحن - مكتملة الشحن"
 
 #. TRANSLATORS: primary battery
-#: ../panels/power/cc-power-panel.c:579
+#: ../panels/power/cc-power-panel.c:588
 msgctxt "Battery power"
 msgid "Empty"
 msgstr "فارغة"
 
-#: ../panels/power/cc-power-panel.c:1075
+#: ../panels/power/cc-power-panel.c:1091
 msgid ""
 "Tip: <a href=\"screen\">screen brightness</a> affects how much power is used"
 msgstr "فائدة: يؤثّر <a href=\"screen\">سطوع الشاشة</a> على استهلاك الطاقة"
@@ -2615,170 +2625,202 @@ msgstr "5 دقائق"
 msgid "10 minutes"
 msgstr "10 دقائق"
 
-#: ../panels/power/power.ui.h:5 ../panels/screen/screen.ui.h:8
+#: ../panels/power/power.ui.h:5
+msgid "20 minutes"
+msgstr "20 دقيقة"
+
+#: ../panels/power/power.ui.h:6 ../panels/screen/screen.ui.h:8
 msgid "30 minutes"
 msgstr "30 دقيقة"
 
-#: ../panels/power/power.ui.h:6 ../panels/screen/screen.ui.h:9
+#: ../panels/power/power.ui.h:7 ../panels/screen/screen.ui.h:9
 msgid "1 hour"
 msgstr "ساعة واحدة"
 
-#: ../panels/power/power.ui.h:7
+#: ../panels/power/power.ui.h:8
+msgid "2 hours"
+msgstr "ساعتان"
+
+#: ../panels/power/power.ui.h:9
 msgid "Don't suspend"
 msgstr "لا تعلِّق"
 
-#: ../panels/power/power.ui.h:8
+#: ../panels/power/power.ui.h:10
+msgid "Suspend"
+msgstr "علِّق"
+
+#: ../panels/power/power.ui.h:12
+msgid "When battery is present"
+msgstr "عندما تكون البطارية موجودة"
+
+#: ../panels/power/power.ui.h:13
+msgid "When battery is charging/in use"
+msgstr "عندما تكون البطارية في وضع الشحن/الاستخدام"
+
+#: ../panels/power/power.ui.h:14 ../panels/screen/screen.ui.h:10
+msgid "Never"
+msgstr "أبدًا"
+
+#: ../panels/power/power.ui.h:15
 msgid "On battery power"
 msgstr "على طاقة البطارية"
 
-#: ../panels/power/power.ui.h:9
+#: ../panels/power/power.ui.h:16
 msgid "When plugged in"
 msgstr "عند توصيل الكبل"
 
-#: ../panels/power/power.ui.h:10
+#: ../panels/power/power.ui.h:17
 msgid "Suspend when inactive for"
 msgstr "علِّق عند الخمول لـ"
 
-#: ../panels/power/power.ui.h:11
+#: ../panels/power/power.ui.h:18
 msgid "When power is _critically low"
-msgstr "عندما تكون الطاقة من_خفضة جدا"
+msgstr "عندما تكون الطاقة منخفضة _جدا"
+
+#: ../panels/power/power.ui.h:19
+msgid "When the lid is closed"
+msgstr "عند إغلاق الغطاء"
+
+#: ../panels/power/power.ui.h:20
+msgid "Show battery status in the _menu bar"
+msgstr "أظهر حالة البطارية في شريط ال_قوائم"
 
 #. Translators: The printer is low on toner
-#: ../panels/printers/cc-printers-panel.c:589
+#: ../panels/printers/cc-printers-panel.c:592
 msgid "Low on toner"
 msgstr "الحبر قليل"
 
 #. Translators: The printer has no toner left
-#: ../panels/printers/cc-printers-panel.c:591
+#: ../panels/printers/cc-printers-panel.c:594
 msgid "Out of toner"
 msgstr "نفد الحبر"
 
 #. Translators: "Developer" is a chemical for photo development,
 #. * http://en.wikipedia.org/wiki/Photographic_developer
-#: ../panels/printers/cc-printers-panel.c:594
+#: ../panels/printers/cc-printers-panel.c:597
 msgid "Low on developer"
 msgstr "المُحمِّض قليل"
 
 #. Translators: "Developer" is a chemical for photo development,
 #. * http://en.wikipedia.org/wiki/Photographic_developer
-#: ../panels/printers/cc-printers-panel.c:597
+#: ../panels/printers/cc-printers-panel.c:600
 msgid "Out of developer"
 msgstr "نفد المُحمِّض"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../panels/printers/cc-printers-panel.c:599
+#: ../panels/printers/cc-printers-panel.c:602
 msgid "Low on a marker supply"
 msgstr "اللون قليل"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../panels/printers/cc-printers-panel.c:601
+#: ../panels/printers/cc-printers-panel.c:604
 msgid "Out of a marker supply"
 msgstr "نفد اللون"
 
 #. Translators: One or more covers on the printer are open
-#: ../panels/printers/cc-printers-panel.c:603
+#: ../panels/printers/cc-printers-panel.c:606
 msgid "Open cover"
 msgstr "الغطاء مفتوح"
 
 #. Translators: One or more doors on the printer are open
-#: ../panels/printers/cc-printers-panel.c:605
+#: ../panels/printers/cc-printers-panel.c:608
 msgid "Open door"
 msgstr "الباب مفنوح"
 
 #. Translators: At least one input tray is low on media
-#: ../panels/printers/cc-printers-panel.c:607
+#: ../panels/printers/cc-printers-panel.c:610
 msgid "Low on paper"
 msgstr "الورق قليل"
 
 #. Translators: At least one input tray is empty
-#: ../panels/printers/cc-printers-panel.c:609
+#: ../panels/printers/cc-printers-panel.c:612
 msgid "Out of paper"
 msgstr "نفد الورق"
 
 #. Translators: The printer is offline
-#: ../panels/printers/cc-printers-panel.c:611
+#: ../panels/printers/cc-printers-panel.c:614
 msgctxt "printer state"
 msgid "Offline"
 msgstr "غير متصلة"
 
 #. Translators: Someone has paused the Printer
-#: ../panels/printers/cc-printers-panel.c:613
+#: ../panels/printers/cc-printers-panel.c:616
 msgctxt "printer state"
 msgid "Paused"
 msgstr "مُلبثة"
 
 #. Translators: The printer marker supply waste receptacle is almost full
-#: ../panels/printers/cc-printers-panel.c:615
+#: ../panels/printers/cc-printers-panel.c:618
 msgid "Waste receptacle almost full"
 msgstr "حاوية النفايات على وشك الامتلاء"
 
 #. Translators: The printer marker supply waste receptacle is full
-#: ../panels/printers/cc-printers-panel.c:617
+#: ../panels/printers/cc-printers-panel.c:620
 msgid "Waste receptacle full"
 msgstr "حاوية النفايات ممتلئة"
 
 #. Translators: Optical photo conductors are used in laser printers
-#: ../panels/printers/cc-printers-panel.c:619
+#: ../panels/printers/cc-printers-panel.c:622
 msgid "The optical photo conductor is near end of life"
 msgstr "قاربت صلاحية المقاوم الضوئي على الانتهاء"
 
 #. Translators: Optical photo conductors are used in laser printers
-#: ../panels/printers/cc-printers-panel.c:621
+#: ../panels/printers/cc-printers-panel.c:624
 msgid "The optical photo conductor is no longer functioning"
 msgstr "لم يعد المقاوم الضوئي يعمل"
 
 #. Translators: Printer's state (printer is being configured right now)
-#: ../panels/printers/cc-printers-panel.c:724
+#: ../panels/printers/cc-printers-panel.c:727
 msgctxt "printer state"
 msgid "Configuring"
 msgstr "تُضبط"
 
 #. Translators: Printer's state (can start new job without waiting)
-#: ../panels/printers/cc-printers-panel.c:781
+#: ../panels/printers/cc-printers-panel.c:784
 msgctxt "printer state"
 msgid "Ready"
 msgstr "جاهزة"
 
 #. Translators: Printer's state (jobs are processing)
-#: ../panels/printers/cc-printers-panel.c:785
+#: ../panels/printers/cc-printers-panel.c:788
 msgctxt "printer state"
 msgid "Processing"
 msgstr "تُعالِج"
 
 #. Translators: Printer's state (no jobs can be processed)
-#: ../panels/printers/cc-printers-panel.c:789
+#: ../panels/printers/cc-printers-panel.c:792
 msgctxt "printer state"
 msgid "Stopped"
 msgstr "متوقفة"
 
 #. Translators: Toner supply
-#: ../panels/printers/cc-printers-panel.c:906
+#: ../panels/printers/cc-printers-panel.c:909
 msgid "Toner Level"
 msgstr "مستوى الحبر"
 
 #. Translators: Ink supply
-#: ../panels/printers/cc-printers-panel.c:909
+#: ../panels/printers/cc-printers-panel.c:912
 msgid "Ink Level"
 msgstr "مستوى الحبر"
 
 #. Translators: By supply we mean ink, toner, staples, water, ...
-#: ../panels/printers/cc-printers-panel.c:912
+#: ../panels/printers/cc-printers-panel.c:915
 msgid "Supply Level"
 msgstr "مستوى المداد"
 
 #. Translators: Printer's state (printer is being installed right now)
-#: ../panels/printers/cc-printers-panel.c:930
+#: ../panels/printers/cc-printers-panel.c:933
 msgctxt "printer state"
 msgid "Installing"
 msgstr "تُثبّت"
 
 #. Translators: There are no printers available (none is configured or CUPS is not running)
-#: ../panels/printers/cc-printers-panel.c:1107
+#: ../panels/printers/cc-printers-panel.c:1110
 msgid "No printers available"
 msgstr "لا تتوفر أي طابعات"
 
 #. Translators: there is n active print jobs on this printer
-#: ../panels/printers/cc-printers-panel.c:1411
+#: ../panels/printers/cc-printers-panel.c:1414
 #, c-format
 msgid "%u active"
 msgid_plural "%u active"
@@ -2790,44 +2832,45 @@ msgstr[4] "%u نشطة"
 msgstr[5] "%u نشطة"
 
 #. Translators: Addition of the new printer failed.
-#: ../panels/printers/cc-printers-panel.c:1731
+#: ../panels/printers/cc-printers-panel.c:1734
 msgid "Failed to add new printer."
 msgstr "تعذّر إضافة طابعة جديدة."
 
-#: ../panels/printers/cc-printers-panel.c:1896
+#: ../panels/printers/cc-printers-panel.c:1899
 msgid "Select PPD File"
 msgstr "اختر ملف PPD"
 
-#: ../panels/printers/cc-printers-panel.c:1905
+#: ../panels/printers/cc-printers-panel.c:1908
 msgid ""
-"PostScript Printer Description files (*.ppd, *.PPD, *.ppd.gz, *.PPD.gz, *."
-"PPD.GZ)"
-msgstr "ملفت وصف طابعة بوست‌سكربت (*.ppd, *.PPD, *.ppd.gz, *.PPD.gz, *.PPD.GZ)"
+"PostScript Printer Description files (*.ppd, *.PPD, *.ppd.gz, *.PPD.gz, "
+"*.PPD.GZ)"
+msgstr ""
+"ملفت وصف طابعة بوست‌سكربت (*.ppd, *.PPD, *.ppd.gz, *.PPD.gz, *.PPD.GZ)"
 
-#: ../panels/printers/cc-printers-panel.c:2210
+#: ../panels/printers/cc-printers-panel.c:2213
 msgid "No suitable driver found"
 msgstr "لم يعثر على أي طابعة مناسبة"
 
-#: ../panels/printers/cc-printers-panel.c:2279
+#: ../panels/printers/cc-printers-panel.c:2282
 msgid "Searching for preferred drivers..."
 msgstr "يبحث عن المُشغّلات المُفضّلة..."
 
-#: ../panels/printers/cc-printers-panel.c:2294
+#: ../panels/printers/cc-printers-panel.c:2297
 msgid "Select from database..."
 msgstr "اختر من قاعدة بيانات..."
 
-#: ../panels/printers/cc-printers-panel.c:2303
+#: ../panels/printers/cc-printers-panel.c:2306
 msgid "Provide PPD File..."
 msgstr "وفر ملف PPD..."
 
 #. Translators: Name of job which makes printer to print test page
-#: ../panels/printers/cc-printers-panel.c:2454
-#: ../panels/printers/cc-printers-panel.c:2477
+#: ../panels/printers/cc-printers-panel.c:2457
+#: ../panels/printers/cc-printers-panel.c:2480
 msgid "Test page"
 msgstr "صفحة اختبار"
 
 #. Translators: The XML file containing user interface can not be loaded
-#: ../panels/printers/cc-printers-panel.c:2880
+#: ../panels/printers/cc-printers-panel.c:2883
 #, c-format
 msgid "Could not load ui: %s"
 msgstr "تعذّر تحميل الواجهة: %s"
@@ -2874,7 +2917,7 @@ msgid "Cancel Print Job"
 msgstr "ألغِ مهمة الطباعة"
 
 #: ../panels/printers/new-printer-dialog.ui.h:2
-#: ../panels/user-accounts/um-account-dialog.c:1044
+#: ../panels/user-accounts/um-account-dialog.c:1070
 msgid "_Add"
 msgstr "أ_ضف"
 
@@ -2887,6 +2930,7 @@ msgid "Search for network printers or filter result"
 msgstr "ابحث عن طابعات على الشبكة أو رشّح النتائج"
 
 #: ../panels/printers/options-dialog.ui.h:2
+#: ../panels/region/gnome-region-panel.ui.h:31
 msgid "Options"
 msgstr "الخيارات"
 
@@ -2896,7 +2940,7 @@ msgstr "يُحمّل الخيارات..."
 
 #: ../panels/printers/ppd-selection-dialog.ui.h:2
 #: ../panels/user-accounts/data/photo-dialog.ui.h:8
-#: ../panels/user-accounts/um-account-dialog.c:1043
+#: ../panels/user-accounts/um-account-dialog.c:1069
 msgid "Cancel"
 msgstr "ألغِ"
 
@@ -3188,17 +3232,9 @@ msgstr "أ_ظهر"
 msgid "Model"
 msgstr "الطراز"
 
-#: ../panels/printers/printers.ui.h:14
-msgid "page 1"
-msgstr "صفحة 1"
-
 #: ../panels/printers/printers.ui.h:15
 msgid "label"
 msgstr "العنوان"
-
-#: ../panels/printers/printers.ui.h:16
-msgid "page 2"
-msgstr "صفحة 2"
 
 #: ../panels/printers/printers.ui.h:17
 msgid "Setting new driver..."
@@ -3245,11 +3281,11 @@ msgstr "غيّر إعدادات المنطقة واللغة"
 msgid "Language;Layout;Keyboard;"
 msgstr "اللغة;التخطيط;مفاتيح;"
 
-#: ../panels/region/gnome-region-panel-formats.c:142
+#: ../panels/region/gnome-region-panel-formats.c:143
 msgid "Imperial"
 msgstr "إمبراطوري"
 
-#: ../panels/region/gnome-region-panel-formats.c:144
+#: ../panels/region/gnome-region-panel-formats.c:145
 msgid "Metric"
 msgstr "متري"
 
@@ -3261,7 +3297,7 @@ msgstr "اختر مصْدَر إدخال لإضافته"
 msgid "Select an input source to add"
 msgstr "اختر مصْدَر إدخال لإضافته"
 
-#: ../panels/region/gnome-region-panel-system.c:470
+#: ../panels/region/gnome-region-panel-system.c:512
 msgid ""
 "The login screen, system accounts and new user accounts use the system-wide "
 "Region and Language settings."
@@ -3269,8 +3305,8 @@ msgstr ""
 "شاشة الولوج، وحسابات النظام، وحسابات المستخدمين الجُدد تستخدم إعدادات مُستوى-"
 "النظام بالنسبة للمنطقة وإعدادات اللغة."
 
-#: ../panels/region/gnome-region-panel-system.c:475
-#: ../panels/region/gnome-region-panel.ui.h:31
+#: ../panels/region/gnome-region-panel-system.c:517
+#: ../panels/region/gnome-region-panel.ui.h:33
 msgid ""
 "The login screen, system accounts and new user accounts use the system-wide "
 "Region and Language settings. You may change the system settings to match "
@@ -3280,12 +3316,12 @@ msgstr ""
 "النظام بالنسبة للمنطقة وإعدادات اللغة. يمكنك تغيير إعدادات النظام لتطابق "
 "إعداداتك."
 
-#: ../panels/region/gnome-region-panel-system.c:478
+#: ../panels/region/gnome-region-panel-system.c:520
 msgid "Copy Settings"
 msgstr "انسخ الإعدادات"
 
-#: ../panels/region/gnome-region-panel-system.c:481
-#: ../panels/region/gnome-region-panel.ui.h:38
+#: ../panels/region/gnome-region-panel-system.c:523
+#: ../panels/region/gnome-region-panel.ui.h:40
 msgid "Copy Settings..."
 msgstr "انسخ الإعدادات..."
 
@@ -3294,7 +3330,8 @@ msgid "Region and Language"
 msgstr "المنطقة واللغة"
 
 #: ../panels/region/gnome-region-panel.ui.h:2
-msgid "Select a display language (change will be applied next time you log in)"
+msgid ""
+"Select a display language (change will be applied next time you log in)"
 msgstr "اختر لغة العرض (ستُتطبّق التغييرات مع الولوج التالي)"
 
 #: ../panels/region/gnome-region-panel.ui.h:3
@@ -3302,121 +3339,129 @@ msgid "Add Language"
 msgstr "أضِف لغة"
 
 #: ../panels/region/gnome-region-panel.ui.h:4
-msgid "Remove Language"
-msgstr "أزِل لغة"
-
-#: ../panels/region/gnome-region-panel.ui.h:5
 msgid "Install languages..."
 msgstr "ثبّت اللغات..."
 
-#: ../panels/region/gnome-region-panel.ui.h:6
+#: ../panels/region/gnome-region-panel.ui.h:5
 msgid "Language"
 msgstr "اللغة"
 
-#: ../panels/region/gnome-region-panel.ui.h:7
+#: ../panels/region/gnome-region-panel.ui.h:6
 msgid "Select a region (change will be applied the next time you log in)"
 msgstr "اختر منطقة (ستُتطبّق التغييرات مع الولوج التالي)"
 
-#: ../panels/region/gnome-region-panel.ui.h:8
+#: ../panels/region/gnome-region-panel.ui.h:7
 msgid "Add Region"
 msgstr "أضِف منطقة"
 
-#: ../panels/region/gnome-region-panel.ui.h:9
+#: ../panels/region/gnome-region-panel.ui.h:8
 msgid "Remove Region"
 msgstr "أزِل منطقة"
 
-#: ../panels/region/gnome-region-panel.ui.h:10
+#: ../panels/region/gnome-region-panel.ui.h:9
 msgid "Dates"
 msgstr "التّواريخ"
 
-#: ../panels/region/gnome-region-panel.ui.h:11
+#: ../panels/region/gnome-region-panel.ui.h:10
 msgid "Times"
 msgstr "الوقت"
 
-#: ../panels/region/gnome-region-panel.ui.h:12
+#: ../panels/region/gnome-region-panel.ui.h:11
 msgid "Numbers"
 msgstr "الأرقام"
 
-#: ../panels/region/gnome-region-panel.ui.h:13
+#: ../panels/region/gnome-region-panel.ui.h:12
 msgid "Currency"
 msgstr "العملة"
 
-#: ../panels/region/gnome-region-panel.ui.h:14
+#: ../panels/region/gnome-region-panel.ui.h:13
 msgid "Measurement"
 msgstr "القياس"
 
-#: ../panels/region/gnome-region-panel.ui.h:15
+#: ../panels/region/gnome-region-panel.ui.h:14
 msgid "Examples"
 msgstr "أمثلة"
 
-#: ../panels/region/gnome-region-panel.ui.h:16
+#: ../panels/region/gnome-region-panel.ui.h:15
 msgid "Formats"
 msgstr "النُسق"
 
-#: ../panels/region/gnome-region-panel.ui.h:17
+#: ../panels/region/gnome-region-panel.ui.h:16
 msgid "Select keyboards or other input sources"
 msgstr "اختر لوحة المفاتيح أو غيرها من مصادر الإدخال"
 
-#: ../panels/region/gnome-region-panel.ui.h:18
+#: ../panels/region/gnome-region-panel.ui.h:17
 msgid "Add Input Source"
 msgstr "أضف مصْدَر إدخال"
 
-#: ../panels/region/gnome-region-panel.ui.h:19
+#: ../panels/region/gnome-region-panel.ui.h:18
 msgid "Remove Input Source"
 msgstr "احذف مصْدَر الإدخال"
 
-#: ../panels/region/gnome-region-panel.ui.h:20
+#: ../panels/region/gnome-region-panel.ui.h:19
 msgid "Move Input Source Up"
 msgstr "انقل مصْدَر الإدخال لأعلى"
 
-#: ../panels/region/gnome-region-panel.ui.h:21
+#: ../panels/region/gnome-region-panel.ui.h:20
 msgid "Move Input Source Down"
 msgstr "انقل مصْدَر الإدخال لأسفل"
 
-#: ../panels/region/gnome-region-panel.ui.h:22
+#: ../panels/region/gnome-region-panel.ui.h:21
 msgid "Input Source Settings"
 msgstr "إعدادات مصْدَر الإدخال"
 
-#: ../panels/region/gnome-region-panel.ui.h:23
+#: ../panels/region/gnome-region-panel.ui.h:22
 msgid "Show Keyboard Layout"
 msgstr "أظهر تخطيط لوحة المفاتيح"
 
-#: ../panels/region/gnome-region-panel.ui.h:25
+#: ../panels/region/gnome-region-panel.ui.h:24
 msgid "Ctrl+Alt+Space"
 msgstr "Ctrl+Alt+Space"
 
-#: ../panels/region/gnome-region-panel.ui.h:27
+#: ../panels/region/gnome-region-panel.ui.h:26
 msgid "Ctrl+Alt+Shift+Space"
 msgstr "Ctrl+Alt+Shift+Space"
 
-#: ../panels/region/gnome-region-panel.ui.h:28
+#: ../panels/region/gnome-region-panel.ui.h:27
 msgid "Shortcut Settings"
 msgstr "إعدادات الاختصار"
 
+#: ../panels/region/gnome-region-panel.ui.h:29
+msgid "Use the same source for all windows"
+msgstr "استخدام نفس المصدر لجميع النوافذ"
+
 #: ../panels/region/gnome-region-panel.ui.h:30
+msgid "Allow different sources for each window"
+msgstr "السماح بمصادر مختلفة لكل نافذة"
+
+#: ../panels/region/gnome-region-panel.ui.h:32
 msgid "Input Sources"
 msgstr "مصادر الإدخال"
 
 #. 'display' means 'output' here, as in 'translated messages that are displayed to the user'
-#: ../panels/region/gnome-region-panel.ui.h:33
+#: ../panels/region/gnome-region-panel.ui.h:35
 msgid "Display language:"
 msgstr "لغة العرض:"
 
-#: ../panels/region/gnome-region-panel.ui.h:34
+#: ../panels/region/gnome-region-panel.ui.h:36
 msgid "Input source:"
 msgstr "مصدر الإدخال:"
 
-#: ../panels/region/gnome-region-panel.ui.h:35
+#: ../panels/region/gnome-region-panel.ui.h:37
 msgid "Format:"
 msgstr "النُسق:"
 
-#: ../panels/region/gnome-region-panel.ui.h:36
+#: ../panels/region/gnome-region-panel.ui.h:38
 msgid "Your settings"
 msgstr "إعداداتك"
 
-#: ../panels/region/gnome-region-panel.ui.h:37
+#: ../panels/region/gnome-region-panel.ui.h:39
 msgid "System settings"
 msgstr "إعدادات النظام"
+
+#: ../panels/region/gtkentryaccel.c:180
+msgid "New accelerator…"
+msgstr "اختصار جديد…"
 
 #: ../panels/screen/gnome-screen-panel.desktop.in.in.h:1
 msgid "Brightness & Lock"
@@ -3451,36 +3496,40 @@ msgstr "دقيقتين"
 msgid "3 minutes"
 msgstr "3 دقائق"
 
-#: ../panels/screen/screen.ui.h:10
+#: ../panels/screen/screen.ui.h:11
 msgid "_Dim screen to save power"
 msgstr "أخفِت ضوء ال_شاشة لتوفير الطاقة"
 
-#: ../panels/screen/screen.ui.h:11
+#: ../panels/screen/screen.ui.h:12
 msgid "Brightness"
 msgstr "السطوع"
 
-#: ../panels/screen/screen.ui.h:12
+#: ../panels/screen/screen.ui.h:13
 msgid "_Turn screen off when inactive for:"
 msgstr "أ_طفئ الشاشة عند الخمول لـ:"
 
-#: ../panels/screen/screen.ui.h:13
+#: ../panels/screen/screen.ui.h:14
 msgid "_Lock screen after:"
 msgstr "أ_وصِد الشاشة بعد:"
 
-#. To translators: This asks whether you want to lock the screen (through the screensaver) when you're detected to be physically in your home (your house, etc.)
 #: ../panels/screen/screen.ui.h:15
+msgid "Require my password when waking from suspend"
+msgstr "طلب كلمة السر عند الاستيقاظ من التعليق"
+
+#. To translators: This asks whether you want to lock the screen (through the screensaver) when you're detected to be physically in your home (your house, etc.)
+#: ../panels/screen/screen.ui.h:17
 msgid "Don't lock when at home"
 msgstr "لا توصد عندما أكون في البيت"
 
-#: ../panels/screen/screen.ui.h:16
+#: ../panels/screen/screen.ui.h:18
 msgid "Locations..."
 msgstr "الأماكن..."
 
-#: ../panels/screen/screen.ui.h:17
+#: ../panels/screen/screen.ui.h:19
 msgid "Show _notifications when locked"
 msgstr "أظهر ال_تنبيهات عندما يكون موصدًا"
 
-#: ../panels/screen/screen.ui.h:18
+#: ../panels/screen/screen.ui.h:20
 msgid "Lock"
 msgstr "أوصِد"
 
@@ -3505,10 +3554,12 @@ msgid "Show desktop volume control"
 msgstr "اعرض التحكم في شدة الصوت"
 
 #: ../panels/sound/data/gnome-sound-panel.desktop.in.in.h:1
+#: ../panels/sound-nua/data/gnome-sound-nua-panel.desktop.in.in.h:1
 msgid "Sound"
 msgstr "الصوت"
 
 #: ../panels/sound/data/gnome-sound-panel.desktop.in.in.h:2
+#: ../panels/sound-nua/data/gnome-sound-nua-panel.desktop.in.in.h:2
 msgid "Change sound volume and sound events"
 msgstr "غيّر شدة الصوت و أصوات الأحداث"
 
@@ -3542,6 +3593,7 @@ msgid "Sonar"
 msgstr "سونار"
 
 #: ../panels/sound/gvc-applet.c:270 ../panels/sound/gvc-mixer-dialog.c:1656
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1770
 msgid "Output"
 msgstr "المَخْرَج"
 
@@ -3550,6 +3602,7 @@ msgid "Sound Output Volume"
 msgstr "شدة مَخْرَج الصوت"
 
 #: ../panels/sound/gvc-applet.c:276 ../panels/sound/gvc-mixer-dialog.c:1697
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1903
 msgid "Input"
 msgstr "المَدخَل"
 
@@ -3558,44 +3611,53 @@ msgid "Microphone Volume"
 msgstr "شدة صوت الميكروفون"
 
 #: ../panels/sound/gvc-balance-bar.c:111
+#: ../panels/sound-nua/gvc-balance-bar.c:111
 msgctxt "balance"
 msgid "Left"
 msgstr "يسار"
 
 #: ../panels/sound/gvc-balance-bar.c:112
+#: ../panels/sound-nua/gvc-balance-bar.c:112
 msgctxt "balance"
 msgid "Right"
 msgstr "يمين"
 
 #: ../panels/sound/gvc-balance-bar.c:115
+#: ../panels/sound-nua/gvc-balance-bar.c:115
 msgctxt "balance"
 msgid "Rear"
 msgstr "خلفي"
 
 #: ../panels/sound/gvc-balance-bar.c:116
+#: ../panels/sound-nua/gvc-balance-bar.c:116
 msgctxt "balance"
 msgid "Front"
 msgstr "مقدمة"
 
 #: ../panels/sound/gvc-balance-bar.c:119
+#: ../panels/sound-nua/gvc-balance-bar.c:119
 msgctxt "balance"
 msgid "Minimum"
 msgstr "أدنى"
 
 #: ../panels/sound/gvc-balance-bar.c:120
+#: ../panels/sound-nua/gvc-balance-bar.c:120
 msgctxt "balance"
 msgid "Maximum"
 msgstr "أقصى"
 
 #: ../panels/sound/gvc-balance-bar.c:295
+#: ../panels/sound-nua/gvc-balance-bar.c:295
 msgid "_Balance:"
 msgstr "ال_توازن:"
 
 #: ../panels/sound/gvc-balance-bar.c:298
+#: ../panels/sound-nua/gvc-balance-bar.c:298
 msgid "_Fade:"
 msgstr "ال_تلاشي:"
 
 #: ../panels/sound/gvc-balance-bar.c:301
+#: ../panels/sound-nua/gvc-balance-bar.c:301
 msgid "_Subwoofer:"
 msgstr "_سماعات كبيرة:"
 
@@ -3649,20 +3711,24 @@ msgid "_Test Speakers"
 msgstr "ا_ختبر السماعات"
 
 #: ../panels/sound/gvc-mixer-dialog.c:426
+#: ../panels/sound-nua/gvc-mixer-dialog.c:343
 msgid "Peak detect"
 msgstr "التعرف على الذروة"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1506
 #: ../panels/sound/gvc-sound-theme-chooser.c:595
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1600
 msgid "Name"
 msgstr "الاسم"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1588
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1702
 #, c-format
 msgid "Speaker Testing for %s"
 msgstr "اختبار سماعات %s"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1642
+#: ../panels/sound-nua/gvc-mixer-dialog.c:2043
 msgid "_Output volume:"
 msgstr "شدة صوت الم_خْرَج:"
 
@@ -3675,10 +3741,12 @@ msgid "Settings for the selected device:"
 msgstr "إعدادات الجهاز المختار:"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1704
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1950
 msgid "_Input volume:"
 msgstr "شدة صوت المَ_دْخَل:"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1727
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1983
 msgid "Input level:"
 msgstr "مستوى المَدْخَل:"
 
@@ -3687,18 +3755,22 @@ msgid "C_hoose a device for sound input:"
 msgstr "اخ_تر جهاز إدخال الصوت:"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1782
+#: ../panels/sound-nua/gvc-mixer-dialog.c:2004
 msgid "Sound Effects"
 msgstr "المؤثرات الصوتية"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1789
+#: ../panels/sound-nua/gvc-mixer-dialog.c:2011
 msgid "_Alert volume:"
 msgstr "شدة صوت التنبي_ه:"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1802
+#: ../panels/sound-nua/gvc-mixer-dialog.c:2024
 msgid "Applications"
 msgstr "التطبيقات"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1806
+#: ../panels/sound-nua/gvc-mixer-dialog.c:2028
 msgid "No application is currently playing or recording audio."
 msgstr "لا تطبيقات تشغل أو تسجل صوتا حاليا."
 
@@ -3764,8 +3836,45 @@ msgstr "مُصمَت"
 msgid "Custom"
 msgstr "مخصص"
 
-#: ../panels/universal-access/cc-ua-panel.c:286
-#: ../panels/universal-access/cc-ua-panel.c:292
+#. Translators: those are keywords for the sound control-center panel
+#: ../panels/sound-nua/data/gnome-sound-nua-panel.desktop.in.in.h:4
+msgid "Card;Microphone;Volume;Fade;Balance;Bluetooth;Headset;"
+msgstr "بطاقة;ميكروفون;صوت;شدة;توازن;بلوتوث;"
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:776
+#: ../panels/sound-nua/gvc-mixer-dialog.c:946
+#, c-format
+msgid "Settings for %s"
+msgstr "إعدادات %s"
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:802
+#: ../panels/sound-nua/gvc-mixer-dialog.c:955
+msgid "Mode:"
+msgstr "النمط:"
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1775
+msgid "Play sound through"
+msgstr "تشغيل الصوت من خلال"
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1800
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1932
+msgid "Settings for the selected device"
+msgstr "إعدادات الجهاز المُختار"
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1873
+msgid "Test:"
+msgstr "الاختبار:"
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1880
+msgid "Test Sound"
+msgstr "اختبر الصوت"
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1907
+msgid "Record sound from"
+msgstr "تسجيل الصوت من"
+
+#: ../panels/universal-access/cc-ua-panel.c:289
+#: ../panels/universal-access/cc-ua-panel.c:295
 msgid "No shortcut set"
 msgstr "لم يُحدد أي اختصار"
 
@@ -3776,11 +3885,11 @@ msgstr "تفضيلات الإتاحة"
 #. Translators: those are keywords for the universal access control-center panel
 #: ../panels/universal-access/gnome-universal-access-panel.desktop.in.in.h:4
 msgid ""
-"Keyboard;Mouse;a11y;Accessibility;Contrast;Zoom;Screen Reader;text;font;size;"
-"AccessX;Sticky Keys;Slow Keys;Bounce Keys;Mouse Keys;"
+"Keyboard;Mouse;a11y;Accessibility;Contrast;Zoom;Screen "
+"Reader;text;font;size;AccessX;Sticky Keys;Slow Keys;Bounce Keys;Mouse Keys;"
 msgstr ""
-"لوحة المفاتيح;الفأرة;الإتاحة;التباين;التقريب;التكبير;قارئ الشاشة;النص;الخط;"
-"الحجم;مفاتيح ملتصقة;مفاتيح بطيئة;مفاتيح قافزة;مفاتيح الفأرة;"
+"لوحة المفاتيح;الفأرة;الإتاحة;التباين;التقريب;التكبير;قارئ "
+"الشاشة;النص;الخط;الحجم;مفاتيح ملتصقة;مفاتيح بطيئة;مفاتيح قافزة;مفاتيح الفأرة;"
 
 #: ../panels/universal-access/uap.ui.h:1
 msgctxt "universal access, contrast"
@@ -4537,7 +4646,7 @@ msgid "Authentication is required to change user data"
 msgstr "الاستيثاق مطلوب لتغيير بيانات المستخدم"
 
 #: ../panels/user-accounts/pw-utils.c:94
-#: ../panels/user-accounts/um-password-dialog.c:569
+#: ../panels/user-accounts/um-password-dialog.c:607
 msgctxt "Password strength"
 msgid "Too short"
 msgstr "قصيرة جدا"
@@ -4548,25 +4657,25 @@ msgid "Not good enough"
 msgstr "ليست جيدة كفاية"
 
 #: ../panels/user-accounts/pw-utils.c:108
-#: ../panels/user-accounts/um-password-dialog.c:570
+#: ../panels/user-accounts/um-password-dialog.c:608
 msgctxt "Password strength"
 msgid "Weak"
 msgstr "ضعيفة"
 
 #: ../panels/user-accounts/pw-utils.c:111
-#: ../panels/user-accounts/um-password-dialog.c:571
+#: ../panels/user-accounts/um-password-dialog.c:609
 msgctxt "Password strength"
 msgid "Fair"
 msgstr "معقولة"
 
 #: ../panels/user-accounts/pw-utils.c:114
-#: ../panels/user-accounts/um-password-dialog.c:572
+#: ../panels/user-accounts/um-password-dialog.c:610
 msgctxt "Password strength"
 msgid "Good"
 msgstr "جيّدة"
 
 #: ../panels/user-accounts/pw-utils.c:117
-#: ../panels/user-accounts/um-password-dialog.c:573
+#: ../panels/user-accounts/um-password-dialog.c:611
 msgctxt "Password strength"
 msgid "Strong"
 msgstr "قوية"
@@ -4576,7 +4685,7 @@ msgid "Authentication failed"
 msgstr "فشل الاستيثاق"
 
 #: ../panels/user-accounts/run-passwd.c:504
-#: ../panels/user-accounts/um-password-dialog.c:239
+#: ../panels/user-accounts/um-password-dialog.c:240
 #, c-format
 msgid "The new password is too short"
 msgstr "كلمة السّر الجديدة قصيرة جدًا"
@@ -4625,20 +4734,20 @@ msgstr "عطل غير معروف"
 msgid "Failed to add account"
 msgstr "فشلت إضافة الحساب"
 
-#: ../panels/user-accounts/um-account-dialog.c:378
-#: ../panels/user-accounts/um-account-dialog.c:419
+#: ../panels/user-accounts/um-account-dialog.c:404
+#: ../panels/user-accounts/um-account-dialog.c:445
 msgid "Failed to register account"
 msgstr "فشل تسجيل المستخدم"
 
-#: ../panels/user-accounts/um-account-dialog.c:551
+#: ../panels/user-accounts/um-account-dialog.c:577
 msgid "No supported way to authenticate with this domain"
 msgstr "لا توجد طريقة مدعومة للاستيثاق مع هذا النطاق"
 
-#: ../panels/user-accounts/um-account-dialog.c:605
+#: ../panels/user-accounts/um-account-dialog.c:631
 msgid "Failed to join domain"
 msgstr "فشل الانضمام إلى النطاق"
 
-#: ../panels/user-accounts/um-account-dialog.c:662
+#: ../panels/user-accounts/um-account-dialog.c:688
 msgid "Failed to log into domain"
 msgstr "فشل الولوج إلى النطاق"
 
@@ -4707,13 +4816,14 @@ msgstr "من فضلك راجع مدير النظام للمساعدة."
 #. * The variable is the name of the device, for example:
 #. * "To enable fingerprint login, you need to save one of your fingerprints, using the
 #. * 'Digital Persona U.are.U 4000/4000B' device."
-#.
+#. 
 #: ../panels/user-accounts/um-fingerprint-dialog.c:740
 #, c-format
 msgid ""
 "To enable fingerprint login, you need to save one of your fingerprints, "
 "using the '%s' device."
-msgstr "لتفعيل الولوج بالبصمة، ستحتاج لحفظ إحدى بصماتك باستخدام الجهاز ‪'%s'‬."
+msgstr ""
+"لتفعيل الولوج بالبصمة، ستحتاج لحفظ إحدى بصماتك باستخدام الجهاز ‪'%s'‬."
 
 #: ../panels/user-accounts/um-fingerprint-dialog.c:747
 msgid "Selecting finger"
@@ -4727,47 +4837,47 @@ msgstr "يسجّل البصمات"
 msgid "Summary"
 msgstr "ملخّص"
 
-#: ../panels/user-accounts/um-password-dialog.c:96
+#: ../panels/user-accounts/um-password-dialog.c:97
 msgid "_Generate a password"
 msgstr "ولِّد _كلمة سر"
 
-#: ../panels/user-accounts/um-password-dialog.c:150
+#: ../panels/user-accounts/um-password-dialog.c:151
 msgid "Please choose another password."
 msgstr "رجاء اختر كلمة سر أخرى."
 
-#: ../panels/user-accounts/um-password-dialog.c:159
+#: ../panels/user-accounts/um-password-dialog.c:160
 msgid "Please type your current password again."
 msgstr "رجاء أعد كتابة كلمة السر الحالية."
 
-#: ../panels/user-accounts/um-password-dialog.c:165
+#: ../panels/user-accounts/um-password-dialog.c:166
 msgid "Password could not be changed"
 msgstr "تعذّر تغيير كلمة السر"
 
-#: ../panels/user-accounts/um-password-dialog.c:236
+#: ../panels/user-accounts/um-password-dialog.c:237
 msgid "You need to enter a new password"
 msgstr "عليك إدخال كلمة سر جديدة"
 
-#: ../panels/user-accounts/um-password-dialog.c:245
+#: ../panels/user-accounts/um-password-dialog.c:246
 msgid "You need to confirm the password"
 msgstr "عليك تأكيد كلمة السر"
 
-#: ../panels/user-accounts/um-password-dialog.c:248
+#: ../panels/user-accounts/um-password-dialog.c:249
 msgid "The passwords do not match"
 msgstr "لا تتطابق كلمتا السر"
 
-#: ../panels/user-accounts/um-password-dialog.c:254
+#: ../panels/user-accounts/um-password-dialog.c:255
 msgid "You need to enter your current password"
 msgstr "عليك إدخال كلمة السر الحالية"
 
-#: ../panels/user-accounts/um-password-dialog.c:257
+#: ../panels/user-accounts/um-password-dialog.c:258
 msgid "The current password is not correct"
 msgstr "كلمة السر الحالية خطأ"
 
-#: ../panels/user-accounts/um-password-dialog.c:347
+#: ../panels/user-accounts/um-password-dialog.c:348
 msgid "Passwords do not match"
 msgstr "لا تتطابق كلمتا السر"
 
-#: ../panels/user-accounts/um-password-dialog.c:409
+#: ../panels/user-accounts/um-password-dialog.c:410
 msgid "Wrong password"
 msgstr "كلمة سر خاطئة"
 
@@ -4788,21 +4898,21 @@ msgstr "تصفّح لمزيد من الصور..."
 msgid "Used by %s"
 msgstr "يستخدمها %s"
 
-#: ../panels/user-accounts/um-realm-manager.c:379
+#: ../panels/user-accounts/um-realm-manager.c:408
 #, c-format
 msgid "No such domain or realm found"
 msgstr "لم يعثر على هذا النطاق أو المجال"
 
-#: ../panels/user-accounts/um-realm-manager.c:780
+#: ../panels/user-accounts/um-realm-manager.c:809
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "تعذّر الولوج باسم %s في النطاق %s"
 
-#: ../panels/user-accounts/um-realm-manager.c:785
+#: ../panels/user-accounts/um-realm-manager.c:814
 msgid "Invalid password, please try again"
 msgstr "كلمة سر خطأ؛ من فضلك أعد المحاولة"
 
-#: ../panels/user-accounts/um-realm-manager.c:789
+#: ../panels/user-accounts/um-realm-manager.c:818
 #, c-format
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "تعذّر الاتصال بالنطاق %s:‏ %s"
@@ -4876,15 +4986,15 @@ msgctxt "Password mode"
 msgid "None"
 msgstr "بدون"
 
-#: ../panels/user-accounts/um-user-panel.c:871
+#: ../panels/user-accounts/um-user-panel.c:875
 msgid "Failed to contact the accounts service"
 msgstr "فشل الاتصال بخدمة الحسابات"
 
-#: ../panels/user-accounts/um-user-panel.c:873
+#: ../panels/user-accounts/um-user-panel.c:877
 msgid "Please make sure that the AccountService is installed and enabled."
 msgstr "رجاء تأكّد من أن AccountService مثبّتة ومفعّلة."
 
-#: ../panels/user-accounts/um-user-panel.c:913
+#: ../panels/user-accounts/um-user-panel.c:917
 msgid ""
 "To make changes,\n"
 "click the * icon first"
@@ -4892,12 +5002,12 @@ msgstr ""
 "انقر على أيقونة *\n"
 "لعمل أي تغييرات"
 
-#: ../panels/user-accounts/um-user-panel.c:951
+#: ../panels/user-accounts/um-user-panel.c:955
 msgid "Create a user account"
 msgstr "أنشئ حساب مستخدِم"
 
-#: ../panels/user-accounts/um-user-panel.c:962
-#: ../panels/user-accounts/um-user-panel.c:1273
+#: ../panels/user-accounts/um-user-panel.c:966
+#: ../panels/user-accounts/um-user-panel.c:1278
 msgid ""
 "To create a user account,\n"
 "click the * icon first"
@@ -4905,12 +5015,12 @@ msgstr ""
 "لإنشاء حساب مستخدِم،\n"
 "انقر أولًا على أيقونة *"
 
-#: ../panels/user-accounts/um-user-panel.c:971
+#: ../panels/user-accounts/um-user-panel.c:975
 msgid "Delete the selected user account"
 msgstr "احذف حساب المستخدِم المختار"
 
-#: ../panels/user-accounts/um-user-panel.c:983
-#: ../panels/user-accounts/um-user-panel.c:1278
+#: ../panels/user-accounts/um-user-panel.c:987
+#: ../panels/user-accounts/um-user-panel.c:1283
 msgid ""
 "To delete the selected user account,\n"
 "click the * icon first"
@@ -4918,11 +5028,11 @@ msgstr ""
 "لحذف حساب المستخدم المختار،\n"
 "انقر أولًا على أيقونة *"
 
-#: ../panels/user-accounts/um-user-panel.c:1176
+#: ../panels/user-accounts/um-user-panel.c:1180
 msgid "My Account"
 msgstr "حسابي"
 
-#: ../panels/user-accounts/um-user-panel.c:1186
+#: ../panels/user-accounts/um-user-panel.c:1190
 msgid "Other Accounts"
 msgstr "الحسابات الأخرى"
 
@@ -5096,67 +5206,67 @@ msgstr "نمط التتبع"
 msgid "Left-Handed Orientation"
 msgstr "اتجاه لليد اليسرى"
 
-#: ../panels/wacom/gsd-wacom-device.c:1010
+#: ../panels/wacom/gsd-wacom-device.c:1013
 #, c-format
 msgid "Left Ring Mode #%d"
 msgstr ""
 
-#: ../panels/wacom/gsd-wacom-device.c:1019
+#: ../panels/wacom/gsd-wacom-device.c:1023
 #, c-format
 msgid "Right Ring Mode #%d"
 msgstr ""
 
-#: ../panels/wacom/gsd-wacom-device.c:1049
+#: ../panels/wacom/gsd-wacom-device.c:1054
 #, c-format
 msgid "Left Touchstrip Mode #%d"
 msgstr ""
 
-#: ../panels/wacom/gsd-wacom-device.c:1058
+#: ../panels/wacom/gsd-wacom-device.c:1064
 #, c-format
 msgid "Right Touchstrip Mode #%d"
 msgstr ""
 
-#: ../panels/wacom/gsd-wacom-device.c:1075
+#: ../panels/wacom/gsd-wacom-device.c:1081
 #, c-format
 msgid "Left Touchring Mode Switch"
 msgstr ""
 
-#: ../panels/wacom/gsd-wacom-device.c:1077
+#: ../panels/wacom/gsd-wacom-device.c:1083
 #, c-format
 msgid "Right Touchring Mode Switch"
 msgstr ""
 
-#: ../panels/wacom/gsd-wacom-device.c:1080
+#: ../panels/wacom/gsd-wacom-device.c:1086
 #, c-format
 msgid "Left Touchstrip Mode Switch"
 msgstr ""
 
-#: ../panels/wacom/gsd-wacom-device.c:1082
+#: ../panels/wacom/gsd-wacom-device.c:1088
 #, c-format
 msgid "Right Touchstrip Mode Switch"
 msgstr ""
 
-#: ../panels/wacom/gsd-wacom-device.c:1087
+#: ../panels/wacom/gsd-wacom-device.c:1093
 #, c-format
 msgid "Mode Switch #%d"
 msgstr ""
 
-#: ../panels/wacom/gsd-wacom-device.c:1159
+#: ../panels/wacom/gsd-wacom-device.c:1164
 #, c-format
 msgid "Left Button #%d"
 msgstr ""
 
-#: ../panels/wacom/gsd-wacom-device.c:1162
+#: ../panels/wacom/gsd-wacom-device.c:1167
 #, c-format
 msgid "Right Button #%d"
 msgstr ""
 
-#: ../panels/wacom/gsd-wacom-device.c:1165
+#: ../panels/wacom/gsd-wacom-device.c:1170
 #, c-format
 msgid "Top Button #%d"
 msgstr ""
 
-#: ../panels/wacom/gsd-wacom-device.c:1168
+#: ../panels/wacom/gsd-wacom-device.c:1173
 #, c-format
 msgid "Bottom Button #%d"
 msgstr ""
@@ -5229,6 +5339,10 @@ msgstr "الزر السفلي"
 msgid "Tip Pressure Feel"
 msgstr "الشعور بضغط السن"
 
+#: ../shell/cc-shell-nav-bar.c:117
+msgid "_All Settings"
+msgstr "_كل الإعدادات"
+
 #: ../shell/control-center.c:58
 msgid "Enable verbose mode"
 msgstr "فعّل الطور المسهِب"
@@ -5259,13 +5373,17 @@ msgstr ""
 "%s\n"
 "شغّل '%s --help' لترى قائمة كاملة بخيارات سطر الأوامر المتاحة.\n"
 
-#: ../shell/control-center.c:211
-msgid "Help"
-msgstr "مساعدة"
+#: ../shell/control-center.c:269
+msgid "Contents"
+msgstr "المحتويات"
 
-#: ../shell/control-center.c:212
+#: ../shell/control-center.c:272 ../shell/control-center.c:288
 msgid "Quit"
 msgstr "أنهِ"
+
+#: ../shell/control-center.c:274 ../shell/control-center.c:287
+msgid "Help"
+msgstr "مساعدة"
 
 #: ../shell/gnomecc.directory.in.h:1
 msgid "Control Center"
@@ -5279,1094 +5397,51 @@ msgstr "إعدادات النظام"
 msgid "Preferences;Settings;"
 msgstr "تفضيلات;إعدادات;"
 
-#: ../shell/shell.ui.h:2
-msgid "All Settings"
-msgstr "كل الإعدادات"
+#: ../panels/region/gnome-unity-region-panel.desktop.in.in.h:1
+msgid "Text Entry"
+msgstr "إدخال النصوص"
 
-#~ msgid "Security Key"
-#~ msgstr "مفتاح الأمن"
+#: ../panels/region/gnome-unity-region-panel.desktop.in.in.h:2
+msgid "Change your keyboard or input method settings"
+msgstr "تغيير لوحة المفاتيح أو إعدادات طرق الإدخال"
 
-#~ msgid "Subnet Mask"
-#~ msgstr "قناع الشبكة الفرعية"
+#. Translators: those are keywords for the region control-center panel
+#: ../panels/region/gnome-unity-region-panel.desktop.in.in.h:4
+msgid "Language;Layout;Keyboard;Input Method;Text Entry;"
+msgstr ""
 
-#~ msgid "A_ddress:"
-#~ msgstr "ال_عنوان:"
+#~ msgid "Keyboard Settings..."
+#~ msgstr "إعدادات لوحة المفاتيح..."
 
-#~ msgid "_Search by Address"
-#~ msgstr "ا_بحث حسب العنوان"
+#~ msgid "Using custom font:"
+#~ msgstr "استخدام خط مخصص:"
 
-#~ msgid "Getting devices..."
-#~ msgstr "يجلب الأجهزة..."
+#~ msgid "Show input candidates:"
+#~ msgstr "عرض ترشيحات الإدخال:"
 
-#~ msgid "No local printers found"
-#~ msgstr "لم يعثر على طابعات محلية"
+#~ msgid "Install languages…"
+#~ msgstr "تثبيت اللغات..."
 
-#~ msgid ""
-#~ "FirewallD is not running. Network printer detection needs services mdns, "
-#~ "ipp, ipp-client and samba-client enabled on firewall."
-#~ msgstr ""
-#~ "لا يعمل FirewallD. يحتاج اكتشاف طابعة الشبكة إلى تفعيل خدمات mdns و ipp و "
-#~ "ipp-client و samba-client في الجدار الناري."
+#~ msgid "Input sources to use:"
+#~ msgstr "مصادر الإدخال المستخدمة:"
 
-#~ msgid "Devices"
-#~ msgstr "الأجهزة"
+#~ msgid "Switch to next source using:"
+#~ msgstr "انتقل إلى المصدر التالي باستخدام:"
 
-#~ msgctxt "printer type"
-#~ msgid "Local"
-#~ msgstr "محلية"
+#~ msgid "Switch to previous source using:"
+#~ msgstr "انتقل إلى المصدر السابق باستخدام:"
 
-#~ msgctxt "printer type"
-#~ msgid "Network"
-#~ msgstr "على الشبكة"
+#~ msgid "New windows use the default source"
+#~ msgstr "النوافذ الجديدة ستستخدم المصدر الافتراضي"
 
-#~ msgid "Device types"
-#~ msgstr "أنواع الأجهزة"
+#~ msgid "New windows use the current source"
+#~ msgstr "النوافذ الجديدة ستستخدم المصدر الحالي"
 
-#~ msgid "Automatic configuration"
-#~ msgstr "إعداد تلقائي"
+#~ msgid "Horizontally"
+#~ msgstr "أفقيًا"
 
-#~ msgid "Opening firewall for mDNS connections"
-#~ msgstr "يفتح الجدار الناري لاتصالات mDNS"
+#~ msgid "Show current input source in the menu bar"
+#~ msgstr "عرض مصدر الإدخال الحالي في شريط القوائم العلوي"
 
-#~ msgid "Opening firewall for Samba connections"
-#~ msgstr "يفتح الجدار الناري لاتصالات Samba"
-
-#~ msgid "Opening firewall for IPP connections"
-#~ msgstr "يفتح الجدار الناري لاتصالات IPP"
-
-#~ msgid "To test your settings, try to double-click on the face."
-#~ msgstr "لاختبار إعدادات النقر المزدوج، جرّب النقر المزدوج على الوجه."
-
-#~ msgid "Dasher"
-#~ msgstr "داشر"
-
-#~ msgid "Nomon"
-#~ msgstr "Nomon"
-
-#~ msgid "Caribou"
-#~ msgstr "كاريبو"
-
-#~ msgid "Co_nnector:"
-#~ msgstr "المو_صّل:"
-
-#~ msgid "Hardware"
-#~ msgstr "العتاد"
-
-#~ msgid "C_hoose a device to configure:"
-#~ msgstr "ا_ختر جهازا لإعداده:"
-
-#~ msgid "Add wallpaper"
-#~ msgstr "أضف خلفية"
-
-#~ msgid "Remove wallpaper"
-#~ msgstr "أزل الخلفية"
-
-#~ msgid "Swap colors"
-#~ msgstr "بدّل الألوان"
-
-#~ msgid "Secondary color"
-#~ msgstr "اللون الثانوي"
-
-#~ msgid "Horizontal Gradient"
-#~ msgstr "تدرج أفقي"
-
-#~ msgid "Vertical Gradient"
-#~ msgstr "تدرج رأسي"
-
-#~ msgid "Solid Color"
-#~ msgstr "لون سادة"
-
-#~ msgid "Pictures Folder"
-#~ msgstr "مجلّد الصور"
-
-#~ msgid "Colors & Gradients"
-#~ msgstr "ألوان وتدرجات"
-
-#~ msgid "Take a screenshot"
-#~ msgstr "التقط صورة للشاشة"
-
-#~ msgid "Shortcut"
-#~ msgstr "الاختصار"
-
-#~ msgid "_Right-handed"
-#~ msgstr "فأرة لليد الي_منى"
-
-#~ msgid "_Left-handed"
-#~ msgstr "فأرة لليد اليسر_ى"
-
-#~ msgid "Sh_ow position of pointer when the Control key is pressed"
-#~ msgstr "أ_ظهر موقع الفأرة عند ضغط مفتاح Ctrl"
-
-#~ msgid "A_cceleration:"
-#~ msgstr "ال_تسارع:"
-
-#~ msgid "_Sensitivity:"
-#~ msgstr "الح_ساسية:"
-
-#~ msgid "Drag and Drop"
-#~ msgstr "السحب والإفلات"
-
-#~ msgid "Thr_eshold:"
-#~ msgstr "ال_عتبة:"
-
-#~ msgid "Drag Threshold"
-#~ msgstr "اسحب العتبة"
-
-#~ msgid "Double-Click Timeout"
-#~ msgstr "مهلة النقر المزدوج"
-
-#~ msgid "_Timeout:"
-#~ msgstr "ا_لمهلة:"
-
-#~ msgid "Enable _mouse clicks with touchpad"
-#~ msgstr "فعّل _نقرات الفأرة في لوحة اللمس"
-
-#~ msgid "Scrolling"
-#~ msgstr "اللف"
-
-#~ msgid "_Disabled"
-#~ msgstr "مع_طّل"
-
-#~ msgid "_Edge scrolling"
-#~ msgstr "اللف عند ال_حافة"
-
-#~ msgid "Enable h_orizontal scrolling"
-#~ msgstr "فعّل اللف الأ_فقي"
-
-#~ msgid "Account _type"
-#~ msgstr "_نوع الحساب"
-
-#~ msgid "Acti_on:"
-#~ msgstr "الإ_جراء:"
-
-#~ msgctxt "Wireless access point"
-#~ msgid "Other..."
-#~ msgstr "أخرى..."
-
-#~ msgid "Hotspot"
-#~ msgstr "نقطة اتصال"
-
-#~ msgid "Not connected to the internet."
-#~ msgstr "غير متّصِل بالإنترنت."
-
-#~ msgid "Create the hotspot anyway?"
-#~ msgstr "إنشاء نقطة اتصال على أي حال؟"
-
-#~ msgid "Disconnect from %s and create a new hotspot?"
-#~ msgstr "قطع الاتصال بـ %s وأنشئ نقطة اتصال جديدة؟"
-
-#~ msgid "This is your only connection to the internet."
-#~ msgstr "هذا اتصالك الوحيد بالإنترنت."
-
-#~ msgid "Create _Hotspot"
-#~ msgstr "أنشئ _نقطة اتصال"
-
-#~ msgid "Device Off"
-#~ msgstr "الجهاز متوقف"
-
-#~ msgid "_Network Name"
-#~ msgstr "اسم ال_شبكة"
-
-#~ msgid "_Stop Hotspot..."
-#~ msgstr "أو_قف نقطة الاتصال..."
-
-#~ msgid "_Back"
-#~ msgstr "ا_رجع"
-
-#~ msgid "Printer Options"
-#~ msgstr "خيارات الطابعة"
-
-#~ msgid "Add User"
-#~ msgstr "أضف مستخدما"
-
-#~ msgid "Remove User"
-#~ msgstr "أزِل مستخدما"
-
-#~ msgid "Allowed users"
-#~ msgstr "المستخدمين المسموح لهم"
-
-#~ msgid "Disable VPN"
-#~ msgstr "عطّل VPN"
-
-#~ msgid "HTTP Port"
-#~ msgstr "منفذ HTTP"
-
-#~ msgid "HTTPS Port"
-#~ msgstr "منفذ HTTPS"
-
-#~ msgid "FTP Port"
-#~ msgstr "منفذ FTP"
-
-#~ msgid "Socks Port"
-#~ msgstr "منفذ Socks"
-
-#~ msgid "Select an account"
-#~ msgstr "اختر حسابًا"
-
-#~ msgid "To add a new account, first select the account type"
-#~ msgstr "لإضافة حساب جديد، اختر أولًا نوع الحساب"
-
-#~ msgid "_Add..."
-#~ msgstr "أ_ضِف…"
-
-#~ msgid "Tip:"
-#~ msgstr "تلميح:"
-
-#~ msgid "Brightness Settings"
-#~ msgstr "إعدادات السطوع"
-
-#~ msgid "affect how much power is used"
-#~ msgstr "تؤثر في كمية الطاقة المستهلكة"
-
-#~ msgid "Choose a Layout"
-#~ msgstr "اختر تخطيطًا"
-
-#~ msgid "Preview"
-#~ msgstr "معاينة"
-
-#~ msgid "Add Layout"
-#~ msgstr "أضِف تخطيطا"
-
-#~ msgid "Remove Layout"
-#~ msgstr "أزِل تخطيطا"
-
-#~ msgid "Move Up"
-#~ msgstr "انقل لأعلى"
-
-#~ msgid "Move Down"
-#~ msgstr "انقل لأسفل"
-
-#~ msgid "Preview Layout"
-#~ msgstr "معاينة التخطيط"
-
-#~ msgid "Use the same layout for all windows"
-#~ msgstr "استخدم نفس التخطيط لكل النوافذ"
-
-#~ msgid "Allow different layouts for individual windows"
-#~ msgstr "اسمح بتخطيط مختلف لكل نافذة"
-
-#~ msgid "New windows use the default layout"
-#~ msgstr "النوافذ الجديدة تستخدم التخطيط المبدئي"
-
-#~ msgid "New windows use the previous window's layout"
-#~ msgstr "النوافذ الجديدة تستخدم تخطيط النافذة السابقة"
-
-#~ msgid "View and edit keyboard layout options"
-#~ msgstr "اعرض وعدّل خيارات تخطيط لوحة المفاتيح"
-
-#~ msgid "Reset to De_faults"
-#~ msgstr "ا_ستعد المبدئيات"
-
-#~ msgid ""
-#~ "Replace the current keyboard layout settings with the\n"
-#~ "default settings"
-#~ msgstr ""
-#~ "غيّر إعدادات لوحة المفاتيح الحالية إلى\n"
-#~ "الإعدادات المبدئية"
-
-#~ msgid "Layouts"
-#~ msgstr "التخطيطات"
-
-#~ msgid "Layout"
-#~ msgstr "التخطيط"
-
-#~ msgid "Change contrast:"
-#~ msgstr "غيّر التباين:"
-
-#~ msgid "_Text size:"
-#~ msgstr "حجم ال_نص:"
-
-#~ msgid "Increase size:"
-#~ msgstr "كبّر الحجم:"
-
-#~ msgid "Decrease size:"
-#~ msgstr "قلل الحجم:"
-
-#~ msgctxt "universal access, seeing"
-#~ msgid "Display"
-#~ msgstr "الشاشة"
-
-#~ msgctxt "universal access, seeing"
-#~ msgid "Zoom"
-#~ msgstr "التقريب"
-
-#~ msgid "Screen keyboard"
-#~ msgstr "لوحة مفاتيح على الشاشة"
-
-#~ msgid "Typing Assistant"
-#~ msgstr "مساعدة الكتابة"
-
-#~ msgid "Type here to test settings"
-#~ msgstr "اكتب هنا لاختبار الإعدادات"
-
-#~ msgid "1/2 Screen"
-#~ msgstr "1/2 الشاشة"
-
-#~ msgid "3/4 Screen"
-#~ msgstr "3/4 الشاشة"
-
-#~ msgid "Create new account"
-#~ msgstr "أنشئ حسابا جديدا"
-
-#~ msgid "_Account Type"
-#~ msgstr "_نوع الحساب"
-
-#~ msgid "Cr_eate"
-#~ msgstr "أ_نشئ"
-
-#~ msgid "Choose a generated password"
-#~ msgstr "اختر كلمة سر مُوَلّدة"
-
-#~ msgid "More choices..."
-#~ msgstr "المزيد من الخيارات…"
-
-#~ msgid "Wacom Graphics Tablet"
-#~ msgstr "لوح رسوميات Wacom"
-
-#~ msgid "Could not get session bus while applying display configuration"
-#~ msgstr "تعذرت معرفة الجلسة أثناء تطبيق تضبيطات العرض"
-
-#~ msgid "System Info"
-#~ msgstr "معلومات النظام"
-
-#~ msgid "_Photos:"
-#~ msgstr "_صور:"
-
-#~ msgid "Toggle contrast"
-#~ msgstr "بدّل التباين"
-
-#~ msgid "Toggle magnifier"
-#~ msgstr "بدّل المكبرة"
-
-#~ msgid "Toggle screen reader"
-#~ msgstr "بدّل قارئ الشاشة"
-
-#~ msgid "New shortcut..."
-#~ msgstr "اختصار جديد..."
-
-#~ msgid "Accelerator key"
-#~ msgstr "مفتاح اختصار"
-
-#~ msgid "Accelerator modifiers"
-#~ msgstr "مُغيِّرات مفاتيح الاختصار"
-
-#~ msgid "Accelerator keycode"
-#~ msgstr "رمز مفتاح الاختصار"
-
-#~ msgid "Accel Mode"
-#~ msgstr "نسق الاختصار"
-
-#~ msgid "The type of accelerator."
-#~ msgstr "نوع مفتاح الاختصار."
-
-#~ msgid "Error saving the new shortcut"
-#~ msgstr "خطأ أثناء حفظ الاختصار الجديد"
-
-#~ msgid "Too many custom shortcuts"
-#~ msgstr "الكثير من الاختصارات المخصصة"
-
-#~ msgid "Speed"
-#~ msgstr "السرعة"
-
-#~ msgid "Unlock"
-#~ msgstr "افتح"
-
-#~ msgid "Battery charging"
-#~ msgstr "البطارية تُشحن"
-
-#~ msgid "Battery discharging"
-#~ msgstr "البطارية تُستخدم"
-
-#~ msgid "UPS discharging"
-#~ msgstr "مزود الطاقة اللامنقطعة يُستخدم"
-
-#~ msgid "%s until charged (%.0lf%%)"
-#~ msgstr "%s حتى تُشحن (%.0lf%%)"
-
-#~ msgid "%s until empty (%.0lf%%)"
-#~ msgstr "%s حتى تفرغ (%.0lf%%)"
-
-#~ msgid "%.0lf%% charged"
-#~ msgstr "%.0lf%% مشحون"
-
-#~ msgid "Ask me"
-#~ msgstr "اسألني"
-
-#~ msgid "Shutdown"
-#~ msgstr "أطفئ"
-
-#~ msgid "Suspend"
-#~ msgstr "علِّق"
-
-#~ msgid "Key"
-#~ msgstr "المفتاح"
-
-#~ msgid "GConf key to which this property editor is attached"
-#~ msgstr "مفتاح GConf الذي يتبعه محرّر الخاصية هذا."
-
-#~ msgid "Callback"
-#~ msgstr "اتصال معاكس"
-
-#~ msgid "Issue this callback when the value associated with key gets changed"
-#~ msgstr "فعّل هذا الاتصال المعاكس إثر تغيير قيمة بالمفتاح"
-
-#~ msgid "Change set"
-#~ msgstr "مجموعة التغييرات"
-
-#~ msgid ""
-#~ "GConf change set containing data to be forwarded to the gconf client on "
-#~ "apply"
-#~ msgstr ""
-#~ "مجموعة تغييرات GConf المحتوية على بيانات سترسل إلى عميل gconf عند التطبيق"
-
-#~ msgid "Conversion to widget callback"
-#~ msgstr "تحويل إلى نداء معاكس للودجة"
-
-#~ msgid ""
-#~ "Callback to be issued when data are to be converted from GConf to the "
-#~ "widget"
-#~ msgstr "الاتصال المعاكس الذي يتم تفعيله لتحويل البيانات من GConf للودجة"
-
-#~ msgid "Conversion from widget callback"
-#~ msgstr "تحويل من النداء المعاكس للودجة"
-
-#~ msgid ""
-#~ "Callback to be issued when data are to be converted to GConf from the "
-#~ "widget"
-#~ msgstr "الاتصال المعاكس الذي يتم تفعيله لتحويل البيانات من الودجة إلى GConf"
-
-#~ msgid "UI Control"
-#~ msgstr "كائن واجهة المستخدم"
-
-#~ msgid "Object that controls the property (normally a widget)"
-#~ msgstr "الكائن الذي يتحكم في الخاصية (عادة ودجة)"
-
-#~ msgid "Property editor object data"
-#~ msgstr "بيانات كائن محرّر الخاصيات"
-
-#~ msgid "Custom data required by the specific property editor"
-#~ msgstr "البيانات المعرفة المطلوبة من محرّر الخاصية المحدّد"
-
-#~ msgid "Property editor data freeing callback"
-#~ msgstr "الاتصال المعاكس المفرغ لمحرر الخاصيات من بياناته"
-
-#~ msgid ""
-#~ "Callback to be issued when property editor object data is to be freed"
-#~ msgstr "الاتصال المعاكس الذي يتم تفعيله عند تحرير بيانات جسم محرّر الخاصيات"
-
-#~ msgid ""
-#~ "Couldn't find the file '%s'.\n"
-#~ "\n"
-#~ "Please make sure it exists and try again, or choose a different "
-#~ "background picture."
-#~ msgstr ""
-#~ "تعذّر إيجاد الملف '%s'.\n"
-#~ "\n"
-#~ "رجاء تأكد من وجوده وأعد المحاولة مرّة اخرى، أو اختر صورةَ خلفية مغايرة."
-
-#~ msgid ""
-#~ "I don't know how to open the file '%s'.\n"
-#~ "Perhaps it's a kind of picture that is not yet supported.\n"
-#~ "\n"
-#~ "Please select a different picture instead."
-#~ msgstr ""
-#~ "لا أعرف كيف أفتح الملف '%s'.\n"
-#~ "قد يكون نوع الصورة غير مدعوم الآن.\n"
-#~ "\n"
-#~ "رجاء اختر صورة أخرى."
-
-#~ msgid "Please select an image."
-#~ msgstr "رجاء اختر صورة."
-
-#, fuzzy
-#~ msgid "Centered"
-#~ msgstr "موسَّطة"
-
-#, fuzzy
-#~ msgid "Show"
-#~ msgstr "أ_ظهر"
-
-#~ msgid "Create a user"
-#~ msgstr "أنشئ مستخدما"
-
-#~ msgid "Media and Autorun"
-#~ msgstr "الوسائط والتشغيل التلقائي"
-
-#~ msgid "Configure media and autorun preferences"
-#~ msgstr "اضبط تفضيلات الوسائط والتشغيل التلقائي"
-
-#~ msgid "cd;dvd;usb;audio;video;disc;"
-#~ msgstr "اسطوانة;قرص;صوت;صورة;فديو;"
-
-#, fuzzy
-#~ msgid "_Turn off after:"
-#~ msgstr "أ_طفئ بعد:"
-
-#~ msgid "Mute"
-#~ msgstr "أصمِت"
-
-#~ msgid "Current network location"
-#~ msgstr "مكان الشبكة الحالي"
-
-#~ msgid "More backgrounds URL"
-#~ msgstr "مسار جلب المزيد من الخلفيات"
-
-#~ msgid "More themes URL"
-#~ msgstr "مسار جلب المزيد من السمات"
-
-#~ msgid ""
-#~ "Set this to your current location name. This is used to determine the "
-#~ "appropriate network proxy configuration."
-#~ msgstr ""
-#~ "يحدد هذا اسما لمكانك الحالي. يستخدم هذا لتحديد إعدادات وسيط الشبكة "
-#~ "المناسبة."
-
-#~ msgid ""
-#~ "URL for where to get more desktop backgrounds. If set to an empty string "
-#~ "the link will not appear."
-#~ msgstr "مسار لجلب المزيد من خلفيات سطح المكتب. إذا ترك فارغا لن يظهر."
-
-#~ msgid ""
-#~ "URL for where to get more desktop themes. If set to an empty string the "
-#~ "link will not appear."
-#~ msgstr "مسار لجلب المزيد من سمات سطح المكتب. إذا ترك فارغا لن يظهر."
-
-#~ msgid "Locked"
-#~ msgstr "مُوصد"
-
-#~ msgid ""
-#~ "Dialog is unlocked.\n"
-#~ "Click to prevent further changes"
-#~ msgstr ""
-#~ "المربع الحواري غير مُوصَد.\n"
-#~ "انقر لمنع أي تغييرات"
-
-#~ msgid ""
-#~ "Dialog is locked.\n"
-#~ "Click to make changes"
-#~ msgstr ""
-#~ "المربع الحواري مُوصَد.\n"
-#~ "انقر للسماح بالتغييرات"
-
-#~ msgid ""
-#~ "System policy prevents changes.\n"
-#~ "Contact your system administrator"
-#~ msgstr ""
-#~ "تمنع سياسة النظام التعديلات.\n"
-#~ "راجع مدير النظام."
-
-#~ msgid "24-Hour Time"
-#~ msgstr "توقيت 24 ساعة"
-
-#~ msgid "Upside-down"
-#~ msgstr "رأسا على عقب"
-
-#~ msgid "%u byte"
-#~ msgid_plural "%u bytes"
-#~ msgstr[0] "%u بايت"
-#~ msgstr[1] "%u بايت"
-#~ msgstr[2] "%u بايت"
-#~ msgstr[3] "%u بايت"
-#~ msgstr[4] "%u بايت"
-#~ msgstr[5] "%u بايت"
-
-#~ msgid "%.1f KB"
-#~ msgstr "%.1f ك.بايت"
-
-#~ msgid "%.1f MB"
-#~ msgstr "%.1f م.بايت"
-
-#~ msgid "%.1f GB"
-#~ msgstr "%.1f ج.بايت"
-
-#~ msgid "%.1f TB"
-#~ msgstr "%.1f ت.بايت"
-
-#~ msgid "%.1f PB"
-#~ msgstr "%.1f ب.بايت"
-
-#~ msgid "%.1f EB"
-#~ msgstr "%.1f إ.بايت"
-
-#~ msgid "Photos"
-#~ msgstr "الصور"
-
-#~ msgid "Updates Available"
-#~ msgstr "يوجد تحديثات"
-
-#~ msgid "Web"
-#~ msgstr "الوب"
-
-#~ msgid "Add"
-#~ msgstr "أضف"
-
-#~ msgid "---"
-#~ msgstr "---"
-
-#~ msgid "Use default layout in new windows"
-#~ msgstr "استخدم التخطيط المبدئي في النوافذ الجديدة"
-
-#~ msgid "Use previous window's layout in new windows"
-#~ msgstr "استخدم تخطيط النافذة السابقة في النوافذ الجديدة"
-
-#~ msgid "On AC power:"
-#~ msgstr "على الطاقة الاعتيادية:"
-
-#~ msgid "Put the computer to sleep when inactive:"
-#~ msgstr "ضع الحاسوب لينام عندما لا يكون نشطا:"
-
-#~ msgid "When the power button is pressed:"
-#~ msgstr "عند ضغط زر التشغيل:"
-
-#~ msgid "When the sleep button is pressed:"
-#~ msgstr "عند ضغط زر الإسبات:"
-
-#~ msgid "Keyboard;Mouse;a11y;Accessibility;"
-#~ msgstr "لوحة;مفاتيح;فأرة;إتاحة;"
-
-#~ msgid "<span size=\"x-large\">High/Inverse</span>"
-#~ msgstr "<span size=\"x-large\">عال\\معكوس</span>"
-
-#~ msgid "<span size=\"x-large\">High</span>"
-#~ msgstr "<span size=\"x-large\">عال</span>"
-
-#~ msgid "<span size=\"x-large\">Low</span>"
-#~ msgstr "<span size=\"x-large\">منخفض</span>"
-
-#~ msgid "<span size=\"x-large\">Normal</span>"
-#~ msgstr "<span size=\"x-large\">عادي</span>"
-
-#~ msgid "Standard"
-#~ msgstr "عادي"
-
-#~ msgid "Clean print heads"
-#~ msgstr "نظف رؤوس الطباعة"
-
-#~ msgid "An error has occured during a maintenance command."
-#~ msgstr "حدث عطل أثناء تنفيذ أمر الصيانة."
-
-#~ msgid "DSL"
-#~ msgstr "DSL"
-
-#~ msgid "Mobile Broadband"
-#~ msgstr "شبكة هاتف محمول"
-
-#~ msgid "Locate Pointer"
-#~ msgstr "حدد موقع المؤشر"
-
-#~ msgid "16"
-#~ msgstr "16"
-
-#~ msgid "2010"
-#~ msgstr "2010"
-
-#~ msgid "22"
-#~ msgstr "22"
-
-#~ msgid "45"
-#~ msgstr "45"
-
-#~ msgid "AM"
-#~ msgstr "ص"
-
-#~ msgid "Info"
-#~ msgstr "معلومات"
-
-#~ msgid "Set the system proxy settings"
-#~ msgstr "اضبط إعدادات وسيط الشبكة"
-
-#~ msgid "Virtual private network"
-#~ msgstr "شبكة خاصة افتراضية"
-
-#~ msgid "The running NetworkManager version is not compatible (too new)."
-#~ msgstr "نسخة NetworkManager التي تعمل غير متوافقة (حديثة جدا)"
-
-#~ msgid "The running NetworkManager version is not compatible (too old)."
-#~ msgstr "نسخة NetworkManager التي تعمل غير متوافقة (قديمة جدا)"
-
-#~ msgid "IP Address:"
-#~ msgstr "عنوان IP:"
-
-#~ msgid "Preparing connection"
-#~ msgstr "يُجهّز الاتصال"
-
-#~ msgid "Configuring connection"
-#~ msgstr "يضبط الاتصال"
-
-#~ msgid "Authenticating"
-#~ msgstr "يستوثق"
-
-#~ msgid "Getting network address"
-#~ msgstr "يجلب عنوان الشبكة"
-
-#~ msgid "Preparing"
-#~ msgstr "يُجهّز"
-
-#~ msgid "Active"
-#~ msgstr "نشِط"
-
-#~ msgctxt "Account type"
-#~ msgid "Supervised"
-#~ msgstr "تحت الإشراف"
-
-#~ msgid "Supervised"
-#~ msgstr "تحت الإشراف"
-
-#~ msgid "Secure HTTP Proxy:"
-#~ msgstr "وسيط HTTP الآمن:"
-
-#~ msgid "Chipset"
-#~ msgstr "البطاقة"
-
-#~ msgid "LowContrast"
-#~ msgstr "تباين منخفض"
-
-#~ msgid "Use an alternative form of text input"
-#~ msgstr "استخدم صورة بديلة من الإدخال النصّي"
-
-#~ msgid "Language:"
-#~ msgstr "اللغة:"
-
-#~ msgid "Ctrl+Alt+0"
-#~ msgstr "Ctrl+Alt+0"
-
-#~ msgid "Ctrl+Alt+4"
-#~ msgstr "Ctrl+Alt+4"
-
-#~ msgid "Ctrl+Alt+8"
-#~ msgstr "Ctrl+Alt+8"
-
-#~ msgid "Ctrl+Alt+="
-#~ msgstr "Ctrl+Alt+="
-
-#~ msgid "Shift+Ctrl+Alt+-"
-#~ msgstr "Shift+Ctrl+Alt+-"
-
-#~ msgid "Shift+Ctrl+Alt+="
-#~ msgstr "Shift+Ctrl+Alt+="
-
-#~ msgid "%i kb/s"
-#~ msgstr "%i ك.بايت\\ث"
-
-#~ msgid "%i Gb/s"
-#~ msgstr "%i ج.بايت\\ث"
-
-#~ msgid "Chat"
-#~ msgstr "الدردشة"
-
-#~ msgid "Graphics:"
-#~ msgstr "الرسوميات:"
-
-#~ msgid "Off"
-#~ msgstr "معطّل"
-
-#~ msgid "On"
-#~ msgstr "مفعّل"
-
-#, fuzzy
-#~ msgid "Always use fallback:"
-#~ msgstr "استخدم الاحتياط دائما:"
-
-#~ msgid "Error unsetting accelerator in configuration database: %s"
-#~ msgstr "خطأ عند إلغاء ضبط مفتاح الاختصار في قاعدة بيانات الإعدادات: %s"
-
-#~ msgid "More Info"
-#~ msgstr "المزيد من المعلومات"
-
-#~ msgctxt "printer state"
-#~ msgid "Idle"
-#~ msgstr "ساكنة"
-
-#~ msgid "List of keyboard layouts selected for usage"
-#~ msgstr "قائمة بتخطيطات لوحة المفاتيح المختارة للاستخدام"
-
-#~ msgid "By _country"
-#~ msgstr "بالب_لد"
-
-#~ msgid "By _language"
-#~ msgstr "بالل_غة"
-
-#~ msgid "_Country:"
-#~ msgstr "الب_لد:"
-
-#~ msgid "_Variants:"
-#~ msgstr "ال_تنويعات:"
-
-#~ msgid "Upside Down"
-#~ msgstr "رأسا على عقب"
-
-#~ msgid "Clean Print Heads"
-#~ msgstr "نظف رؤوس الطابعة"
-
-#~ msgid "Description:"
-#~ msgstr "الوصف:"
-
-#~ msgid "Hold"
-#~ msgstr "علّق"
-
-#~ msgid "Queue"
-#~ msgstr "الطابور"
-
-#~ msgid "Release"
-#~ msgstr "أطلِق"
-
-#~ msgid "Share with these users:"
-#~ msgstr "شارك مع هؤلاء المستخدمين:"
-
-#~ msgid "Show / hide printer's jobs"
-#~ msgstr "أظهر أو أخفِ مهام الطابعة"
-
-#~ msgid "Status:"
-#~ msgstr "الحالة:"
-
-#~ msgid "Keyboard _model:"
-#~ msgstr "_طراز لوحة المفاتيح:"
-
-#~ msgid "Move the selected keyboard layout down in the list"
-#~ msgstr "انقل تخطيط لوحة المفاتيح المحدد إلى أسفل"
-
-#~ msgid "Move the selected keyboard layout up in the list"
-#~ msgstr "انقل تخطيط لوحة المفاتيح المحدد إلى أعلى"
-
-#~ msgid "Print a diagram of the selected keyboard layout"
-#~ msgstr "اطبع رسما لتخطيط لوحة المفاتيح المحدد"
-
-#~ msgid "Remove the selected keyboard layout from the list"
-#~ msgstr "احذف تخطيط لوحة المفاتيح المحدد من القائمة"
-
-#~ msgid "Select a keyboard layout to be added to the list"
-#~ msgstr "اختر تخطيط لوحة مفاتيح ليُضاف إلى القائمة"
-
-#~ msgid "Choose a Keyboard Model"
-#~ msgstr "اختر طراز لوحة المفاتيح"
-
-#~ msgid "_Models:"
-#~ msgstr "ال_طرُز:"
-
-#~ msgid "_Vendors:"
-#~ msgstr "ال_مُنتِج:"
-
-#~ msgid "Vendors"
-#~ msgstr "المُنتِج"
-
-#~ msgid "Battery power and inactive for:"
-#~ msgstr "البطارية غير نشطة منذ:"
-
-#~ msgid "Put the computer to sleep when on:"
-#~ msgstr "ضع الحاسوب لينام عندما يعمل على:"
-
-#~ msgid "Open"
-#~ msgstr "افتح"
-
-#~ msgid "Restrictions:"
-#~ msgstr "القيود:"
-
-#~ msgid ""
-#~ "A guest account will allow anyone to temporarily log in to this computer "
-#~ "without a password.  For security, remote logins to this account are not "
-#~ "allowed.\n"
-#~ "\n"
-#~ "                    <b>When the guest user logs out, all files and data "
-#~ "associated with the account will be deleted.</b>"
-#~ msgstr ""
-#~ "سيتيح حساب الضيف لأي كان أن يلج مؤقتا إلى هذا الحاسوب بدون كلمة سر. "
-#~ "للأمان، سن يُسمح لهذا الحساب بالولوج عن بعد.\n"
-#~ "\n"
-#~ "                    <b>عندما يخرج المستخدم الضيف فستحذف كل الملفات "
-#~ "والبيانات المتعلقة بهذا الحساب.</b>"
-
-#~ msgid "Accounts"
-#~ msgstr "الحسابات"
-
-#~ msgid "Address Book Card:"
-#~ msgstr "بطاقة دفتر العناوين:"
-
-#~ msgid "Allow guests to log in to this computer"
-#~ msgstr "اسمح للضيوف بالولوج إلى هذا الحاسوب"
-
-#~ msgid "E-mail address:"
-#~ msgstr "عنوان البريد الإلكتروني:"
-
-#~ msgid "Show Shutdown, Suspend and Restart actions"
-#~ msgstr "أظهر إجراءات الإطفاء والتعليق وإعادة التشغيل"
-
-#~ msgid "Show list of users"
-#~ msgstr "أظهر قائمة المستخدمين"
-
-#~ msgid "Show password hints"
-#~ msgstr "أظهر تلميحات كلمات السر"
-
-#~ msgid "2 GB"
-#~ msgstr "2 ج.بايت"
-
-#~ msgid "32-bit"
-#~ msgstr "32 بتة"
-
-#~ msgid "80 GB (4 GB free)"
-#~ msgstr "80 ج.بايت (4 ج.بايت خالية)"
-
-#~ msgid "_Pointer can be controlled using the keypad"
-#~ msgstr "يمكن ال_تحكم في المؤشر باستخدام لوحة المفاتيح"
-
-#~ msgid "_Type to test settings:"
-#~ msgstr "ا_كتب لاختبار الإعدادات:"
-
-#~ msgid "Show Universal Access status"
-#~ msgstr "اعرض حالة الإتاحة"
-
-#~ msgid "Do Nothing"
-#~ msgstr "لا تفعل شيئا"
-
-#~ msgid "Desktop"
-#~ msgstr "سطح المكتب"
-
-#~ msgid "Choose type of click _beforehand"
-#~ msgstr "اختر نوع النقر م_سبقًا"
-
-#~ msgid "Choose type of click with mo_use gestures"
-#~ msgstr "اختر نو_ع النقر بحركات الفأرة"
-
-#~ msgid "D_rag click:"
-#~ msgstr "نقر ال_سحب:"
-
-#~ msgid "Dwell Click"
-#~ msgstr "النقر السلبي"
-
-#~ msgid "Show click type _window"
-#~ msgstr "أظ_هر نافذة نوع النقر"
-
-#~ msgid ""
-#~ "You can also use the Dwell Click panel applet to choose the click type."
-#~ msgstr "يمكنك أيضًا استخدام بريمج النقر السلبي لاختيار نوع النقر."
-
-#~ msgid "_Initiate click when stopping pointer movement"
-#~ msgstr "ابتد_ئ بالنقر عند توقف حركة المؤشر"
-
-#~ msgid "_Single click:"
-#~ msgstr "نقرة م_فردة:"
-
-#~ msgid "_Trigger secondary click by holding down the primary button"
-#~ msgstr "يسبب النقر ال_ثانوي عن طريق الاستمرار بضغط الزر الأولي"
-
-#~ msgid "Preferred Applications"
-#~ msgstr "التطبيقات المفضّلة"
-
-#~ msgid "Start the preferred visual assistive technology"
-#~ msgstr "ابدأ تقنية الإعانة المرئية المفضلة"
-
-#~ msgid "Visual Assistance"
-#~ msgstr "الإعانة المرئية"
-
-#~ msgid "Error setting default browser: %s"
-#~ msgstr "عطل في تحديد المتصفح المبدئي: %s"
-
-#~ msgid "Error setting default mailer: %s"
-#~ msgstr "عطل في تحديد مُرسِل البريد المبدئي: %s"
-
-#~ msgid "Please make sure that the applet is properly installed"
-#~ msgstr "رجاء تأكّد من أن البريمج مثبت بدقة"
-
-#~ msgid "All %s occurrences will be replaced with actual link"
-#~ msgstr "سيتم تبديل كل مصادفات %s بالرابط الحقيقي"
-
-#~ msgid "Co_mmand:"
-#~ msgstr "الأ_مر:"
-
-#~ msgid "E_xecute flag:"
-#~ msgstr "شا_رة التنفيذ:"
-
-#~ msgid "Instant Messenger"
-#~ msgstr "المرسال الفوري"
-
-#~ msgid "Mail Reader"
-#~ msgstr "قارئ البريد"
-
-#~ msgid "Mobility"
-#~ msgstr "الحركيّة"
-
-#~ msgid "Run at st_art"
-#~ msgstr "شغّ_ل عند البدء"
-
-#~ msgid "Run in t_erminal"
-#~ msgstr "شغّل في _طرفية"
-
-#~ msgid "Terminal Emulator"
-#~ msgstr "محاكي الطرفية"
-
-#~ msgid "Text Editor"
-#~ msgstr "محرّر النصوص"
-
-#~ msgid "Visual"
-#~ msgstr "مرئي"
-
-#~ msgid "Web Browser"
-#~ msgstr "متصفّح الوِب"
-
-#~ msgid "_Run at start"
-#~ msgstr "_شغل عند البدء"
-
-#~ msgid "Banshee Music Player"
-#~ msgstr "مشغل موسيقى بانشي"
-
-#~ msgid "Debian Terminal Emulator"
-#~ msgstr "محاكي طرفية دبيان"
-
-#~ msgid "ETerm"
-#~ msgstr "ETerm"
-
-#~ msgid "GNOME Magnifier without Screen Reader"
-#~ msgstr "مكبّر جنوم بدون قارئ الشاشة"
-
-#~ msgid "GNOME OnScreen Keyboard"
-#~ msgstr "لوحة مفاتيح جنوم على الشاشة"
-
-#~ msgid "GNOME Terminal"
-#~ msgstr "طرفية جنوم"
-
-#~ msgid "Gnopernicus"
-#~ msgstr "جنوبرنيكوس"
-
-#~ msgid "Gnopernicus with Magnifier"
-#~ msgstr "جنوبرنيكوس مع المكبّر"
-
-#~ msgid "KDE Magnifier without Screen Reader"
-#~ msgstr "مكبّر كدي بدون قارئ الشاشة"
-
-#~ msgid "Konsole"
-#~ msgstr "كونسول"
-
-#~ msgid "Linux Screen Reader"
-#~ msgstr "قارئ شاشة لينكس"
-
-#~ msgid "Linux Screen Reader with Magnifier"
-#~ msgstr "قارئ شاشة لينكس مع المكبّر"
-
-#~ msgid "Listen"
-#~ msgstr "استمع"
-
-#~ msgid "Muine Music Player"
-#~ msgstr "مشغل الموسيقى موين"
-
-#~ msgid "NXterm"
-#~ msgstr "NXterm"
-
-#~ msgid "Orca"
-#~ msgstr "أوركا"
-
-#~ msgid "Orca with Magnifier"
-#~ msgstr "أوركا مع المكبّر"
-
-#~ msgid "RXVT"
-#~ msgstr "RXVT"
-
-#~ msgid "Rhythmbox Music Player"
-#~ msgstr "مشغل الموسيقى أنغام"
-
-#~ msgid "Standard XTerminal"
-#~ msgstr "طرفيّة X القياسيّة"
-
-#~ msgid "Terminator"
-#~ msgstr "Terminator"
-
-#~ msgid "Totem Movie Player"
-#~ msgstr "مشغل الأفلام توتم"
+#~ msgid "Vertically"
+#~ msgstr "رأسيًا"

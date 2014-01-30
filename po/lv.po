@@ -10,56 +10,65 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center.HEAD.lv\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug."
-"cgi?product=gnome-control-center&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-09-18 22:53+0000\n"
-"PO-Revision-Date: 2012-09-23 22:35+0300\n"
-"Last-Translator: Anita Reitere <nitalynx@gmail.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"control-center&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2014-01-08 23:25+0000\n"
+"PO-Revision-Date: 2014-01-25 11:10+0000\n"
+"Last-Translator: Jānis-Marks Gailis <jeanmarc.gailis@gmail.com>\n"
 "Language-Team: Latviešu <kde-i18n-doc@kde.org>\n"
-"Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
-"2);\n"
-"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2;\n"
+"X-Launchpad-Export-Date: 2014-01-30 14:21+0000\n"
+"X-Generator: Launchpad (build 16916)\n"
+"Language: lv\n"
+
+#: ../panels/background/background.ui.h:1
+#: ../panels/background/gnome-background-panel.desktop.in.in.h:1
+msgid "Background"
+msgstr "Fons"
 
 #. This refers to a slideshow background
-#: ../panels/background/background.ui.h:2
+#: ../panels/background/background.ui.h:3
 msgid "Changes throughout the day"
 msgstr "Izmaiņas dienas laikā"
 
-#: ../panels/background/background.ui.h:3
+#: ../panels/background/background.ui.h:4
+msgid "Lock Screen"
+msgstr "Bloķēt ekrānu"
+
+#: ../panels/background/background.ui.h:5
 #| msgid "Tile"
 msgctxt "background, style"
 msgid "Tile"
 msgstr "Atkārtot"
 
-#: ../panels/background/background.ui.h:4
+#: ../panels/background/background.ui.h:6
 #| msgid "Zoom"
 msgctxt "background, style"
 msgid "Zoom"
 msgstr "Tuvināt"
 
-#: ../panels/background/background.ui.h:5
+#: ../panels/background/background.ui.h:7
 #| msgid "Center"
 msgctxt "background, style"
 msgid "Center"
 msgstr "Centrēt"
 
-#: ../panels/background/background.ui.h:6
+#: ../panels/background/background.ui.h:8
 #| msgid "Scale"
 msgctxt "background, style"
 msgid "Scale"
 msgstr "Mērogot"
 
-#: ../panels/background/background.ui.h:7
+#: ../panels/background/background.ui.h:9
 #| msgid "Fill"
 msgctxt "background, style"
 msgid "Fill"
 msgstr "Aizpildīt"
 
-#: ../panels/background/background.ui.h:8
+#: ../panels/background/background.ui.h:10
 #| msgid "Span"
 msgctxt "background, style"
 msgid "Span"
@@ -111,13 +120,9 @@ msgstr "%d × %d"
 msgid "No Desktop Background"
 msgstr "Bez fona attēla"
 
-#: ../panels/background/cc-background-panel.c:387
+#: ../panels/background/cc-background-panel.c:451
 msgid "Current background"
 msgstr "Pašreizējais fons"
-
-#: ../panels/background/gnome-background-panel.desktop.in.in.h:1
-msgid "Background"
-msgstr "Fons"
 
 #: ../panels/background/gnome-background-panel.desktop.in.in.h:2
 msgid "Change the background"
@@ -126,103 +131,124 @@ msgstr "Mainīt fonu"
 #. Translators: those are keywords for the background control-center panel
 #: ../panels/background/gnome-background-panel.desktop.in.in.h:4
 msgid "Wallpaper;Screen;Desktop;"
-msgstr "Tapete;Ekrāns;Darbvirsma;Fons;Wallpaper;Screen;Desktop;"
+msgstr "Tapete;Ekrāns;Darbvirsma;"
 
 #. TRANSLATORS: device type
-#: ../panels/bluetooth/bluetooth-properties.desktop.in.in.h:1
+#: ../panels/bluetooth/gnome-bluetooth-panel.desktop.in.in.h:1
 #: ../panels/network/panel-common.c:102
 msgid "Bluetooth"
 msgstr "Bluetooth"
 
-#: ../panels/bluetooth/bluetooth-properties.desktop.in.in.h:2
+#: ../panels/bluetooth/gnome-bluetooth-panel.desktop.in.in.h:2
+#| msgid "Change keyboard settings"
 msgid "Configure Bluetooth settings"
 msgstr "Konfigurēt Bluetooth iestatījumus"
 
 #: ../panels/bluetooth/bluetooth.ui.h:1
+#| msgid "Delete device"
 msgid "Set Up New Device"
 msgstr "Iestatīt jaunu ierīci"
 
 #: ../panels/bluetooth/bluetooth.ui.h:2 ../panels/network/network.ui.h:9
+#| msgid "Remove a device"
 msgid "Remove Device"
 msgstr "Izņemt ierīci"
 
 #: ../panels/bluetooth/bluetooth.ui.h:3
+#| msgid "Connecting"
 msgid "Connection"
 msgstr "Savienojums"
 
-#: ../panels/bluetooth/bluetooth.ui.h:4
+#: ../panels/bluetooth/bluetooth.ui.h:4 ../panels/printers/printers.ui.h:14
+msgid "page 1"
+msgstr "1. lappuse"
+
+#: ../panels/bluetooth/bluetooth.ui.h:5 ../panels/printers/printers.ui.h:16
+msgid "page 2"
+msgstr "2. lappuse"
+
+#: ../panels/bluetooth/bluetooth.ui.h:6
+#| msgid "Wired"
 msgid "Paired"
 msgstr "Sapārots"
 
-#: ../panels/bluetooth/bluetooth.ui.h:5 ../panels/wacom/cc-wacom-page.c:756
+#: ../panels/bluetooth/bluetooth.ui.h:7 ../panels/wacom/cc-wacom-page.c:756
+#| msgid "_Type:"
 msgid "Type"
 msgstr "Tips"
 
-#: ../panels/bluetooth/bluetooth.ui.h:6
+#: ../panels/bluetooth/bluetooth.ui.h:8
 msgid "Address"
 msgstr "Adrese"
 
-#: ../panels/bluetooth/bluetooth.ui.h:7
+#: ../panels/bluetooth/bluetooth.ui.h:9
+#| msgid "Mouse and Touchpad"
 msgid "Mouse and Touchpad Settings"
 msgstr "Peles un skārienpaliktņa iestatījumi"
 
-#: ../panels/bluetooth/bluetooth.ui.h:8 ../panels/universal-access/uap.ui.h:38
+#: ../panels/bluetooth/bluetooth.ui.h:10
+#: ../panels/universal-access/uap.ui.h:38
+#| msgid "_Sound Settings"
 msgid "Sound Settings"
 msgstr "Skaņas iestatījumi"
 
-#: ../panels/bluetooth/bluetooth.ui.h:9
+#: ../panels/bluetooth/bluetooth.ui.h:11
+#| msgid "_Keyboard Settings"
 msgid "Keyboard Settings"
 msgstr "Tastatūras iestatījumi"
 
-#: ../panels/bluetooth/bluetooth.ui.h:10
+#: ../panels/bluetooth/bluetooth.ui.h:12
 msgid "Send Files..."
 msgstr "Sūtīt datnes..."
 
-#: ../panels/bluetooth/bluetooth.ui.h:11
+#: ../panels/bluetooth/bluetooth.ui.h:13
 msgid "Browse Files..."
 msgstr "Pārlūkot datnes..."
 
 #. Translator: This string appears next to a toggle switch which controls enabling/disabling Bluetooth radio's on the device.
-#: ../panels/bluetooth/bluetooth.ui.h:13
+#: ../panels/bluetooth/bluetooth.ui.h:15
+#| msgid "Bluetooth"
 msgctxt "Power"
 msgid "Bluetooth"
 msgstr "Bluetooth"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:290
+#: ../panels/bluetooth/cc-bluetooth-panel.c:340
 msgid "Yes"
 msgstr "Jā"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:290
+#: ../panels/bluetooth/cc-bluetooth-panel.c:340
+#| msgid "None"
 msgid "No"
 msgstr "Nē"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:405
+#: ../panels/bluetooth/cc-bluetooth-panel.c:454
+#| msgid "Bluetooth"
 msgid "Bluetooth is disabled"
 msgstr "Bluetooth ir deaktivēts"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:410
+#: ../panels/bluetooth/cc-bluetooth-panel.c:459
 msgid "Bluetooth is disabled by hardware switch"
 msgstr "Bluetooth ir deaktivēts ar aparatūras slēdzi"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:414
+#: ../panels/bluetooth/cc-bluetooth-panel.c:463
 msgid "No Bluetooth adapters found"
 msgstr "Nav atrasti Bluetooth adapteri"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:547
+#: ../panels/bluetooth/cc-bluetooth-panel.c:590
 msgid "Visibility"
 msgstr "Redzamība"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:551
+#: ../panels/bluetooth/cc-bluetooth-panel.c:594
 #, c-format
 msgid "Visibility of “%s”"
 msgstr "“%s” redzamība"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:595
+#: ../panels/bluetooth/cc-bluetooth-panel.c:638
 #, c-format
 msgid "Remove '%s' from the list of devices?"
 msgstr "Izņemt '%s' no ierīču saraksta?"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:597
+#: ../panels/bluetooth/cc-bluetooth-panel.c:640
 msgid ""
 "If you remove the device, you will have to set it up again before next use."
 msgstr ""
@@ -230,107 +256,114 @@ msgstr ""
 "vēlreiz, lai to varētu izmantot."
 
 #. TRANSLATORS: this is where the user can click and import a profile
-#: ../panels/color/cc-color-panel.c:106
+#: ../panels/color/cc-color-panel.c:107
 msgid "Other profile…"
 msgstr "Cits profils..."
 
 #. TRANSLATORS: this is a profile prefix to signify the
 #. * profile has been auto-generated for this hardware
-#: ../panels/color/cc-color-panel.c:119
+#: ../panels/color/cc-color-panel.c:120
 msgid "Default: "
-msgstr "Noklusētais:"
+msgstr "Noklusētais: "
 
 #. TRANSLATORS: this is a profile prefix to signify the
 #. * profile his a standard space like AdobeRGB
-#: ../panels/color/cc-color-panel.c:126
+#: ../panels/color/cc-color-panel.c:127
 msgid "Colorspace: "
 msgstr "Krāsu telpa: "
 
 #. TRANSLATORS: this is a profile prefix to signify the
 #. * profile is a test profile
-#: ../panels/color/cc-color-panel.c:132
+#: ../panels/color/cc-color-panel.c:133
 msgid "Test profile: "
-msgstr "Testa profils:"
+msgstr "Testa profils: "
 
 #. TRANSLATORS: this is when the profile should be set for all users
-#: ../panels/color/cc-color-panel.c:185 ../panels/color/color.ui.h:11
+#: ../panels/color/cc-color-panel.c:186 ../panels/color/color.ui.h:11
 msgid "Set for all users"
-msgstr "Iestatīt visiem lietotājiem "
+msgstr "Iestatīt visiem lietotājiem"
 
 #. TRANSLATORS: this is when the profile should be set for all users
-#: ../panels/color/cc-color-panel.c:192
+#: ../panels/color/cc-color-panel.c:193
 msgid "Create virtual device"
 msgstr "Izveidot virtuālu ierīci"
 
 #. TRANSLATORS: an ICC profile is a file containing colorspace data
-#: ../panels/color/cc-color-panel.c:227
+#: ../panels/color/cc-color-panel.c:228
 msgid "Select ICC Profile File"
 msgstr "Izvēlieties ICC profila datni"
 
-#: ../panels/color/cc-color-panel.c:230
+#: ../panels/color/cc-color-panel.c:231
 msgid "_Import"
 msgstr "_Importēt"
 
 #. TRANSLATORS: filter name on the file->open dialog
-#: ../panels/color/cc-color-panel.c:241
+#: ../panels/color/cc-color-panel.c:242
 msgid "Supported ICC profiles"
 msgstr "Atbalstītie ICC profili"
 
 #. TRANSLATORS: filter name on the file->open dialog
-#: ../panels/color/cc-color-panel.c:248
+#: ../panels/color/cc-color-panel.c:249
 msgid "All files"
 msgstr "Visas datnes"
 
 #. TRANSLATORS: this is the dialog title in the 'Add profile' UI
-#: ../panels/color/cc-color-panel.c:522
+#: ../panels/color/cc-color-panel.c:639
+#| msgid "Available Profiles"
 msgid "Available Profiles for Displays"
 msgstr "Pieejamie displeju profili"
 
 #. TRANSLATORS: this is the dialog title in the 'Add profile' UI
-#: ../panels/color/cc-color-panel.c:526
+#: ../panels/color/cc-color-panel.c:643
+#| msgid "Available Profiles"
 msgid "Available Profiles for Scanners"
 msgstr "Pieejamie skeneru profili"
 
 #. TRANSLATORS: this is the dialog title in the 'Add profile' UI
-#: ../panels/color/cc-color-panel.c:530
+#: ../panels/color/cc-color-panel.c:647
+#| msgid "Available Profiles"
 msgid "Available Profiles for Printers"
 msgstr "Pieejamie printeru profili"
 
 #. TRANSLATORS: this is the dialog title in the 'Add profile' UI
-#: ../panels/color/cc-color-panel.c:534
+#: ../panels/color/cc-color-panel.c:651
 msgid "Available Profiles for Cameras"
 msgstr "Pieejamie fotoaparātu profili"
 
 #. TRANSLATORS: this is the dialog title in the 'Add profile' UI
-#: ../panels/color/cc-color-panel.c:538
+#: ../panels/color/cc-color-panel.c:655
+#| msgid "Available Profiles"
 msgid "Available Profiles for Webcams"
 msgstr "Pieejamie tīmekļa kameru profili"
 
 #. TRANSLATORS: this is the dialog title in the 'Add profile' UI
 #. * where the device type is not recognised
 #. Profiles that can be added to the device
-#: ../panels/color/cc-color-panel.c:543 ../panels/color/color.ui.h:2
+#: ../panels/color/cc-color-panel.c:660 ../panels/color/color.ui.h:2
 msgid "Available Profiles"
 msgstr "Pieejamie profili"
 
 #. TRANSLATORS: column for device list
-#: ../panels/color/cc-color-panel.c:824
+#: ../panels/color/cc-color-panel.c:936
 #: ../panels/sound/gvc-mixer-dialog.c:1525
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1618
 msgid "Device"
 msgstr "Ierīce"
 
 #. TRANSLATORS: column for device list
-#: ../panels/color/cc-color-panel.c:859
+#: ../panels/color/cc-color-panel.c:971
+#| msgid "Applications"
 msgid "Calibration"
 msgstr "Kalibrācija"
 
 #. TRANSLATORS: this is when the button is sensitive
-#: ../panels/color/cc-color-panel.c:891
+#: ../panels/color/cc-color-panel.c:1003
+#| msgid "Settings for the selected device:"
 msgid "Create a color profile for the selected device"
 msgstr "Izveidot krāsu profilu izvēlētajai ierīcei"
 
 #. TRANSLATORS: this is when the button is insensitive
-#: ../panels/color/cc-color-panel.c:905 ../panels/color/cc-color-panel.c:929
+#: ../panels/color/cc-color-panel.c:1017 ../panels/color/cc-color-panel.c:1041
 msgid ""
 "The measuring instrument is not detected. Please check it is turned on and "
 "correctly connected."
@@ -339,26 +372,27 @@ msgstr ""
 "pievienots."
 
 #. TRANSLATORS: this is when the button is insensitive
-#: ../panels/color/cc-color-panel.c:938
+#: ../panels/color/cc-color-panel.c:1050
 msgid "The measuring instrument does not support printer profiling."
 msgstr "Mērinstruments neatbalsta printera profilēšanu."
 
 #. TRANSLATORS: this is when the button is insensitive
-#: ../panels/color/cc-color-panel.c:949
+#: ../panels/color/cc-color-panel.c:1061
 msgid "The device type is not currently supported."
 msgstr "Ierīces veids pašlaik nav atbalstīts."
 
 #. TRANSLATORS: this is when an auto-added profile cannot be removed
-#: ../panels/color/cc-color-panel.c:1022
+#: ../panels/color/cc-color-panel.c:1133
 msgid "Cannot remove automatically added profile"
 msgstr "Nevar izņemt automātiski pievienotu profilu"
 
 #. TRANSLATORS: this is when there is no profile for the device
-#: ../panels/color/cc-color-panel.c:1359
+#: ../panels/color/cc-color-panel.c:1464
+#| msgid "_Profile:"
 msgid "No profile"
 msgstr "Nav profila"
 
-#: ../panels/color/cc-color-panel.c:1390
+#: ../panels/color/cc-color-panel.c:1495
 #, c-format
 msgid "%i year"
 msgid_plural "%i years"
@@ -366,15 +400,17 @@ msgstr[0] "%i gads"
 msgstr[1] "%i gadi"
 msgstr[2] "%i gadu"
 
-#: ../panels/color/cc-color-panel.c:1401
+#: ../panels/color/cc-color-panel.c:1506
 #, c-format
+#| msgid "%i minute"
+#| msgid_plural "%i minutes"
 msgid "%i month"
 msgid_plural "%i months"
 msgstr[0] "%i mēnesis"
 msgstr[1] "%i mēneši"
 msgstr[2] "%i mēnešu"
 
-#: ../panels/color/cc-color-panel.c:1412
+#: ../panels/color/cc-color-panel.c:1517
 #, c-format
 msgid "%i week"
 msgid_plural "%i weeks"
@@ -383,88 +419,102 @@ msgstr[1] "%i nedēļas"
 msgstr[2] "%i nedēļu"
 
 #. fallback
-#: ../panels/color/cc-color-panel.c:1419
+#: ../panels/color/cc-color-panel.c:1524
 #, c-format
 msgid "Less than 1 week"
 msgstr "Mazāk kā 1 nedēļa"
 
-#: ../panels/color/cc-color-panel.c:1481
+#: ../panels/color/cc-color-panel.c:1586
+#| msgid "Default"
 msgctxt "Colorspace fallback"
 msgid "Default RGB"
 msgstr "Noklusētais RGB"
 
-#: ../panels/color/cc-color-panel.c:1486
+#: ../panels/color/cc-color-panel.c:1591
+#| msgid "Default"
 msgctxt "Colorspace fallback"
 msgid "Default CMYK"
 msgstr "Noklusētais CMYK"
 
-#: ../panels/color/cc-color-panel.c:1491
+#: ../panels/color/cc-color-panel.c:1596
+#| msgid "Default"
 msgctxt "Colorspace fallback"
 msgid "Default Gray"
 msgstr "Noklusētais pelēkais"
 
-#: ../panels/color/cc-color-panel.c:1609 ../panels/color/cc-color-panel.c:1650
-#: ../panels/color/cc-color-panel.c:1661 ../panels/color/cc-color-panel.c:1672
+#: ../panels/color/cc-color-panel.c:1714 ../panels/color/cc-color-panel.c:1755
+#: ../panels/color/cc-color-panel.c:1766 ../panels/color/cc-color-panel.c:1777
+#| msgctxt "volume"
+#| msgid "Unamplified"
 msgid "Uncalibrated"
 msgstr "Nekalibrēts"
 
-#: ../panels/color/cc-color-panel.c:1612
+#: ../panels/color/cc-color-panel.c:1717
+#| msgid "The device is already in use."
 msgid "This device is not color managed."
 msgstr "Ierīces krāsas netiek pārvaldītas."
 
-#: ../panels/color/cc-color-panel.c:1653
+#: ../panels/color/cc-color-panel.c:1758
 msgid "This device is using manufacturing calibrated data."
 msgstr "Šī ierīce izmanto ražotnes kalibrētos datus."
 
-#: ../panels/color/cc-color-panel.c:1664
+#: ../panels/color/cc-color-panel.c:1769
 msgid ""
 "This device does not have a profile suitable for whole-screen color "
 "correction."
 msgstr ""
 "Šai ierīcei nav profila, kas ir piemērots visa ekrāna krāsu korekcijai."
 
-#: ../panels/color/cc-color-panel.c:1697
+#: ../panels/color/cc-color-panel.c:1802
 msgid "This device has an old profile that may no longer be accurate."
 msgstr "Ierīcei ir vecs profils, kas varētu vairs nebūt aktuāls."
 
 #. TRANSLATORS: this is when the calibration profile age is not
 #. * specified as it has been autogenerated from the hardware
-#: ../panels/color/cc-color-panel.c:1725
+#: ../panels/color/cc-color-panel.c:1830
+#| msgid "Unspecified"
 msgid "Not specified"
 msgstr "Nav norādīts"
 
 #. add the 'No devices detected' entry
-#: ../panels/color/cc-color-panel.c:1910
+#: ../panels/color/cc-color-panel.c:2015
 msgid "No devices supporting color management detected"
 msgstr "Nav atrastas ierīces, kas atbalsta krāsu pārvaldīšanu"
 
-#: ../panels/color/cc-color-panel.c:2139
+#: ../panels/color/cc-color-panel.c:2244
+#| msgctxt "universal access, seeing"
+#| msgid "Display"
 msgctxt "Device kind"
 msgid "Display"
 msgstr "Ekrāns"
 
-#: ../panels/color/cc-color-panel.c:2141
+#: ../panels/color/cc-color-panel.c:2246
+#| msgid "Scale"
 msgctxt "Device kind"
 msgid "Scanner"
 msgstr "Skeneris"
 
-#: ../panels/color/cc-color-panel.c:2143
+#: ../panels/color/cc-color-panel.c:2248
+#| msgid "Printer"
 msgctxt "Device kind"
 msgid "Printer"
 msgstr "Printeris"
 
-#: ../panels/color/cc-color-panel.c:2145
+#: ../panels/color/cc-color-panel.c:2250
+#| msgid "Name"
 msgctxt "Device kind"
 msgid "Camera"
 msgstr "Fotoaparāts"
 
-#: ../panels/color/cc-color-panel.c:2147
+#: ../panels/color/cc-color-panel.c:2252
+#| msgid "Web"
 msgctxt "Device kind"
 msgid "Webcam"
 msgstr "Tīmekļa kamera"
 
 #: ../panels/color/color.ui.h:3
 #: ../panels/color/gnome-color-panel.desktop.in.in.h:1
+#| msgid "Solid Color"
 msgid "Color"
 msgstr "Krāsa"
 
@@ -483,6 +533,7 @@ msgid "Learn more about color management"
 msgstr "Uzziniet vairāk par krāsu pārvaldīšanu"
 
 #: ../panels/color/color.ui.h:7
+#| msgid "Device"
 msgid "Add device"
 msgstr "Pievienot ierīci"
 
@@ -491,10 +542,12 @@ msgid "Add a virtual device"
 msgstr "Pievienot virtuālu ierīci"
 
 #: ../panels/color/color.ui.h:9
+#| msgid "_Delete Files"
 msgid "Delete device"
 msgstr "Dzēst ierīci"
 
 #: ../panels/color/color.ui.h:10
+#| msgid "Removable Media"
 msgid "Remove a device"
 msgstr "Izņemt ierīci"
 
@@ -504,6 +557,7 @@ msgid "Set this profile for all users on this computer"
 msgstr "Iestatīt šo profilu visiem šī datora lietotājiem"
 
 #: ../panels/color/color.ui.h:13
+#| msgid "April"
 msgid "Add profile"
 msgstr "Pievienot profilu"
 
@@ -520,10 +574,12 @@ msgid "Remove profile"
 msgstr "Izņemt profilu"
 
 #: ../panels/color/color.ui.h:17
+#| msgid "Show more _details"
 msgid "View details"
 msgstr "Skatīt detaļas"
 
 #: ../panels/color/color.ui.h:18
+#| msgid "Device types"
 msgid "Device type:"
 msgstr "Ierīces tips:"
 
@@ -532,6 +588,7 @@ msgid "Manufacturer:"
 msgstr "Ražotājs:"
 
 #: ../panels/color/color.ui.h:20
+#| msgid "Model"
 msgid "Model:"
 msgstr "Modelis:"
 
@@ -543,6 +600,7 @@ msgstr ""
 "laukus."
 
 #: ../panels/color/gnome-color-panel.desktop.in.in.h:2
+#| msgid "Power management settings"
 msgid "Color management settings"
 msgstr "Krāsu pārvaldības iestatījumi"
 
@@ -553,73 +611,38 @@ msgstr ""
 "Krāsa;ICC;profils;Kalibrēt;Printeris;Ekrāns;Color;ICC;Profile;Calibrate;Print"
 "er;Display;"
 
-#. Add some common languages first
-#: ../panels/common/cc-common-language.c:523
-msgid "English"
-msgstr "Angļu"
-
-#: ../panels/common/cc-common-language.c:525
-msgid "British English"
-msgstr "Britu angļu"
-
-#: ../panels/common/cc-common-language.c:528
-msgid "German"
-msgstr "Vācu"
-
-#: ../panels/common/cc-common-language.c:531
-msgid "French"
-msgstr "Franču"
-
-#: ../panels/common/cc-common-language.c:534
-msgid "Spanish"
-msgstr "Spāņu"
-
-#: ../panels/common/cc-common-language.c:536
-msgid "Chinese (simplified)"
-msgstr "Ķīniešu (vienkāršota)"
-
-#: ../panels/common/cc-common-language.c:539
-msgid "Russian"
-msgstr "Krievu"
-
-#: ../panels/common/cc-common-language.c:542
-msgid "Arabic"
-msgstr "Arābu"
-
 #. Add some common regions
-#: ../panels/common/cc-common-language.c:571
+#: ../panels/common/cc-common-language.c:661
 msgid "United States"
 msgstr "Amerikas Savienotās Valstis"
 
-#: ../panels/common/cc-common-language.c:572
+#: ../panels/common/cc-common-language.c:662
 msgid "Germany"
 msgstr "Vācija"
 
-#: ../panels/common/cc-common-language.c:573
+#: ../panels/common/cc-common-language.c:663
 msgid "France"
 msgstr "Francija"
 
-#: ../panels/common/cc-common-language.c:574
+#: ../panels/common/cc-common-language.c:664
 msgid "Spain"
 msgstr "Spānija"
 
-#: ../panels/common/cc-common-language.c:575
+#: ../panels/common/cc-common-language.c:665
 msgid "China"
 msgstr "Ķīna"
 
-#: ../panels/common/cc-language-chooser.c:122
-msgid "Other..."
-msgstr "Cita..."
-
 #: ../panels/common/cc-language-chooser.c:296
+#| msgid "Select an account"
 msgid "Select a region"
 msgstr "Izvēlieties reģionu"
 
-#: ../panels/common/gdm-languages.c:781
+#: ../panels/common/gdm-languages.c:787
 msgid "Unspecified"
 msgstr "Nenorādīta"
 
 #: ../panels/common/language-chooser.ui.h:1
+#| msgid "Select Image"
 msgid "Select a language"
 msgstr "Izvēlieties valodu"
 
@@ -634,14 +657,17 @@ msgid "_Select"
 msgstr "_Izvēlēties"
 
 #: ../panels/datetime/datetime.ui.h:1
+#| msgid "Region:"
 msgid "_Region:"
 msgstr "_Reģions:"
 
 #: ../panels/datetime/datetime.ui.h:2
+#| msgid "City:"
 msgid "_City:"
 msgstr "_Pilsēta:"
 
 #: ../panels/datetime/datetime.ui.h:3
+#| msgid "Network Time"
 msgid "_Network Time"
 msgstr "_Tīkla laiks"
 
@@ -671,14 +697,18 @@ msgid "Switch between AM and PM."
 msgstr "Pārslēgties starp AM un PM."
 
 #: ../panels/datetime/datetime.ui.h:11
+#| msgid "Monitor"
 msgid "Month"
 msgstr "Mēnesis"
 
 #: ../panels/datetime/datetime.ui.h:12
+#| msgid "May"
 msgid "Day"
 msgstr "Diena"
 
 #: ../panels/datetime/datetime.ui.h:13
+#| msgctxt "balance"
+#| msgid "Rear"
 msgid "Year"
 msgstr "Gads"
 
@@ -753,6 +783,7 @@ msgid "Clock;Timezone;Location;"
 msgstr "Pulkstenis;Laika josla;Vieta;Laiks;Clock;Timezone;Location;"
 
 #: ../panels/datetime/org.gnome.controlcenter.datetime.policy.in.h:1
+#| msgid "Change your region and language settings"
 msgid "Change system time and date settings"
 msgstr "Mainīt sistēmas laika un datuma iestatījumus"
 
@@ -760,22 +791,26 @@ msgstr "Mainīt sistēmas laika un datuma iestatījumus"
 msgid "To change time or date settings, you need to authenticate."
 msgstr "Lai mainītu laika un datuma iestatījumus, jāautentificējas."
 
-#: ../panels/display/cc-display-panel.c:481
+#: ../panels/display/cc-display-panel.c:513
+#| msgid "Normal"
 msgctxt "display panel, rotation"
 msgid "Normal"
 msgstr "Normāla"
 
-#: ../panels/display/cc-display-panel.c:482
+#: ../panels/display/cc-display-panel.c:514
+#| msgid "Counterclockwise"
 msgctxt "display panel, rotation"
 msgid "Counterclockwise"
 msgstr "Pretēja pulksteņrādītāja virzienam"
 
-#: ../panels/display/cc-display-panel.c:483
+#: ../panels/display/cc-display-panel.c:515
+#| msgid "Clockwise"
 msgctxt "display panel, rotation"
 msgid "Clockwise"
 msgstr "Pulksteņrādītāja virzienā"
 
-#: ../panels/display/cc-display-panel.c:484
+#: ../panels/display/cc-display-panel.c:516
+#| msgid "180 Degrees"
 msgctxt "display panel, rotation"
 msgid "180 Degrees"
 msgstr "180 grādi"
@@ -785,32 +820,40 @@ msgstr "180 grādi"
 #. * screen is the same as your external projector.  Here, "Mirrored" is being
 #. * used as an adjective.  For example, the Spanish translation could be
 #. * "Pantallas en Espejo".
-#.
-#: ../panels/display/cc-display-panel.c:623
+#. 
+#. Keep this string in sync with gnome-control-center/capplets/display/xrandr-capplet.c:get_display_name()
+#. Translators:  this is the feature where what you see on your
+#. * laptop's screen is the same as your external projector.
+#. * Here, "Mirrored" is being used as an adjective.  For example,
+#. * the Spanish translation could be "Pantallas en Espejo".
+#. 
+#: ../panels/display/cc-display-panel.c:659
+#: ../panels/display/cc-rr-labeler.c:449
 #| msgid "Mirror Displays"
 msgid "Mirrored Displays"
 msgstr "Dublēti ekrāni"
 
-#: ../panels/display/cc-display-panel.c:647
+#: ../panels/display/cc-display-panel.c:683
 #: ../panels/display/display-capplet.ui.h:1
+#| msgid "<b>Monitor</b>"
 msgid "Monitor"
 msgstr "Monitors"
 
-#: ../panels/display/cc-display-panel.c:748
+#: ../panels/display/cc-display-panel.c:787
 #, c-format
 msgid "%d x %d (%s)"
 msgstr "%d × %d (%s)"
 
-#: ../panels/display/cc-display-panel.c:750
+#: ../panels/display/cc-display-panel.c:789
 #, c-format
 msgid "%d x %d"
 msgstr "%d × %d"
 
-#: ../panels/display/cc-display-panel.c:1659
+#: ../panels/display/cc-display-panel.c:1699
 msgid "Drag to change primary display."
 msgstr "Velciet, lai mainītu primāro ekrānu."
 
-#: ../panels/display/cc-display-panel.c:1717
+#: ../panels/display/cc-display-panel.c:1757
 msgid ""
 "Select a monitor to change its properties; drag it to rearrange its "
 "placement."
@@ -818,29 +861,34 @@ msgstr ""
 "Izvēlieties monitoru, lai mainītu tā īpašības; velciet, lai mainītu "
 "novietojumu."
 
-#: ../panels/display/cc-display-panel.c:2105
+#: ../panels/display/cc-display-panel.c:2172
 msgid "%a %R"
 msgstr "%a %R"
 
-#: ../panels/display/cc-display-panel.c:2107
+#: ../panels/display/cc-display-panel.c:2174
 msgid "%a %l:%M %p"
-msgstr "%a %l:%M %p"
+msgstr "%a %H:%M"
 
-#: ../panels/display/cc-display-panel.c:2269
-#: ../panels/display/cc-display-panel.c:2321
+#: ../panels/display/cc-display-panel.c:2336
+#: ../panels/display/cc-display-panel.c:2388
 #, c-format
+#| msgid "Automatic configuration"
 msgid "Failed to apply configuration: %s"
 msgstr "Neizdevās pielietot konfigurāciju: %s"
 
-#: ../panels/display/cc-display-panel.c:2349
+#: ../panels/display/cc-display-panel.c:2416
 msgid "Could not save the monitor configuration"
 msgstr "Neizdevās saglabāt monitora konfigurāciju"
 
-#: ../panels/display/cc-display-panel.c:2409
+#: ../panels/display/cc-display-panel.c:2476
 msgid "Could not detect displays"
 msgstr "Neizdevās noteikt displejus"
 
-#: ../panels/display/cc-display-panel.c:2603
+#: ../panels/display/cc-display-panel.c:2740
+msgid "All displays"
+msgstr "Visi displeji"
+
+#: ../panels/display/cc-display-panel.c:2897
 msgid "Could not get screen information"
 msgstr "Neizdevās iegūt ekrāna informāciju"
 
@@ -849,19 +897,28 @@ msgid "_Resolution"
 msgstr "Izšķi_rtspēja"
 
 #: ../panels/display/display-capplet.ui.h:3
+#| msgid "R_otation:"
 msgid "R_otation"
 msgstr "R_otācija"
 
-#. Note that mirror is a verb in this string
+#: ../panels/display/display-capplet.ui.h:4
+msgid "L_auncher placement"
+msgstr "P_alaidēja novietojums"
+
 #: ../panels/display/display-capplet.ui.h:5
+msgid "S_ticky edges"
+msgstr "_Lipīgās malas"
+
+#. Note that mirror is a verb in this string
+#: ../panels/display/display-capplet.ui.h:7
 msgid "_Mirror displays"
 msgstr "Du_blēt ekrānus"
 
-#: ../panels/display/display-capplet.ui.h:6
+#: ../panels/display/display-capplet.ui.h:8
 msgid "Note: may limit resolution options"
 msgstr "Piezīme: var ierobežot izšķirtspējas iespējas"
 
-#: ../panels/display/display-capplet.ui.h:7
+#: ../panels/display/display-capplet.ui.h:9
 msgid "_Detect Displays"
 msgstr "Noteikt _displejus"
 
@@ -881,89 +938,89 @@ msgstr ""
 "andr;Screen;Resolution;Refresh;"
 
 #. Translators: VESA is an techncial acronym, don't translate it.
-#: ../panels/info/cc-info-panel.c:413
+#: ../panels/info/cc-info-panel.c:435
 #, c-format
 msgid "VESA: %s"
 msgstr "VESA: %s"
 
 #. TRANSLATORS: device type
 #. TRANSLATORS: AP type
-#: ../panels/info/cc-info-panel.c:437 ../panels/network/panel-common.c:82
+#: ../panels/info/cc-info-panel.c:459 ../panels/network/panel-common.c:82
 #: ../panels/network/panel-common.c:162
 msgid "Unknown"
 msgstr "Nezināms"
 
 #. translators: This is the type of architecture, for example:
 #. * "64-bit" or "32-bit"
-#: ../panels/info/cc-info-panel.c:593
+#: ../panels/info/cc-info-panel.c:615
 #, c-format
 msgid "%d-bit"
 msgstr "%d bitu"
 
-#: ../panels/info/cc-info-panel.c:752
+#: ../panels/info/cc-info-panel.c:774
 msgid "Unknown model"
 msgstr "Nezināms modelis"
 
-#: ../panels/info/cc-info-panel.c:835
+#: ../panels/info/cc-info-panel.c:857
 msgid "The next login will attempt to use the standard experience."
 msgstr "Nākamā sesijā tiks mēģināts izmantot standarta vidi."
 
-#: ../panels/info/cc-info-panel.c:837
+#: ../panels/info/cc-info-panel.c:859
 msgid ""
 "The next login will use the fallback mode intended for unsupported graphics "
 "hardware."
 msgstr ""
-"Nākamā sesijā izmantos atkāpšanās režīmu, kas paredzēts "
-"neatbalstītām videokartēm."
+"Nākamā sesijā izmantos atkāpšanās režīmu, kas paredzēts neatbalstītām "
+"videokartēm."
 
 #. translators: The hardware is not able to run GNOME 3's
 #. * shell, so we use the GNOME "Fallback" session
-#: ../panels/info/cc-info-panel.c:879
+#: ../panels/info/cc-info-panel.c:901
 msgctxt "Experience"
 msgid "Fallback"
 msgstr "Atkāpšanās"
 
 #. translators: The hardware is able to run GNOME 3's
 #. * shell, also called "Standard" experience
-#: ../panels/info/cc-info-panel.c:885
+#: ../panels/info/cc-info-panel.c:907
 msgctxt "Experience"
 msgid "Standard"
 msgstr "Standarta"
 
-#: ../panels/info/cc-info-panel.c:1227
+#: ../panels/info/cc-info-panel.c:1283
 msgid "Ask what to do"
 msgstr "Vaicāt, ko darīt"
 
-#: ../panels/info/cc-info-panel.c:1231
+#: ../panels/info/cc-info-panel.c:1287 ../panels/power/power.ui.h:11
 msgid "Do nothing"
 msgstr "Nedarīt neko"
 
-#: ../panels/info/cc-info-panel.c:1235
+#: ../panels/info/cc-info-panel.c:1291
 msgid "Open folder"
 msgstr "Atvērt mapi"
 
-#: ../panels/info/cc-info-panel.c:1326
+#: ../panels/info/cc-info-panel.c:1382
 #| msgid "_Other Media..."
 msgid "Other Media"
 msgstr "Citi datu nesēji"
 
-#: ../panels/info/cc-info-panel.c:1357
+#: ../panels/info/cc-info-panel.c:1413
 msgid "Select an application for audio CDs"
 msgstr "Izvēlieties lietotni audio diskiem"
 
-#: ../panels/info/cc-info-panel.c:1358
+#: ../panels/info/cc-info-panel.c:1414
 msgid "Select an application for video DVDs"
 msgstr "Izvēlieties lietotni DVD diskiem"
 
-#: ../panels/info/cc-info-panel.c:1359
+#: ../panels/info/cc-info-panel.c:1415
 msgid "Select an application to run when a music player is connected"
 msgstr "Izvēlieties lietotni, ko palaist, kad pievienots mūzikas atskaņotājs"
 
-#: ../panels/info/cc-info-panel.c:1360
+#: ../panels/info/cc-info-panel.c:1416
 msgid "Select an application to run when a camera is connected"
 msgstr "Izvēlieties lietotni, ko palaist, kad pievienota fotokamera"
 
-#: ../panels/info/cc-info-panel.c:1361
+#: ../panels/info/cc-info-panel.c:1417
 msgid "Select an application for software CDs"
 msgstr "Izvēlieties lietotni programmatūras CD"
 
@@ -971,99 +1028,104 @@ msgstr "Izvēlieties lietotni programmatūras CD"
 #. * strings, just here to fix capitalization of the English originals.
 #. * If the shared-mime-info translation works for your language,
 #. * simply leave these untranslated.
-#.
-#: ../panels/info/cc-info-panel.c:1373
+#. 
+#: ../panels/info/cc-info-panel.c:1429
 msgid "audio DVD"
 msgstr "audio DVD"
 
-#: ../panels/info/cc-info-panel.c:1374
+#: ../panels/info/cc-info-panel.c:1430
 msgid "blank Blu-ray disc"
 msgstr "tukšs Blu-ray disks"
 
-#: ../panels/info/cc-info-panel.c:1375
+#: ../panels/info/cc-info-panel.c:1431
 msgid "blank CD disc"
 msgstr "tukšs CD disks"
 
-#: ../panels/info/cc-info-panel.c:1376
+#: ../panels/info/cc-info-panel.c:1432
 msgid "blank DVD disc"
 msgstr "tukšs DVD disks"
 
-#: ../panels/info/cc-info-panel.c:1377
+#: ../panels/info/cc-info-panel.c:1433
 msgid "blank HD DVD disc"
 msgstr "tukšs HD DVD disks"
 
-#: ../panels/info/cc-info-panel.c:1378
+#: ../panels/info/cc-info-panel.c:1434
 msgid "Blu-ray video disc"
 msgstr "Blu-ray video disks"
 
-#: ../panels/info/cc-info-panel.c:1379
+#: ../panels/info/cc-info-panel.c:1435
 msgid "e-book reader"
 msgstr "e-grāmatu lasītājs"
 
-#: ../panels/info/cc-info-panel.c:1380
+#: ../panels/info/cc-info-panel.c:1436
 msgid "HD DVD video disc"
 msgstr "HD DVD video disks"
 
-#: ../panels/info/cc-info-panel.c:1381
+#: ../panels/info/cc-info-panel.c:1437
 msgid "Picture CD"
 msgstr "Bilžu CD"
 
-#: ../panels/info/cc-info-panel.c:1382
+#: ../panels/info/cc-info-panel.c:1438
 msgid "Super Video CD"
 msgstr "Super Video CD"
 
-#: ../panels/info/cc-info-panel.c:1383
+#: ../panels/info/cc-info-panel.c:1439
 msgid "Video CD"
 msgstr "Video CD"
 
-#: ../panels/info/cc-info-panel.c:1384
+#: ../panels/info/cc-info-panel.c:1440
 msgid "Windows software"
 msgstr "Windows programmatūra"
 
-#: ../panels/info/cc-info-panel.c:1385
+#: ../panels/info/cc-info-panel.c:1441
 #| msgid "_Software"
 msgid "Software"
 msgstr "Programmatūra"
 
-#: ../panels/info/cc-info-panel.c:1508
+#: ../panels/info/cc-info-panel.c:1564
 #: ../panels/keyboard/keyboard-shortcuts.c:1667
 msgid "Section"
 msgstr "Sadaļa"
 
-#: ../panels/info/cc-info-panel.c:1517 ../panels/info/info.ui.h:11
+#: ../panels/info/cc-info-panel.c:1573 ../panels/info/info.ui.h:11
 msgid "Overview"
 msgstr "Pārskats"
 
-#: ../panels/info/cc-info-panel.c:1523 ../panels/info/info.ui.h:18
+#: ../panels/info/cc-info-panel.c:1579 ../panels/info/info.ui.h:18
 msgid "Default Applications"
 msgstr "Noklusētās lietotnes"
 
-#: ../panels/info/cc-info-panel.c:1528 ../panels/info/info.ui.h:26
+#: ../panels/info/cc-info-panel.c:1584 ../panels/info/info.ui.h:26
 msgid "Removable Media"
 msgstr "Noņemamie datu nesēji"
 
-#: ../panels/info/cc-info-panel.c:1533 ../panels/info/info.ui.h:10
+#: ../panels/info/cc-info-panel.c:1589 ../panels/info/info.ui.h:10
 msgid "Graphics"
 msgstr "Grafika"
 
-#: ../panels/info/cc-info-panel.c:1735
+#: ../panels/info/cc-info-panel.c:1596
+msgid "Legal Notice"
+msgstr "Autortiesību atzīme"
+
+#: ../panels/info/cc-info-panel.c:1799
 #, c-format
 msgid "Version %s"
 msgstr "Versija %s"
 
-#: ../panels/info/cc-info-panel.c:1785
+#: ../panels/info/cc-info-panel.c:1851
 msgid "Install Updates"
 msgstr "Instalēt atjauninājumus"
 
-#: ../panels/info/cc-info-panel.c:1789
+#: ../panels/info/cc-info-panel.c:1855
 msgid "System Up-To-Date"
 msgstr "Sistēma ir aktuāla"
 
-#: ../panels/info/cc-info-panel.c:1793
+#: ../panels/info/cc-info-panel.c:1859
 msgid "Checking for Updates"
 msgstr "Pārbauda atjauninājumus"
 
 #: ../panels/info/gnome-info-panel.desktop.in.in.h:1
+#| msgid "View details"
 msgid "Details"
 msgstr "Sīkāka informācija"
 
@@ -1074,15 +1136,14 @@ msgstr "Sistēmas informācija"
 #. sure that you use the same "translation" for those keywords
 #: ../panels/info/gnome-info-panel.desktop.in.in.h:4
 msgid ""
-"device;system;information;memory;processor;version;default;application;"
-"fallback;preferred;cd;dvd;usb;audio;video;disc;removable;media;autorun;"
+"device;system;information;memory;processor;version;default;application;fallba"
+"ck;preferred;cd;dvd;usb;audio;video;disc;removable;media;autorun;"
 msgstr ""
-"ierīce;sistēma;informācija;atmiņa;procesors;versija;noklusēts;lietotne;"
-"atkāpšanās;cd;dvd;usb;audio;video;disks;izņemams;noņemamas;vide;nesējs;datu "
+"ierīce;sistēma;informācija;atmiņa;procesors;versija;noklusēts;lietotne;atkāpš"
+"anās;cd;dvd;usb;audio;video;disks;izņemams;noņemamas;vide;nesējs;datu "
 "nesējs;automātiski "
 "palaist;device;system;information;memory;processor;version;default;applicatio"
-"n;"
-"fallback;preferred;disc;removable;media;autorun;"
+"n;fallback;preferred;disc;removable;media;autorun;"
 
 #: ../panels/info/info.ui.h:1
 msgid "Select how other media should be handled"
@@ -1118,30 +1179,37 @@ msgid "Disk"
 msgstr "Disks"
 
 #: ../panels/info/info.ui.h:9
+#| msgid "Locations..."
 msgid "Calculating..."
 msgstr "Rēķina..."
 
 #: ../panels/info/info.ui.h:12
+#| msgid "Web"
 msgid "_Web"
 msgstr "_Tīmeklis"
 
 #: ../panels/info/info.ui.h:13
+#| msgid "Mail"
 msgid "_Mail"
 msgstr "_Pasts"
 
 #: ../panels/info/info.ui.h:14
+#| msgid "Calendar"
 msgid "_Calendar"
 msgstr "_Kalendārs"
 
 #: ../panels/info/info.ui.h:15
+#| msgid "Music"
 msgid "M_usic"
 msgstr "Mū_zika"
 
 #: ../panels/info/info.ui.h:16
+#| msgid "Video"
 msgid "_Video"
 msgstr "_Video"
 
 #: ../panels/info/info.ui.h:17
+#| msgid "_Photos:"
 msgid "_Photos"
 msgstr "_Fotogrāfijas"
 
@@ -1150,18 +1218,22 @@ msgid "Select how media should be handled"
 msgstr "Izvēlieties, kā apstrādāt datu nesēju"
 
 #: ../panels/info/info.ui.h:20
+#| msgid "CD _audio:"
 msgid "CD _audio"
 msgstr "CD _audio"
 
 #: ../panels/info/info.ui.h:21
+#| msgid "_DVD video:"
 msgid "_DVD video"
 msgstr "_DVD video"
 
 #: ../panels/info/info.ui.h:22
+#| msgid "_Music player:"
 msgid "_Music player"
 msgstr "_Mūzikas atskaņotājs"
 
 #: ../panels/info/info.ui.h:23
+#| msgid "_Software:"
 msgid "_Software"
 msgstr "_Programmatūra"
 
@@ -1183,6 +1255,7 @@ msgstr "Vide"
 
 #. Hardware is not able to run GNOME 3's shell, so we might want to force running the 'Fallback' experience.
 #: ../panels/info/info.ui.h:30
+#| msgid "Forced Fallback Mode"
 msgid "Forced _Fallback Mode"
 msgstr "Piespiedu _atkāpšanās režīms"
 
@@ -1237,13 +1310,13 @@ msgid "Typing"
 msgstr "Rakstīšana"
 
 #: ../panels/keyboard/01-input-sources.xml.in.h:2
-#: ../panels/region/gnome-region-panel.ui.h:26
+#: ../panels/region/gnome-region-panel.ui.h:25
 #| msgid "Switch Modes"
 msgid "Switch to next source"
 msgstr "Pārslēgties uz nākamo avotu"
 
 #: ../panels/keyboard/01-input-sources.xml.in.h:3
-#: ../panels/region/gnome-region-panel.ui.h:24
+#: ../panels/region/gnome-region-panel.ui.h:23
 msgid "Switch to previous source"
 msgstr "Pārslēgties uz iepriekšējo avotu"
 
@@ -1264,53 +1337,53 @@ msgid "Launch email client"
 msgstr "Palaist e-pasta klientu"
 
 #: ../panels/keyboard/01-launchers.xml.in.h:5
+msgid "Launch terminal"
+msgstr "Palaist termināli"
+
+#: ../panels/keyboard/01-launchers.xml.in.h:6
 msgid "Launch web browser"
 msgstr "Palaist tīmekļa pārlūku"
 
-#: ../panels/keyboard/01-launchers.xml.in.h:6
+#: ../panels/keyboard/01-launchers.xml.in.h:7
 msgid "Home folder"
 msgstr "Mājas mape"
 
-#: ../panels/keyboard/01-launchers.xml.in.h:7
+#: ../panels/keyboard/01-launchers.xml.in.h:8
 msgid "Search"
 msgstr "Meklēt"
 
 #: ../panels/keyboard/01-screenshot.xml.in.h:1
+#| msgid "Screen"
 msgid "Screenshots"
 msgstr "Ekrānattēli"
 
-#. translators: Pictures is the name of the XDG Pictures directory
+#: ../panels/keyboard/01-screenshot.xml.in.h:2
+#| msgid "Take a photo..."
+msgid "Take a screenshot"
+msgstr "Uzņemt ekrānattēlu"
+
 #: ../panels/keyboard/01-screenshot.xml.in.h:3
-#| msgid "Take a screenshot of an area"
-msgid "Save a screenshot to Pictures"
-msgstr "Saglabāt ekrānattēlu mapē Attēli"
+msgid "Take a screenshot of a window"
+msgstr "Uzņemt loga ekrānattēlu"
 
-#. translators: Pictures is the name of the XDG Pictures directory
+#: ../panels/keyboard/01-screenshot.xml.in.h:4
+msgid "Take a screenshot of an area"
+msgstr "Uzņemt ekrānattēlu laukumam"
+
 #: ../panels/keyboard/01-screenshot.xml.in.h:5
-#| msgid "Take a screenshot of a window"
-msgid "Save a screenshot of a window to Pictures"
-msgstr "Saglabāt loga ekrānattēlu mapē Attēli"
-
-#. translators: Pictures is the name of the XDG Pictures directory
-#: ../panels/keyboard/01-screenshot.xml.in.h:7
-#| msgid "Take a screenshot of an area"
-msgid "Save a screenshot of an area to Pictures"
-msgstr "Saglabāt laukuma ekrānattēlu mapē Attēli"
-
-#: ../panels/keyboard/01-screenshot.xml.in.h:8
 msgid "Copy a screenshot to clipboard"
 msgstr "Kopēt ekrānattēlu uz starpliktuvi"
 
-#: ../panels/keyboard/01-screenshot.xml.in.h:9
+#: ../panels/keyboard/01-screenshot.xml.in.h:6
 msgid "Copy a screenshot of a window to clipboard"
 msgstr "Kopēt loga ekrānattēlu uz starpliktuvi"
 
-#: ../panels/keyboard/01-screenshot.xml.in.h:10
+#: ../panels/keyboard/01-screenshot.xml.in.h:7
 msgid "Copy a screenshot of an area to clipboard"
 msgstr "Kopēt laukuma ekrānattēlu uz starpliktuvi"
 
 #: ../panels/keyboard/01-system.xml.in.h:1
-#: ../panels/region/gnome-region-panel.ui.h:39
+#: ../panels/region/gnome-region-panel.ui.h:41
 msgid "System"
 msgstr "Sistēma"
 
@@ -1328,22 +1401,27 @@ msgid "Universal Access"
 msgstr "Universālā piekļuve"
 
 #: ../panels/keyboard/50-accessibility.xml.in.h:2
+#| msgid "Turn on or off:"
 msgid "Turn zoom on or off"
 msgstr "Ieslēgt vai izslēgt tuvinājumu"
 
 #: ../panels/keyboard/50-accessibility.xml.in.h:3
+#| msgid "Zoom in:"
 msgid "Zoom in"
 msgstr "Tuvināt"
 
 #: ../panels/keyboard/50-accessibility.xml.in.h:4
+#| msgid "Zoom out:"
 msgid "Zoom out"
 msgstr "Tālināt"
 
 #: ../panels/keyboard/50-accessibility.xml.in.h:5
+#| msgid "Turn on or off:"
 msgid "Turn screen reader on or off"
 msgstr "Ieslēgt vai izslēgt ekrāna lasītāju"
 
 #: ../panels/keyboard/50-accessibility.xml.in.h:6
+#| msgid "Toggle on-screen keyboard"
 msgid "Turn on-screen keyboard on or off"
 msgstr "Ieslēgt vai izslēgt ekrāna tastatūru"
 
@@ -1367,6 +1445,7 @@ msgstr "Ieslēgt vai izslēgt augstu kontrastu"
 #: ../panels/sound/gvc-mixer-control.c:1834
 #: ../panels/user-accounts/um-fingerprint-dialog.c:215
 #: ../panels/user-accounts/um-fingerprint-dialog.c:216
+#: ../panels/region/keyboard-shortcuts.c:594
 msgid "Disabled"
 msgstr "Atslēgts"
 
@@ -1394,6 +1473,7 @@ msgid "Shortcut;Repeat;Blink;"
 msgstr "Īsceļš;Atkārtot;Mirkšķināt;Shortcut;Repeat;Blink;"
 
 #: ../panels/keyboard/gnome-keyboard-panel.ui.h:1
+#| msgid "Shortcut"
 msgid "Custom Shortcut"
 msgstr "Pielāgota saīsne"
 
@@ -1402,10 +1482,12 @@ msgid "_Name:"
 msgstr "_Nosaukums:"
 
 #: ../panels/keyboard/gnome-keyboard-panel.ui.h:3
+#| msgid "Co_mmand:"
 msgid "C_ommand:"
 msgstr "K_omanda:"
 
 #: ../panels/keyboard/gnome-keyboard-panel.ui.h:5
+#| msgid "<b>Repeat Keys</b>"
 msgid "Repeat Keys"
 msgstr "Atkārtot taustiņus"
 
@@ -1424,6 +1506,7 @@ msgstr "Ā_trums:"
 #. short delay
 #: ../panels/keyboard/gnome-keyboard-panel.ui.h:9
 #: ../panels/universal-access/uap.ui.h:49
+#| msgid "Shortcut"
 msgid "Short"
 msgstr "Īsa"
 
@@ -1446,14 +1529,17 @@ msgstr "Gara"
 #. fast acceleration
 #: ../panels/keyboard/gnome-keyboard-panel.ui.h:13
 #: ../panels/mouse/gnome-mouse-properties.ui.h:7
+#| msgid "_Paste"
 msgid "Fast"
 msgstr "Ātri"
 
 #: ../panels/keyboard/gnome-keyboard-panel.ui.h:14
+#| msgid "<b>Cursor Blinking</b>"
 msgid "Cursor Blinking"
 msgstr "Kursora mirgošana"
 
 #: ../panels/keyboard/gnome-keyboard-panel.ui.h:15
+#| msgid "Cursor _blinks in text boxes and fields"
 msgid "Cursor _blinks in text fields"
 msgstr "Kursors _mirgo teksta laukos"
 
@@ -1462,18 +1548,22 @@ msgid "S_peed:"
 msgstr "Āt_rums:"
 
 #: ../panels/keyboard/gnome-keyboard-panel.ui.h:17
+#| msgid "Cursor blinks speed"
 msgid "Cursor blink speed"
 msgstr "Kursora mirgošanas ātrums"
 
 #: ../panels/keyboard/gnome-keyboard-panel.ui.h:18
+#| msgid "_Mouse Settings"
 msgid "Layout Settings"
 msgstr "Izkārtojuma iestatījumi"
 
 #: ../panels/keyboard/gnome-keyboard-panel.ui.h:20
+#| msgid "Shortcut"
 msgid "Add Shortcut"
 msgstr "Pievienot saīsni"
 
 #: ../panels/keyboard/gnome-keyboard-panel.ui.h:21
+#| msgid "Shortcut"
 msgid "Remove Shortcut"
 msgstr "Izņemt saīsni"
 
@@ -1487,7 +1577,7 @@ msgstr ""
 "lietojiet Backspace taustiņu dzēšanai."
 
 #: ../panels/keyboard/gnome-keyboard-panel.ui.h:23
-#: ../panels/region/gnome-region-panel.ui.h:29
+#: ../panels/region/gnome-region-panel.ui.h:28
 msgid "Shortcuts"
 msgstr "Saīsnes"
 
@@ -1501,6 +1591,7 @@ msgid "<Unknown Action>"
 msgstr "<Nezināma darbība>"
 
 #: ../panels/keyboard/keyboard-shortcuts.c:1273
+#: ../panels/region/keyboard-shortcuts.c:724
 #, c-format
 msgid ""
 "The shortcut \"%s\" cannot be used because it will become impossible to type "
@@ -1508,10 +1599,10 @@ msgid ""
 "Please try with a key such as Control, Alt or Shift at the same time."
 msgstr ""
 "Saīsni \"%s\" nevar izmantot, jo tas apgrūtinās rakstīšanu.\n"
-"Lūdzu, mēģiniet lietot šo taustiņu kopā ar Control, Alt vai "
-"Shift."
+"Lūdzu, mēģiniet lietot šo taustiņu kopā ar Control, Alt vai Shift."
 
 #: ../panels/keyboard/keyboard-shortcuts.c:1305
+#: ../panels/region/keyboard-shortcuts.c:750
 #, c-format
 msgid ""
 "The shortcut \"%s\" is already used for\n"
@@ -1521,16 +1612,18 @@ msgstr ""
 " \"%s\""
 
 #: ../panels/keyboard/keyboard-shortcuts.c:1310
+#: ../panels/region/keyboard-shortcuts.c:755
 #, c-format
 msgid ""
 "If you reassign the shortcut to \"%s\", the \"%s\" shortcut will be disabled."
 msgstr "Ja pārdefinēsiet saīsni par \"%s\", saīsne \"%s\" tiks deaktivēta."
 
 #: ../panels/keyboard/keyboard-shortcuts.c:1316
+#: ../panels/region/keyboard-shortcuts.c:761
 msgid "_Reassign"
 msgstr "Pā_rdefinēt"
 
-#: ../panels/mouse/cc-mouse-panel.c:152
+#: ../panels/mouse/cc-mouse-panel.c:163
 #| msgid "Your settings"
 msgid "_Test Your Settings"
 msgstr "_Izmēģiniet savus iestatījumus"
@@ -1557,9 +1650,10 @@ msgstr "Peles iestatījumi"
 
 #: ../panels/mouse/gnome-mouse-properties.ui.h:2
 msgid "General"
-msgstr "Vispārēji"
+msgstr "Vispārīgi"
 
 #: ../panels/mouse/gnome-mouse-properties.ui.h:5
+#| msgid "Double-Click Timeout"
 msgid "Double-click timeout"
 msgstr "Dubultklikšķa noildze"
 
@@ -1612,9 +1706,10 @@ msgstr "Uzsitiens nozīmē _klikšķi"
 msgid "Two _finger scroll"
 msgstr "Div_pirkstu ritināšana"
 
-#: ../panels/mouse/gnome-mouse-properties.ui.h:18
-msgid "C_ontent sticks to fingers"
-msgstr "_Saturs pielīp pirkstiem"
+#. Translators: This switch reverses the scrolling direction for touchpads. The term used comes from OS X so use the same translation if possible.
+#: ../panels/mouse/gnome-mouse-properties.ui.h:19
+msgid "_Natural scrolling"
+msgstr "_Dabiskā ritināšana"
 
 #: ../panels/mouse/gnome-mouse-test.c:134
 #: ../panels/mouse/gnome-mouse-test.ui.h:1
@@ -1652,23 +1747,23 @@ msgstr "Dubultklikšķis, sekundārā poga"
 msgid "Single click, secondary button"
 msgstr "Viens klikšķis, sekundārā poga"
 
-#: ../panels/network/cc-network-panel.c:615
+#: ../panels/network/cc-network-panel.c:649
 msgid "Network proxy"
 msgstr "Tīkla starpniekserveris"
 
-#: ../panels/network/cc-network-panel.c:799 ../panels/network/net-vpn.c:278
+#: ../panels/network/cc-network-panel.c:841 ../panels/network/net-vpn.c:278
 #, c-format
 msgid "%s VPN"
 msgstr "%s VPN"
 
 #. TRANSLATORS: the user is running a NM that is not API compatible
-#: ../panels/network/cc-network-panel.c:866
+#: ../panels/network/cc-network-panel.c:908
 msgid "The system network services are not compatible with this version."
 msgstr "Sistēmas tīklu servisi nav savietojami ar šo versiju."
 
 #. TRANSLATORS: this is to disable the radio hardware in the
 #. * network panel
-#: ../panels/network/cc-network-panel.c:1001
+#: ../panels/network/cc-network-panel.c:1096
 #| msgid "Airplane Mode"
 msgid "Air_plane Mode"
 msgstr "_Lidmašīnas režīms"
@@ -1694,61 +1789,54 @@ msgstr "Pievienot jaunu savienojumu"
 
 #. Translators: network device speed
 #: ../panels/network/net-device-mobile.c:261
-#: ../panels/network/net-device-wifi.c:770
+#: ../panels/network/net-device-wifi.c:727
 #: ../panels/network/net-device-wired.c:126
 #, c-format
 msgid "%d Mb/s"
 msgstr "%d Mb/s"
 
-#. TRANSLATORS: this is when the access point is not shown
-#. * in the list and the user has to enter the SSID manually
-#.
-#: ../panels/network/net-device-wifi.c:203
-msgid "Connect to a Hidden Network"
-msgstr "Savienoties ar slēptu tīklu"
-
 #. TRANSLATORS: this WEP WiFi security
-#: ../panels/network/net-device-wifi.c:302
-#: ../panels/network/net-device-wifi.c:481
+#: ../panels/network/net-device-wifi.c:259
+#: ../panels/network/net-device-wifi.c:438
 msgid "WEP"
 msgstr "WEP"
 
 #. TRANSLATORS: this WPA WiFi security
-#: ../panels/network/net-device-wifi.c:306
-#: ../panels/network/net-device-wifi.c:485
+#: ../panels/network/net-device-wifi.c:263
+#: ../panels/network/net-device-wifi.c:442
 msgid "WPA"
 msgstr "WPA"
 
 #. TRANSLATORS: this WPA WiFi security
-#: ../panels/network/net-device-wifi.c:310
+#: ../panels/network/net-device-wifi.c:267
 msgid "WPA2"
 msgstr "WPA2"
 
 #. TRANSLATORS: this Enterprise WiFi security
-#: ../panels/network/net-device-wifi.c:315
+#: ../panels/network/net-device-wifi.c:272
 msgid "Enterprise"
 msgstr "Enterprise"
 
-#: ../panels/network/net-device-wifi.c:320
-#: ../panels/network/net-device-wifi.c:476
+#: ../panels/network/net-device-wifi.c:277
+#: ../panels/network/net-device-wifi.c:433
 #| msgid "None"
 msgctxt "Wifi security"
 msgid "None"
 msgstr "Nav"
 
-#: ../panels/network/net-device-wifi.c:697
+#: ../panels/network/net-device-wifi.c:654
 msgid "never"
 msgstr "nekad"
 
-#: ../panels/network/net-device-wifi.c:707
+#: ../panels/network/net-device-wifi.c:664
 msgid "today"
 msgstr "šodien"
 
-#: ../panels/network/net-device-wifi.c:709
+#: ../panels/network/net-device-wifi.c:666
 msgid "yesterday"
 msgstr "vakar"
 
-#: ../panels/network/net-device-wifi.c:711
+#: ../panels/network/net-device-wifi.c:668
 #, c-format
 msgid "%i day ago"
 msgid_plural "%i days ago"
@@ -1757,47 +1845,47 @@ msgstr[1] "pirms %i dienām"
 msgstr[2] "pirms %i dienām"
 
 #. TRANSLATORS: VPN status
-#: ../panels/network/net-device-wifi.c:780
+#: ../panels/network/net-device-wifi.c:737
 #: ../panels/network/panel-common.c:277
 msgid "Not connected"
 msgstr "Nav savienots"
 
-#: ../panels/network/net-device-wifi.c:782
-#: ../panels/network/net-device-wifi.c:2086
+#: ../panels/network/net-device-wifi.c:739
+#: ../panels/network/net-device-wifi.c:2104
 #| msgid "Out of toner"
 msgid "Out of range"
 msgstr "Ārpus apgabala"
 
-#: ../panels/network/net-device-wifi.c:813
+#: ../panels/network/net-device-wifi.c:770
 #| msgid "None"
 msgctxt "Signal strength"
 msgid "None"
 msgstr "Nav"
 
-#: ../panels/network/net-device-wifi.c:815
+#: ../panels/network/net-device-wifi.c:772
 #| msgctxt "Password strength"
 #| msgid "Weak"
 msgctxt "Signal strength"
 msgid "Weak"
 msgstr "Vājš"
 
-#: ../panels/network/net-device-wifi.c:817
+#: ../panels/network/net-device-wifi.c:774
 msgctxt "Signal strength"
 msgid "Ok"
 msgstr "Lietojams"
 
-#: ../panels/network/net-device-wifi.c:819
+#: ../panels/network/net-device-wifi.c:776
 #| msgid "Good"
 msgctxt "Signal strength"
 msgid "Good"
 msgstr "Labs"
 
-#: ../panels/network/net-device-wifi.c:821
+#: ../panels/network/net-device-wifi.c:778
 msgctxt "Signal strength"
 msgid "Excellent"
 msgstr "Teicams"
 
-#: ../panels/network/net-device-wifi.c:1005
+#: ../panels/network/net-device-wifi.c:962
 #, c-format
 #| msgid ""
 #| "Network details for %s including password and any custom configuration "
@@ -1809,11 +1897,12 @@ msgstr ""
 "Informācija par tīklu %s, tai skaitā parole un jebkāda pielāgota "
 "konfigurācija, tiks pazaudēta"
 
-#: ../panels/network/net-device-wifi.c:1016
+#: ../panels/network/net-device-wifi.c:973
+#| msgid "Format:"
 msgid "Forget"
 msgstr "Aizmirst"
 
-#: ../panels/network/net-device-wifi.c:1552
+#: ../panels/network/net-device-wifi.c:1559
 msgid ""
 "If you have a connection to the Internet other than wireless, you can use it "
 "to share your internet connection with others."
@@ -1821,12 +1910,12 @@ msgstr ""
 "Ja jums bez bezvadu pieslēguma ir arī cits pieslēgums Internetam, šādi jūs "
 "varat tajā dalīties ar citiem."
 
-#: ../panels/network/net-device-wifi.c:1556
+#: ../panels/network/net-device-wifi.c:1563
 #, c-format
 msgid "Switching on the wireless hotspot will disconnect you from <b>%s</b>."
 msgstr "Bezvadu tīklāja ieslēgšana atvienos jūs no <b>%s</b>."
 
-#: ../panels/network/net-device-wifi.c:1560
+#: ../panels/network/net-device-wifi.c:1567
 msgid ""
 "It is not possible to access the internet through your wireless while the "
 "hotspot is active."
@@ -1834,16 +1923,17 @@ msgstr ""
 "Nav iespējams piekļūt Internetam, izmantojot šo bezvadu pieslēgumu, kamēr "
 "darbojas tīklājs."
 
-#: ../panels/network/net-device-wifi.c:1626
+#: ../panels/network/net-device-wifi.c:1633
 msgid "Stop hotspot and disconnect any users?"
 msgstr "Apturēt tīklāju un atvienot visus lietotājus?"
 
-#: ../panels/network/net-device-wifi.c:1629
+#: ../panels/network/net-device-wifi.c:1636
+#| msgid "_Socks Host"
 msgid "_Stop Hotspot"
 msgstr "_Apturēt tīklāju"
 
 #. TRANSLATORS: this is when the use leaves the PAC textbox blank
-#: ../panels/network/net-proxy.c:67
+#: ../panels/network/net-proxy.c:73
 msgid ""
 "Web Proxy Autodiscovery is used when a Configuration URL is not provided."
 msgstr ""
@@ -1854,11 +1944,11 @@ msgstr ""
 #. * network, then anyone else on that network can tell your
 #. * machine that it should proxy all of your web traffic
 #. * through them.
-#: ../panels/network/net-proxy.c:75
+#: ../panels/network/net-proxy.c:81
 msgid "This is not recommended for untrusted public networks."
 msgstr "Tas nav ieteicams neuzticamos publiskos tīklos."
 
-#: ../panels/network/net-proxy.c:367
+#: ../panels/network/net-proxy.c:515
 msgid "Proxy"
 msgstr "Starpnieks"
 
@@ -1877,25 +1967,26 @@ msgid "IP Address"
 msgstr "IP adrese"
 
 #: ../panels/network/network-mobile.ui.h:4
-#: ../panels/network/network-wifi.ui.h:13
+#: ../panels/network/network-wifi.ui.h:14
 #: ../panels/network/network-wired.ui.h:3 ../panels/network/panel-common.c:684
 msgid "IPv6 Address"
 msgstr "IPv6 adrese"
 
 #: ../panels/network/network-mobile.ui.h:5
-#: ../panels/network/network-wifi.ui.h:14
+#: ../panels/network/network-wifi.ui.h:15
 #: ../panels/network/network-wired.ui.h:4
 msgid "Default Route"
 msgstr "Noklusētais maršruts"
 
 #: ../panels/network/network-mobile.ui.h:6
-#: ../panels/network/network-wifi.ui.h:15
+#: ../panels/network/network-wifi.ui.h:16
 #: ../panels/network/network-wired.ui.h:5
 msgid "DNS"
 msgstr "DNS"
 
 #: ../panels/network/network-mobile.ui.h:8
 #: ../panels/network/network-wired.ui.h:6
+#| msgid "Layout _Options..."
 msgid "_Options..."
 msgstr "_Opcijas..."
 
@@ -1938,6 +2029,10 @@ msgstr "_FTP starpnieks"
 msgid "_Socks Host"
 msgstr "_Socks serveris"
 
+#: ../panels/network/network-proxy.ui.h:10
+msgid "Apply system wide"
+msgstr "Izmantot visā sistēmā"
+
 #: ../panels/network/network.ui.h:1
 msgid "Select the interface to use for the new service"
 msgstr "Izvēlieties saskarni, ko izmantot jaunajam servisam"
@@ -1957,6 +2052,7 @@ msgid "VPN"
 msgstr "VPN"
 
 #: ../panels/network/network.ui.h:8
+#| msgid "Add device"
 msgid "Add Device"
 msgstr "Pievienot ierīci"
 
@@ -1999,78 +2095,84 @@ msgid "Wireless"
 msgstr "Bezvadu"
 
 #: ../panels/network/network-wifi.ui.h:4
+#| msgid "Take a photo..."
 msgid "_Use as Hotspot..."
 msgstr "_Lietot kā tīklāju..."
 
 #: ../panels/network/network-wifi.ui.h:5
+msgid "Connect to a Hidden Network"
+msgstr "Savienoties ar slēptu tīklu"
+
+#: ../panels/network/network-wifi.ui.h:6
 #| msgid "Disconnected"
 msgid "_Disconnect"
 msgstr "_Atvienot"
 
-#: ../panels/network/network-wifi.ui.h:6
+#: ../panels/network/network-wifi.ui.h:7
 #| msgid "Connected"
 msgid "_Connect"
 msgstr "_Savienot"
 
-#: ../panels/network/network-wifi.ui.h:7
+#: ../panels/network/network-wifi.ui.h:8
 #| msgctxt "printer state"
 #| msgid "Paused"
 msgid "Last used"
 msgstr "Pēdējoreiz lietots"
 
-#: ../panels/network/network-wifi.ui.h:8
+#: ../panels/network/network-wifi.ui.h:9
 #: ../panels/network/network-wired.ui.h:1
 msgid "Hardware Address"
 msgstr "Aparatūras adrese"
 
-#: ../panels/network/network-wifi.ui.h:9
+#: ../panels/network/network-wifi.ui.h:10
 msgid "Security"
 msgstr "Drošība"
 
-#: ../panels/network/network-wifi.ui.h:10
+#: ../panels/network/network-wifi.ui.h:11
 #| msgid "Length:"
 msgid "Strength"
 msgstr "Stiprums"
 
-#: ../panels/network/network-wifi.ui.h:11
+#: ../panels/network/network-wifi.ui.h:12
 #| msgid "Cursor blink speed"
 msgid "Link speed"
 msgstr "Savienojuma ātrums"
 
-#: ../panels/network/network-wifi.ui.h:12
+#: ../panels/network/network-wifi.ui.h:13
 #: ../panels/network/network-wired.ui.h:2 ../panels/network/panel-common.c:683
 msgid "IPv4 Address"
 msgstr "IPv4 adrese"
 
-#: ../panels/network/network-wifi.ui.h:16
+#: ../panels/network/network-wifi.ui.h:17
 #| msgid "Forget Network"
 msgid "_Forget Network"
 msgstr "_Aizmirst tīklu"
 
-#: ../panels/network/network-wifi.ui.h:17
+#: ../panels/network/network-wifi.ui.h:18
 #| msgid "Copy Settings..."
 msgid "_Settings..."
 msgstr "Ie_statījumi..."
 
-#: ../panels/network/network-wifi.ui.h:18
+#: ../panels/network/network-wifi.ui.h:19
 msgid "Switch off to connect to a wireless network"
 msgstr "Izslēdziet, lai savienotos ar bezvadu tīklu"
 
-#: ../panels/network/network-wifi.ui.h:19
+#: ../panels/network/network-wifi.ui.h:20
+#| msgid "_Network Name"
 msgid "Network Name"
 msgstr "Tīkla nosaukums"
 
-#: ../panels/network/network-wifi.ui.h:20
+#: ../panels/network/network-wifi.ui.h:21
 #| msgid "Connected"
 msgid "Connected Devices"
 msgstr "Savienotās ierīces"
 
-#: ../panels/network/network-wifi.ui.h:21
+#: ../panels/network/network-wifi.ui.h:22
 #| msgid "Security Key"
 msgid "Security type"
 msgstr "Drošības veids"
 
-#: ../panels/network/network-wifi.ui.h:22
+#: ../panels/network/network-wifi.ui.h:23
 #| msgid "Security Key"
 msgid "Security key"
 msgstr "Drošības atslēga"
@@ -2394,48 +2496,52 @@ msgid "Connection dependency failed"
 msgstr "Savienojuma priekšnoteikums nav izpildīts"
 
 #. translators: This is the title of the "Add Account" dialog.
-#: ../panels/online-accounts/cc-online-accounts-add-account-dialog.c:249
+#: ../panels/online-accounts/cc-online-accounts-add-account-dialog.c:253
 #: ../panels/online-accounts/online-accounts.ui.h:2
+#| msgid "My Account"
 msgid "Add Account"
 msgstr "Pievienot kontu"
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:383
+#: ../panels/online-accounts/cc-online-accounts-panel.c:374
 msgid "Error logging into the account"
 msgstr "Kļūda, piesakoties kontā"
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:437
+#: ../panels/online-accounts/cc-online-accounts-panel.c:428
 msgid "Expired credentials. Please log in again."
 msgstr "Beigusies akreditācija. Lūdzu, piesakieties vēlreiz."
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:440
+#: ../panels/online-accounts/cc-online-accounts-panel.c:431
 msgid "_Log In"
 msgstr "_Pieteikties"
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:676
+#: ../panels/online-accounts/cc-online-accounts-panel.c:678
+#| msgid "Create new account"
 msgid "Error creating account"
 msgstr "Kļūda, veidojot kontu"
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:718
+#: ../panels/online-accounts/cc-online-accounts-panel.c:732
 msgid "Error removing account"
 msgstr "Kļūda, noņemot kontu"
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:754
+#: ../panels/online-accounts/cc-online-accounts-panel.c:768
 msgid "Are you sure you want to remove the account?"
 msgstr "Vai tiešām vēlaties izņemt kontu?"
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:756
+#: ../panels/online-accounts/cc-online-accounts-panel.c:770
 msgid "This will not remove the account on the server."
 msgstr "Tas neizņems kontu no servera."
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:757
+#: ../panels/online-accounts/cc-online-accounts-panel.c:771
 msgid "_Remove"
 msgstr "_Izņemt"
 
 #: ../panels/online-accounts/gnome-online-accounts-panel.desktop.in.in.h:1
+#| msgid "Other Accounts"
 msgid "Online Accounts"
 msgstr "Tiešsaistes konti"
 
 #: ../panels/online-accounts/gnome-online-accounts-panel.desktop.in.in.h:2
+#| msgid "Create new account"
 msgid "Manage online accounts"
 msgstr "Pārvaldīt tiešsaistes kontus"
 
@@ -2443,8 +2549,8 @@ msgstr "Pārvaldīt tiešsaistes kontus"
 #: ../panels/online-accounts/gnome-online-accounts-panel.desktop.in.in.h:4
 msgid "Google;Facebook;Twitter;Yahoo;Web;Online;Chat;Calendar;Mail;Contact;"
 msgstr ""
-"Google;Facebook;Twitter;Yahoo;Web;Tīmeklis;Tiešsaiste;Tērzēšana;Kalendārs;"
-"Pasts;kontakti;Online;Chat;Calendar;Mail;Contact;"
+"Google;Facebook;Twitter;Yahoo;Web;Tīmeklis;Tiešsaiste;Tērzēšana;Kalendārs;Pas"
+"ts;kontakti;Online;Chat;Calendar;Mail;Contact;"
 
 #: ../panels/online-accounts/online-accounts.ui.h:1
 #| msgid "Manage online accounts"
@@ -2452,6 +2558,7 @@ msgid "No online accounts configured"
 msgstr "Nav konfigurēti tiešsaistes konti"
 
 #: ../panels/online-accounts/online-accounts.ui.h:3
+#| msgid "My Account"
 msgid "Remove Account"
 msgstr "Izņemt kontu"
 
@@ -2466,14 +2573,13 @@ msgid ""
 "contacts, calendar, chat and more."
 msgstr ""
 "Konta pievienošana padara jūsu lietotnēm pieejamus ar to saistītos "
-"dokumentus, e-pastu, "
-"kontaktus, kalendārus, tērzēšanu u.c."
+"dokumentus, e-pastu, kontaktus, kalendārus, tērzēšanu u.c."
 
-#: ../panels/power/cc-power-panel.c:157
+#: ../panels/power/cc-power-panel.c:166
 msgid "Unknown time"
 msgstr "Nezināms laiks"
 
-#: ../panels/power/cc-power-panel.c:163
+#: ../panels/power/cc-power-panel.c:172
 #, c-format
 msgid "%i minute"
 msgid_plural "%i minutes"
@@ -2481,7 +2587,7 @@ msgstr[0] "%i minūte"
 msgstr[1] "%i minūtes"
 msgstr[2] "%i minūšu"
 
-#: ../panels/power/cc-power-panel.c:175
+#: ../panels/power/cc-power-panel.c:184
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -2491,19 +2597,19 @@ msgstr[2] "%i stundu"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: ../panels/power/cc-power-panel.c:183
+#: ../panels/power/cc-power-panel.c:192
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
-#: ../panels/power/cc-power-panel.c:184
+#: ../panels/power/cc-power-panel.c:193
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "stunda"
 msgstr[1] "stundas"
 msgstr[2] "stundu"
 
-#: ../panels/power/cc-power-panel.c:185
+#: ../panels/power/cc-power-panel.c:194
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minūte"
@@ -2511,163 +2617,171 @@ msgstr[1] "minūtes"
 msgstr[2] "minūšu"
 
 #. TRANSLATORS: %1 is a time string, e.g. "1 hour 5 minutes"
-#: ../panels/power/cc-power-panel.c:228
+#: ../panels/power/cc-power-panel.c:237
 #, c-format
 msgid "Charging - %s until fully charged"
 msgstr "Uzlādējas — būs pilna pēc %s"
 
 #. TRANSLATORS: %1 is a time string, e.g. "1 hour 5 minutes"
-#: ../panels/power/cc-power-panel.c:236
+#: ../panels/power/cc-power-panel.c:245
 #, c-format
 msgid "Caution low battery, %s remaining"
 msgstr "Brīdinājums — baterija gandrīz tukša. Atlicis %s"
 
 #. TRANSLATORS: %1 is a time string, e.g. "1 hour 5 minutes"
-#: ../panels/power/cc-power-panel.c:244
+#: ../panels/power/cc-power-panel.c:253
 #, c-format
 msgid "Using battery power - %s remaining"
 msgstr "Izmanto baterijas strāvu — atlicis %s"
 
 #. TRANSLATORS: primary battery
-#: ../panels/power/cc-power-panel.c:261
+#: ../panels/power/cc-power-panel.c:270
+#| msgid "UPS charging"
 msgid "Charging"
 msgstr "Uzlādējas"
 
 #. TRANSLATORS: primary battery
-#: ../panels/power/cc-power-panel.c:266
+#: ../panels/power/cc-power-panel.c:275
+#| msgid "On _battery power:"
 msgid "Using battery power"
 msgstr "Izmanto baterijas strāvu"
 
 #. TRANSLATORS: primary battery
-#: ../panels/power/cc-power-panel.c:270
+#: ../panels/power/cc-power-panel.c:279
 msgid "Charging - fully charged"
 msgstr "Uzlādējas — pilnībā uzlādēta"
 
 #. TRANSLATORS: primary battery
-#: ../panels/power/cc-power-panel.c:274
+#: ../panels/power/cc-power-panel.c:283
 msgid "Empty"
 msgstr "Tukša"
 
 #. TRANSLATORS: %1 is a time string, e.g. "1 hour 5 minutes"
-#: ../panels/power/cc-power-panel.c:342
+#: ../panels/power/cc-power-panel.c:351
 #, c-format
 msgid "Caution low UPS, %s remaining"
 msgstr "Brīdinājums — UPS gandrīz tukšs. Atlicis %s"
 
 #. TRANSLATORS: %1 is a time string, e.g. "1 hour 5 minutes"
-#: ../panels/power/cc-power-panel.c:348
+#: ../panels/power/cc-power-panel.c:357
 #, c-format
 msgid "Using UPS power - %s remaining"
 msgstr "Izmanto UPS strāvu — atlicis %s"
 
 #. TRANSLATORS: UPS battery
-#: ../panels/power/cc-power-panel.c:366
+#: ../panels/power/cc-power-panel.c:375
 msgid "Caution low UPS"
 msgstr "Brīdinājums — UPS maz enerģijas"
 
 #. TRANSLATORS: UPS battery
-#: ../panels/power/cc-power-panel.c:371
+#: ../panels/power/cc-power-panel.c:380
 msgid "Using UPS power"
 msgstr "Izmanto UPS strāvu"
 
 #. TRANSLATORS: secondary battery is normally in the media bay
-#: ../panels/power/cc-power-panel.c:423
+#: ../panels/power/cc-power-panel.c:432
 msgid "Your secondary battery is fully charged"
 msgstr "Jūsu sekundārā baterija ir pilnībā uzlādēta"
 
 #. TRANSLATORS: secondary battery is normally in the media bay
-#: ../panels/power/cc-power-panel.c:427
+#: ../panels/power/cc-power-panel.c:436
 msgid "Your secondary battery is empty"
 msgstr "Jūsu sekundārā baterija ir tukša"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:510
+#: ../panels/power/cc-power-panel.c:519
+#| msgid "Wireless"
 msgid "Wireless mouse"
 msgstr "Bezvadu pele"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:514
+#: ../panels/power/cc-power-panel.c:523
+#| msgid "Screen keyboard"
 msgid "Wireless keyboard"
 msgstr "Bezvadu tastatūra"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:518
+#: ../panels/power/cc-power-panel.c:527
 msgid "Uninterruptible power supply"
 msgstr "Nepārtrauktā barošana"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:522
+#: ../panels/power/cc-power-panel.c:531
 msgid "Personal digital assistant"
 msgstr "Personālais ciparasistents"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:526
+#: ../panels/power/cc-power-panel.c:535
 msgid "Cellphone"
 msgstr "Mobilais tālrunis"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:530
+#: ../panels/power/cc-power-panel.c:539
 msgid "Media player"
 msgstr "Multimediju atskaņotājs"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:534
+#: ../panels/power/cc-power-panel.c:543
+#| msgid "Enabled"
 msgid "Tablet"
 msgstr "Planšete"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:538
+#: ../panels/power/cc-power-panel.c:547
+#| msgctxt "print job"
+#| msgid "Completed"
 msgid "Computer"
 msgstr "Dators"
 
 #. TRANSLATORS: secondary battery, misc
-#: ../panels/power/cc-power-panel.c:542
+#: ../panels/power/cc-power-panel.c:551
+#| msgid "Battery charging"
 msgid "Battery"
 msgstr "Baterija"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:553
+#: ../panels/power/cc-power-panel.c:562
 #| msgid "Charging"
 msgctxt "Battery power"
 msgid "Charging"
 msgstr "Uzlādējas"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:560
+#: ../panels/power/cc-power-panel.c:569
 #| msgid "Caution"
 msgctxt "Battery power"
 msgid "Caution"
 msgstr "Brīdinājums"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:565
+#: ../panels/power/cc-power-panel.c:574
 #| msgid "Low"
 msgctxt "Battery power"
 msgid "Low"
 msgstr "Zema"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:570
+#: ../panels/power/cc-power-panel.c:579
 #| msgid "Good"
 msgctxt "Battery power"
 msgid "Good"
 msgstr "Laba"
 
 #. TRANSLATORS: primary battery
-#: ../panels/power/cc-power-panel.c:575
+#: ../panels/power/cc-power-panel.c:584
 #| msgid "Charging - fully charged"
 msgctxt "Battery power"
 msgid "Charging - fully charged"
 msgstr "Uzlādējas — pilnībā uzlādēta"
 
 #. TRANSLATORS: primary battery
-#: ../panels/power/cc-power-panel.c:579
+#: ../panels/power/cc-power-panel.c:588
 #| msgid "Empty"
 msgctxt "Battery power"
 msgid "Empty"
 msgstr "Tukša"
 
-#: ../panels/power/cc-power-panel.c:1075
+#: ../panels/power/cc-power-panel.c:1091
 msgid ""
 "Tip: <a href=\"screen\">screen brightness</a> affects how much power is used"
 msgstr ""
@@ -2693,6 +2807,7 @@ msgid "Hibernate"
 msgstr "Iemidzināt"
 
 #: ../panels/power/power.ui.h:2
+#| msgid "Power"
 msgid "Power off"
 msgstr "Izslēgt"
 
@@ -2704,172 +2819,206 @@ msgstr "5 minūtes"
 msgid "10 minutes"
 msgstr "10 minūtes"
 
-#: ../panels/power/power.ui.h:5 ../panels/screen/screen.ui.h:8
+#: ../panels/power/power.ui.h:5
+msgid "20 minutes"
+msgstr "20 minūtes"
+
+#: ../panels/power/power.ui.h:6 ../panels/screen/screen.ui.h:8
 msgid "30 minutes"
 msgstr "30 minūtes"
 
-#: ../panels/power/power.ui.h:6 ../panels/screen/screen.ui.h:9
+#: ../panels/power/power.ui.h:7 ../panels/screen/screen.ui.h:9
 msgid "1 hour"
 msgstr "1 stunda"
 
-#: ../panels/power/power.ui.h:7
+#: ../panels/power/power.ui.h:8
+msgid "2 hours"
+msgstr "2 stundas"
+
+#: ../panels/power/power.ui.h:9
 msgid "Don't suspend"
 msgstr "Neiesnaudināt"
 
-#: ../panels/power/power.ui.h:8
+#: ../panels/power/power.ui.h:10
+msgid "Suspend"
+msgstr "Iesnaudināt"
+
+#: ../panels/power/power.ui.h:12
+msgid "When battery is present"
+msgstr "Kad baterija ir pievienota"
+
+#: ../panels/power/power.ui.h:13
+msgid "When battery is charging/in use"
+msgstr "Kad baterija ir uzlādēta/tiek lietota"
+
+#: ../panels/power/power.ui.h:14 ../panels/screen/screen.ui.h:10
+msgid "Never"
+msgstr "Nekad"
+
+#: ../panels/power/power.ui.h:15
 msgid "On battery power"
 msgstr "Izmanto baterijas strāvu"
 
-#: ../panels/power/power.ui.h:9
+#: ../panels/power/power.ui.h:16
 msgid "When plugged in"
 msgstr "Kad pieslēgts strāvai"
 
-#: ../panels/power/power.ui.h:10
+#: ../panels/power/power.ui.h:17
 msgid "Suspend when inactive for"
 msgstr "Iesnaudināt, kad neaktīvs"
 
-#: ../panels/power/power.ui.h:11
+#: ../panels/power/power.ui.h:18
+#| msgid "When power is _critically low:"
 msgid "When power is _critically low"
 msgstr "Kad enerģijas ir _kritiski maz"
 
+#: ../panels/power/power.ui.h:19
+msgid "When the lid is closed"
+msgstr "Kad vāks ir aizvērts"
+
+#: ../panels/power/power.ui.h:20
+msgid "Show battery status in the _menu bar"
+msgstr "Rādīt _bateriju izvēļņu joslā"
+
 #. Translators: The printer is low on toner
-#: ../panels/printers/cc-printers-panel.c:589
+#: ../panels/printers/cc-printers-panel.c:592
 msgid "Low on toner"
 msgstr "Maz tonera"
 
 #. Translators: The printer has no toner left
-#: ../panels/printers/cc-printers-panel.c:591
+#: ../panels/printers/cc-printers-panel.c:594
 msgid "Out of toner"
 msgstr "Beidzies toneris"
 
 #. Translators: "Developer" is a chemical for photo development,
 #. * http://en.wikipedia.org/wiki/Photographic_developer
-#: ../panels/printers/cc-printers-panel.c:594
+#: ../panels/printers/cc-printers-panel.c:597
 msgid "Low on developer"
 msgstr "Palicis maz attīstītāja"
 
 #. Translators: "Developer" is a chemical for photo development,
 #. * http://en.wikipedia.org/wiki/Photographic_developer
-#: ../panels/printers/cc-printers-panel.c:597
+#: ../panels/printers/cc-printers-panel.c:600
 msgid "Out of developer"
 msgstr "Nav attīstītāja"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../panels/printers/cc-printers-panel.c:599
+#: ../panels/printers/cc-printers-panel.c:602
 msgid "Low on a marker supply"
 msgstr "Palicis maz krāsas"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../panels/printers/cc-printers-panel.c:601
+#: ../panels/printers/cc-printers-panel.c:604
 msgid "Out of a marker supply"
 msgstr "Beigusies krāsa"
 
 #. Translators: One or more covers on the printer are open
-#: ../panels/printers/cc-printers-panel.c:603
+#: ../panels/printers/cc-printers-panel.c:606
 msgid "Open cover"
 msgstr "Atvērts vāks"
 
 #. Translators: One or more doors on the printer are open
-#: ../panels/printers/cc-printers-panel.c:605
+#: ../panels/printers/cc-printers-panel.c:608
 msgid "Open door"
 msgstr "Atvērtas durvis"
 
 #. Translators: At least one input tray is low on media
-#: ../panels/printers/cc-printers-panel.c:607
+#: ../panels/printers/cc-printers-panel.c:610
 msgid "Low on paper"
 msgstr "Maz papīra"
 
 #. Translators: At least one input tray is empty
-#: ../panels/printers/cc-printers-panel.c:609
+#: ../panels/printers/cc-printers-panel.c:612
 msgid "Out of paper"
 msgstr "Beidzies papīrs"
 
 #. Translators: The printer is offline
-#: ../panels/printers/cc-printers-panel.c:611
+#: ../panels/printers/cc-printers-panel.c:614
 msgctxt "printer state"
 msgid "Offline"
 msgstr "Nesaistē"
 
 #. Translators: Someone has paused the Printer
-#: ../panels/printers/cc-printers-panel.c:613
+#: ../panels/printers/cc-printers-panel.c:616
 msgctxt "printer state"
 msgid "Paused"
 msgstr "Pauzēts"
 
 #. Translators: The printer marker supply waste receptacle is almost full
-#: ../panels/printers/cc-printers-panel.c:615
+#: ../panels/printers/cc-printers-panel.c:618
 msgid "Waste receptacle almost full"
 msgstr "Atkritumu tvertne gandrīz pilna"
 
 #. Translators: The printer marker supply waste receptacle is full
-#: ../panels/printers/cc-printers-panel.c:617
+#: ../panels/printers/cc-printers-panel.c:620
 msgid "Waste receptacle full"
 msgstr "Atkritumu tvertne pilna"
 
 #. Translators: Optical photo conductors are used in laser printers
-#: ../panels/printers/cc-printers-panel.c:619
+#: ../panels/printers/cc-printers-panel.c:622
 msgid "The optical photo conductor is near end of life"
 msgstr "Optiskais gaismas vadītājs drīz būs jāmaina"
 
 #. Translators: Optical photo conductors are used in laser printers
-#: ../panels/printers/cc-printers-panel.c:621
+#: ../panels/printers/cc-printers-panel.c:624
 msgid "The optical photo conductor is no longer functioning"
 msgstr "Optiskais gaismas vadītājs vairs nefunkcionē"
 
 #. Translators: Printer's state (printer is being configured right now)
-#: ../panels/printers/cc-printers-panel.c:724
+#: ../panels/printers/cc-printers-panel.c:727
 #| msgid "_Configuration URL"
 msgctxt "printer state"
 msgid "Configuring"
 msgstr "Konfigurē"
 
 #. Translators: Printer's state (can start new job without waiting)
-#: ../panels/printers/cc-printers-panel.c:781
+#: ../panels/printers/cc-printers-panel.c:784
 msgctxt "printer state"
 msgid "Ready"
 msgstr "Gatavs"
 
 #. Translators: Printer's state (jobs are processing)
-#: ../panels/printers/cc-printers-panel.c:785
+#: ../panels/printers/cc-printers-panel.c:788
 msgctxt "printer state"
 msgid "Processing"
 msgstr "Apstrādā"
 
 #. Translators: Printer's state (no jobs can be processed)
-#: ../panels/printers/cc-printers-panel.c:789
+#: ../panels/printers/cc-printers-panel.c:792
 msgctxt "printer state"
 msgid "Stopped"
 msgstr "Apturēts"
 
 #. Translators: Toner supply
-#: ../panels/printers/cc-printers-panel.c:906
+#: ../panels/printers/cc-printers-panel.c:909
 msgid "Toner Level"
 msgstr "Tonera līmenis"
 
 #. Translators: Ink supply
-#: ../panels/printers/cc-printers-panel.c:909
+#: ../panels/printers/cc-printers-panel.c:912
 msgid "Ink Level"
 msgstr "Tintes līmenis"
 
 #. Translators: By supply we mean ink, toner, staples, water, ...
-#: ../panels/printers/cc-printers-panel.c:912
+#: ../panels/printers/cc-printers-panel.c:915
 msgid "Supply Level"
 msgstr "Krājumu līmenis"
 
 #. Translators: Printer's state (printer is being installed right now)
-#: ../panels/printers/cc-printers-panel.c:930
+#: ../panels/printers/cc-printers-panel.c:933
 #| msgid "Install languages..."
 msgctxt "printer state"
 msgid "Installing"
 msgstr "Instalē"
 
 #. Translators: There are no printers available (none is configured or CUPS is not running)
-#: ../panels/printers/cc-printers-panel.c:1107
+#: ../panels/printers/cc-printers-panel.c:1110
+#| msgid "Updates Available"
 msgid "No printers available"
 msgstr "Nav pieejamu printeru"
 
 #. Translators: there is n active print jobs on this printer
-#: ../panels/printers/cc-printers-panel.c:1411
+#: ../panels/printers/cc-printers-panel.c:1414
 #, c-format
 msgid "%u active"
 msgid_plural "%u active"
@@ -2878,49 +3027,49 @@ msgstr[1] "%u aktīvi"
 msgstr[2] "%u aktīvi"
 
 #. Translators: Addition of the new printer failed.
-#: ../panels/printers/cc-printers-panel.c:1731
+#: ../panels/printers/cc-printers-panel.c:1734
 msgid "Failed to add new printer."
 msgstr "Neizdevās pievienot jaunu printeri."
 
-#: ../panels/printers/cc-printers-panel.c:1896
+#: ../panels/printers/cc-printers-panel.c:1899
 #| msgid "Select ICC Profile File"
 msgid "Select PPD File"
 msgstr "Izvēlieties PPD datni"
 
-#: ../panels/printers/cc-printers-panel.c:1905
+#: ../panels/printers/cc-printers-panel.c:1908
 msgid ""
-"PostScript Printer Description files (*.ppd, *.PPD, *.ppd.gz, *.PPD.gz, *."
-"PPD.GZ)"
+"PostScript Printer Description files (*.ppd, *.PPD, *.ppd.gz, *.PPD.gz, "
+"*.PPD.GZ)"
 msgstr ""
-"PostScript Printer Description datnes (*.ppd, *.PPD, *.ppd.gz, *.PPD.gz, *."
-"PPD.GZ)"
+"PostScript Printer Description datnes (*.ppd, *.PPD, *.ppd.gz, *.PPD.gz, "
+"*.PPD.GZ)"
 
-#: ../panels/printers/cc-printers-panel.c:2210
+#: ../panels/printers/cc-printers-panel.c:2213
 #| msgid "No local printers found"
 msgid "No suitable driver found"
 msgstr "Nav atrasts piemērots draiveris"
 
-#: ../panels/printers/cc-printers-panel.c:2279
+#: ../panels/printers/cc-printers-panel.c:2282
 msgid "Searching for preferred drivers..."
 msgstr "Meklē ieteicamos draiverus..."
 
-#: ../panels/printers/cc-printers-panel.c:2294
+#: ../panels/printers/cc-printers-panel.c:2297
 msgid "Select from database..."
 msgstr "Izvēlēties no datubāzes..."
 
-#: ../panels/printers/cc-printers-panel.c:2303
+#: ../panels/printers/cc-printers-panel.c:2306
 #| msgid "Browse Files..."
 msgid "Provide PPD File..."
 msgstr "Dot PPD datni..."
 
 #. Translators: Name of job which makes printer to print test page
-#: ../panels/printers/cc-printers-panel.c:2454
-#: ../panels/printers/cc-printers-panel.c:2477
+#: ../panels/printers/cc-printers-panel.c:2457
+#: ../panels/printers/cc-printers-panel.c:2480
 msgid "Test page"
 msgstr "Testa lapa"
 
 #. Translators: The XML file containing user interface can not be loaded
-#: ../panels/printers/cc-printers-panel.c:2880
+#: ../panels/printers/cc-printers-panel.c:2883
 #, c-format
 msgid "Could not load ui: %s"
 msgstr "Nevar ielādēt saskarni: %s"
@@ -2956,10 +3105,12 @@ msgid "Active Jobs"
 msgstr "Aktīvie darbi"
 
 #: ../panels/printers/jobs-dialog.ui.h:5
+#| msgid "Printing..."
 msgid "Resume Printing"
 msgstr "Turpināt drukāšanu"
 
 #: ../panels/printers/jobs-dialog.ui.h:6
+#| msgid "Mouse Orientation"
 msgid "Pause Printing"
 msgstr "Pauzēt drukāšanu"
 
@@ -2968,7 +3119,8 @@ msgid "Cancel Print Job"
 msgstr "Atcelt drukāšanas darbu"
 
 #: ../panels/printers/new-printer-dialog.ui.h:2
-#: ../panels/user-accounts/um-account-dialog.c:1044
+#: ../panels/user-accounts/um-account-dialog.c:1070
+#| msgid "Add"
 msgid "_Add"
 msgstr "_Pievienot"
 
@@ -2982,6 +3134,7 @@ msgid "Search for network printers or filter result"
 msgstr "Meklēt tīkla printerus vai filtrēt rezultātus"
 
 #: ../panels/printers/options-dialog.ui.h:2
+#: ../panels/region/gnome-region-panel.ui.h:31
 #| msgid "_Options"
 msgid "Options"
 msgstr "Opcijas"
@@ -2993,7 +3146,7 @@ msgstr "Ielādē opcijas..."
 
 #: ../panels/printers/ppd-selection-dialog.ui.h:2
 #: ../panels/user-accounts/data/photo-dialog.ui.h:8
-#: ../panels/user-accounts/um-account-dialog.c:1043
+#: ../panels/user-accounts/um-account-dialog.c:1069
 msgid "Cancel"
 msgstr "Atcelt"
 
@@ -3269,10 +3422,12 @@ msgid "Drivers"
 msgstr "Draiveri"
 
 #: ../panels/printers/printers.ui.h:1
+#| msgid "Add New Printer"
 msgid "Add Printer"
 msgstr "Pievienot printeri"
 
 #: ../panels/printers/printers.ui.h:2
+#| msgid "Remove profile"
 msgid "Remove Printer"
 msgstr "Izņemt printeri"
 
@@ -3288,6 +3443,7 @@ msgstr "Atrašanās vieta"
 
 #. Translators: This checkbox is checked when the default printer is selected.
 #: ../panels/printers/printers.ui.h:8
+#| msgid "Default"
 msgid "_Default"
 msgstr "_Noklusētais"
 
@@ -3297,6 +3453,7 @@ msgstr "Darbi"
 
 #. Tanslators: Opens a dialog containing printer's jobs
 #: ../panels/printers/printers.ui.h:11
+#| msgid "Show"
 msgid "_Show"
 msgstr "_Rādīt"
 
@@ -3304,17 +3461,9 @@ msgstr "_Rādīt"
 msgid "Model"
 msgstr "Modelis"
 
-#: ../panels/printers/printers.ui.h:14
-msgid "page 1"
-msgstr "1. lappuse"
-
 #: ../panels/printers/printers.ui.h:15
 msgid "label"
 msgstr "etiķete"
-
-#: ../panels/printers/printers.ui.h:16
-msgid "page 2"
-msgstr "2. lappuse"
 
 #: ../panels/printers/printers.ui.h:17
 #| msgid "Getting devices..."
@@ -3327,16 +3476,19 @@ msgstr "3. lappuse"
 
 #. Translators: This button executes command which prints test page.
 #: ../panels/printers/printers.ui.h:20
+#| msgid "Print Test Page"
 msgid "Print _Test Page"
 msgstr "Izdrukāt _testa lapu"
 
 #. Translators: This button opens printer's options tab
 #: ../panels/printers/printers.ui.h:22
+#| msgid "Options"
 msgid "_Options"
 msgstr "_Opcijas"
 
 #. Translators: This button adds new printer.
 #: ../panels/printers/printers.ui.h:24
+#| msgid "Add a New Printer"
 msgid "Add New Printer"
 msgstr "Pievienot jaunu printeri"
 
@@ -3363,11 +3515,11 @@ msgstr "Mainīt reģiona un valodas iestatījums"
 msgid "Language;Layout;Keyboard;"
 msgstr "Valoda;Izkārtojums;Tastatūra;Language;Layout;Keyboard;"
 
-#: ../panels/region/gnome-region-panel-formats.c:142
+#: ../panels/region/gnome-region-panel-formats.c:143
 msgid "Imperial"
 msgstr "Imperiālās"
 
-#: ../panels/region/gnome-region-panel-formats.c:144
+#: ../panels/region/gnome-region-panel-formats.c:145
 msgid "Metric"
 msgstr "Metriskās"
 
@@ -3380,7 +3532,7 @@ msgstr "Izvēlieties ievades avotu"
 msgid "Select an input source to add"
 msgstr "Izvēlieties ievades avotu, ko pievienot"
 
-#: ../panels/region/gnome-region-panel-system.c:470
+#: ../panels/region/gnome-region-panel-system.c:512
 msgid ""
 "The login screen, system accounts and new user accounts use the system-wide "
 "Region and Language settings."
@@ -3388,8 +3540,8 @@ msgstr ""
 "Pieteikšanās ekrāns, sistēmas konti un jauni lietotāja konti izmanto "
 "sistēmas vietas un valodas iestatījumus."
 
-#: ../panels/region/gnome-region-panel-system.c:475
-#: ../panels/region/gnome-region-panel.ui.h:31
+#: ../panels/region/gnome-region-panel-system.c:517
+#: ../panels/region/gnome-region-panel.ui.h:33
 msgid ""
 "The login screen, system accounts and new user accounts use the system-wide "
 "Region and Language settings. You may change the system settings to match "
@@ -3399,12 +3551,13 @@ msgstr ""
 "sistēmas vietas un valodas iestatījumus. Jūs varat pielāgot sistēmas "
 "iestatījumus savējiem."
 
-#: ../panels/region/gnome-region-panel-system.c:478
+#: ../panels/region/gnome-region-panel-system.c:520
 msgid "Copy Settings"
 msgstr "Kopēt iestatījums"
 
-#: ../panels/region/gnome-region-panel-system.c:481
-#: ../panels/region/gnome-region-panel.ui.h:38
+#: ../panels/region/gnome-region-panel-system.c:523
+#: ../panels/region/gnome-region-panel.ui.h:40
+#| msgid "Mouse Settings"
 msgid "Copy Settings..."
 msgstr "Kopēt iestatījumus..."
 
@@ -3413,139 +3566,156 @@ msgid "Region and Language"
 msgstr "Vieta un valoda"
 
 #: ../panels/region/gnome-region-panel.ui.h:2
-msgid "Select a display language (change will be applied next time you log in)"
+msgid ""
+"Select a display language (change will be applied next time you log in)"
 msgstr ""
 "Izvēlieties attēlošanas valodu (tiks pielietots nākamajā ierakstīšanās reizē)"
 
 #: ../panels/region/gnome-region-panel.ui.h:3
+#| msgid "Language"
 msgid "Add Language"
 msgstr "Pievienot valodu"
 
 #: ../panels/region/gnome-region-panel.ui.h:4
-msgid "Remove Language"
-msgstr "Izņemt valodu"
-
-#: ../panels/region/gnome-region-panel.ui.h:5
 msgid "Install languages..."
 msgstr "Instalēt valodas..."
 
-#: ../panels/region/gnome-region-panel.ui.h:6
+#: ../panels/region/gnome-region-panel.ui.h:5
 msgid "Language"
 msgstr "Valoda"
 
-#: ../panels/region/gnome-region-panel.ui.h:7
+#: ../panels/region/gnome-region-panel.ui.h:6
 msgid "Select a region (change will be applied the next time you log in)"
 msgstr "Izvēlieties reģionu (tiks pielietots nākamajā ierakstīšanās reizē)"
 
-#: ../panels/region/gnome-region-panel.ui.h:8
+#: ../panels/region/gnome-region-panel.ui.h:7
+#| msgid "Region:"
 msgid "Add Region"
 msgstr "Pievienot reģionu"
 
-#: ../panels/region/gnome-region-panel.ui.h:9
+#: ../panels/region/gnome-region-panel.ui.h:8
+#| msgid "Removable Media"
 msgid "Remove Region"
 msgstr "Izņemt reģionu"
 
-#: ../panels/region/gnome-region-panel.ui.h:10
+#: ../panels/region/gnome-region-panel.ui.h:9
 msgid "Dates"
 msgstr "Datumi"
 
-#: ../panels/region/gnome-region-panel.ui.h:11
+#: ../panels/region/gnome-region-panel.ui.h:10
+#| msgid "Time"
 msgid "Times"
 msgstr "Laiks"
 
-#: ../panels/region/gnome-region-panel.ui.h:12
+#: ../panels/region/gnome-region-panel.ui.h:11
+#| msgid "November"
 msgid "Numbers"
 msgstr "Skaitļi"
 
-#: ../panels/region/gnome-region-panel.ui.h:13
+#: ../panels/region/gnome-region-panel.ui.h:12
 msgid "Currency"
 msgstr "Valūta"
 
-#: ../panels/region/gnome-region-panel.ui.h:14
+#: ../panels/region/gnome-region-panel.ui.h:13
 msgid "Measurement"
 msgstr "Mērvienības"
 
-#: ../panels/region/gnome-region-panel.ui.h:15
+#: ../panels/region/gnome-region-panel.ui.h:14
 msgid "Examples"
 msgstr "Piemēri"
 
-#: ../panels/region/gnome-region-panel.ui.h:16
+#: ../panels/region/gnome-region-panel.ui.h:15
+#| msgid "Normal"
 msgid "Formats"
 msgstr "Formāti"
 
-#: ../panels/region/gnome-region-panel.ui.h:17
+#: ../panels/region/gnome-region-panel.ui.h:16
 #| msgid "Select an input source to add"
 msgid "Select keyboards or other input sources"
 msgstr "Izvēlieties tastatūras vai citus ievades avotus"
 
-#: ../panels/region/gnome-region-panel.ui.h:18
+#: ../panels/region/gnome-region-panel.ui.h:17
 #| msgid "Input source:"
 msgid "Add Input Source"
 msgstr "Pievienot ievades avotu"
 
-#: ../panels/region/gnome-region-panel.ui.h:19
+#: ../panels/region/gnome-region-panel.ui.h:18
 #| msgid "Input source:"
 msgid "Remove Input Source"
 msgstr "Izņemt ievades avotu"
 
-#: ../panels/region/gnome-region-panel.ui.h:20
+#: ../panels/region/gnome-region-panel.ui.h:19
 #| msgid "Input source:"
 msgid "Move Input Source Up"
 msgstr "Pārvietot ievades avotu augšup"
 
-#: ../panels/region/gnome-region-panel.ui.h:21
+#: ../panels/region/gnome-region-panel.ui.h:20
 #| msgid "Input source:"
 msgid "Move Input Source Down"
 msgstr "Pārvietot ievades avotu lejup"
 
-#: ../panels/region/gnome-region-panel.ui.h:22
+#: ../panels/region/gnome-region-panel.ui.h:21
 #| msgid "Mouse Settings"
 msgid "Input Source Settings"
 msgstr "Ievades avotu iestatījumi"
 
-#: ../panels/region/gnome-region-panel.ui.h:23
+#: ../panels/region/gnome-region-panel.ui.h:22
 #| msgid "Keyboard Layout Options"
 msgid "Show Keyboard Layout"
 msgstr "Rādīt tastatūras izkārtojumu"
 
-#: ../panels/region/gnome-region-panel.ui.h:25
+#: ../panels/region/gnome-region-panel.ui.h:24
 msgid "Ctrl+Alt+Space"
 msgstr "Ctrl+Alt+Space"
 
-#: ../panels/region/gnome-region-panel.ui.h:27
+#: ../panels/region/gnome-region-panel.ui.h:26
 msgid "Ctrl+Alt+Shift+Space"
 msgstr "Ctrl+Alt+Shift+Space"
 
-#: ../panels/region/gnome-region-panel.ui.h:28
+#: ../panels/region/gnome-region-panel.ui.h:27
 #| msgid "Sound Settings"
 msgid "Shortcut Settings"
 msgstr "Saīsņu iestatījumi"
 
+#: ../panels/region/gnome-region-panel.ui.h:29
+msgid "Use the same source for all windows"
+msgstr "Izmantot to pašu avotu visiem logiem"
+
 #: ../panels/region/gnome-region-panel.ui.h:30
+msgid "Allow different sources for each window"
+msgstr "Katram logam atļaut dažādus avotus"
+
+#: ../panels/region/gnome-region-panel.ui.h:32
 #| msgid "Input source:"
 msgid "Input Sources"
 msgstr "Ievades avoti"
 
 #. 'display' means 'output' here, as in 'translated messages that are displayed to the user'
-#: ../panels/region/gnome-region-panel.ui.h:33
+#: ../panels/region/gnome-region-panel.ui.h:35
 msgid "Display language:"
 msgstr "Attēlošanas valoda:"
 
-#: ../panels/region/gnome-region-panel.ui.h:34
+#: ../panels/region/gnome-region-panel.ui.h:36
+#| msgid "_Input volume: "
 msgid "Input source:"
 msgstr "Ievades avots:"
 
-#: ../panels/region/gnome-region-panel.ui.h:35
+#: ../panels/region/gnome-region-panel.ui.h:37
+#| msgid "Contrast:"
 msgid "Format:"
 msgstr "Formāts:"
 
-#: ../panels/region/gnome-region-panel.ui.h:36
+#: ../panels/region/gnome-region-panel.ui.h:38
 msgid "Your settings"
 msgstr "Jūsu iestatījumi"
 
-#: ../panels/region/gnome-region-panel.ui.h:37
+#: ../panels/region/gnome-region-panel.ui.h:39
 msgid "System settings"
 msgstr "Sistēmas iestatījumi"
+
+#: ../panels/region/gtkentryaccel.c:180
+msgid "New accelerator…"
+msgstr "Jauns paātrinātājs…"
 
 #: ../panels/screen/gnome-screen-panel.desktop.in.in.h:1
 #| msgid "Brightness and Lock"
@@ -3582,36 +3752,41 @@ msgstr "2 minūtes"
 msgid "3 minutes"
 msgstr "3 minūtes"
 
-#: ../panels/screen/screen.ui.h:10
+#: ../panels/screen/screen.ui.h:11
+#| msgid "Dim screen to save power"
 msgid "_Dim screen to save power"
 msgstr "Pa_darīt ekrānu tumšāku, lai taupītu enerģiju"
 
-#: ../panels/screen/screen.ui.h:11
+#: ../panels/screen/screen.ui.h:12
 msgid "Brightness"
 msgstr "Spilgtums"
 
-#: ../panels/screen/screen.ui.h:12
+#: ../panels/screen/screen.ui.h:13
 msgid "_Turn screen off when inactive for:"
 msgstr "Izslēg_t ekrānu, kad nav aktīvs:"
 
-#: ../panels/screen/screen.ui.h:13
+#: ../panels/screen/screen.ui.h:14
 msgid "_Lock screen after:"
 msgstr "S_lēgt ekrānu, kad pagājušas:"
 
-#. To translators: This asks whether you want to lock the screen (through the screensaver) when you're detected to be physically in your home (your house, etc.)
 #: ../panels/screen/screen.ui.h:15
+msgid "Require my password when waking from suspend"
+msgstr "Pieprasīt paroli, kad pamostas no iesnaudināšanas"
+
+#. To translators: This asks whether you want to lock the screen (through the screensaver) when you're detected to be physically in your home (your house, etc.)
+#: ../panels/screen/screen.ui.h:17
 msgid "Don't lock when at home"
 msgstr "Nenoslēgt, esot mājās"
 
-#: ../panels/screen/screen.ui.h:16
+#: ../panels/screen/screen.ui.h:18
 msgid "Locations..."
 msgstr "Atrašanās vietas..."
 
-#: ../panels/screen/screen.ui.h:17
+#: ../panels/screen/screen.ui.h:19
 msgid "Show _notifications when locked"
 msgstr "Rādīt _paziņojumus, kad slēgts ekrāns"
 
-#: ../panels/screen/screen.ui.h:18
+#: ../panels/screen/screen.ui.h:20
 msgid "Lock"
 msgstr "Slēgt"
 
@@ -3636,10 +3811,12 @@ msgid "Show desktop volume control"
 msgstr "Rādīt darbvirsmas skaļuma kontroli"
 
 #: ../panels/sound/data/gnome-sound-panel.desktop.in.in.h:1
+#: ../panels/sound-nua/data/gnome-sound-nua-panel.desktop.in.in.h:1
 msgid "Sound"
 msgstr "Skaņa"
 
 #: ../panels/sound/data/gnome-sound-panel.desktop.in.in.h:2
+#: ../panels/sound-nua/data/gnome-sound-nua-panel.desktop.in.in.h:2
 msgid "Change sound volume and sound events"
 msgstr "Mainīt skaļumu un skaņas dažādiem notikumiem"
 
@@ -3676,6 +3853,7 @@ msgid "Sonar"
 msgstr "Sonārs"
 
 #: ../panels/sound/gvc-applet.c:270 ../panels/sound/gvc-mixer-dialog.c:1656
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1770
 msgid "Output"
 msgstr "Izvade"
 
@@ -3684,6 +3862,7 @@ msgid "Sound Output Volume"
 msgstr "Skaņas izvades skaļums"
 
 #: ../panels/sound/gvc-applet.c:276 ../panels/sound/gvc-mixer-dialog.c:1697
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1903
 msgid "Input"
 msgstr "Ievade"
 
@@ -3692,44 +3871,53 @@ msgid "Microphone Volume"
 msgstr "Mikrofona skaļums"
 
 #: ../panels/sound/gvc-balance-bar.c:111
+#: ../panels/sound-nua/gvc-balance-bar.c:111
 msgctxt "balance"
 msgid "Left"
 msgstr "Kreisā"
 
 #: ../panels/sound/gvc-balance-bar.c:112
+#: ../panels/sound-nua/gvc-balance-bar.c:112
 msgctxt "balance"
 msgid "Right"
 msgstr "Labā"
 
 #: ../panels/sound/gvc-balance-bar.c:115
+#: ../panels/sound-nua/gvc-balance-bar.c:115
 msgctxt "balance"
 msgid "Rear"
 msgstr "Aizmugure"
 
 #: ../panels/sound/gvc-balance-bar.c:116
+#: ../panels/sound-nua/gvc-balance-bar.c:116
 msgctxt "balance"
 msgid "Front"
 msgstr "Priekšpuse"
 
 #: ../panels/sound/gvc-balance-bar.c:119
+#: ../panels/sound-nua/gvc-balance-bar.c:119
 msgctxt "balance"
 msgid "Minimum"
 msgstr "Minimums"
 
 #: ../panels/sound/gvc-balance-bar.c:120
+#: ../panels/sound-nua/gvc-balance-bar.c:120
 msgctxt "balance"
 msgid "Maximum"
 msgstr "Maksimums"
 
 #: ../panels/sound/gvc-balance-bar.c:295
+#: ../panels/sound-nua/gvc-balance-bar.c:295
 msgid "_Balance:"
 msgstr "_Līdzsvars:"
 
 #: ../panels/sound/gvc-balance-bar.c:298
+#: ../panels/sound-nua/gvc-balance-bar.c:298
 msgid "_Fade:"
 msgstr "_Pakāpeniski klusināt:"
 
 #: ../panels/sound/gvc-balance-bar.c:301
+#: ../panels/sound-nua/gvc-balance-bar.c:301
 msgid "_Subwoofer:"
 msgstr "_Zemfrekvences reproduktors:"
 
@@ -3773,24 +3961,29 @@ msgid "System Sounds"
 msgstr "Sistēmas skaņas"
 
 #: ../panels/sound/gvc-mixer-dialog.c:262
+#| msgid "Test Speakers"
 msgid "_Test Speakers"
 msgstr "Pārbaudī_t skaļruņus"
 
 #: ../panels/sound/gvc-mixer-dialog.c:426
+#: ../panels/sound-nua/gvc-mixer-dialog.c:343
 msgid "Peak detect"
 msgstr "Pīķu noteikšana"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1506
 #: ../panels/sound/gvc-sound-theme-chooser.c:595
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1600
 msgid "Name"
 msgstr "Nosaukums"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1588
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1702
 #, c-format
 msgid "Speaker Testing for %s"
 msgstr "%s skaļruņa pārbaude"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1642
+#: ../panels/sound-nua/gvc-mixer-dialog.c:2043
 msgid "_Output volume:"
 msgstr "_Izvades skaļums:"
 
@@ -3803,10 +3996,12 @@ msgid "Settings for the selected device:"
 msgstr "Izvēlētās ierīces iestatījumi:"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1704
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1950
 msgid "_Input volume:"
-msgstr "_Ievades skaļums: "
+msgstr "_Ievades skaļums:"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1727
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1983
 msgid "Input level:"
 msgstr "Ievades līmenis:"
 
@@ -3815,18 +4010,23 @@ msgid "C_hoose a device for sound input:"
 msgstr "Iz_vēlieties ierīci skaņas ievadei:"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1782
+#: ../panels/sound-nua/gvc-mixer-dialog.c:2004
 msgid "Sound Effects"
 msgstr "Skaņas efekti"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1789
+#: ../panels/sound-nua/gvc-mixer-dialog.c:2011
+#| msgid "_Alert volume: "
 msgid "_Alert volume:"
 msgstr "Tr_auksmes skaļums:"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1802
+#: ../panels/sound-nua/gvc-mixer-dialog.c:2024
 msgid "Applications"
 msgstr "Lietotnes"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1806
+#: ../panels/sound-nua/gvc-mixer-dialog.c:2028
 msgid "No application is currently playing or recording audio."
 msgstr "Neviena lietotne šobrīd neatskaņo un neieraksta audio."
 
@@ -3892,8 +4092,45 @@ msgstr "Apklusināts"
 msgid "Custom"
 msgstr "Pielāgots"
 
-#: ../panels/universal-access/cc-ua-panel.c:286
-#: ../panels/universal-access/cc-ua-panel.c:292
+#. Translators: those are keywords for the sound control-center panel
+#: ../panels/sound-nua/data/gnome-sound-nua-panel.desktop.in.in.h:4
+msgid "Card;Microphone;Volume;Fade;Balance;Bluetooth;Headset;"
+msgstr "Karte;Mikrofons;Skaļums;Izgaist;Balanss;Bluetooth;Austiņas;"
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:776
+#: ../panels/sound-nua/gvc-mixer-dialog.c:946
+#, c-format
+msgid "Settings for %s"
+msgstr "%s iestatījumi"
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:802
+#: ../panels/sound-nua/gvc-mixer-dialog.c:955
+msgid "Mode:"
+msgstr "Režīms:"
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1775
+msgid "Play sound through"
+msgstr "Atskaņot skaņu caur"
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1800
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1932
+msgid "Settings for the selected device"
+msgstr "Izvēlētās ierīces iestatījumi"
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1873
+msgid "Test:"
+msgstr "Tests:"
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1880
+msgid "Test Sound"
+msgstr "Izmēģinajuma skaņa"
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1907
+msgid "Record sound from"
+msgstr "Ierakstīt skaņu no"
+
+#: ../panels/universal-access/cc-ua-panel.c:289
+#: ../panels/universal-access/cc-ua-panel.c:295
 msgid "No shortcut set"
 msgstr "Nav iestatīta saīsne"
 
@@ -3904,15 +4141,14 @@ msgstr "Universālās pieejas iestatījumi"
 #. Translators: those are keywords for the universal access control-center panel
 #: ../panels/universal-access/gnome-universal-access-panel.desktop.in.in.h:4
 msgid ""
-"Keyboard;Mouse;a11y;Accessibility;Contrast;Zoom;Screen Reader;text;font;size;"
-"AccessX;Sticky Keys;Slow Keys;Bounce Keys;Mouse Keys;"
+"Keyboard;Mouse;a11y;Accessibility;Contrast;Zoom;Screen "
+"Reader;text;font;size;AccessX;Sticky Keys;Slow Keys;Bounce Keys;Mouse Keys;"
 msgstr ""
-"Tastatūra;Pele;a11y;Pieejamība;Kontrasts;Mērogs;Tuvināt;Ekrāna lasītājs;"
-"teksts; fonts;izmērs;AccessX;Lipīgie taustiņi;Lēnie taustiņi;Atlecošie "
-"taustiņi;Peles "
+"Tastatūra;Pele;a11y;Pieejamība;Kontrasts;Mērogs;Tuvināt;Ekrāna "
+"lasītājs;teksts; fonts;izmērs;AccessX;Lipīgie taustiņi;Lēnie "
+"taustiņi;Atlecošie taustiņi;Peles "
 "taustiņi;Keyboard;Mouse;a11y;Accessibility;Contrast;Zoom;Screen "
-"Reader;text;font;size;"
-"AccessX;Sticky Keys;Slow Keys;Bounce Keys;Mouse Keys;"
+"Reader;text;font;size;AccessX;Sticky Keys;Slow Keys;Bounce Keys;Mouse Keys;"
 
 #: ../panels/universal-access/uap.ui.h:1
 msgctxt "universal access, contrast"
@@ -3956,6 +4192,7 @@ msgid "75%"
 msgstr "75%"
 
 #: ../panels/universal-access/uap.ui.h:11
+#| msgid "Small"
 msgctxt "universal access, text size"
 msgid "Small"
 msgstr "Mazs"
@@ -3966,6 +4203,7 @@ msgid "100%"
 msgstr "100%"
 
 #: ../panels/universal-access/uap.ui.h:14
+#| msgid "Normal"
 msgctxt "universal access, text size"
 msgid "Normal"
 msgstr "Normāls"
@@ -3976,6 +4214,7 @@ msgid "125%"
 msgstr "125%"
 
 #: ../panels/universal-access/uap.ui.h:17
+#| msgid "Large"
 msgctxt "universal access, text size"
 msgid "Large"
 msgstr "Liels"
@@ -3986,6 +4225,7 @@ msgid "150%"
 msgstr "150%"
 
 #: ../panels/universal-access/uap.ui.h:20
+#| msgid "Larger"
 msgctxt "universal access, text size"
 msgid "Larger"
 msgstr "Lielāks"
@@ -4060,6 +4300,7 @@ msgid "Display a textual description of speech and sounds"
 msgstr "Rādīt rakstisku aprakstu runai un skaņām"
 
 #: ../panels/universal-access/uap.ui.h:37
+#| msgid "Test flash"
 msgid "_Test flash"
 msgstr "_Testēt zibsni"
 
@@ -4073,6 +4314,7 @@ msgid "On Screen Keyboard"
 msgstr "Ekrāna tastatūra"
 
 #: ../panels/universal-access/uap.ui.h:41
+#| msgid "<b>Sticky Keys</b>"
 msgid "Sticky Keys"
 msgstr "Lipīgie taustiņi"
 
@@ -4081,6 +4323,7 @@ msgid "Treats a sequence of modifier keys as a key combination"
 msgstr "Taustiņu secīga piespiešana strādā kā taustiņu kombinācija"
 
 #: ../panels/universal-access/uap.ui.h:43
+#| msgid "Disable if two keys are pressed together"
 msgid "_Disable if two keys are pressed together"
 msgstr "_Deaktivēt, ja divi taustiņi nospiesti reizē"
 
@@ -4089,12 +4332,14 @@ msgid "Beep when a _modifer key is pressed"
 msgstr "Pīkstēt, kad nospiests _modifikatora taustiņš"
 
 #: ../panels/universal-access/uap.ui.h:45
+#| msgid "<b>Slow Keys</b>"
 msgid "Slow Keys"
 msgstr "Lēnie taustiņi"
 
 #: ../panels/universal-access/uap.ui.h:46
 msgid "Puts a delay between when a key is pressed and when it is accepted"
-msgstr "Taustiņi jāpiespiež mazliet ilgāk (dators ignorē netīšus pieskārienus)"
+msgstr ""
+"Taustiņi jāpiespiež mazliet ilgāk (dators ignorē netīšus pieskārienus)"
 
 #: ../panels/universal-access/uap.ui.h:47
 msgid "A_cceptance delay:"
@@ -4125,6 +4370,7 @@ msgid "rejected"
 msgstr "noraidīts"
 
 #: ../panels/universal-access/uap.ui.h:61
+#| msgid "Mouse Keys"
 msgid "Bounce Keys"
 msgstr "Atlecošie taustiņi"
 
@@ -4141,6 +4387,7 @@ msgid "Bounce keys typing delay"
 msgstr "Atlecošo taustiņu rakstīšanas aizture"
 
 #: ../panels/universal-access/uap.ui.h:65
+#| msgid "Beep when a key is rejected"
 msgid "Beep when a key is _rejected"
 msgstr "Pīkstēt, kad taustiņš tiek no_raidīts"
 
@@ -4171,6 +4418,7 @@ msgid "Control the pointer using the video camera."
 msgstr "Vadīt rādītāju, izmantojot videokameru."
 
 #: ../panels/universal-access/uap.ui.h:73
+#| msgid "<b>Simulated Secondary Click</b>"
 msgid "Simulated Secondary Click"
 msgstr "Simulēt sekundāro klikšķi"
 
@@ -4179,6 +4427,7 @@ msgid "Trigger a secondary click by holding down the primary button"
 msgstr "Izraisīt sekundāro klikšķi, turot nospiesto primāro taustiņu"
 
 #: ../panels/universal-access/uap.ui.h:75
+#| msgid "Simulated Secondary Click"
 msgid "Secondary click delay"
 msgstr "Sekundārā klikšķa aizture"
 
@@ -4191,10 +4440,12 @@ msgid "Trigger a click when the pointer hovers"
 msgstr "Radīt klikšķi, kad rādītājs uzkavējas kādā vietā"
 
 #: ../panels/universal-access/uap.ui.h:78
+#| msgid "Del_ay:"
 msgid "D_elay:"
 msgstr "Aiztur_e:"
 
 #: ../panels/universal-access/uap.ui.h:79
+#| msgid "_Motion threshold:"
 msgid "Motion _threshold:"
 msgstr "Kus_tības slieksnis:"
 
@@ -4209,6 +4460,7 @@ msgid "Large"
 msgstr "Liels"
 
 #: ../panels/universal-access/uap.ui.h:84
+#| msgid "_Mouse Settings"
 msgid "Mouse Settings"
 msgstr "Peles iestatījumi"
 
@@ -4247,6 +4499,7 @@ msgid "Long"
 msgstr "Garš"
 
 #: ../panels/universal-access/zoom-options.ui.h:1
+#| msgid "Screen"
 msgid "Full Screen"
 msgstr "Pa visu ekrānu"
 
@@ -4259,14 +4512,17 @@ msgid "Bottom Half"
 msgstr "Apakšējā puse"
 
 #: ../panels/universal-access/zoom-options.ui.h:4
+#| msgid "Left"
 msgid "Left Half"
 msgstr "Kreisā puse"
 
 #: ../panels/universal-access/zoom-options.ui.h:5
+#| msgid "Right"
 msgid "Right Half"
 msgstr "Labā puse"
 
 #: ../panels/universal-access/zoom-options.ui.h:6
+#| msgid "Login Options"
 msgid "Zoom Options"
 msgstr "Tuvināšanas opcijas"
 
@@ -4279,10 +4535,12 @@ msgid "Magnification:"
 msgstr "Palielinājums:"
 
 #: ../panels/universal-access/zoom-options.ui.h:9
+#| msgid "Allowed users"
 msgid "Follow mouse cursor"
 msgstr "Sekot peles kursoram"
 
 #: ../panels/universal-access/zoom-options.ui.h:10
+#| msgid "Screen Reader"
 msgid "Screen part:"
 msgstr "Ekrāna daļa:"
 
@@ -4303,6 +4561,7 @@ msgid "Magnifier cursor moves with contents"
 msgstr "Palielinātāja kursors pārvietojas līdz ar saturu"
 
 #: ../panels/universal-access/zoom-options.ui.h:15
+#| msgid "Magnifier zoom in"
 msgid "Magnifier Position:"
 msgstr "Palielinātāja novietojums:"
 
@@ -4317,6 +4576,7 @@ msgstr "Biezums:"
 
 #. short delay
 #: ../panels/universal-access/zoom-options.ui.h:19
+#| msgid "Typing"
 msgid "Thin"
 msgstr "Plāns"
 
@@ -4330,6 +4590,7 @@ msgid "Length:"
 msgstr "Garums:"
 
 #: ../panels/universal-access/zoom-options.ui.h:23
+#| msgid "Color"
 msgid "Color:"
 msgstr "Krāsa:"
 
@@ -4384,6 +4645,7 @@ msgstr "Zema"
 
 #. long delay
 #: ../panels/universal-access/zoom-options.ui.h:36
+#| msgid "Right"
 msgid "High"
 msgstr "Augsta"
 
@@ -4450,6 +4712,7 @@ msgstr "_Ierakstīšanās vārds"
 
 #: ../panels/user-accounts/data/account-dialog.ui.h:11
 #: ../panels/user-accounts/data/user-accounts-dialog.ui.h:8
+#| msgid "Password"
 msgid "_Password"
 msgstr "_Parole"
 
@@ -4494,18 +4757,22 @@ msgid "Left thumb"
 msgstr "Kreisais īkšķis"
 
 #: ../panels/user-accounts/data/account-fingerprint.ui.h:2
+#| msgid "Select finger"
 msgid "Left middle finger"
 msgstr "Kreisais vidējais pirksts"
 
 #: ../panels/user-accounts/data/account-fingerprint.ui.h:3
+#| msgid "Select finger"
 msgid "Left ring finger"
 msgstr "Kreisais zeltnesis"
 
 #: ../panels/user-accounts/data/account-fingerprint.ui.h:4
+#| msgid "Select finger"
 msgid "Left little finger"
 msgstr "Kreisais mazais pirkstiņš"
 
 #: ../panels/user-accounts/data/account-fingerprint.ui.h:5
+#| msgid "Right"
 msgid "Right thumb"
 msgstr "Labais īkšķis"
 
@@ -4527,16 +4794,18 @@ msgid "Enable Fingerprint Login"
 msgstr "Aktivēt ierakstīšanos ar pirkstu nospiedumu"
 
 #: ../panels/user-accounts/data/account-fingerprint.ui.h:10
+#| msgid "Right index finger"
 msgid "_Right index finger"
 msgstr "Labais _rādītājpirksts"
 
 #: ../panels/user-accounts/data/account-fingerprint.ui.h:11
+#| msgid "Left index finger"
 msgid "_Left index finger"
 msgstr "_Kreisais rādītājpirksts"
 
 #: ../panels/user-accounts/data/account-fingerprint.ui.h:12
 msgid "_Other finger:"
-msgstr "_Cits pirksts: "
+msgstr "_Cits pirksts:"
 
 #: ../panels/user-accounts/data/account-fingerprint.ui.h:13
 msgid ""
@@ -4669,10 +4938,12 @@ msgid "Account Information"
 msgstr "Konta informācija"
 
 #: ../panels/user-accounts/data/user-accounts-dialog.ui.h:4
+#| msgid "User Accounts"
 msgid "Add User Account"
 msgstr "Pievienot lietotāja kontu"
 
 #: ../panels/user-accounts/data/user-accounts-dialog.ui.h:5
+#| msgid "User Accounts"
 msgid "Remove User Account"
 msgstr "Izņemt lietotāja kontu"
 
@@ -4681,18 +4952,22 @@ msgid "Login Options"
 msgstr "Ierakstīšanās opcijas"
 
 #: ../panels/user-accounts/data/user-accounts-dialog.ui.h:9
+#| msgid "Automatic Login"
 msgid "A_utomatic Login"
 msgstr "A_utomātiskā ierakstīšanās"
 
 #: ../panels/user-accounts/data/user-accounts-dialog.ui.h:10
+#| msgid "Fingerprint Login"
 msgid "_Fingerprint Login"
 msgstr "_Ierakstīšanās ar pirkstu nospiedumu"
 
 #: ../panels/user-accounts/data/user-accounts-dialog.ui.h:11
+#| msgid "User Accounts"
 msgid "User Icon"
 msgstr "Lietotāja ikona"
 
 #: ../panels/user-accounts/data/user-accounts-dialog.ui.h:12
+#| msgid "Language"
 msgid "_Language"
 msgstr "Va_loda"
 
@@ -4707,7 +4982,7 @@ msgid "Authentication is required to change user data"
 msgstr "Lai mainītu lietotāju datus, nepieciešama autentifikācija"
 
 #: ../panels/user-accounts/pw-utils.c:94
-#: ../panels/user-accounts/um-password-dialog.c:569
+#: ../panels/user-accounts/um-password-dialog.c:607
 msgctxt "Password strength"
 msgid "Too short"
 msgstr "Pārāk īsa"
@@ -4718,25 +4993,25 @@ msgid "Not good enough"
 msgstr "Nepietiekami laba"
 
 #: ../panels/user-accounts/pw-utils.c:108
-#: ../panels/user-accounts/um-password-dialog.c:570
+#: ../panels/user-accounts/um-password-dialog.c:608
 msgctxt "Password strength"
 msgid "Weak"
 msgstr "Vāja"
 
 #: ../panels/user-accounts/pw-utils.c:111
-#: ../panels/user-accounts/um-password-dialog.c:571
+#: ../panels/user-accounts/um-password-dialog.c:609
 msgctxt "Password strength"
 msgid "Fair"
 msgstr "Pietiekama"
 
 #: ../panels/user-accounts/pw-utils.c:114
-#: ../panels/user-accounts/um-password-dialog.c:572
+#: ../panels/user-accounts/um-password-dialog.c:610
 msgctxt "Password strength"
 msgid "Good"
 msgstr "Laba"
 
 #: ../panels/user-accounts/pw-utils.c:117
-#: ../panels/user-accounts/um-password-dialog.c:573
+#: ../panels/user-accounts/um-password-dialog.c:611
 msgctxt "Password strength"
 msgid "Strong"
 msgstr "Spēcīga"
@@ -4746,7 +5021,7 @@ msgid "Authentication failed"
 msgstr "Autentifikācija neizdevās"
 
 #: ../panels/user-accounts/run-passwd.c:504
-#: ../panels/user-accounts/um-password-dialog.c:239
+#: ../panels/user-accounts/um-password-dialog.c:240
 #, c-format
 msgid "The new password is too short"
 msgstr "Jaunā parole ir pārāk īsa"
@@ -4763,6 +5038,7 @@ msgstr "Jaunā un vecā parole ir pārāk līdzīgas"
 
 #: ../panels/user-accounts/run-passwd.c:519
 #, c-format
+#| msgid "The two passwords are not equal."
 msgid "The new password has already been used recently."
 msgstr "Jaunā parole jau nesen tika izmantota."
 
@@ -4796,21 +5072,21 @@ msgstr "Nezināma kļūda"
 msgid "Failed to add account"
 msgstr "Neizdevās pievienot kontu"
 
-#: ../panels/user-accounts/um-account-dialog.c:378
-#: ../panels/user-accounts/um-account-dialog.c:419
+#: ../panels/user-accounts/um-account-dialog.c:404
+#: ../panels/user-accounts/um-account-dialog.c:445
 #| msgid "Failed to create user"
 msgid "Failed to register account"
 msgstr "Neizdevās reģistrēt kontu"
 
-#: ../panels/user-accounts/um-account-dialog.c:551
+#: ../panels/user-accounts/um-account-dialog.c:577
 msgid "No supported way to authenticate with this domain"
 msgstr "Nav atbalstīta autentificēšanās veida šim domēnam"
 
-#: ../panels/user-accounts/um-account-dialog.c:605
+#: ../panels/user-accounts/um-account-dialog.c:631
 msgid "Failed to join domain"
 msgstr "Neizdevās pievienoties domēnam"
 
-#: ../panels/user-accounts/um-account-dialog.c:662
+#: ../panels/user-accounts/um-account-dialog.c:688
 msgid "Failed to log into domain"
 msgstr "Neizdevās ierakstīties domēnā"
 
@@ -4821,6 +5097,7 @@ msgstr ""
 "Jums nav tiesību piekļūt šai ierīcei. Sazinieties ar sistēmas administratoru."
 
 #: ../panels/user-accounts/um-fingerprint-dialog.c:141
+#| msgid "Key Binding (%s) is already in use\n"
 msgid "The device is already in use."
 msgstr "Ierīce jau tiek lietota."
 
@@ -4850,6 +5127,7 @@ msgstr ""
 "pirkstu nospiedumiem tiktu atslēgta?"
 
 #: ../panels/user-accounts/um-fingerprint-dialog.c:455
+#| msgid "N_one"
 msgid "Done!"
 msgstr "Darīts!"
 
@@ -4882,7 +5160,7 @@ msgstr "Lūdzu, prasiet palīdzību savam sistēmas administratoram."
 #. * The variable is the name of the device, for example:
 #. * "To enable fingerprint login, you need to save one of your fingerprints, using the
 #. * 'Digital Persona U.are.U 4000/4000B' device."
-#.
+#. 
 #: ../panels/user-accounts/um-fingerprint-dialog.c:740
 #, c-format
 msgid ""
@@ -4904,48 +5182,48 @@ msgstr "Pirkstu nospiedumu ievade"
 msgid "Summary"
 msgstr "Kopsavilkums"
 
-#: ../panels/user-accounts/um-password-dialog.c:96
+#: ../panels/user-accounts/um-password-dialog.c:97
 #| msgid "Set a password now"
 msgid "_Generate a password"
 msgstr "Ģene_rēt paroli"
 
-#: ../panels/user-accounts/um-password-dialog.c:150
+#: ../panels/user-accounts/um-password-dialog.c:151
 msgid "Please choose another password."
 msgstr "Lūdzu, izvēlieties citu paroli."
 
-#: ../panels/user-accounts/um-password-dialog.c:159
+#: ../panels/user-accounts/um-password-dialog.c:160
 msgid "Please type your current password again."
 msgstr "Lūdzu, ievadiet savu pašreizējo paroli atkal."
 
-#: ../panels/user-accounts/um-password-dialog.c:165
+#: ../panels/user-accounts/um-password-dialog.c:166
 msgid "Password could not be changed"
 msgstr "Neizdevās nomainīt paroli"
 
-#: ../panels/user-accounts/um-password-dialog.c:236
+#: ../panels/user-accounts/um-password-dialog.c:237
 msgid "You need to enter a new password"
 msgstr "Jums jāievada jauna parole"
 
-#: ../panels/user-accounts/um-password-dialog.c:245
+#: ../panels/user-accounts/um-password-dialog.c:246
 msgid "You need to confirm the password"
 msgstr "Jums jāapstiprina parole"
 
-#: ../panels/user-accounts/um-password-dialog.c:248
+#: ../panels/user-accounts/um-password-dialog.c:249
 msgid "The passwords do not match"
 msgstr "Paroles nesakrīt"
 
-#: ../panels/user-accounts/um-password-dialog.c:254
+#: ../panels/user-accounts/um-password-dialog.c:255
 msgid "You need to enter your current password"
 msgstr "Jums jāievada pašreizējā parole"
 
-#: ../panels/user-accounts/um-password-dialog.c:257
+#: ../panels/user-accounts/um-password-dialog.c:258
 msgid "The current password is not correct"
 msgstr "Pašreizējā parole ir nepareiza"
 
-#: ../panels/user-accounts/um-password-dialog.c:347
+#: ../panels/user-accounts/um-password-dialog.c:348
 msgid "Passwords do not match"
 msgstr "Paroles nesakrīt"
 
-#: ../panels/user-accounts/um-password-dialog.c:409
+#: ../panels/user-accounts/um-password-dialog.c:410
 msgid "Wrong password"
 msgstr "Nepareiza parole"
 
@@ -4966,21 +5244,21 @@ msgstr "Pārlūkot citus attēlus..."
 msgid "Used by %s"
 msgstr "Izmanto %s"
 
-#: ../panels/user-accounts/um-realm-manager.c:379
+#: ../panels/user-accounts/um-realm-manager.c:408
 #, c-format
 msgid "No such domain or realm found"
 msgstr "Nav atrasts tāds domēns vai nogabals"
 
-#: ../panels/user-accounts/um-realm-manager.c:780
+#: ../panels/user-accounts/um-realm-manager.c:809
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "Nevar ierakstīties kā %s domēnā %s"
 
-#: ../panels/user-accounts/um-realm-manager.c:785
+#: ../panels/user-accounts/um-realm-manager.c:814
 msgid "Invalid password, please try again"
 msgstr "Nederīga parole; lūdzu, mēģiniet vēlreiz"
 
-#: ../panels/user-accounts/um-realm-manager.c:789
+#: ../panels/user-accounts/um-realm-manager.c:818
 #, c-format
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "Neizdevās savienoties ar domēnu %s: %s"
@@ -5057,15 +5335,15 @@ msgctxt "Password mode"
 msgid "None"
 msgstr "Nekāda"
 
-#: ../panels/user-accounts/um-user-panel.c:871
+#: ../panels/user-accounts/um-user-panel.c:875
 msgid "Failed to contact the accounts service"
 msgstr "Neizdevās sazināties ar kontu servisu"
 
-#: ../panels/user-accounts/um-user-panel.c:873
+#: ../panels/user-accounts/um-user-panel.c:877
 msgid "Please make sure that the AccountService is installed and enabled."
 msgstr "Lūdzu, pārbaudiet, vai AccountService ir instalēts un aktivēts."
 
-#: ../panels/user-accounts/um-user-panel.c:913
+#: ../panels/user-accounts/um-user-panel.c:917
 msgid ""
 "To make changes,\n"
 "click the * icon first"
@@ -5073,12 +5351,15 @@ msgstr ""
 "Lai veiktu izmaiņas,\n"
 "vispirms klikšķiniet uz * ikonas"
 
-#: ../panels/user-accounts/um-user-panel.c:951
+#: ../panels/user-accounts/um-user-panel.c:955
 msgid "Create a user account"
 msgstr "Izveidot lietotāja kontu"
 
-#: ../panels/user-accounts/um-user-panel.c:962
-#: ../panels/user-accounts/um-user-panel.c:1273
+#: ../panels/user-accounts/um-user-panel.c:966
+#: ../panels/user-accounts/um-user-panel.c:1278
+#| msgid ""
+#| "To create a user,\n"
+#| "click the * icon first"
 msgid ""
 "To create a user account,\n"
 "click the * icon first"
@@ -5086,12 +5367,16 @@ msgstr ""
 "Lai izveidotu lietotāja kontu,\n"
 "vispirms klikšķiniet uz * ikonas"
 
-#: ../panels/user-accounts/um-user-panel.c:971
+#: ../panels/user-accounts/um-user-panel.c:975
+#| msgid "Delete the selected user"
 msgid "Delete the selected user account"
 msgstr "Dzēst izvēlēto lietotāja kontu"
 
-#: ../panels/user-accounts/um-user-panel.c:983
-#: ../panels/user-accounts/um-user-panel.c:1278
+#: ../panels/user-accounts/um-user-panel.c:987
+#: ../panels/user-accounts/um-user-panel.c:1283
+#| msgid ""
+#| "To delete the selected user,\n"
+#| "click the * icon first"
 msgid ""
 "To delete the selected user account,\n"
 "click the * icon first"
@@ -5099,11 +5384,11 @@ msgstr ""
 "Lai dzēstu izvēlēto lietotāja kontu,\n"
 "vispirms klikšķiniet uz * ikonas"
 
-#: ../panels/user-accounts/um-user-panel.c:1176
+#: ../panels/user-accounts/um-user-panel.c:1180
 msgid "My Account"
 msgstr "Mans konts"
 
-#: ../panels/user-accounts/um-user-panel.c:1186
+#: ../panels/user-accounts/um-user-panel.c:1190
 msgid "Other Accounts"
 msgstr "Citi konti"
 
@@ -5134,6 +5419,7 @@ msgstr ""
 "  ➣ jebkuru no rakstzīmēm \".\", \"-\", \"_\""
 
 #: ../panels/wacom/button-mapping.ui.h:1
+#| msgid "Alert Buttons"
 msgid "Map Buttons"
 msgstr "Saistīt pogas"
 
@@ -5143,6 +5429,7 @@ msgstr "Saistīt pogas ar funkcijām"
 
 #. Text printed on screen
 #: ../panels/wacom/calibrator/gui_gtk.c:78
+#| msgid "Calibration"
 msgid "Screen Calibration"
 msgstr "Ekrāna kalibrēšana"
 
@@ -5152,15 +5439,13 @@ msgid ""
 "tablet."
 msgstr ""
 "Lūdzu, uzsitiet uz mērķa marķieriem, kad tie parādās uz ekrāna, lai "
-"kalibrētu "
-"planšeti."
+"kalibrētu planšeti."
 
 #: ../panels/wacom/calibrator/gui_gtk.c:368
 msgid "Mis-click detected, restarting..."
 msgstr "Konstatēts nepareizs klikšķis, pārstartē..."
 
 #: ../panels/wacom/cc-wacom-mapping-panel.c:275
-#| msgid "Output"
 msgid "Output:"
 msgstr "Izvade:"
 
@@ -5171,12 +5456,12 @@ msgstr "Paturēt izmēra attiecību (platekrāns):"
 
 #. Whole-desktop checkbox
 #: ../panels/wacom/cc-wacom-mapping-panel.c:298
-#| msgid "Map to Monitor..."
 msgid "Map to single monitor"
 msgstr "Attēlot uz viena monitora"
 
 #: ../panels/wacom/cc-wacom-nav-button.c:89
 #, c-format
+#| msgid "%d x %d"
 msgid "%d of %d"
 msgstr "%d no %d"
 
@@ -5202,6 +5487,7 @@ msgid "Up"
 msgstr "Augšup"
 
 #: ../panels/wacom/cc-wacom-page.c:601
+#| msgid "Done!"
 msgid "Down"
 msgstr "Lejup"
 
@@ -5211,6 +5497,7 @@ msgstr "Pārslēgt režīmu"
 
 #: ../panels/wacom/cc-wacom-page.c:724
 #: ../panels/wacom/cc-wacom-stylus-page.c:376
+#| msgid "Alert Buttons"
 msgid "Button"
 msgstr "Poga"
 
@@ -5219,6 +5506,7 @@ msgid "Action"
 msgstr "Darbība"
 
 #: ../panels/wacom/cc-wacom-page.c:886
+#| msgid "Display language:"
 msgid "Display Mapping"
 msgstr "Displeja attēlošana"
 
@@ -5257,6 +5545,7 @@ msgid "Please plug in or turn on your Wacom tablet"
 msgstr "Lūdzu, pievienojiet un ieslēdziet savu Wacom planšeti"
 
 #: ../panels/wacom/gnome-wacom-properties.ui.h:6
+#| msgid "Layout Settings"
 msgid "Bluetooth Settings"
 msgstr "Bluetooth iestatījumi"
 
@@ -5265,6 +5554,7 @@ msgid "Map to Monitor..."
 msgstr "Attēlot uz monitoru..."
 
 #: ../panels/wacom/gnome-wacom-properties.ui.h:9
+#| msgid "Options..."
 msgid "Map Buttons..."
 msgstr "Saistīt pogas..."
 
@@ -5281,70 +5571,73 @@ msgid "Tracking Mode"
 msgstr "Sekošanas režīms"
 
 #: ../panels/wacom/gnome-wacom-properties.ui.h:13
+#| msgid "Mouse Orientation"
 msgid "Left-Handed Orientation"
 msgstr "Orientācija kreiļiem"
 
-#: ../panels/wacom/gsd-wacom-device.c:1010
+#: ../panels/wacom/gsd-wacom-device.c:1013
 #, c-format
 msgid "Left Ring Mode #%d"
 msgstr "Kreisā skārienriņķa režīms #%d"
 
-#: ../panels/wacom/gsd-wacom-device.c:1019
+#: ../panels/wacom/gsd-wacom-device.c:1023
 #, c-format
+#| msgid "Right ring finger"
 msgid "Right Ring Mode #%d"
 msgstr "Labā skārienriņķa režīms #%d"
 
-#: ../panels/wacom/gsd-wacom-device.c:1049
+#: ../panels/wacom/gsd-wacom-device.c:1054
 #, c-format
 msgid "Left Touchstrip Mode #%d"
 msgstr "Kreisās skārienjoslas režīms #%d"
 
-#: ../panels/wacom/gsd-wacom-device.c:1058
+#: ../panels/wacom/gsd-wacom-device.c:1064
 #, c-format
 msgid "Right Touchstrip Mode #%d"
 msgstr "Labās skārienjoslas režīms #%d"
 
-#: ../panels/wacom/gsd-wacom-device.c:1075
+#: ../panels/wacom/gsd-wacom-device.c:1081
 #, c-format
 msgid "Left Touchring Mode Switch"
 msgstr "Kreisā skārienriņķa režīma slēdzis"
 
-#: ../panels/wacom/gsd-wacom-device.c:1077
+#: ../panels/wacom/gsd-wacom-device.c:1083
 #, c-format
 msgid "Right Touchring Mode Switch"
 msgstr "Labā skārienriņķa režīma slēdzis"
 
-#: ../panels/wacom/gsd-wacom-device.c:1080
+#: ../panels/wacom/gsd-wacom-device.c:1086
 #, c-format
 msgid "Left Touchstrip Mode Switch"
 msgstr "Kreisās skārienjoslas režīma slēdzis"
 
-#: ../panels/wacom/gsd-wacom-device.c:1082
+#: ../panels/wacom/gsd-wacom-device.c:1088
 #, c-format
 msgid "Right Touchstrip Mode Switch"
 msgstr "Labās skārienjoslas režīma slēdzis"
 
-#: ../panels/wacom/gsd-wacom-device.c:1087
+#: ../panels/wacom/gsd-wacom-device.c:1093
 #, c-format
 msgid "Mode Switch #%d"
 msgstr "Režīma slēdzis #%d"
 
-#: ../panels/wacom/gsd-wacom-device.c:1159
+#: ../panels/wacom/gsd-wacom-device.c:1164
 #, c-format
+#| msgid "Alert Buttons"
 msgid "Left Button #%d"
 msgstr "Kreisā poga #%d"
 
-#: ../panels/wacom/gsd-wacom-device.c:1162
+#: ../panels/wacom/gsd-wacom-device.c:1167
 #, c-format
 msgid "Right Button #%d"
 msgstr "Labā poga #%d"
 
-#: ../panels/wacom/gsd-wacom-device.c:1165
+#: ../panels/wacom/gsd-wacom-device.c:1170
 #, c-format
 msgid "Top Button #%d"
 msgstr "Augšējā poga #%d"
 
-#: ../panels/wacom/gsd-wacom-device.c:1168
+#: ../panels/wacom/gsd-wacom-device.c:1173
 #, c-format
 msgid "Bottom Button #%d"
 msgstr "Apakšējā poga #%d"
@@ -5417,6 +5710,10 @@ msgstr "Apakšējā poga"
 msgid "Tip Pressure Feel"
 msgstr "Gala spiediena jušana"
 
+#: ../shell/cc-shell-nav-bar.c:117
+msgid "_All Settings"
+msgstr "Visi iest_atījumi"
+
 #: ../shell/control-center.c:58
 msgid "Enable verbose mode"
 msgstr "Aktivēt detalizēto režīmu"
@@ -5447,13 +5744,17 @@ msgstr ""
 "%s\n"
 "Palaidiet '%s --help', lai redzētu pilnu komandrindas opciju sarakstu.\n"
 
-#: ../shell/control-center.c:211
-msgid "Help"
-msgstr "Palīdzība"
+#: ../shell/control-center.c:269
+msgid "Contents"
+msgstr "Saturs"
 
-#: ../shell/control-center.c:212
+#: ../shell/control-center.c:272 ../shell/control-center.c:288
 msgid "Quit"
 msgstr "Iziet"
+
+#: ../shell/control-center.c:274 ../shell/control-center.c:287
+msgid "Help"
+msgstr "Palīdzība"
 
 #: ../shell/gnomecc.directory.in.h:1
 msgid "Control Center"
@@ -5467,804 +5768,51 @@ msgstr "Sistēmas iestatījumi"
 msgid "Preferences;Settings;"
 msgstr "Iestatījumi;Uzstādījumi;Konfigurācija;Preferences;Settings;"
 
-#: ../shell/shell.ui.h:2
-msgid "All Settings"
-msgstr "Visi iestatījumi"
+#: ../panels/region/gnome-unity-region-panel.desktop.in.in.h:1
+msgid "Text Entry"
+msgstr "Teksta ievade"
 
-#~ msgid "Add wallpaper"
-#~ msgstr "Pievienot tapeti"
+#: ../panels/region/gnome-unity-region-panel.desktop.in.in.h:2
+msgid "Change your keyboard or input method settings"
+msgstr "Izmainiet jus klavijatura vai ievadu metodu"
 
-#~ msgid "Remove wallpaper"
-#~ msgstr "Izņemt tapeti"
+#. Translators: those are keywords for the region control-center panel
+#: ../panels/region/gnome-unity-region-panel.desktop.in.in.h:4
+msgid "Language;Layout;Keyboard;Input Method;Text Entry;"
+msgstr "Valoda;Izkārtojums;Tastatūra;Ievades Metode;Teksta Ievade;"
 
-#~ msgid "Swap colors"
-#~ msgstr "Mainīt krāsas vietām"
+#~ msgid "Install languages…"
+#~ msgstr "Instalē valodas…"
 
-#~| msgid "Solid Color"
-#~ msgid "Secondary color"
-#~ msgstr "Sekundārā krāsa"
+#~ msgid "Input sources to use:"
+#~ msgstr "Izmantojamie ievades avoti:"
 
-#~ msgid "Horizontal Gradient"
-#~ msgstr "Horizontāla krāsu pāreja"
+#~ msgid "Switch to next source using:"
+#~ msgstr "Pārslēgties uz nākamo avotu, izmantojot:"
 
-#~ msgid "Vertical Gradient"
-#~ msgstr "Vertikāla krāsu pāreja"
+#~ msgid "Switch to previous source using:"
+#~ msgstr "Pārslēgties uz iepriekšējo avotu, izmantojot:"
 
-#~ msgid "Solid Color"
-#~ msgstr "Viena krāsa"
+#~ msgid "New windows use the default source"
+#~ msgstr "Jaunie logi izmanto noklusējuma avotu"
 
-#~ msgid "Pictures Folder"
-#~ msgstr "Bilžu mape"
+#~ msgid "New windows use the current source"
+#~ msgstr "Jaunie logi izmanto pašreizējo avotu"
 
-#~ msgid "Colors & Gradients"
-#~ msgstr "Krāsas un krāsu pārejas"
+#~ msgid "Show input candidates:"
+#~ msgstr "Rāda ievades kandidātu:"
 
-#~ msgid "Acti_on:"
-#~ msgstr "D_arbība:"
+#~ msgid "Horizontally"
+#~ msgstr "Horizontāli"
 
-#~| msgid "Take a photo..."
-#~ msgid "Take a screenshot"
-#~ msgstr "Uzņemt ekrānattēlu"
+#~ msgid "Keyboard Settings..."
+#~ msgstr "Tastatūras iestatījumi..."
 
-#~ msgid "Shortcut"
-#~ msgstr "Saīsne"
+#~ msgid "Show current input source in the menu bar"
+#~ msgstr "Rādīt pašreizējo ievades avotu izvēlnes joslā"
 
-#~ msgid "_Right-handed"
-#~ msgstr "Lab_ročiem"
+#~ msgid "Using custom font:"
+#~ msgstr "Izmanto pielāgoto fontu:"
 
-#~ msgid "_Left-handed"
-#~ msgstr "_Kreiļiem"
-
-#~ msgid "Sh_ow position of pointer when the Control key is pressed"
-#~ msgstr "Nospiežot C_ontrol taustiņu, parādīt kursora atrašanās vietu"
-
-#~ msgid "A_cceleration:"
-#~ msgstr "_Paātrinājums:"
-
-#~ msgid "_Sensitivity:"
-#~ msgstr "_Jutība:"
-
-#~ msgid "Drag and Drop"
-#~ msgstr "Vilkt un nomest"
-
-#~ msgid "Thr_eshold:"
-#~ msgstr "Sli_eksnis:"
-
-#~| msgid "Thr_eshold:"
-#~ msgid "Drag Threshold"
-#~ msgstr "Vilkšanas slieksnis"
-
-#~ msgid "Double-Click Timeout"
-#~ msgstr "Dubultklikšķa noildze"
-
-#~ msgid "_Timeout:"
-#~ msgstr "_Noildze:"
-
-#~ msgid "To test your settings, try to double-click on the face."
-#~ msgstr "Lai pārbaudītu iestatījumus, veiciet dubultklikšķi uz sejiņas."
-
-#~ msgid "Enable _mouse clicks with touchpad"
-#~ msgstr "Ieslēgt klikšķus uz _skārienpaliktņa"
-
-#~ msgid "Scrolling"
-#~ msgstr "Ritināšana"
-
-#~ msgid "_Disabled"
-#~ msgstr "_Atslēgts"
-
-#~ msgid "_Edge scrolling"
-#~ msgstr "_Malas ritināšana"
-
-#~ msgid "Enable h_orizontal scrolling"
-#~ msgstr "Ieslēgt h_orizontālo ritināšanu"
-
-#~ msgctxt "Wireless access point"
-#~ msgid "Other..."
-#~ msgstr "Cita..."
-
-#~ msgid "Hotspot"
-#~ msgstr "Tīklājs"
-
-#~ msgid "Not connected to the internet."
-#~ msgstr "Nav savienots ar internetu."
-
-#~ msgid "Create the hotspot anyway?"
-#~ msgstr "Tomēr izveidot tīklāju?"
-
-#~ msgid "Disconnect from %s and create a new hotspot?"
-#~ msgstr "Atvienoties no %s un izveidot jaunu tīklāju?"
-
-#~ msgid "This is your only connection to the internet."
-#~ msgstr "Tas ir vienīgais savienojums ar internetu."
-
-#~ msgid "Create _Hotspot"
-#~ msgstr "Izveidot _tīklāju"
-
-#~ msgid "Subnet Mask"
-#~ msgstr "Apakštīkla maska"
-
-#~| msgid "Device"
-#~ msgid "Device Off"
-#~ msgstr "Ierīce izslēgta"
-
-#~ msgid "_Network Name"
-#~ msgstr "Tīkla _nosaukums"
-
-#~ msgid "_Stop Hotspot..."
-#~ msgstr "_Apturēt tīklāju..."
-
-#~| msgid "Disabled"
-#~ msgid "Disable VPN"
-#~ msgstr "Deaktivēt VPN"
-
-#~| msgid "_HTTP Proxy"
-#~ msgid "HTTP Port"
-#~ msgstr "HTTP ports"
-
-#~| msgid "H_TTPS Proxy"
-#~ msgid "HTTPS Port"
-#~ msgstr "HTTPS ports"
-
-#~| msgid "_FTP Proxy"
-#~ msgid "FTP Port"
-#~ msgstr "FTP ports"
-
-#~| msgid "_Socks Host"
-#~ msgid "Socks Port"
-#~ msgstr "Socks ports"
-
-#~ msgid "To add a new account, first select the account type"
-#~ msgstr "Lai pievienotu jaunu kontu, vispirms izvēlieties konta tipu"
-
-#~ msgid "_Add..."
-#~ msgstr "_Pievienot..."
-
-#~| msgid "_Type:"
-#~ msgid "Tip:"
-#~ msgstr "Padoms:"
-
-#~| msgid "Brightness"
-#~ msgid "Brightness Settings"
-#~ msgstr "Spilgtuma iestatījumi"
-
-#~ msgid "affect how much power is used"
-#~ msgstr "ietekmē patērētās enerģijas apjomu"
-
-#~| msgid "A_ddress"
-#~ msgid "A_ddress:"
-#~ msgstr "A_drese:"
-
-#~ msgid "_Search by Address"
-#~ msgstr "Meklēt pēc adre_ses"
-
-#~ msgid ""
-#~ "FirewallD is not running. Network printer detection needs services mdns, "
-#~ "ipp, ipp-client and samba-client enabled on firewall."
-#~ msgstr ""
-#~ "FirewallD nedarbojas. Tīkla printeru atrašanai nepieciešami ugunsmūrī "
-#~ "aktivēti servisi mdns, ipp, ipp-client un samba-client."
-
-#~ msgid "Devices"
-#~ msgstr "Ierīces"
-
-#~| msgid "Local"
-#~ msgctxt "printer type"
-#~ msgid "Local"
-#~ msgstr "Lokāls"
-
-#~| msgid "Network"
-#~ msgctxt "printer type"
-#~ msgid "Network"
-#~ msgstr "Tīkla"
-
-#~ msgid "Device types"
-#~ msgstr "Ierīču veids"
-
-#~ msgid "Automatic configuration"
-#~ msgstr "Automātiskā konfigurācija"
-
-#~ msgid "Opening firewall for mDNS connections"
-#~ msgstr "Atver ugunsmūri mDNS savienojumiem"
-
-#~ msgid "Opening firewall for Samba connections"
-#~ msgstr "Atver ugunsmūri Samba savienojumiem"
-
-#~ msgid "Opening firewall for IPP connections"
-#~ msgstr "Atver ugunsmūri IPP savienojumiem"
-
-#~ msgid "_Back"
-#~ msgstr "_Atpakaļ"
-
-#~ msgid "Add User"
-#~ msgstr "Pievienot lietotāju"
-
-#~| msgid "Remove wallpaper"
-#~ msgid "Remove User"
-#~ msgstr "Izņemt lietotāju"
-
-#~ msgid "Allowed users"
-#~ msgstr "Atļautie lietotāji"
-
-#~ msgid "Choose a Layout"
-#~ msgstr "Izvēlieties izkārtojumu"
-
-#~ msgid "Preview"
-#~ msgstr "Priekšskatījums"
-
-#~| msgid "Layout"
-#~ msgid "Add Layout"
-#~ msgstr "Pievienot izkārtojumu"
-
-#~| msgid "Choose a Layout"
-#~ msgid "Remove Layout"
-#~ msgstr "Izņemt izkārtojumu"
-
-#~ msgid "Move Up"
-#~ msgstr "Pārvietot augšup"
-
-#~| msgid "Volume down"
-#~ msgid "Move Down"
-#~ msgstr "Pārvietot lejup"
-
-#~| msgid "Preview"
-#~ msgid "Preview Layout"
-#~ msgstr "Priekšskatīt izkārtojumu"
-
-#~ msgid "Use the same layout for all windows"
-#~ msgstr "Visiem logiem izmantot vienu un to pašu izkārtojumu"
-
-#~ msgid "Allow different layouts for individual windows"
-#~ msgstr "Atļaut savs izkārtojums katram logam"
-
-#~ msgid "New windows use the default layout"
-#~ msgstr "Jauno logu noklusētā izvietojuma lietojums"
-
-#~ msgid "New windows use the previous window's layout"
-#~ msgstr "Jaunos logos lietot iepriekšējo logu izkārtojumu"
-
-#~ msgid "View and edit keyboard layout options"
-#~ msgstr "Skatīt un rediģēt tastatūras izkārtojuma opcijas"
-
-#~ msgid "Reset to De_faults"
-#~ msgstr "A_tjaunot uz noklusētajiem"
-
-#~ msgid ""
-#~ "Replace the current keyboard layout settings with the\n"
-#~ "default settings"
-#~ msgstr ""
-#~ "Aizvietot pašreizējo tastatūras izkārtojuma iestatījumus\n"
-#~ "ar noklusētajiem iestatījumiem"
-
-#~ msgid "Layouts"
-#~ msgstr "Izkārtojumi"
-
-#~ msgid "Layout"
-#~ msgstr "Izkārtojums"
-
-#~ msgid "Co_nnector:"
-#~ msgstr "Sa_vienotājs:"
-
-#~ msgid "Hardware"
-#~ msgstr "Aparatūra"
-
-#~ msgid "C_hoose a device to configure:"
-#~ msgstr "I_zvēlieties ierīci, kuru konfigurēt:"
-
-#~ msgid "Dasher"
-#~ msgstr "Dasher"
-
-#~ msgid "Nomon"
-#~ msgstr "Nomon"
-
-#~ msgid "Caribou"
-#~ msgstr "Caribou"
-
-#~ msgid "Change contrast:"
-#~ msgstr "Mainīt kontrastu:"
-
-#~ msgid "_Text size:"
-#~ msgstr "_Teksta izmērs:"
-
-#~ msgid "Increase size:"
-#~ msgstr "Palielināt izmēru:"
-
-#~ msgid "Decrease size:"
-#~ msgstr "Samazināt izmēru:"
-
-#~ msgctxt "universal access, seeing"
-#~ msgid "Display"
-#~ msgstr "Ekrāns"
-
-#~ msgctxt "universal access, seeing"
-#~ msgid "Zoom"
-#~ msgstr "Tālummaiņa"
-
-#~ msgid "Screen keyboard"
-#~ msgstr "Ekrāna tastatūra"
-
-#~ msgid "Typing Assistant"
-#~ msgstr "Rakstīšanas asistents"
-
-#~ msgid "Type here to test settings"
-#~ msgstr "Ierakstiet šeit, lai testētu iestatījumus"
-
-#~| msgid "Screen"
-#~ msgid "1/2 Screen"
-#~ msgstr "1/2 ekrāna"
-
-#~| msgid "Screen"
-#~ msgid "3/4 Screen"
-#~ msgstr "3/4 ekrāna"
-
-#~ msgid "Create new account"
-#~ msgstr "Izveidot jaunu kontu"
-
-#~ msgid "_Account Type"
-#~ msgstr "Kont_a tips"
-
-#~ msgid "Cr_eate"
-#~ msgstr "Iz_veidot"
-
-#~ msgid "Choose a generated password"
-#~ msgstr "Izvēlieties ģenerētu paroli"
-
-#~ msgid "Account _type"
-#~ msgstr "Konta _tips"
-
-#~ msgid "More choices..."
-#~ msgstr "Vairāk izvēles..."
-
-#~ msgid "Wacom Graphics Tablet"
-#~ msgstr "Wacom grafikas planšete"
-
-#~| msgid "24-Hour Time"
-#~ msgid "24-_Hour Time"
-#~ msgstr "24 stundu laiks"
-
-#~ msgid "Upside-down"
-#~ msgstr "Otrādi"
-
-#~ msgid "Could not get session bus while applying display configuration"
-#~ msgstr "Neizdevās iegūt sesijas kopni, pielietojot ekrāna konfigurāciju"
-
-#~ msgid "%u byte"
-#~ msgid_plural "%u bytes"
-#~ msgstr[0] "%u baits"
-#~ msgstr[1] "%u baiti"
-#~ msgstr[2] "%u baitu"
-
-#~ msgid "%.1f KB"
-#~ msgstr "%.1f KB"
-
-#~ msgid "%.1f MB"
-#~ msgstr "%.1f MB"
-
-#~ msgid "%.1f GB"
-#~ msgstr "%.1f GB"
-
-#~ msgid "%.1f TB"
-#~ msgstr "%.1f TB"
-
-#~ msgid "%.1f PB"
-#~ msgstr "%.1f PB"
-
-#~ msgid "%.1f EB"
-#~ msgstr "%.1f EB"
-
-#~ msgid "System Info"
-#~ msgstr "Sistēmas info"
-
-#~ msgid "Updates Available"
-#~ msgstr "Pieejamie atjauninājumi"
-
-#~ msgid "Toggle contrast"
-#~ msgstr "Ieslēgt/izslēgt kontrastu"
-
-#~ msgid "Toggle magnifier"
-#~ msgstr "Ieslēgt/izslēgt palielinātāju"
-
-#~ msgid "Toggle screen reader"
-#~ msgstr "Ieslēgt/izslēgt ekrāna lasītāju"
-
-#~ msgid "New shortcut..."
-#~ msgstr "Jauna saīsne..."
-
-#~ msgid "Accelerator key"
-#~ msgstr "Paātrinājumtaustiņš"
-
-#~ msgid "Accelerator modifiers"
-#~ msgstr "Paātrinātāja modifikatori"
-
-#~ msgid "Accelerator keycode"
-#~ msgstr "Paātrinātāja taustiņkods"
-
-#~ msgid "Accel Mode"
-#~ msgstr "Paātrināšanas režīms"
-
-#~ msgid "The type of accelerator."
-#~ msgstr "Paātrinātāja tips."
-
-#~ msgid "Error saving the new shortcut"
-#~ msgstr "Kļūda, saglabājot jauno saīsni"
-
-#~ msgid "Too many custom shortcuts"
-#~ msgstr "Pārāk daudz pielāgoto saīsņu"
-
-#~ msgid "Media and Autorun"
-#~ msgstr "Datu nesēji un automātiskā palaišana"
-
-#~ msgid "_Photos:"
-#~ msgstr "_Fotogrāijas:"
-
-#~ msgid "Configure media and autorun preferences"
-#~ msgstr "Konfigurēt datu nesēju un automātiskās palaišanas iestatījumus"
-
-#~ msgid "cd;dvd;usb;audio;video;disc;"
-#~ msgstr "cd;dvd;usb;audio;video;disks;"
-
-#~| msgid "System Settings"
-#~ msgid "<b>System settings</b>"
-#~ msgstr "<b>Sistēmas iestatījumi</b>"
-
-#~ msgid "Speed"
-#~ msgstr "Ātrums"
-
-#~ msgid "Unlock"
-#~ msgstr "Atslēgt"
-
-#~ msgid "Battery discharging"
-#~ msgstr "Baterija izlādējas"
-
-#~ msgid "UPS discharging"
-#~ msgstr "UPS izlādējas"
-
-#~ msgid "%s until charged (%.0lf%%)"
-#~ msgstr "%s līdz pilna (%.0lf%%)"
-
-#~ msgid "%s until empty (%.0lf%%)"
-#~ msgstr "%s līdz tukša (%.0lf%%)"
-
-#~ msgid "%.0lf%% charged"
-#~ msgstr "%.0lf%% uzlādēts"
-
-#~ msgid "Ask me"
-#~ msgstr "Vaicāt man"
-
-#~| msgid "On AC power:"
-#~ msgid "On AC _power:"
-#~ msgstr "I_zmantojot vadu:"
-
-#~ msgid "Put the computer to sleep when inactive:"
-#~ msgstr "Iesnaudināt datoru, kad tas ir neaktīvs:"
-
-#~ msgid "Shutdown"
-#~ msgstr "Izslēgt"
-
-#~| msgid "When the sleep button is pressed:"
-#~ msgid "When the _sleep button is pressed:"
-#~ msgstr "Kad ie_snaušanas poga ir nospiesta:"
-
-#~| msgid "When the power button is pressed:"
-#~ msgid "When the p_ower button is pressed:"
-#~ msgstr "Kad ieslēgšanas p_oga ir nospiesta:"
-
-#~ msgid ""
-#~ "Only profiles that are compatible with the device will be listed above."
-#~ msgstr ""
-#~ "Augstāk tiks uzskaitīti tikai profili, kas ir savietojami ar ierīci."
-
-#~| msgid "Turn off after:"
-#~ msgid "_Turn off after:"
-#~ msgstr "Izslēg_t pēc:"
-
-#~ msgid "Mute"
-#~ msgstr "Apklusināt"
-
-#~ msgid "Key"
-#~ msgstr "Atslēga"
-
-#~ msgid "GConf key to which this property editor is attached"
-#~ msgstr "Gconf atslēga, kurai pievienots īpašību redaktors"
-
-#~ msgid "Callback"
-#~ msgstr "Atzvanīšana"
-
-#~ msgid "Issue this callback when the value associated with key gets changed"
-#~ msgstr "Veikt šo atzvanīšanu, kad atslēgas vērtība tiek mainīta"
-
-#~ msgid "Change set"
-#~ msgstr "Mainīt kopu"
-
-#~ msgid ""
-#~ "GConf change set containing data to be forwarded to the gconf client on "
-#~ "apply"
-#~ msgstr ""
-#~ "GConf izmaiņu kopa, kas satur datus, kurus pārsūtīt gconf klientam pie "
-#~ "pielietošanas"
-
-#~ msgid "Conversion to widget callback"
-#~ msgstr "Pārveide par logdaļas atzvanīšanu"
-
-#~ msgid ""
-#~ "Callback to be issued when data are to be converted from GConf to the "
-#~ "widget"
-#~ msgstr "Atzvanīšana, kad dati jākonvertē no GConf uz logdaļu"
-
-#~ msgid "Conversion from widget callback"
-#~ msgstr "Pārveide no logdaļas atzvanīšanas"
-
-#~ msgid ""
-#~ "Callback to be issued when data are to be converted to GConf from the "
-#~ "widget"
-#~ msgstr "Atzvanīšana, kad dati jākonvertē uz GConf no logdaļas"
-
-#~ msgid "UI Control"
-#~ msgstr "UI vadīkla"
-
-#~ msgid "Object that controls the property (normally a widget)"
-#~ msgstr "Objekts, kas kontrolē īpašību (parasti logdaļa)"
-
-#~ msgid "Property editor object data"
-#~ msgstr "Īpašību redaktora objekta dati"
-
-#~ msgid "Custom data required by the specific property editor"
-#~ msgstr "Dati, kuri nepieciešami konkrētajam rekvizītu redaktoram"
-
-#~ msgid "Property editor data freeing callback"
-#~ msgstr "Atzvanīšana rekvizītu redaktora datu atbrīvošanai"
-
-#~ msgid ""
-#~ "Callback to be issued when property editor object data is to be freed"
-#~ msgstr "Atzvanīšana, kad rekvizītu redaktora objekta dati ir jāatbrīvo"
-
-#~ msgid ""
-#~ "Couldn't find the file '%s'.\n"
-#~ "\n"
-#~ "Please make sure it exists and try again, or choose a different "
-#~ "background picture."
-#~ msgstr ""
-#~ "Neizdevās atrast failu '%s'.\n"
-#~ "\n"
-#~ "Lūdzu, pārliecinieties, ka tas eksistē, un mēģiniet vēlreiz, vai arī "
-#~ "izvēlieties citu fona attēlu."
-
-#~ msgid ""
-#~ "I don't know how to open the file '%s'.\n"
-#~ "Perhaps it's a kind of picture that is not yet supported.\n"
-#~ "\n"
-#~ "Please select a different picture instead."
-#~ msgstr ""
-#~ "Neizdevās atvērt failu '%s'.\n"
-#~ "Ja tas ir attēls, iespējams, tā formāts vēl netiek atbalstīts.\n"
-#~ "\n"
-#~ "Lūdzu, izvēlieties citu attēlu."
-
-#~ msgid "Please select an image."
-#~ msgstr "Lūdzu, izvēlieties attēlu."
-
-#~ msgid "Keyboard;Mouse;a11y;Accessibility;"
-#~ msgstr "Tastatūra;Pele;a11y;Pieejamība;"
-
-#~ msgctxt "universal access, contrast"
-#~ msgid "<span size=\"x-large\">High/Inverse</span>"
-#~ msgstr "<span size=\"x-large\">Augsts/invertēts</span>"
-
-#~ msgctxt "universal access, contrast"
-#~ msgid "<span size=\"x-large\">High</span>"
-#~ msgstr "<span size=\"x-large\">Augsts</span>"
-
-#~ msgctxt "universal access, contrast"
-#~ msgid "<span size=\"x-large\">Low</span>"
-#~ msgstr "<span size=\"x-large\">Zems</span>"
-
-#~ msgctxt "universal access, contrast"
-#~ msgid "<span size=\"x-large\">Normal</span>"
-#~ msgstr "<span size=\"x-large\">Normāls</span>"
-
-#~ msgid "Create a user"
-#~ msgstr "Izveidot lietotāju"
-
-#~ msgid "Current network location"
-#~ msgstr "Pašreizējā tīkla vieta"
-
-#~ msgid "More backgrounds URL"
-#~ msgstr "URL papildu fona attēliem"
-
-#~ msgid "More themes URL"
-#~ msgstr "URL papildu tēmām"
-
-#~ msgid ""
-#~ "Set this to your current location name. This is used to determine the "
-#~ "appropriate network proxy configuration."
-#~ msgstr ""
-#~ "Iestatiet šeit savas vietas nosaukumu. Tas tiks izmantots, lai noteiktu "
-#~ "aptuveno starpniekservera konfigurāciju."
-
-#~ msgid ""
-#~ "URL for where to get more desktop backgrounds. If set to an empty string "
-#~ "the link will not appear."
-#~ msgstr ""
-#~ "Tīmekļa URL, kur var iegūt vairāk darbvirsmas fona attēlu. Ja šeit ir "
-#~ "tukša virkne, attiecīgā saite neparādās."
-
-#~ msgid ""
-#~ "URL for where to get more desktop themes. If set to an empty string the "
-#~ "link will not appear."
-#~ msgstr ""
-#~ "Tīmekļa URL, kur var iegūt vairāk darbvirsmas tēmu. Ja šeit ir tukša "
-#~ "virkne, attiecīgā saite neparādās."
-
-#~ msgid "Locked"
-#~ msgstr "Aizslēgts"
-
-#~ msgid ""
-#~ "Dialog is unlocked.\n"
-#~ "Click to prevent further changes"
-#~ msgstr ""
-#~ "Dialogs ir atslēgts.\n"
-#~ "Klikšķiniet, lai novērstu turpmākas izmaiņas"
-
-#~ msgid ""
-#~ "Dialog is locked.\n"
-#~ "Click to make changes"
-#~ msgstr ""
-#~ "Dialogs ir aizslēgts.\n"
-#~ "Klikšķiniet, lai veiktu izmaiņas"
-
-#~ msgid ""
-#~ "System policy prevents changes.\n"
-#~ "Contact your system administrator"
-#~ msgstr ""
-#~ "Sistēmas politika neļauj veikt izmaiņas.\n"
-#~ "Sazinieties ar sistēmas administratoru"
-
-#~ msgid "Photos"
-#~ msgstr "Bildes"
-
-#~ msgid "Clean print heads"
-#~ msgstr "Tīrīt drukāšanas galviņas"
-
-#~ msgid "An error has occured during a maintenance command."
-#~ msgstr "Gadījās kļūda, uzturēšanas komandas izpildes laikā."
-
-#~ msgid "---"
-#~ msgstr "---"
-
-#~ msgid "Use default layout in new windows"
-#~ msgstr "Jaunos logos lietot noklusēto izkārtojumu"
-
-#~ msgid "Info"
-#~ msgstr "Informācija"
-
-#~ msgid "Locate Pointer"
-#~ msgstr "Rādīt kursoru"
-
-#~ msgid "DSL"
-#~ msgstr "DSL"
-
-#~ msgid "Mobile Broadband"
-#~ msgstr "Mobilā platjosla"
-
-#~ msgid "Image/label border"
-#~ msgstr "Attēla/apzīmējuma apmale"
-
-#~ msgid "Width of border around the label and image in the alert dialog"
-#~ msgstr "Iezīmes un attēla apmales biezums brīdinājuma dialoga logā"
-
-#~ msgid "The type of alert"
-#~ msgstr "Brīdinājuma ziņojuma paveids"
-
-#~ msgid "The buttons shown in the alert dialog"
-#~ msgstr "brīdinājuma logā redzamās pogas"
-
-#~ msgid "Place your left thumb on %s"
-#~ msgstr "Novietojiet savu kreiso īkšķi uz %s"
-
-#~ msgid "Swipe your left thumb on %s"
-#~ msgstr "Pārvelciet savu kreiso īkšķi pār %s"
-
-#~ msgid "Place your left index finger on %s"
-#~ msgstr "Novietojiet savu kreiso rādītājpirkstu uz %s"
-
-#~ msgid "Swipe your left index finger on %s"
-#~ msgstr "Pārvelciet savu kreiso rādītājpirkstu pār %s"
-
-#~ msgid "Place your left middle finger on %s"
-#~ msgstr "Novietojiet savu kreisās rokas vidējo pirkstu uz %s"
-
-#~ msgid "Swipe your left middle finger on %s"
-#~ msgstr "Pārvelciet savu kreisās rokas vidējo pirkstu pār %s"
-
-#~ msgid "Place your left ring finger on %s"
-#~ msgstr "Novietojiet savu kreisās rokas zeltnesi uz %s"
-
-#~ msgid "Swipe your left ring finger on %s"
-#~ msgstr "Pārvelciet savu kreisās rokas zeltnesi pār %s"
-
-#~ msgid "Place your left little finger on %s"
-#~ msgstr "Novietojiet savu kreisās rokas mazo pirkstiņu uz %s"
-
-#~ msgid "Swipe your left little finger on %s"
-#~ msgstr "Pārvelciet savu kreisās rokas mazo pirkstiņu pār %s"
-
-#~ msgid "Place your right thumb on %s"
-#~ msgstr "Novietojiet savu labo īkšķi uz %s"
-
-#~ msgid "Swipe your right thumb on %s"
-#~ msgstr "Pārvelciet savu labo īkšķi pār %s"
-
-#~ msgid "Place your right index finger on %s"
-#~ msgstr "Novietojiet savu labo rādītājpirkstu uz %s"
-
-#~ msgid "Swipe your right index finger on %s"
-#~ msgstr "Pārvelciet savu labo rādītājpirkstu pār %s"
-
-#~ msgid "Place your right middle finger on %s"
-#~ msgstr "Novietojiet savu labās rokas vidējo pirkstu uz %s"
-
-#~ msgid "Swipe your right middle finger on %s"
-#~ msgstr "Pārvelciet savu labās rokas vidējo pirkstu pār %s"
-
-#~ msgid "Place your right ring finger on %s"
-#~ msgstr "Novietojiet savu labās rokas zeltnesi uz %s"
-
-#~ msgid "Swipe your right ring finger on %s"
-#~ msgstr "Pārvelciet savu labās rokas zeltnesi pār %s"
-
-#~ msgid "Place your right little finger on %s"
-#~ msgstr "Novietojiet savu labās rokas mazo pirkstiņu uz %s"
-
-#~ msgid "Swipe your right little finger on %s"
-#~ msgstr "Pārvelciet savu labās rokas mazo pirkstiņu pār %s"
-
-#~ msgid "Place your finger on the reader again"
-#~ msgstr "Novietojiet pirkstu uz lasītāja vēlreiz"
-
-#~ msgid "Swipe your finger again"
-#~ msgstr "Pārvelciet savu pirkstu vēlreiz"
-
-#~ msgid "Swipe was too short, try again"
-#~ msgstr "Pārvilciens bija pārāk īss, mēģiniet vēlreiz"
-
-#~ msgid "Your finger was not centered, try swiping your finger again"
-#~ msgstr "Jūsu pirksts nebija centrā, mēģiniet pārvilkt vēlreiz"
-
-#~ msgid "Remove your finger, and try swiping your finger again"
-#~ msgstr "Noņemiet pirkstu un mēģiniet pārvilkt pirkstu vēlreiz"
-
-#~ msgid "No Image"
-#~ msgstr "Nav attēla"
-
-#~ msgid "Images"
-#~ msgstr " Attēli"
-
-#~ msgid ""
-#~ "There was an error while trying to get the addressbook information\n"
-#~ "Evolution Data Server can't handle the protocol"
-#~ msgstr ""
-#~ "Radusies kļūda, meklējot adrešu grāmatiņas informāciju\n"
-#~ "Evolution Data Server netiek galā ar protokolu"
-
-#~ msgid "Unable to open address book"
-#~ msgstr "Neizdevās atvērt adrešu grāmatiņu"
-
-#~ msgid "About %s"
-#~ msgstr "Par %s"
-
-#~ msgid "A_IM/iChat:"
-#~ msgstr "AIM/iChat:"
-
-#~ msgid "C_ompany:"
-#~ msgstr "_Uzņēmums:"
-
-#~ msgid "Change Passwo_rd..."
-#~ msgstr "_Mainīt paroli..."
-
-#~ msgid "Ci_ty:"
-#~ msgstr "_Pilsēta:"
-
-#~ msgid "Cou_ntry:"
-#~ msgstr "_Valsts:"
-
-#~ msgid "Disable _Fingerprint Login..."
-#~ msgstr "Atslēgt pieteikšanos ar _pirkstu nospiedumu..."
+#~ msgid "Vertically"
+#~ msgstr "Vertikāli"

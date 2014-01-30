@@ -5,85 +5,60 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-control-center.master.gu\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug."
-"cgi?product=gnome-control-center&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-10-09 09:14+0000\n"
-"PO-Revision-Date: 2012-10-29 11:54+0530\n"
-"Last-Translator: \n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"control-center&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2014-01-08 23:25+0000\n"
+"PO-Revision-Date: 2014-01-09 06:29+0000\n"
+"Last-Translator: Launchpad Translations Administrators <Unknown>\n"
 "Language-Team: gu_IN <kde-i18n-doc@kde.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2014-01-30 14:21+0000\n"
+"X-Generator: Launchpad (build 16916)\n"
+"Language: \n"
+
+#: ../panels/background/background.ui.h:1
+#: ../panels/background/gnome-background-panel.desktop.in.in.h:1
+msgid "Background"
+msgstr "પાશ્વ ભાગ"
 
 #. This refers to a slideshow background
-#: ../panels/background/background.ui.h:2
-msgid "Changes throughout the day"
-msgstr "દિવસ દરમ્યામ બદલે છે"
-
 #: ../panels/background/background.ui.h:3
+msgid "Changes throughout the day"
+msgstr "દિવસ દરમ્યાન બદલાય છે"
+
+#: ../panels/background/background.ui.h:4
+msgid "Lock Screen"
+msgstr "સ્ક્રીનને તાળુ મારો"
+
+#: ../panels/background/background.ui.h:5
 msgctxt "background, style"
 msgid "Tile"
 msgstr "તકતી"
 
-#: ../panels/background/background.ui.h:4
+#: ../panels/background/background.ui.h:6
 msgctxt "background, style"
 msgid "Zoom"
 msgstr "નાનુ મોટુ કરો"
 
-#: ../panels/background/background.ui.h:5
+#: ../panels/background/background.ui.h:7
 msgctxt "background, style"
 msgid "Center"
 msgstr "કેન્દ્ર"
 
-#: ../panels/background/background.ui.h:6
+#: ../panels/background/background.ui.h:8
 msgctxt "background, style"
 msgid "Scale"
 msgstr "માપ"
 
-#: ../panels/background/background.ui.h:7
+#: ../panels/background/background.ui.h:9
 msgctxt "background, style"
 msgid "Fill"
 msgstr "ભરો"
 
-#: ../panels/background/background.ui.h:8
+#: ../panels/background/background.ui.h:10
 msgctxt "background, style"
 msgid "Span"
 msgstr "સ્પાન"
@@ -95,7 +70,7 @@ msgstr "પાશ્વભાગ પસંદ કરો"
 
 #: ../panels/background/cc-background-chooser-dialog.c:218
 msgid "Wallpapers"
-msgstr "વોલપેપરો"
+msgstr ""
 
 #: ../panels/background/cc-background-chooser-dialog.c:227
 msgid "Pictures"
@@ -131,13 +106,9 @@ msgstr "%d × %d"
 msgid "No Desktop Background"
 msgstr "ડેસ્કટોપ પાશ્વ ભાગ નથી"
 
-#: ../panels/background/cc-background-panel.c:396
+#: ../panels/background/cc-background-panel.c:451
 msgid "Current background"
 msgstr "હાલનાં પાશ્ર્વભાગો"
-
-#: ../panels/background/gnome-background-panel.desktop.in.in.h:1
-msgid "Background"
-msgstr "પાશ્વ ભાગ"
 
 #: ../panels/background/gnome-background-panel.desktop.in.in.h:2
 msgid "Change the background"
@@ -149,117 +120,144 @@ msgid "Wallpaper;Screen;Desktop;"
 msgstr "વોલપેપર;સ્ક્રીન;ડેસ્કટોપ"
 
 #. TRANSLATORS: device type
-#: ../panels/bluetooth/bluetooth-properties.desktop.in.in.h:1
+#: ../panels/bluetooth/gnome-bluetooth-panel.desktop.in.in.h:1
 #: ../panels/network/panel-common.c:102
 msgid "Bluetooth"
 msgstr "બ્લુટુથ"
 
-#: ../panels/bluetooth/bluetooth-properties.desktop.in.in.h:2
+#: ../panels/bluetooth/gnome-bluetooth-panel.desktop.in.in.h:2
+#| msgid "Change keyboard settings"
 msgid "Configure Bluetooth settings"
 msgstr "બ્લુટુથ સુયોજનોને રૂપરેખાંકિત કરો"
 
 #: ../panels/bluetooth/bluetooth.ui.h:1
+#| msgid "Delete device"
 msgid "Set Up New Device"
 msgstr "નવાં ઉપકરણને સુયોજિત કરો"
 
 #: ../panels/bluetooth/bluetooth.ui.h:2 ../panels/network/network.ui.h:9
+#| msgid "Remove a device"
 msgid "Remove Device"
 msgstr "ઉપકરણ દૂર કરો"
 
 #: ../panels/bluetooth/bluetooth.ui.h:3
+#| msgid "Connecting"
 msgid "Connection"
 msgstr "જોડાણ"
 
-#: ../panels/bluetooth/bluetooth.ui.h:4
+#: ../panels/bluetooth/bluetooth.ui.h:4 ../panels/printers/printers.ui.h:14
+msgid "page 1"
+msgstr "પાનું 1"
+
+#: ../panels/bluetooth/bluetooth.ui.h:5 ../panels/printers/printers.ui.h:16
+msgid "page 2"
+msgstr "પાનું 2"
+
+#: ../panels/bluetooth/bluetooth.ui.h:6
+#| msgid "Wired"
 msgid "Paired"
 msgstr "જોડી"
 
-#: ../panels/bluetooth/bluetooth.ui.h:5 ../panels/wacom/cc-wacom-page.c:756
+#: ../panels/bluetooth/bluetooth.ui.h:7 ../panels/wacom/cc-wacom-page.c:756
+#| msgid "_Type:"
 msgid "Type"
 msgstr "પ્રકાર"
 
-#: ../panels/bluetooth/bluetooth.ui.h:6
+#: ../panels/bluetooth/bluetooth.ui.h:8
+#| msgid "IP Address"
 msgid "Address"
 msgstr "સરનામું"
 
-#: ../panels/bluetooth/bluetooth.ui.h:7
+#: ../panels/bluetooth/bluetooth.ui.h:9
+#| msgid "Mouse and Touchpad"
 msgid "Mouse and Touchpad Settings"
 msgstr "માઉસ અને ટચપેડ સુયોજનો"
 
-#: ../panels/bluetooth/bluetooth.ui.h:8 ../panels/universal-access/uap.ui.h:38
+#: ../panels/bluetooth/bluetooth.ui.h:10
+#: ../panels/universal-access/uap.ui.h:38
+#| msgid "_Sound Settings"
 msgid "Sound Settings"
 msgstr "સાઉન્ડ સુયોજનો"
 
-#: ../panels/bluetooth/bluetooth.ui.h:9
+#: ../panels/bluetooth/bluetooth.ui.h:11
+#| msgid "_Keyboard Settings"
 msgid "Keyboard Settings"
 msgstr "કીબોર્ડ સુયોજનો"
 
-#: ../panels/bluetooth/bluetooth.ui.h:10
+#: ../panels/bluetooth/bluetooth.ui.h:12
 msgid "Send Files..."
 msgstr "ફાઇલો મોકલો..."
 
-#: ../panels/bluetooth/bluetooth.ui.h:11
+#: ../panels/bluetooth/bluetooth.ui.h:13
+#| msgid "Browse for more pictures..."
 msgid "Browse Files..."
 msgstr "ફાઇલો બ્રાઉઝ કરો..."
 
 #. Translator: This string appears next to a toggle switch which controls enabling/disabling Bluetooth radio's on the device.
-#: ../panels/bluetooth/bluetooth.ui.h:13
+#: ../panels/bluetooth/bluetooth.ui.h:15
+#| msgid "Bluetooth"
 msgctxt "Power"
 msgid "Bluetooth"
 msgstr "બ્લુટુથ"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:290
+#: ../panels/bluetooth/cc-bluetooth-panel.c:340
 msgid "Yes"
 msgstr "હાં"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:290
+#: ../panels/bluetooth/cc-bluetooth-panel.c:340
+#| msgid "None"
 msgid "No"
 msgstr "ના"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:405
+#: ../panels/bluetooth/cc-bluetooth-panel.c:454
+#| msgid "Bluetooth"
 msgid "Bluetooth is disabled"
 msgstr "બ્લુટુથ નિષ્ક્રિય થયેલ છે"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:410
+#: ../panels/bluetooth/cc-bluetooth-panel.c:459
 msgid "Bluetooth is disabled by hardware switch"
 msgstr "હાર્ડવેર સ્વીચ દ્દારા બ્લુટુથ નિષ્ક્રિય થયેલ છે"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:414
+#: ../panels/bluetooth/cc-bluetooth-panel.c:463
 msgid "No Bluetooth adapters found"
 msgstr "બ્લુટુથ ઍડપ્ટર મળ્યુ નથી"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:547
+#: ../panels/bluetooth/cc-bluetooth-panel.c:590
 msgid "Visibility"
 msgstr "દૃશ્યતા"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:551
+#: ../panels/bluetooth/cc-bluetooth-panel.c:594
 #, c-format
 msgid "Visibility of “%s”"
 msgstr "“%s” ની દૃશ્યતા"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:595
+#: ../panels/bluetooth/cc-bluetooth-panel.c:638
 #, c-format
 msgid "Remove '%s' from the list of devices?"
 msgstr "શું ઉપકરણોની યાદીમાંથી '%s' ને દૂર કરવાનુ છે?"
 
-#: ../panels/bluetooth/cc-bluetooth-panel.c:597
-msgid "If you remove the device, you will have to set it up again before next use."
-msgstr "જો તમે ઉપકરણને દૂક કરો તો, તમારે આગળનાં વપરાશ પહેલાં ફરી સુયોજિત કરવુ જ પડશે."
+#: ../panels/bluetooth/cc-bluetooth-panel.c:640
+msgid ""
+"If you remove the device, you will have to set it up again before next use."
+msgstr ""
+"જો તમે ઉપકરણને દૂક કરો તો, તમારે આગળનાં વપરાશ પહેલાં ફરી સુયોજિત કરવુ જ પડશે."
 
 #. TRANSLATORS: this is where the user can click and import a profile
-#: ../panels/color/cc-color-panel.c:106
+#: ../panels/color/cc-color-panel.c:107
+#| msgid "Other finger: "
 msgid "Other profile…"
 msgstr "બીજી રૂપરેખા"
 
 #. TRANSLATORS: this is a profile prefix to signify the
 #. * profile has been auto-generated for this hardware
-#: ../panels/color/cc-color-panel.c:119
+#: ../panels/color/cc-color-panel.c:120
+#| msgid "Default"
 msgid "Default: "
 msgstr "મૂળભૂત: "
 
 #. TRANSLATORS: this is a profile prefix to signify the
 #. * profile his a standard space like AdobeRGB
-#: ../panels/color/cc-color-panel.c:126
+#: ../panels/color/cc-color-panel.c:127
 msgid "Colorspace: "
 msgstr "રંગસ્થાન: "
 
@@ -267,133 +265,147 @@ msgstr "રંગસ્થાન: "
 # libgnomeprintui/gpaui/config-dialog.c:83
 #. TRANSLATORS: this is a profile prefix to signify the
 #. * profile is a test profile
-#: ../panels/color/cc-color-panel.c:132
+#: ../panels/color/cc-color-panel.c:133
+#| msgid "No profile"
 msgid "Test profile: "
 msgstr "રૂપરેખા ચકાસો: "
 
 # #-#-#-#-#  libgnomeui.gnome-2-2.hi.po (libgnomeui HEAD)  #-#-#-#-# libgnomeui/gnome-app-helper.c:166
 #. TRANSLATORS: this is when the profile should be set for all users
-#: ../panels/color/cc-color-panel.c:185 ../panels/color/color.ui.h:11
+#: ../panels/color/cc-color-panel.c:186 ../panels/color/color.ui.h:11
+#| msgid "Create a user"
 msgid "Set for all users"
 msgstr "બધા વપરાશકર્તાઓ માટે સુયોજિત કરો"
 
 #. TRANSLATORS: this is when the profile should be set for all users
-#: ../panels/color/cc-color-panel.c:192
+#: ../panels/color/cc-color-panel.c:193
 msgid "Create virtual device"
 msgstr "વર્ચ્યુઅલ ઉપકરણને બનાવો"
 
 #. TRANSLATORS: an ICC profile is a file containing colorspace data
-#: ../panels/color/cc-color-panel.c:227
+#: ../panels/color/cc-color-panel.c:228
 msgid "Select ICC Profile File"
 msgstr "ICC રૂપરેખા ફાઇલ પસંદ કરો"
 
-#: ../panels/color/cc-color-panel.c:230
+#: ../panels/color/cc-color-panel.c:231
 msgid "_Import"
 msgstr "આયાત કરો (_I)"
 
 #. TRANSLATORS: filter name on the file->open dialog
-#: ../panels/color/cc-color-panel.c:241
+#: ../panels/color/cc-color-panel.c:242
 msgid "Supported ICC profiles"
 msgstr "આધારભૂત ICC રૂપરેખાઓ"
 
 #. TRANSLATORS: filter name on the file->open dialog
-#: ../panels/color/cc-color-panel.c:248
+#: ../panels/color/cc-color-panel.c:249
 msgid "All files"
 msgstr "બધી ફાઇલો"
 
 #. TRANSLATORS: this is the dialog title in the 'Add profile' UI
-#: ../panels/color/cc-color-panel.c:522
+#: ../panels/color/cc-color-panel.c:639
+#| msgid "Available Profiles"
 msgid "Available Profiles for Displays"
 msgstr "દર્શાવો માટે ઉપલબ્ધ રૂપરેખાઓ"
 
 #. TRANSLATORS: this is the dialog title in the 'Add profile' UI
-#: ../panels/color/cc-color-panel.c:526
+#: ../panels/color/cc-color-panel.c:643
+#| msgid "Available Profiles"
 msgid "Available Profiles for Scanners"
 msgstr "સ્કેનર માટે ઉપલબ્ધ રૂપરેખાઓ"
 
 #. TRANSLATORS: this is the dialog title in the 'Add profile' UI
-#: ../panels/color/cc-color-panel.c:530
+#: ../panels/color/cc-color-panel.c:647
+#| msgid "Available Profiles"
 msgid "Available Profiles for Printers"
 msgstr "પ્રિન્ટર માટે ઉપલબ્ધ રૂપરેખાઓ"
 
 #. TRANSLATORS: this is the dialog title in the 'Add profile' UI
-#: ../panels/color/cc-color-panel.c:534
+#: ../panels/color/cc-color-panel.c:651
+#| msgid "Available Profiles"
 msgid "Available Profiles for Cameras"
 msgstr "કૅમેરા માટે ઉપલબ્ધ રૂપરેખાઓ"
 
 #. TRANSLATORS: this is the dialog title in the 'Add profile' UI
-#: ../panels/color/cc-color-panel.c:538
+#: ../panels/color/cc-color-panel.c:655
+#| msgid "Available Profiles"
 msgid "Available Profiles for Webcams"
 msgstr "વેબકેમ માટે ઉપલબ્ધ રૂપરેખાઓ"
 
 #. TRANSLATORS: this is the dialog title in the 'Add profile' UI
 #. * where the device type is not recognised
 #. Profiles that can be added to the device
-#: ../panels/color/cc-color-panel.c:543 ../panels/color/color.ui.h:2
+#: ../panels/color/cc-color-panel.c:660 ../panels/color/color.ui.h:2
 msgid "Available Profiles"
 msgstr "ઉપલબ્ધ રૂપરેખાઓ"
 
 #. TRANSLATORS: column for device list
-#: ../panels/color/cc-color-panel.c:824
+#: ../panels/color/cc-color-panel.c:936
 #: ../panels/sound/gvc-mixer-dialog.c:1525
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1618
 msgid "Device"
 msgstr "ઉપકરણ"
 
 #. TRANSLATORS: column for device list
-#: ../panels/color/cc-color-panel.c:859
+#: ../panels/color/cc-color-panel.c:971
+#| msgid "Applications"
 msgid "Calibration"
 msgstr "માપાંકન"
 
 #. TRANSLATORS: this is when the button is sensitive
-#: ../panels/color/cc-color-panel.c:891
+#: ../panels/color/cc-color-panel.c:1003
+#| msgid "Settings for the selected device:"
 msgid "Create a color profile for the selected device"
 msgstr "પસંદ થયેલ ઉપકરણ માટે રંગ રૂપરેખા બનાવો:"
 
 #. TRANSLATORS: this is when the button is insensitive
-#: ../panels/color/cc-color-panel.c:905 ../panels/color/cc-color-panel.c:929
+#: ../panels/color/cc-color-panel.c:1017 ../panels/color/cc-color-panel.c:1041
 msgid ""
 "The measuring instrument is not detected. Please check it is turned on and "
 "correctly connected."
 msgstr ""
-"માપન સાધન મળતુ નથી. મહેરબાની કરીને ચકાસો કે તે ચાલુ છે કે નહિં અને યોગ્ય રીતે જોડાયેલ છે."
+"માપન સાધન મળતુ નથી. મહેરબાની કરીને ચકાસો કે તે ચાલુ છે કે નહિં અને યોગ્ય "
+"રીતે જોડાયેલ છે."
 
 #. TRANSLATORS: this is when the button is insensitive
-#: ../panels/color/cc-color-panel.c:938
+#: ../panels/color/cc-color-panel.c:1050
 msgid "The measuring instrument does not support printer profiling."
 msgstr "માપન સાધન પ્રિન્ટર રૂપરેખાને આધાર આપતુ નથી."
 
 #. TRANSLATORS: this is when the button is insensitive
-#: ../panels/color/cc-color-panel.c:949
+#: ../panels/color/cc-color-panel.c:1061
 msgid "The device type is not currently supported."
 msgstr "ઉપકરણ પ્રકાર હાલમાં આધારભૂત નથી."
 
 #. TRANSLATORS: this is when an auto-added profile cannot be removed
-#: ../panels/color/cc-color-panel.c:1022
+#: ../panels/color/cc-color-panel.c:1133
 msgid "Cannot remove automatically added profile"
 msgstr "આપમેળે ઉમેરાયેલ રૂપરેખાને દૂર કરી શકાતુ નથી"
 
 # libgnomeprintui/gpaui/add-printer-dialog.c:83
 # libgnomeprintui/gpaui/config-dialog.c:83
 #. TRANSLATORS: this is when there is no profile for the device
-#: ../panels/color/cc-color-panel.c:1359
+#: ../panels/color/cc-color-panel.c:1464
+#| msgid "_Profile:"
 msgid "No profile"
 msgstr "રૂપરેખા નથી"
 
-#: ../panels/color/cc-color-panel.c:1390
+#: ../panels/color/cc-color-panel.c:1495
 #, c-format
 msgid "%i year"
 msgid_plural "%i years"
 msgstr[0] "%i વર્ષ"
 msgstr[1] "%i વર્ષો"
 
-#: ../panels/color/cc-color-panel.c:1401
+#: ../panels/color/cc-color-panel.c:1506
 #, c-format
+#| msgid "%i minute"
+#| msgid_plural "%i minutes"
 msgid "%i month"
 msgid_plural "%i months"
 msgstr[0] "%i મહિનો"
 msgstr[1] "%i મહિના"
 
-#: ../panels/color/cc-color-panel.c:1412
+#: ../panels/color/cc-color-panel.c:1517
 #, c-format
 msgid "%i week"
 msgid_plural "%i weeks"
@@ -401,87 +413,100 @@ msgstr[0] "%i અઠવાડિયુ"
 msgstr[1] "%i અઠવાડિયા"
 
 #. fallback
-#: ../panels/color/cc-color-panel.c:1419
+#: ../panels/color/cc-color-panel.c:1524
 #, c-format
 msgid "Less than 1 week"
 msgstr "1 અઠવાડિયા કરતા ઓછુ"
 
-#: ../panels/color/cc-color-panel.c:1481
+#: ../panels/color/cc-color-panel.c:1586
+#| msgid "Default"
 msgctxt "Colorspace fallback"
 msgid "Default RGB"
 msgstr "મૂળભૂત RGB"
 
-#: ../panels/color/cc-color-panel.c:1486
+#: ../panels/color/cc-color-panel.c:1591
+#| msgid "Default"
 msgctxt "Colorspace fallback"
 msgid "Default CMYK"
 msgstr "મૂળભૂત CMYK"
 
-#: ../panels/color/cc-color-panel.c:1491
+#: ../panels/color/cc-color-panel.c:1596
+#| msgid "Default"
 msgctxt "Colorspace fallback"
 msgid "Default Gray"
 msgstr "મૂળભૂત ગ્રે"
 
-#: ../panels/color/cc-color-panel.c:1609 ../panels/color/cc-color-panel.c:1650
-#: ../panels/color/cc-color-panel.c:1661 ../panels/color/cc-color-panel.c:1672
+#: ../panels/color/cc-color-panel.c:1714 ../panels/color/cc-color-panel.c:1755
+#: ../panels/color/cc-color-panel.c:1766 ../panels/color/cc-color-panel.c:1777
 msgid "Uncalibrated"
 msgstr "માપદંડ થયેલ નથી"
 
-#: ../panels/color/cc-color-panel.c:1612
+#: ../panels/color/cc-color-panel.c:1717
+#| msgid "The device is already in use."
 msgid "This device is not color managed."
 msgstr "આ ઉપકરણ રંગ સંચાલિત થયેલ નથી."
 
-#: ../panels/color/cc-color-panel.c:1653
+#: ../panels/color/cc-color-panel.c:1758
 msgid "This device is using manufacturing calibrated data."
 msgstr "આ ઉપકરણ ઉત્પાદન માપદંડ થયેલ માહિતીને વાપરી રહ્યુ છે."
 
-#: ../panels/color/cc-color-panel.c:1664
+#: ../panels/color/cc-color-panel.c:1769
 msgid ""
 "This device does not have a profile suitable for whole-screen color "
 "correction."
 msgstr "આ ઉપકરણ પાસે આખી-સ્ક્રીનની રંગ ચકાસણી માટે સુસંગત રૂપરેખા નથી."
 
-#: ../panels/color/cc-color-panel.c:1697
+#: ../panels/color/cc-color-panel.c:1802
 msgid "This device has an old profile that may no longer be accurate."
-msgstr "આ ઉપકરણ પાસે જૂની રૂપરેખા છે કે જે લાંબા સમય સુધી ચોક્કસ રહી શકતી નથી."
+msgstr ""
+"આ ઉપકરણ પાસે જૂની રૂપરેખા છે કે જે લાંબા સમય સુધી ચોક્કસ રહી શકતી નથી."
 
 #. TRANSLATORS: this is when the calibration profile age is not
 #. * specified as it has been autogenerated from the hardware
-#: ../panels/color/cc-color-panel.c:1725
+#: ../panels/color/cc-color-panel.c:1830
+#| msgid "Unspecified"
 msgid "Not specified"
 msgstr "સ્પષ્ટ થયેલ નથી"
 
 #. add the 'No devices detected' entry
-#: ../panels/color/cc-color-panel.c:1910
+#: ../panels/color/cc-color-panel.c:2015
 msgid "No devices supporting color management detected"
 msgstr "ઉપકરણો શોધાયેલ રંગ સંચાલનને આધાર આપી રહ્યુ નથી"
 
-#: ../panels/color/cc-color-panel.c:2139
+#: ../panels/color/cc-color-panel.c:2244
+#| msgctxt "universal access, seeing"
+#| msgid "Display"
 msgctxt "Device kind"
 msgid "Display"
 msgstr "દેખાવ"
 
-#: ../panels/color/cc-color-panel.c:2141
+#: ../panels/color/cc-color-panel.c:2246
+#| msgid "Scale"
 msgctxt "Device kind"
 msgid "Scanner"
 msgstr "સ્કેનર"
 
-#: ../panels/color/cc-color-panel.c:2143
+#: ../panels/color/cc-color-panel.c:2248
+#| msgid "Printer"
 msgctxt "Device kind"
 msgid "Printer"
 msgstr "પ્રિન્ટર"
 
-#: ../panels/color/cc-color-panel.c:2145
+#: ../panels/color/cc-color-panel.c:2250
+#| msgid "Name"
 msgctxt "Device kind"
 msgid "Camera"
 msgstr "કૅમેરા"
 
-#: ../panels/color/cc-color-panel.c:2147
+#: ../panels/color/cc-color-panel.c:2252
+#| msgid "Web"
 msgctxt "Device kind"
 msgid "Webcam"
 msgstr "વેબકેમ"
 
 #: ../panels/color/color.ui.h:3
 #: ../panels/color/gnome-color-panel.desktop.in.in.h:1
+#| msgid "Solid Color"
 msgid "Color"
 msgstr "રંગ"
 
@@ -498,6 +523,7 @@ msgid "Learn more about color management"
 msgstr "રંગ સંચાલન વિશે વધારે શીખો"
 
 #: ../panels/color/color.ui.h:7
+#| msgid "Device"
 msgid "Add device"
 msgstr "ઉપકરણ ઉમેરો"
 
@@ -506,10 +532,12 @@ msgid "Add a virtual device"
 msgstr "વર્ચ્યુઅલ ઉપકરણને ઉમેરો"
 
 #: ../panels/color/color.ui.h:9
+#| msgid "_Delete Files"
 msgid "Delete device"
 msgstr "ઉપકરણ કાઢી નાંખો"
 
 #: ../panels/color/color.ui.h:10
+#| msgid "Removable Media"
 msgid "Remove a device"
 msgstr "ઉપકરણ દૂર કરો"
 
@@ -518,6 +546,7 @@ msgid "Set this profile for all users on this computer"
 msgstr "આ કમ્પ્યૂટર પર બધા વપરાશકર્તાઓ માટે આ રૂપરેખાને સુયોજિત કરો"
 
 #: ../panels/color/color.ui.h:13
+#| msgid "April"
 msgid "Add profile"
 msgstr "રૂપરેખા ઉમેરો"
 
@@ -538,6 +567,7 @@ msgid "View details"
 msgstr "વિગતો દર્શાવો"
 
 #: ../panels/color/color.ui.h:18
+#| msgid "Device types"
 msgid "Device type:"
 msgstr "ઉપકરણ પ્રકાર:"
 
@@ -548,14 +578,19 @@ msgstr "ઉત્પાદક:"
 # libgnomeprintui/gpaui/add-printer-dialog.c:83
 # libgnomeprintui/gpaui/config-dialog.c:83
 #: ../panels/color/color.ui.h:20
+#| msgid "Model"
 msgid "Model:"
 msgstr "મોડેલ:"
 
 #: ../panels/color/color.ui.h:21
-msgid "Image files can be dragged on this window to auto-complete the above fields."
-msgstr "ઉપરનાં ક્ષેત્રોને સ્વયં સમાપ્ત કરવા માટે આ વિન્ડો પર ઇમેજ ફાઇલોને ખેંચી શકાય છે."
+msgid ""
+"Image files can be dragged on this window to auto-complete the above fields."
+msgstr ""
+"ઉપરનાં ક્ષેત્રોને સ્વયં સમાપ્ત કરવા માટે આ વિન્ડો પર ઇમેજ ફાઇલોને ખેંચી શકાય "
+"છે."
 
 #: ../panels/color/gnome-color-panel.desktop.in.in.h:2
+#| msgid "Power management settings"
 msgid "Color management settings"
 msgstr "રંગ સંચાલન સુયોજનો"
 
@@ -564,70 +599,35 @@ msgstr "રંગ સંચાલન સુયોજનો"
 msgid "Color;ICC;Profile;Calibrate;Printer;Display;"
 msgstr "રંગ;ICC;રૂપરેખા;માપદંડ;પ્રિન્ટર;દર્શાવ;"
 
-#. Add some common languages first
-#: ../panels/common/cc-common-language.c:533
-msgid "English"
-msgstr "અંગ્રેજી"
-
-#: ../panels/common/cc-common-language.c:535
-msgid "British English"
-msgstr "બ્રિટીશ અંગ્રેજી"
-
-#: ../panels/common/cc-common-language.c:538
-msgid "German"
-msgstr "જર્મન"
-
-#: ../panels/common/cc-common-language.c:541
-msgid "French"
-msgstr "ફ્રેન્ચ"
-
-#: ../panels/common/cc-common-language.c:544
-msgid "Spanish"
-msgstr "સ્પેનિશ"
-
-#: ../panels/common/cc-common-language.c:546
-msgid "Chinese (simplified)"
-msgstr "ચીની (સરળ)"
-
-#: ../panels/common/cc-common-language.c:549
-msgid "Russian"
-msgstr "રશિયન"
-
-#: ../panels/common/cc-common-language.c:552
-msgid "Arabic"
-msgstr "અરેબિક"
-
 #. Add some common regions
-#: ../panels/common/cc-common-language.c:581
+#: ../panels/common/cc-common-language.c:661
 msgid "United States"
 msgstr "યુનાઇટેડ સ્ટેટ્સ"
 
-#: ../panels/common/cc-common-language.c:582
+#: ../panels/common/cc-common-language.c:662
 msgid "Germany"
 msgstr "જર્મની"
 
-#: ../panels/common/cc-common-language.c:583
+#: ../panels/common/cc-common-language.c:663
+#| msgid "Cancel"
 msgid "France"
 msgstr "ફ્રાન્સ"
 
-#: ../panels/common/cc-common-language.c:584
+#: ../panels/common/cc-common-language.c:664
 msgid "Spain"
 msgstr "સ્પેન"
 
-#: ../panels/common/cc-common-language.c:585
+#: ../panels/common/cc-common-language.c:665
 msgid "China"
 msgstr "ચાઇના"
 
-#: ../panels/common/cc-language-chooser.c:122
-msgid "Other..."
-msgstr "અન્ય..."
-
 # #-#-#-#-#  gnome-session.gnome-2-2.hi.po (gnome-session VERSION)  #-#-#-#-# gnome-session/logout.c:266
 #: ../panels/common/cc-language-chooser.c:296
+#| msgid "Section"
 msgid "Select a region"
 msgstr "વિસ્તાર પસંદ કરો"
 
-#: ../panels/common/gdm-languages.c:781
+#: ../panels/common/gdm-languages.c:787
 msgid "Unspecified"
 msgstr "સ્પષ્ટ થયેલ નથી"
 
@@ -646,6 +646,7 @@ msgid "_Select"
 msgstr "પસંદ કરો (_S)"
 
 #: ../panels/datetime/datetime.ui.h:1
+#| msgid "Region:"
 msgid "_Region:"
 msgstr "વિસ્તાર (_R):"
 
@@ -704,7 +705,7 @@ msgstr "AM/PM"
 
 #: ../panels/datetime/datetime.ui.h:16
 msgid "January"
-msgstr "જાન્યુઅરી "
+msgstr "જાન્યુઅરી"
 
 #: ../panels/datetime/datetime.ui.h:17
 msgid "February"
@@ -764,6 +765,7 @@ msgid "Clock;Timezone;Location;"
 msgstr "ઘડિયાળ;ટાઇમઝોન;સ્થાન;"
 
 #: ../panels/datetime/org.gnome.controlcenter.datetime.policy.in.h:1
+#| msgid "Change your region and language settings"
 msgid "Change system time and date settings"
 msgstr "સિસ્ટમ સમય અને તારીખ સુયોજનોને બદલો"
 
@@ -771,22 +773,24 @@ msgstr "સિસ્ટમ સમય અને તારીખ સુયોજ�
 msgid "To change time or date settings, you need to authenticate."
 msgstr "સમય અથવા તારીખ સુયોજનોને બદલવા માટે, તમારે સત્તાધિકરણ કરવુ જરૂરી છે."
 
-#: ../panels/display/cc-display-panel.c:481
+#: ../panels/display/cc-display-panel.c:513
+#| msgid "Normal"
 msgctxt "display panel, rotation"
 msgid "Normal"
 msgstr "સામાન્ય"
 
-#: ../panels/display/cc-display-panel.c:482
+#: ../panels/display/cc-display-panel.c:514
 msgctxt "display panel, rotation"
 msgid "Counterclockwise"
 msgstr "વિષમઘડી દિશા"
 
-#: ../panels/display/cc-display-panel.c:483
+#: ../panels/display/cc-display-panel.c:515
 msgctxt "display panel, rotation"
 msgid "Clockwise"
 msgstr "સમઘડી દિશા"
 
-#: ../panels/display/cc-display-panel.c:484
+#: ../panels/display/cc-display-panel.c:516
+#| msgid "180 Degrees"
 msgctxt "display panel, rotation"
 msgid "180 Degrees"
 msgstr "180 અંશ"
@@ -796,59 +800,74 @@ msgstr "180 અંશ"
 #. * screen is the same as your external projector.  Here, "Mirrored" is being
 #. * used as an adjective.  For example, the Spanish translation could be
 #. * "Pantallas en Espejo".
-#.
-#: ../panels/display/cc-display-panel.c:623
+#. 
+#. Keep this string in sync with gnome-control-center/capplets/display/xrandr-capplet.c:get_display_name()
+#. Translators:  this is the feature where what you see on your
+#. * laptop's screen is the same as your external projector.
+#. * Here, "Mirrored" is being used as an adjective.  For example,
+#. * the Spanish translation could be "Pantallas en Espejo".
+#. 
+#: ../panels/display/cc-display-panel.c:659
+#: ../panels/display/cc-rr-labeler.c:449
 msgid "Mirrored Displays"
 msgstr "મિરર દેખાવો"
 
-#: ../panels/display/cc-display-panel.c:647
+#: ../panels/display/cc-display-panel.c:683
 #: ../panels/display/display-capplet.ui.h:1
+#| msgid "<b>Monitor</b>"
 msgid "Monitor"
 msgstr "મોનિટર"
 
-#: ../panels/display/cc-display-panel.c:748
+#: ../panels/display/cc-display-panel.c:787
 #, c-format
 msgid "%d x %d (%s)"
 msgstr "%d x %d (%s)"
 
-#: ../panels/display/cc-display-panel.c:750
+#: ../panels/display/cc-display-panel.c:789
 #, c-format
 msgid "%d x %d"
 msgstr "%d x %d"
 
-#: ../panels/display/cc-display-panel.c:1659
+#: ../panels/display/cc-display-panel.c:1699
 msgid "Drag to change primary display."
 msgstr "પ્રાથમિક દર્શાવને બદલવા ખેંચો."
 
-#: ../panels/display/cc-display-panel.c:1717
+#: ../panels/display/cc-display-panel.c:1757
 msgid ""
 "Select a monitor to change its properties; drag it to rearrange its "
 "placement."
-msgstr "તેનાં ગુણધર્મોને બદલવા માટે મોનિટરને પસંદ કરો; તેનાં સ્થાનને પુન:ગોઠવવા માટે તેને ખેંચો."
+msgstr ""
+"તેનાં ગુણધર્મોને બદલવા માટે મોનિટરને પસંદ કરો; તેનાં સ્થાનને પુન:ગોઠવવા માટે "
+"તેને ખેંચો."
 
-#: ../panels/display/cc-display-panel.c:2105
+#: ../panels/display/cc-display-panel.c:2172
 msgid "%a %R"
 msgstr "%a %R"
 
-#: ../panels/display/cc-display-panel.c:2107
+#: ../panels/display/cc-display-panel.c:2174
 msgid "%a %l:%M %p"
 msgstr "%a %l:%M %p"
 
-#: ../panels/display/cc-display-panel.c:2269
-#: ../panels/display/cc-display-panel.c:2321
+#: ../panels/display/cc-display-panel.c:2336
+#: ../panels/display/cc-display-panel.c:2388
 #, c-format
+#| msgid "Automatic configuration"
 msgid "Failed to apply configuration: %s"
 msgstr "રૂપરેખાંકનને લાગુ કરવામાં નિષ્ફળતા: %s"
 
-#: ../panels/display/cc-display-panel.c:2349
+#: ../panels/display/cc-display-panel.c:2416
 msgid "Could not save the monitor configuration"
 msgstr "મોનિટર રૂપરેખાંકનને સંગ્રહ કરી શકાયુ નહિં"
 
-#: ../panels/display/cc-display-panel.c:2409
+#: ../panels/display/cc-display-panel.c:2476
 msgid "Could not detect displays"
 msgstr "દર્શાવોને શોધી શકાયુ નહિં"
 
-#: ../panels/display/cc-display-panel.c:2603
+#: ../panels/display/cc-display-panel.c:2740
+msgid "All displays"
+msgstr ""
+
+#: ../panels/display/cc-display-panel.c:2897
 msgid "Could not get screen information"
 msgstr "સ્ક્રીન જાણકારી ને મેળવી શકાયુ નહિં"
 
@@ -860,16 +879,24 @@ msgstr "રીઝોલ્યુશન (_R)"
 msgid "R_otation"
 msgstr "ફેરવવાનું (_o):"
 
-#. Note that mirror is a verb in this string
+#: ../panels/display/display-capplet.ui.h:4
+msgid "L_auncher placement"
+msgstr ""
+
 #: ../panels/display/display-capplet.ui.h:5
+msgid "S_ticky edges"
+msgstr ""
+
+#. Note that mirror is a verb in this string
+#: ../panels/display/display-capplet.ui.h:7
 msgid "_Mirror displays"
 msgstr "મિરર દેખાવો (_M)"
 
-#: ../panels/display/display-capplet.ui.h:6
+#: ../panels/display/display-capplet.ui.h:8
 msgid "Note: may limit resolution options"
 msgstr "નોંધ: રિઝોલ્યુશન વિકલ્પો પર મર્યાદા આવી શકે છે"
 
-#: ../panels/display/display-capplet.ui.h:7
+#: ../panels/display/display-capplet.ui.h:9
 msgid "_Detect Displays"
 msgstr "દર્શાવોને શોધો (_D)"
 
@@ -887,86 +914,94 @@ msgid "Panel;Projector;xrandr;Screen;Resolution;Refresh;"
 msgstr "પેનલ;પ્રોજેક્ટર;xrandr;સ્ક્રીન;રિઝોલ્યુશન;તાજુ કરો;"
 
 #. Translators: VESA is an techncial acronym, don't translate it.
-#: ../panels/info/cc-info-panel.c:413
+#: ../panels/info/cc-info-panel.c:435
 #, c-format
 msgid "VESA: %s"
 msgstr "VESA: %s"
 
 #. TRANSLATORS: device type
 #. TRANSLATORS: AP type
-#: ../panels/info/cc-info-panel.c:437 ../panels/network/panel-common.c:82
+#: ../panels/info/cc-info-panel.c:459 ../panels/network/panel-common.c:82
 #: ../panels/network/panel-common.c:162
 msgid "Unknown"
 msgstr "અજ્ઞાત"
 
 #. translators: This is the type of architecture, for example:
 #. * "64-bit" or "32-bit"
-#: ../panels/info/cc-info-panel.c:593
+#: ../panels/info/cc-info-panel.c:615
 #, c-format
 msgid "%d-bit"
 msgstr "%d-બીટ"
 
-#: ../panels/info/cc-info-panel.c:752
+#: ../panels/info/cc-info-panel.c:774
 msgid "Unknown model"
 msgstr "અજ્ઞાત મોડેલ"
 
-#: ../panels/info/cc-info-panel.c:835
+#: ../panels/info/cc-info-panel.c:857
 msgid "The next login will attempt to use the standard experience."
 msgstr "આગળનો પ્રવેશ મૂળભૂત અનુભવને વાપરવા માટે પ્રયત્ન કરશે."
 
-#: ../panels/info/cc-info-panel.c:837
+#: ../panels/info/cc-info-panel.c:859
 msgid ""
 "The next login will use the fallback mode intended for unsupported graphics "
 "hardware."
-msgstr "આગામી પ્રવેશ બિનઆધારભૂત ગ્રાફિક્સ હાર્ડવેર માટે ફૉલબેક સ્થિતિ વાપરશે."
+msgstr ""
+"આગામી પ્રવેશ બિનઆધારભૂત ગ્રાફિક્સ હાર્ડવેર માટે ફૉલબેક સ્થિતિ વાપરશે."
 
 #. translators: The hardware is not able to run GNOME 3's
 #. * shell, so we use the GNOME "Fallback" session
-#: ../panels/info/cc-info-panel.c:879
+#: ../panels/info/cc-info-panel.c:901
+#| msgid "Callback"
 msgctxt "Experience"
 msgid "Fallback"
 msgstr "ફોલબૅક"
 
 #. translators: The hardware is able to run GNOME 3's
 #. * shell, also called "Standard" experience
-#: ../panels/info/cc-info-panel.c:885
+#: ../panels/info/cc-info-panel.c:907
+#| msgctxt "Account type"
+#| msgid "Standard"
 msgctxt "Experience"
 msgid "Standard"
 msgstr "પ્રમાણભૂત"
 
-#: ../panels/info/cc-info-panel.c:1227
+#: ../panels/info/cc-info-panel.c:1283
 msgid "Ask what to do"
 msgstr "શું કરવુ છે તે પૂછો"
 
-#: ../panels/info/cc-info-panel.c:1231
+#: ../panels/info/cc-info-panel.c:1287 ../panels/power/power.ui.h:11
+#| msgid "Smoothing"
 msgid "Do nothing"
 msgstr "કઇ કરવાનુ નથી"
 
-#: ../panels/info/cc-info-panel.c:1235
+#: ../panels/info/cc-info-panel.c:1291
 msgid "Open folder"
 msgstr "ફોલ્ડરને ખોલો"
 
-#: ../panels/info/cc-info-panel.c:1326
+#: ../panels/info/cc-info-panel.c:1382
 msgid "Other Media"
 msgstr "બીજી મીડિયા"
 
-#: ../panels/info/cc-info-panel.c:1357
+#: ../panels/info/cc-info-panel.c:1413
+#| msgid "Select your default applications"
 msgid "Select an application for audio CDs"
 msgstr "ઓડિયો CDs માટે કાર્યક્રમને પસંદ કરો"
 
-#: ../panels/info/cc-info-panel.c:1358
+#: ../panels/info/cc-info-panel.c:1414
+#| msgid "Select your default applications"
 msgid "Select an application for video DVDs"
 msgstr "વિડિઓ DVDs માટે કાર્યક્રમને પસંદ કરો"
 
-#: ../panels/info/cc-info-panel.c:1359
+#: ../panels/info/cc-info-panel.c:1415
 msgid "Select an application to run when a music player is connected"
 msgstr "ચલાવવા માટે કાર્યક્રમને પસંદ કરો જ્યારે સંગીત પ્લેયર જોડાયેલ હોય"
 
-#: ../panels/info/cc-info-panel.c:1360
+#: ../panels/info/cc-info-panel.c:1416
 msgid "Select an application to run when a camera is connected"
 msgstr "ચલાવવા માટે કાર્યક્રમને પસંદ કરો જ્યારે કેમેરા જોડાયેલ હોય"
 
-#: ../panels/info/cc-info-panel.c:1361
+#: ../panels/info/cc-info-panel.c:1417
+#| msgid "Select your default applications"
 msgid "Select an application for software CDs"
 msgstr "સોફ્ટવેર CDs માટે કાર્યક્રમને પસંદ કરો"
 
@@ -974,100 +1009,109 @@ msgstr "સોફ્ટવેર CDs માટે કાર્યક્રમન
 #. * strings, just here to fix capitalization of the English originals.
 #. * If the shared-mime-info translation works for your language,
 #. * simply leave these untranslated.
-#.
-#: ../panels/info/cc-info-panel.c:1373
+#. 
+#: ../panels/info/cc-info-panel.c:1429
 msgid "audio DVD"
 msgstr "ઓડિયો DVD"
 
-#: ../panels/info/cc-info-panel.c:1374
+#: ../panels/info/cc-info-panel.c:1430
 msgid "blank Blu-ray disc"
 msgstr "ખાલી બ્લુ-રે ડિસ્ક"
 
-#: ../panels/info/cc-info-panel.c:1375
+#: ../panels/info/cc-info-panel.c:1431
 msgid "blank CD disc"
 msgstr "ખાલી CD ડિસ્ક"
 
-#: ../panels/info/cc-info-panel.c:1376
+#: ../panels/info/cc-info-panel.c:1432
 msgid "blank DVD disc"
 msgstr "ખાલી DVD ડિસ્ક"
 
-#: ../panels/info/cc-info-panel.c:1377
+#: ../panels/info/cc-info-panel.c:1433
 msgid "blank HD DVD disc"
 msgstr "ખાલી HD DVD ડિસ્ક"
 
-#: ../panels/info/cc-info-panel.c:1378
+#: ../panels/info/cc-info-panel.c:1434
 msgid "Blu-ray video disc"
 msgstr "બ્લુ-રે વિડિયો ડિસ્ક"
 
-#: ../panels/info/cc-info-panel.c:1379
+#: ../panels/info/cc-info-panel.c:1435
 msgid "e-book reader"
 msgstr "ઇ-બુટ વાંચનાર"
 
-#: ../panels/info/cc-info-panel.c:1380
+#: ../panels/info/cc-info-panel.c:1436
 msgid "HD DVD video disc"
 msgstr "HD DVD વિડિયો ડિસ્ક"
 
-#: ../panels/info/cc-info-panel.c:1381
+#: ../panels/info/cc-info-panel.c:1437
 msgid "Picture CD"
 msgstr "ચિત્ર CD"
 
-#: ../panels/info/cc-info-panel.c:1382
+#: ../panels/info/cc-info-panel.c:1438
 msgid "Super Video CD"
 msgstr "મુખ્ય વિડીયો CD"
 
-#: ../panels/info/cc-info-panel.c:1383
+#: ../panels/info/cc-info-panel.c:1439
 msgid "Video CD"
 msgstr "વિડિયો CD"
 
-#: ../panels/info/cc-info-panel.c:1384
+#: ../panels/info/cc-info-panel.c:1440
 msgid "Windows software"
 msgstr "Windows સોફ્ટવેર"
 
-#: ../panels/info/cc-info-panel.c:1385
+#: ../panels/info/cc-info-panel.c:1441
 msgid "Software"
 msgstr "સોફ્ટવેર"
 
 # #-#-#-#-#  gnome-session.gnome-2-2.hi.po (gnome-session VERSION)  #-#-#-#-#
 # gnome-session/logout.c:266
-#: ../panels/info/cc-info-panel.c:1508
+#: ../panels/info/cc-info-panel.c:1564
 #: ../panels/keyboard/keyboard-shortcuts.c:1667
 msgid "Section"
 msgstr "વિભાગ"
 
-#: ../panels/info/cc-info-panel.c:1517 ../panels/info/info.ui.h:11
+#: ../panels/info/cc-info-panel.c:1573 ../panels/info/info.ui.h:11
+#| msgid "Preview"
 msgid "Overview"
 msgstr "ઝાંખી"
 
-#: ../panels/info/cc-info-panel.c:1523 ../panels/info/info.ui.h:18
+#: ../panels/info/cc-info-panel.c:1579 ../panels/info/info.ui.h:18
+#| msgid "Applications"
 msgid "Default Applications"
 msgstr "મૂળભૂત કાર્યક્રમો"
 
-#: ../panels/info/cc-info-panel.c:1528 ../panels/info/info.ui.h:26
+#: ../panels/info/cc-info-panel.c:1584 ../panels/info/info.ui.h:26
 msgid "Removable Media"
 msgstr "દૂર કરી શકાય તેવી મીડિયા"
 
-#: ../panels/info/cc-info-panel.c:1533 ../panels/info/info.ui.h:10
+#: ../panels/info/cc-info-panel.c:1589 ../panels/info/info.ui.h:10
+#| msgid "Graphics:"
 msgid "Graphics"
 msgstr "ગ્રાફિક્સ"
 
-#: ../panels/info/cc-info-panel.c:1735
+#: ../panels/info/cc-info-panel.c:1596
+msgid "Legal Notice"
+msgstr ""
+
+#: ../panels/info/cc-info-panel.c:1799
 #, c-format
 msgid "Version %s"
 msgstr "આવૃત્તિ %s"
 
-#: ../panels/info/cc-info-panel.c:1785
+#: ../panels/info/cc-info-panel.c:1851
+#| msgid "Install languages..."
 msgid "Install Updates"
 msgstr "સુધારા સ્થાપિત કરો"
 
-#: ../panels/info/cc-info-panel.c:1789
+#: ../panels/info/cc-info-panel.c:1855
 msgid "System Up-To-Date"
 msgstr "સિસ્ટમ અદ્યતન"
 
-#: ../panels/info/cc-info-panel.c:1793
+#: ../panels/info/cc-info-panel.c:1859
 msgid "Checking for Updates"
 msgstr "સુધારાઓ માટે ચકાસી રહ્યા છે"
 
 #: ../panels/info/gnome-info-panel.desktop.in.in.h:1
+#| msgid "View details"
 msgid "Details"
 msgstr "વિગતો"
 
@@ -1078,11 +1122,11 @@ msgstr "સિસ્ટમ જાણકારી"
 #. sure that you use the same "translation" for those keywords
 #: ../panels/info/gnome-info-panel.desktop.in.in.h:4
 msgid ""
-"device;system;information;memory;processor;version;default;application;"
-"fallback;preferred;cd;dvd;usb;audio;video;disc;removable;media;autorun;"
+"device;system;information;memory;processor;version;default;application;fallba"
+"ck;preferred;cd;dvd;usb;audio;video;disc;removable;media;autorun;"
 msgstr ""
-"ઉપકરણ;સિસ્ટમ;જાણકારી;મેમરી;પ્રોસેસર;આવૃત્તિ;મૂળભૂત;કાર્યક્રમ;ફોલબૅક;પસંદ થયેલ;cd;dvd;usb;"
-"ઓડિયો;વિડિયો;ડિસ્ક;નિરાકરણ;મીડિયા;સ્વયં ચલાવો;"
+"ઉપકરણ;સિસ્ટમ;જાણકારી;મેમરી;પ્રોસેસર;આવૃત્તિ;મૂળભૂત;કાર્યક્રમ;ફોલબૅક;પસંદ "
+"થયેલ;cd;dvd;usb;ઓડિયો;વિડિયો;ડિસ્ક;નિરાકરણ;મીડિયા;સ્વયં ચલાવો;"
 
 #: ../panels/info/info.ui.h:1
 msgid "Select how other media should be handled"
@@ -1098,50 +1142,62 @@ msgid "_Type:"
 msgstr "પ્રકાર (_T):"
 
 #: ../panels/info/info.ui.h:4
+#| msgid "Device name:"
 msgid "Device name"
 msgstr "ઉપકરણ નામ"
 
 #: ../panels/info/info.ui.h:5
+#| msgid "Memory:"
 msgid "Memory"
 msgstr "મેમરી"
 
 #: ../panels/info/info.ui.h:6
+#| msgid "Processor:"
 msgid "Processor"
 msgstr "પ્રોસેસર"
 
 #: ../panels/info/info.ui.h:7
+#| msgid "OS type:"
 msgid "OS type"
 msgstr "OS પ્રકાર"
 
 #: ../panels/info/info.ui.h:8
+#| msgid "Disk:"
 msgid "Disk"
 msgstr "ડિસ્ક"
 
 #: ../panels/info/info.ui.h:9
+#| msgid "Locations..."
 msgid "Calculating..."
 msgstr "ગણતરી..."
 
 #: ../panels/info/info.ui.h:12
+#| msgid "Web"
 msgid "_Web"
 msgstr "વેબ (_W)"
 
 #: ../panels/info/info.ui.h:13
+#| msgid "Mail"
 msgid "_Mail"
 msgstr "મેઇલ (_M)"
 
 #: ../panels/info/info.ui.h:14
+#| msgid "Calendar"
 msgid "_Calendar"
 msgstr "કૅલેન્ડર (_C)"
 
 #: ../panels/info/info.ui.h:15
+#| msgid "Music"
 msgid "M_usic"
 msgstr "સંગીત (_u)"
 
 #: ../panels/info/info.ui.h:16
+#| msgid "Video"
 msgid "_Video"
 msgstr "વિડિઓ (_V)"
 
 #: ../panels/info/info.ui.h:17
+#| msgid "_Photos:"
 msgid "_Photos"
 msgstr "ફોટા (_P)"
 
@@ -1150,18 +1206,22 @@ msgid "Select how media should be handled"
 msgstr "પસંદ કરો કેવી રીતે મીડિયાને સંભાળવુ જોઇએ"
 
 #: ../panels/info/info.ui.h:20
+#| msgid "CD _audio:"
 msgid "CD _audio"
 msgstr "CD ઓડિયો (_a)"
 
 #: ../panels/info/info.ui.h:21
+#| msgid "_DVD video:"
 msgid "_DVD video"
 msgstr "DVD વિડિયો (_D)"
 
 #: ../panels/info/info.ui.h:22
+#| msgid "_Music player:"
 msgid "_Music player"
 msgstr "સંગીત પ્લેયર (_M)"
 
 #: ../panels/info/info.ui.h:23
+#| msgid "_Software:"
 msgid "_Software"
 msgstr "સોફ્ટવેર (_S)"
 
@@ -1174,6 +1234,7 @@ msgid "_Never prompt or start programs on media insertion"
 msgstr "મીડિયા નિવેશ પર કદી પૂછો નહિં અથવા કાર્યક્રમ શરૂ કરો (_N)"
 
 #: ../panels/info/info.ui.h:27
+#| msgid "Printer"
 msgid "Driver"
 msgstr "ડ્રાઇવર"
 
@@ -1191,14 +1252,17 @@ msgid "Sound and Media"
 msgstr "સાઉન્ડ અને મીડિયા"
 
 #: ../panels/keyboard/00-multimedia.xml.in.h:2
+#| msgid "Volume Control"
 msgid "Volume mute"
 msgstr "અવાજ મૂંગો"
 
 #: ../panels/keyboard/00-multimedia.xml.in.h:3
+#| msgid "Volume Control"
 msgid "Volume down"
 msgstr "અવાજ ઓછો કરો"
 
 #: ../panels/keyboard/00-multimedia.xml.in.h:4
+#| msgid "Volume Control"
 msgid "Volume up"
 msgstr "અવાજ વધારો"
 
@@ -1233,6 +1297,7 @@ msgstr "બહાર નીકાળો"
 #: ../panels/keyboard/01-input-sources.xml.in.h:1
 #: ../panels/keyboard/gnome-keyboard-panel.ui.h:19
 #: ../panels/universal-access/uap.ui.h:68
+#| msgid "Typing Break"
 msgid "Typing"
 msgstr "ટાઇપ કરી રહ્યા છે"
 
@@ -1263,54 +1328,59 @@ msgid "Launch email client"
 msgstr "ઇમેલ ક્લાયન્ટ શરૂ કરો"
 
 #: ../panels/keyboard/01-launchers.xml.in.h:5
+msgid "Launch terminal"
+msgstr ""
+
+#: ../panels/keyboard/01-launchers.xml.in.h:6
 msgid "Launch web browser"
 msgstr "વેબ બ્રાઉઝર શરૂ કરો"
 
-#: ../panels/keyboard/01-launchers.xml.in.h:6
+#: ../panels/keyboard/01-launchers.xml.in.h:7
+#| msgid "Open folder"
 msgid "Home folder"
 msgstr "ઘર ફોલ્ડર"
 
-#: ../panels/keyboard/01-launchers.xml.in.h:7
+#: ../panels/keyboard/01-launchers.xml.in.h:8
 msgid "Search"
 msgstr "શોધો"
 
 #: ../panels/keyboard/01-screenshot.xml.in.h:1
+#| msgid "Screen"
 msgid "Screenshots"
 msgstr "સ્ક્રીનશોટ"
 
-#. translators: Pictures is the name of the XDG Pictures directory
+#: ../panels/keyboard/01-screenshot.xml.in.h:2
+#| msgid "Take a photo..."
+msgid "Take a screenshot"
+msgstr "સ્ક્રીનશોટ લો"
+
 #: ../panels/keyboard/01-screenshot.xml.in.h:3
-msgid "Save a screenshot to Pictures"
-msgstr "ચિત્રોનાં સ્ક્રીનશોટને સંગ્રહો"
+msgid "Take a screenshot of a window"
+msgstr "વિન્ડોની સ્ક્રીનશોટને લો"
 
-#. translators: Pictures is the name of the XDG Pictures directory
+#: ../panels/keyboard/01-screenshot.xml.in.h:4
+msgid "Take a screenshot of an area"
+msgstr "વિસ્તારનાં સ્ક્રીનશોટને લો"
+
 #: ../panels/keyboard/01-screenshot.xml.in.h:5
-msgid "Save a screenshot of a window to Pictures"
-msgstr "ચિત્રમાં વિન્ડોનાં સ્ક્રીનશોટને સંગ્રહો"
-
-#. translators: Pictures is the name of the XDG Pictures directory
-#: ../panels/keyboard/01-screenshot.xml.in.h:7
-msgid "Save a screenshot of an area to Pictures"
-msgstr "ચિત્રમાં એક વિસ્તારનાં સ્ક્રીનશોટને સંગ્રહો"
-
-#: ../panels/keyboard/01-screenshot.xml.in.h:8
 msgid "Copy a screenshot to clipboard"
 msgstr "ક્લિપબોર્ડમાં સ્ક્રીનશોટની નકલ કરો"
 
-#: ../panels/keyboard/01-screenshot.xml.in.h:9
+#: ../panels/keyboard/01-screenshot.xml.in.h:6
 msgid "Copy a screenshot of a window to clipboard"
 msgstr "ક્લિપબોર્ડમાં વિન્ડોના સ્ક્રિનશોટની નકલ કરો"
 
-#: ../panels/keyboard/01-screenshot.xml.in.h:10
+#: ../panels/keyboard/01-screenshot.xml.in.h:7
 msgid "Copy a screenshot of an area to clipboard"
 msgstr "ક્લિપબોર્ડમાં વિસ્તારનાં સ્ક્રીનશોટની નકલ કરો"
 
 #: ../panels/keyboard/01-system.xml.in.h:1
-#: ../panels/region/gnome-region-panel.ui.h:38
+#: ../panels/region/gnome-region-panel.ui.h:41
 msgid "System"
 msgstr "સિસ્ટમ"
 
 #: ../panels/keyboard/01-system.xml.in.h:2
+#| msgid "Zoom"
 msgid "Log out"
 msgstr "બહાર નીકળો"
 
@@ -1344,10 +1414,12 @@ msgid "Turn on-screen keyboard on or off"
 msgstr "ઓન-સ્ક્રીન કિબોર્ડને ચાલુ અથવા બંધ રાખો"
 
 #: ../panels/keyboard/50-accessibility.xml.in.h:7
+#| msgid "Increase size:"
 msgid "Increase text size"
 msgstr "લખાણ માપ વધારો"
 
 #: ../panels/keyboard/50-accessibility.xml.in.h:8
+#| msgid "Decrease size:"
 msgid "Decrease text size"
 msgstr "લખાણ માપ ઘટાડો"
 
@@ -1365,6 +1437,7 @@ msgstr "ઉચ્ચ વિરોધાભાસ ચાલુ અથવા બ�
 #: ../panels/sound/gvc-mixer-control.c:1834
 #: ../panels/user-accounts/um-fingerprint-dialog.c:215
 #: ../panels/user-accounts/um-fingerprint-dialog.c:216
+#: ../panels/region/keyboard-shortcuts.c:594
 msgid "Disabled"
 msgstr "નિષ્ક્રિય"
 
@@ -1403,6 +1476,7 @@ msgid "C_ommand:"
 msgstr "આદેશ (_o):"
 
 #: ../panels/keyboard/gnome-keyboard-panel.ui.h:5
+#| msgid "<b>Repeat Keys</b>"
 msgid "Repeat Keys"
 msgstr "પુનરાવર્તિત કીઓ"
 
@@ -1421,6 +1495,7 @@ msgstr "ઝડપ (_S):"
 #. short delay
 #: ../panels/keyboard/gnome-keyboard-panel.ui.h:9
 #: ../panels/universal-access/uap.ui.h:49
+#| msgid "Shortcut"
 msgid "Short"
 msgstr "ટુંકાણ"
 
@@ -1445,10 +1520,12 @@ msgstr "લાંબુ"
 #. fast acceleration
 #: ../panels/keyboard/gnome-keyboard-panel.ui.h:13
 #: ../panels/mouse/gnome-mouse-properties.ui.h:7
+#| msgid "_Paste"
 msgid "Fast"
 msgstr "ઝડપી"
 
 #: ../panels/keyboard/gnome-keyboard-panel.ui.h:14
+#| msgid "<b>Cursor Blinking</b>"
 msgid "Cursor Blinking"
 msgstr "કર્સર ઝબૂકે છે"
 
@@ -1465,14 +1542,17 @@ msgid "Cursor blink speed"
 msgstr "કર્સર ઝબૂકવાની ઝડપ"
 
 #: ../panels/keyboard/gnome-keyboard-panel.ui.h:18
+#| msgid "Mouse Settings"
 msgid "Layout Settings"
 msgstr "લેઆઉટ સુયોજનો"
 
 #: ../panels/keyboard/gnome-keyboard-panel.ui.h:20
+#| msgid "Shortcut"
 msgid "Add Shortcut"
 msgstr "ટુંકાણ ઉમેરો"
 
 #: ../panels/keyboard/gnome-keyboard-panel.ui.h:21
+#| msgid "Shortcut"
 msgid "Remove Shortcut"
 msgstr "ટુંકાણ દૂર કરો"
 
@@ -1482,8 +1562,8 @@ msgid ""
 "To edit a shortcut, click the row and hold down the new keys or press "
 "Backspace to clear."
 msgstr ""
-"ટુકાણ કીમાં ફેરફાર કરવા માટે, તેને લાગતી હરોળ પર ક્લિક કરો અને નવી કી જોડાણોને ટાઇપ "
-"કરો, અથવા સાફ કરવા માટે Backspace કી દબાવો."
+"ટુકાણ કીમાં ફેરફાર કરવા માટે, તેને લાગતી હરોળ પર ક્લિક કરો અને નવી કી "
+"જોડાણોને ટાઇપ કરો, અથવા સાફ કરવા માટે Backspace કી દબાવો."
 
 #: ../panels/keyboard/gnome-keyboard-panel.ui.h:23
 #: ../panels/region/gnome-region-panel.ui.h:28
@@ -1500,16 +1580,19 @@ msgid "<Unknown Action>"
 msgstr "&lt;Unknown Action&gt;"
 
 #: ../panels/keyboard/keyboard-shortcuts.c:1273
+#: ../panels/region/keyboard-shortcuts.c:724
 #, c-format
 msgid ""
 "The shortcut \"%s\" cannot be used because it will become impossible to type "
 "using this key.\n"
 "Please try with a key such as Control, Alt or Shift at the same time."
 msgstr ""
-"ટૂંકાણ \"%s\" વાપરી શકાશે નહિં કારણ કે તે આ કીને લખવા માટે વાપરવા માટે અશક્ય બનશે.\n"
+"ટૂંકાણ \"%s\" વાપરી શકાશે નહિં કારણ કે તે આ કીને લખવા માટે વાપરવા માટે અશક્ય "
+"બનશે.\n"
 "Control, Alt અથવા Shift જેવી કીને એક જ સમયે વાપરવાનો પ્રયાસ કરી જુઓ."
 
 #: ../panels/keyboard/keyboard-shortcuts.c:1305
+#: ../panels/region/keyboard-shortcuts.c:750
 #, c-format
 msgid ""
 "The shortcut \"%s\" is already used for\n"
@@ -1519,15 +1602,20 @@ msgstr ""
 "છે"
 
 #: ../panels/keyboard/keyboard-shortcuts.c:1310
+#: ../panels/region/keyboard-shortcuts.c:755
 #, c-format
-msgid "If you reassign the shortcut to \"%s\", the \"%s\" shortcut will be disabled."
-msgstr "જો \"%s\" ને ટુંકાણોમાં ફરીથી નિશ્ચત કરો તો, \"%s\" ટુંકાણો નિષ્ક્રિય થયેલ હશે."
+msgid ""
+"If you reassign the shortcut to \"%s\", the \"%s\" shortcut will be disabled."
+msgstr ""
+"જો \"%s\" ને ટુંકાણોમાં ફરીથી નિશ્ચત કરો તો, \"%s\" ટુંકાણો નિષ્ક્રિય થયેલ "
+"હશે."
 
 #: ../panels/keyboard/keyboard-shortcuts.c:1316
+#: ../panels/region/keyboard-shortcuts.c:761
 msgid "_Reassign"
 msgstr "પુન:નિશ્ચત કરો (_R)"
 
-#: ../panels/mouse/cc-mouse-panel.c:160
+#: ../panels/mouse/cc-mouse-panel.c:163
 msgid "_Test Your Settings"
 msgstr "તમારાં સુયોજનો ચકાસો (_T)"
 
@@ -1596,9 +1684,10 @@ msgstr "ક્લિક કરવા માટે ટૅપ (_c)"
 msgid "Two _finger scroll"
 msgstr "બે- આંગળી થી ખસેડવુ (_fi)"
 
-#: ../panels/mouse/gnome-mouse-properties.ui.h:18
-msgid "C_ontent sticks to fingers"
-msgstr "આંગળીઓમાં સમાવિષ્ટ ચોંટી રહે છે (_o)"
+#. Translators: This switch reverses the scrolling direction for touchpads. The term used comes from OS X so use the same translation if possible.
+#: ../panels/mouse/gnome-mouse-properties.ui.h:19
+msgid "_Natural scrolling"
+msgstr ""
 
 #: ../panels/mouse/gnome-mouse-test.c:134
 #: ../panels/mouse/gnome-mouse-test.ui.h:1
@@ -1633,23 +1722,23 @@ msgstr "બે વાર ક્લિક, ગૌણ બટન"
 msgid "Single click, secondary button"
 msgstr "એકજ ક્લિક, ગૌણ બટન"
 
-#: ../panels/network/cc-network-panel.c:684
+#: ../panels/network/cc-network-panel.c:649
 msgid "Network proxy"
 msgstr "નેટવર્ક પ્રોક્સી"
 
-#: ../panels/network/cc-network-panel.c:871 ../panels/network/net-vpn.c:278
+#: ../panels/network/cc-network-panel.c:841 ../panels/network/net-vpn.c:278
 #, c-format
 msgid "%s VPN"
 msgstr "%s VPN"
 
 #. TRANSLATORS: the user is running a NM that is not API compatible
-#: ../panels/network/cc-network-panel.c:938
+#: ../panels/network/cc-network-panel.c:908
 msgid "The system network services are not compatible with this version."
 msgstr "સિસ્ટમ નેટવર્ક સેવાઓ આવૃત્તિ સાથે સુસંગત નથી."
 
 #. TRANSLATORS: this is to disable the radio hardware in the
 #. * network panel
-#: ../panels/network/cc-network-panel.c:1073
+#: ../panels/network/cc-network-panel.c:1096
 msgid "Air_plane Mode"
 msgstr "ઍરપ્લેન સ્થિતિ (_p)"
 
@@ -1664,6 +1753,7 @@ msgstr "નેટવર્ક સુયોજનો"
 
 #. Translators: those are keywords for the network control-center panel
 #: ../panels/network/gnome-network-panel.desktop.in.in.h:4
+#| msgid "Network;Wireless;IP;LAN;"
 msgid "Network;Wireless;IP;LAN;Proxy;"
 msgstr "નેટવર્ક;વાયરલેસ;IP;LAN;પ્રોક્સી;"
 
@@ -1673,53 +1763,54 @@ msgstr "નવાં જોડાણને ઉમેરો"
 
 #. Translators: network device speed
 #: ../panels/network/net-device-mobile.c:261
-#: ../panels/network/net-device-wifi.c:725
+#: ../panels/network/net-device-wifi.c:727
 #: ../panels/network/net-device-wired.c:126
 #, c-format
+#| msgid "%i Mb/s"
 msgid "%d Mb/s"
 msgstr "%d Mb/s"
 
 #. TRANSLATORS: this WEP WiFi security
-#: ../panels/network/net-device-wifi.c:258
-#: ../panels/network/net-device-wifi.c:437
+#: ../panels/network/net-device-wifi.c:259
+#: ../panels/network/net-device-wifi.c:438
 msgid "WEP"
 msgstr "WEP"
 
 #. TRANSLATORS: this WPA WiFi security
-#: ../panels/network/net-device-wifi.c:262
-#: ../panels/network/net-device-wifi.c:441
+#: ../panels/network/net-device-wifi.c:263
+#: ../panels/network/net-device-wifi.c:442
 msgid "WPA"
 msgstr "WPA"
 
 #. TRANSLATORS: this WPA WiFi security
-#: ../panels/network/net-device-wifi.c:266
+#: ../panels/network/net-device-wifi.c:267
 msgid "WPA2"
 msgstr "WPA2"
 
 #. TRANSLATORS: this Enterprise WiFi security
-#: ../panels/network/net-device-wifi.c:271
+#: ../panels/network/net-device-wifi.c:272
 msgid "Enterprise"
 msgstr "એન્ટરપ્રાઇઝ"
 
-#: ../panels/network/net-device-wifi.c:276
-#: ../panels/network/net-device-wifi.c:432
+#: ../panels/network/net-device-wifi.c:277
+#: ../panels/network/net-device-wifi.c:433
 msgctxt "Wifi security"
 msgid "None"
 msgstr "કંઈ નહિં"
 
-#: ../panels/network/net-device-wifi.c:652
+#: ../panels/network/net-device-wifi.c:654
 msgid "never"
 msgstr "કદી નહિં"
 
-#: ../panels/network/net-device-wifi.c:662
+#: ../panels/network/net-device-wifi.c:664
 msgid "today"
 msgstr "આજે"
 
-#: ../panels/network/net-device-wifi.c:664
+#: ../panels/network/net-device-wifi.c:666
 msgid "yesterday"
 msgstr "ગઇ કાલે"
 
-#: ../panels/network/net-device-wifi.c:666
+#: ../panels/network/net-device-wifi.c:668
 #, c-format
 msgid "%i day ago"
 msgid_plural "%i days ago"
@@ -1727,101 +1818,113 @@ msgstr[0] "%i દિવસ અગાઉ"
 msgstr[1] "%i દિવસો અગાઉ"
 
 #. TRANSLATORS: VPN status
-#: ../panels/network/net-device-wifi.c:735
+#: ../panels/network/net-device-wifi.c:737
 #: ../panels/network/panel-common.c:277
+#| msgid "Connected"
 msgid "Not connected"
 msgstr "જોડાયેલ નથી"
 
-#: ../panels/network/net-device-wifi.c:737
-#: ../panels/network/net-device-wifi.c:2099
+#: ../panels/network/net-device-wifi.c:739
+#: ../panels/network/net-device-wifi.c:2104
 msgid "Out of range"
 msgstr "સીમાની બહાર"
 
-#: ../panels/network/net-device-wifi.c:768
+#: ../panels/network/net-device-wifi.c:770
 msgctxt "Signal strength"
 msgid "None"
 msgstr "કંઈ નહિં"
 
-#: ../panels/network/net-device-wifi.c:770
+#: ../panels/network/net-device-wifi.c:772
 msgctxt "Signal strength"
 msgid "Weak"
 msgstr "નબળુ"
 
-#: ../panels/network/net-device-wifi.c:772
+#: ../panels/network/net-device-wifi.c:774
 msgctxt "Signal strength"
 msgid "Ok"
 msgstr "બરાબર"
 
-#: ../panels/network/net-device-wifi.c:774
+#: ../panels/network/net-device-wifi.c:776
 msgctxt "Signal strength"
 msgid "Good"
 msgstr "સરસ"
 
-#: ../panels/network/net-device-wifi.c:776
+#: ../panels/network/net-device-wifi.c:778
 msgctxt "Signal strength"
 msgid "Excellent"
 msgstr "હોશિયાર"
 
-#: ../panels/network/net-device-wifi.c:960
+#: ../panels/network/net-device-wifi.c:962
 #, c-format
 msgid ""
 "Network details for %s including password and any custom configuration will "
 "be lost."
-msgstr "પાસવર્ડ અને કોઇપણ વૈવિધ્ય રૂપરેખાંકનને સમાવતા %s માટે નેટવર્ક વિગતો ગુમ થઇ જશે."
+msgstr ""
+"પાસવર્ડ અને કોઇપણ વૈવિધ્ય રૂપરેખાંકનને સમાવતા %s માટે નેટવર્ક વિગતો ગુમ થઇ "
+"જશે."
 
-#: ../panels/network/net-device-wifi.c:971
+#: ../panels/network/net-device-wifi.c:973
+#| msgid "Format:"
 msgid "Forget"
 msgstr "ભૂલી જાઓ"
 
-#: ../panels/network/net-device-wifi.c:1554
+#: ../panels/network/net-device-wifi.c:1559
 msgid ""
 "If you have a connection to the Internet other than wireless, you can use it "
 "to share your internet connection with others."
 msgstr ""
-"જો તમારી પાસે વાયરલેસ કરતા બીજુ ઇન્ટરનેટનું જોડાણ હોય તો, તમે બીજા સાથે તમારાં ઇન્ટરનેટ "
-"જોડાણને વહેંચીને તેને વાપરી શકો છો."
+"જો તમારી પાસે વાયરલેસ કરતા બીજુ ઇન્ટરનેટનું જોડાણ હોય તો, તમે બીજા સાથે "
+"તમારાં ઇન્ટરનેટ જોડાણને વહેંચીને તેને વાપરી શકો છો."
 
-#: ../panels/network/net-device-wifi.c:1558
+#: ../panels/network/net-device-wifi.c:1563
 #, c-format
 msgid "Switching on the wireless hotspot will disconnect you from <b>%s</b>."
-msgstr "વાયરલેસ હૉટસ્પોટ પર અદલાબદલી કરવાથી <b>%s</b> માંથી તમારુ જોડાણ તૂટી જશે."
+msgstr ""
+"વાયરલેસ હૉટસ્પોટ પર અદલાબદલી કરવાથી <b>%s</b> માંથી તમારુ જોડાણ તૂટી જશે."
 
-#: ../panels/network/net-device-wifi.c:1562
+#: ../panels/network/net-device-wifi.c:1567
 msgid ""
 "It is not possible to access the internet through your wireless while the "
 "hotspot is active."
-msgstr "તમારા વાયરલેસ મારફતે ઇન્ટરનેટને વાપરવાનું તેની માટે શક્ય નથી જ્યારે હૉટસ્પોટ સક્રિય હોય."
+msgstr ""
+"તમારા વાયરલેસ મારફતે ઇન્ટરનેટને વાપરવાનું તેની માટે શક્ય નથી જ્યારે હૉટસ્પોટ "
+"સક્રિય હોય."
 
-#: ../panels/network/net-device-wifi.c:1628
+#: ../panels/network/net-device-wifi.c:1633
 msgid "Stop hotspot and disconnect any users?"
-msgstr "હૉટસ્પોટને અટકાવો અને કોઇપણ વપરાશકર્તાનું જોડાણ તોડો? "
+msgstr "હૉટસ્પોટને અટકાવો અને કોઇપણ વપરાશકર્તાનું જોડાણ તોડો?"
 
-#: ../panels/network/net-device-wifi.c:1631
+#: ../panels/network/net-device-wifi.c:1636
 msgid "_Stop Hotspot"
 msgstr "હૉટસ્પોટ બંધ કરો (_S)"
 
 #. TRANSLATORS: this is when the use leaves the PAC textbox blank
-#: ../panels/network/net-proxy.c:67
-msgid "Web Proxy Autodiscovery is used when a Configuration URL is not provided."
-msgstr "Web Proxy Autodiscovery વાપરેલ છે જ્યારે રૂપરેખાંકન URL પૂરી પાડેલ નથી."
+#: ../panels/network/net-proxy.c:73
+msgid ""
+"Web Proxy Autodiscovery is used when a Configuration URL is not provided."
+msgstr ""
+"Web Proxy Autodiscovery વાપરેલ છે જ્યારે રૂપરેખાંકન URL પૂરી પાડેલ નથી."
 
 #. TRANSLATORS: WPAD is bad: if you enable it on an untrusted
 #. * network, then anyone else on that network can tell your
 #. * machine that it should proxy all of your web traffic
 #. * through them.
-#: ../panels/network/net-proxy.c:75
+#: ../panels/network/net-proxy.c:81
 msgid "This is not recommended for untrusted public networks."
 msgstr "આ અવિશ્ર્વાસુ સાર્વજનિક નેટવર્કો માટે અગ્રહણીય નથી."
 
-#: ../panels/network/net-proxy.c:367
+#: ../panels/network/net-proxy.c:515
+#| msgid "_FTP proxy:"
 msgid "Proxy"
 msgstr "પ્રોક્સી"
 
 #: ../panels/network/network-mobile.ui.h:1
+#| msgid "IMEI:"
 msgid "IMEI"
 msgstr "IMEI"
 
 #: ../panels/network/network-mobile.ui.h:2
+#| msgid "Preview:"
 msgid "Provider"
 msgstr "પોષણકર્તા"
 
@@ -1834,18 +1937,21 @@ msgstr "IP સરનામું"
 #: ../panels/network/network-mobile.ui.h:4
 #: ../panels/network/network-wifi.ui.h:14
 #: ../panels/network/network-wired.ui.h:3 ../panels/network/panel-common.c:684
+#| msgid "A_ddress:"
 msgid "IPv6 Address"
 msgstr "IPv6 સરનામું"
 
 #: ../panels/network/network-mobile.ui.h:5
 #: ../panels/network/network-wifi.ui.h:15
 #: ../panels/network/network-wired.ui.h:4
+#| msgid "Default Pointer"
 msgid "Default Route"
 msgstr "મૂળભૂત માર્ગ"
 
 #: ../panels/network/network-mobile.ui.h:6
 #: ../panels/network/network-wifi.ui.h:16
 #: ../panels/network/network-wired.ui.h:5
+#| msgid "DNS:"
 msgid "DNS"
 msgstr "DNS"
 
@@ -1870,28 +1976,38 @@ msgid "Automatic"
 msgstr "સ્વયં"
 
 #: ../panels/network/network-proxy.ui.h:4
+#| msgid "Method:"
 msgid "_Method"
 msgstr "પદ્દતિ (_M)"
 
 #: ../panels/network/network-proxy.ui.h:5
+#| msgid "Autoconfiguration _URL:"
 msgid "_Configuration URL"
 msgstr "રૂપરેખાંકન URL (_C)"
 
 #: ../panels/network/network-proxy.ui.h:6
+#| msgid "H_TTP proxy:"
 msgid "_HTTP Proxy"
 msgstr "HTTP પ્રોક્સી (_H)"
 
 #: ../panels/network/network-proxy.ui.h:7
+#| msgid "H_TTP proxy:"
 msgid "H_TTPS Proxy"
 msgstr "HTTPS પ્રોક્સી (_T)"
 
 #: ../panels/network/network-proxy.ui.h:8
+#| msgid "_FTP proxy:"
 msgid "_FTP Proxy"
 msgstr "FTP પ્રોક્સી (_F)"
 
 #: ../panels/network/network-proxy.ui.h:9
+#| msgid "S_ocks host:"
 msgid "_Socks Host"
 msgstr "Socks યજમાન (_S)"
+
+#: ../panels/network/network-proxy.ui.h:10
+msgid "Apply system wide"
+msgstr ""
 
 #: ../panels/network/network.ui.h:1
 msgid "Select the interface to use for the new service"
@@ -1911,6 +2027,7 @@ msgid "VPN"
 msgstr "VPN"
 
 #: ../panels/network/network.ui.h:8
+#| msgid "Add device"
 msgid "Add Device"
 msgstr "ઉપકરણ ઉમેરો"
 
@@ -1919,18 +2036,22 @@ msgid "VPN Type"
 msgstr "VPN પ્રકાર"
 
 #: ../panels/network/network-vpn.ui.h:3
+#| msgid "Gateway:"
 msgid "Gateway"
 msgstr "ગેટવે"
 
 #: ../panels/network/network-vpn.ui.h:4
+#| msgid "_Groupwise:"
 msgid "Group Name"
 msgstr "જૂથ નામ"
 
 #: ../panels/network/network-vpn.ui.h:5
+#| msgid "_Password:"
 msgid "Group Password"
 msgstr "જૂથ પાસવર્ડ"
 
 #: ../panels/network/network-vpn.ui.h:6
+#| msgid "User name:"
 msgid "Username"
 msgstr "વપરાશકર્તા નામ"
 
@@ -1973,10 +2094,12 @@ msgstr "છેલ્લે વાપરેલ"
 
 #: ../panels/network/network-wifi.ui.h:9
 #: ../panels/network/network-wired.ui.h:1
+#| msgid "A_ddress:"
 msgid "Hardware Address"
 msgstr "હાર્ડવેર સરનામું"
 
 #: ../panels/network/network-wifi.ui.h:10
+#| msgid "Security:"
 msgid "Security"
 msgstr "સુરક્ષા"
 
@@ -1990,6 +2113,7 @@ msgstr "કડી ઝડપ"
 
 #: ../panels/network/network-wifi.ui.h:13
 #: ../panels/network/network-wired.ui.h:2 ../panels/network/panel-common.c:683
+#| msgid "A_ddress:"
 msgid "IPv4 Address"
 msgstr "IPv4 સરનામું"
 
@@ -2006,6 +2130,7 @@ msgid "Switch off to connect to a wireless network"
 msgstr "વાયરલેસ નેટવર્કમાં જોડાવાનુ બંધ કરો"
 
 #: ../panels/network/network-wifi.ui.h:20
+#| msgid "_Network Name"
 msgid "Network Name"
 msgstr "નેટવર્ક નામ"
 
@@ -2023,6 +2148,7 @@ msgstr "સુરક્ષા કી"
 
 #. TRANSLATORS: device type
 #: ../panels/network/panel-common.c:86
+#| msgid "Firebird"
 msgid "Wired"
 msgstr "વાયર લગાવેલ"
 
@@ -2079,12 +2205,14 @@ msgstr "જોડાણ તૂટી ગયું"
 #. TRANSLATORS: device status
 #. TRANSLATORS: VPN status
 #: ../panels/network/panel-common.c:219 ../panels/network/panel-common.c:261
+#| msgid "Connected"
 msgid "Connecting"
 msgstr "જોડાઇ રહ્યા છે"
 
 #. TRANSLATORS: device status
 #. TRANSLATORS: VPN status
 #: ../panels/network/panel-common.c:223 ../panels/network/panel-common.c:265
+#| msgid "Authentication failed"
 msgid "Authentication required"
 msgstr "સત્તાધિકરણ જરૂરી"
 
@@ -2096,12 +2224,14 @@ msgstr "જોડાયેલ"
 
 #. TRANSLATORS: device status
 #: ../panels/network/panel-common.c:231
+#| msgid "Smoothing"
 msgid "Disconnecting"
 msgstr "જોડાણ તૂટી રહ્યુ છે"
 
 #. TRANSLATORS: device status
 #. TRANSLATORS: VPN status
 #: ../panels/network/panel-common.c:235 ../panels/network/panel-common.c:273
+#| msgid "Connected"
 msgid "Connection failed"
 msgstr "જોડાણ નિષ્ફળ"
 
@@ -2327,61 +2457,67 @@ msgid "Connection dependency failed"
 msgstr "જોડાણ નિર્ભરતા નિષ્ફળ"
 
 #. translators: This is the title of the "Add Account" dialog.
-#: ../panels/online-accounts/cc-online-accounts-add-account-dialog.c:249
+#: ../panels/online-accounts/cc-online-accounts-add-account-dialog.c:253
 #: ../panels/online-accounts/online-accounts.ui.h:2
+#| msgid "My Account"
 msgid "Add Account"
 msgstr "ખાતુ ઉમેરો"
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:371
+#: ../panels/online-accounts/cc-online-accounts-panel.c:374
 msgid "Error logging into the account"
 msgstr "ખાતામાં પ્રવેશતી વખતે ભૂલ"
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:425
+#: ../panels/online-accounts/cc-online-accounts-panel.c:428
 msgid "Expired credentials. Please log in again."
 msgstr "શ્રેયનો સમય સમાપ્ત થઇ ગયો. મહેરબાની કરીને ફરી પ્રવેશો."
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:428
+#: ../panels/online-accounts/cc-online-accounts-panel.c:431
 msgid "_Log In"
 msgstr "પ્રવેશો (_L)"
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:664
+#: ../panels/online-accounts/cc-online-accounts-panel.c:678
+#| msgid "Create new account"
 msgid "Error creating account"
 msgstr "ખાતાને બનાવતી વખતે ભૂલ"
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:706
+#: ../panels/online-accounts/cc-online-accounts-panel.c:732
 msgid "Error removing account"
 msgstr "ખાતાને દૂર કરી રહ્યા હોય ત્યારે ભૂલ"
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:742
+#: ../panels/online-accounts/cc-online-accounts-panel.c:768
 msgid "Are you sure you want to remove the account?"
 msgstr "શું તમે ખરેખર ખાતાને દૂર કરવા માંગો છો?"
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:744
+#: ../panels/online-accounts/cc-online-accounts-panel.c:770
 msgid "This will not remove the account on the server."
 msgstr "આ સર્વર પર ખાતાને દૂર કરશે નહિં."
 
-#: ../panels/online-accounts/cc-online-accounts-panel.c:745
+#: ../panels/online-accounts/cc-online-accounts-panel.c:771
 msgid "_Remove"
 msgstr "દૂર કરો (_R)"
 
 #: ../panels/online-accounts/gnome-online-accounts-panel.desktop.in.in.h:1
+#| msgid "Other Accounts"
 msgid "Online Accounts"
 msgstr "ઓનલાઇન ખાતાઓ"
 
 #: ../panels/online-accounts/gnome-online-accounts-panel.desktop.in.in.h:2
+#| msgid "Create new account"
 msgid "Manage online accounts"
 msgstr "ઓનલાઇન ખાતાઓ સંચાલિત કરો"
 
 #. Translators: those are keywords for the online-accounts control-center panel
 #: ../panels/online-accounts/gnome-online-accounts-panel.desktop.in.in.h:4
 msgid "Google;Facebook;Twitter;Yahoo;Web;Online;Chat;Calendar;Mail;Contact;"
-msgstr "Google;Facebook;Twitter;Yahoo;વેબ;ઓનલાઇન;વાતચીત;કૅલેન્ડર;મેઇલ;સંપર્ક;"
+msgstr ""
+"Google;Facebook;Twitter;Yahoo;વેબ;ઓનલાઇન;વાતચીત;કૅલેન્ડર;મેઇલ;સંપર્ક;"
 
 #: ../panels/online-accounts/online-accounts.ui.h:1
 msgid "No online accounts configured"
 msgstr "રૂપરેખાંકિત થયેલ ઓનલાઇન ખાતા નથી"
 
 #: ../panels/online-accounts/online-accounts.ui.h:3
+#| msgid "My Account"
 msgid "Remove Account"
 msgstr "ખાતુ દૂર કરો"
 
@@ -2394,21 +2530,22 @@ msgid ""
 "Adding an account allows your applications to access it for documents, mail, "
 "contacts, calendar, chat and more."
 msgstr ""
-"ખાતાને ઉમેરવાનું દસ્તાવેજો, મેઇલ, સંપર્કો, કૅલેન્ડર, વાચચીત અને વધારે માટે તમારાં કાર્યક્રમોને "
-"વાપરવાની પરવાનગી આપે છે."
+"ખાતાને ઉમેરવાનું દસ્તાવેજો, મેઇલ, સંપર્કો, કૅલેન્ડર, વાચચીત અને વધારે માટે "
+"તમારાં કાર્યક્રમોને વાપરવાની પરવાનગી આપે છે."
 
-#: ../panels/power/cc-power-panel.c:157
+#: ../panels/power/cc-power-panel.c:166
 msgid "Unknown time"
 msgstr "અજ્ઞાત સમય"
 
-#: ../panels/power/cc-power-panel.c:163
+#: ../panels/power/cc-power-panel.c:172
 #, c-format
+#| msgid "minutes"
 msgid "%i minute"
 msgid_plural "%i minutes"
 msgstr[0] "%i મિનિટ"
 msgstr[1] "%i મિનિટ"
 
-#: ../panels/power/cc-power-panel.c:175
+#: ../panels/power/cc-power-panel.c:184
 #, c-format
 msgid "%i hour"
 msgid_plural "%i hours"
@@ -2417,178 +2554,191 @@ msgstr[1] "%i કલાકો"
 
 #. TRANSLATOR: "%i %s %i %s" are "%i hours %i minutes"
 #. * Swap order with "%2$s %2$i %1$s %1$i if needed
-#: ../panels/power/cc-power-panel.c:183
+#: ../panels/power/cc-power-panel.c:192
 #, c-format
 msgid "%i %s %i %s"
 msgstr "%i %s %i %s"
 
-#: ../panels/power/cc-power-panel.c:184
+#: ../panels/power/cc-power-panel.c:193
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "કલાક"
 msgstr[1] "કલાકો"
 
-#: ../panels/power/cc-power-panel.c:185
+#: ../panels/power/cc-power-panel.c:194
+#| msgid "minutes"
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "મિનિટ"
 msgstr[1] "મિનિટ"
 
 #. TRANSLATORS: %1 is a time string, e.g. "1 hour 5 minutes"
-#: ../panels/power/cc-power-panel.c:228
+#: ../panels/power/cc-power-panel.c:237
 #, c-format
 msgid "Charging - %s until fully charged"
 msgstr "ચાર્જિંગ -%s પૂર્ણ ચાર્જ સુધી"
 
 #. TRANSLATORS: %1 is a time string, e.g. "1 hour 5 minutes"
-#: ../panels/power/cc-power-panel.c:236
+#: ../panels/power/cc-power-panel.c:245
 #, c-format
 msgid "Caution low battery, %s remaining"
 msgstr "સાવધાન બેટરી ઓછી, %s બાકી રહેલ છે"
 
 #. TRANSLATORS: %1 is a time string, e.g. "1 hour 5 minutes"
-#: ../panels/power/cc-power-panel.c:244
+#: ../panels/power/cc-power-panel.c:253
 #, c-format
+#| msgid "On battery power"
 msgid "Using battery power - %s remaining"
 msgstr "બેટરી પાવરને વાપરી રહ્યા છે - %s બાકી રહેલ છે"
 
 #. TRANSLATORS: primary battery
-#: ../panels/power/cc-power-panel.c:261
+#: ../panels/power/cc-power-panel.c:270
 msgid "Charging"
 msgstr "ચાર્જિંગ"
 
 #. TRANSLATORS: primary battery
-#: ../panels/power/cc-power-panel.c:266
+#: ../panels/power/cc-power-panel.c:275
+#| msgid "On battery power"
 msgid "Using battery power"
 msgstr "બેટરી પાવર વાપરી રહ્યા છે"
 
 #. TRANSLATORS: primary battery
-#: ../panels/power/cc-power-panel.c:270
+#: ../panels/power/cc-power-panel.c:279
 msgid "Charging - fully charged"
 msgstr "ચાર્જિંગ - સંપૂર્ણ ચાર્જ"
 
 #. TRANSLATORS: primary battery
-#: ../panels/power/cc-power-panel.c:274
+#: ../panels/power/cc-power-panel.c:283
 msgid "Empty"
 msgstr "ખાલી"
 
 #. TRANSLATORS: %1 is a time string, e.g. "1 hour 5 minutes"
-#: ../panels/power/cc-power-panel.c:342
+#: ../panels/power/cc-power-panel.c:351
 #, c-format
 msgid "Caution low UPS, %s remaining"
 msgstr "સાવધાન UPS ઓછુ, %s બાકી રહેલ છે"
 
 #. TRANSLATORS: %1 is a time string, e.g. "1 hour 5 minutes"
-#: ../panels/power/cc-power-panel.c:348
+#: ../panels/power/cc-power-panel.c:357
 #, c-format
 msgid "Using UPS power - %s remaining"
 msgstr "UPS પાવરને વાપરી રહ્યા છે - %s બાકી રહેલ છે"
 
 #. TRANSLATORS: UPS battery
-#: ../panels/power/cc-power-panel.c:366
+#: ../panels/power/cc-power-panel.c:375
 msgid "Caution low UPS"
 msgstr "સાવધાન UPS ઓછુ"
 
 #. TRANSLATORS: UPS battery
-#: ../panels/power/cc-power-panel.c:371
+#: ../panels/power/cc-power-panel.c:380
 msgid "Using UPS power"
 msgstr "UPS પાવરને વાપરી રહ્યા છે"
 
 #. TRANSLATORS: secondary battery is normally in the media bay
-#: ../panels/power/cc-power-panel.c:423
+#: ../panels/power/cc-power-panel.c:432
 msgid "Your secondary battery is fully charged"
 msgstr "તમારી ગૌણ બેટરી સંપૂર્ણપણે ચાર્જ થયેલ છે"
 
 #. TRANSLATORS: secondary battery is normally in the media bay
-#: ../panels/power/cc-power-panel.c:427
+#: ../panels/power/cc-power-panel.c:436
 msgid "Your secondary battery is empty"
 msgstr "તમારી ગૌણ બેટરી ખાલી છે"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:510
+#: ../panels/power/cc-power-panel.c:519
+#| msgid "Wireless"
 msgid "Wireless mouse"
 msgstr "વાયરલેસ માઉસ"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:514
+#: ../panels/power/cc-power-panel.c:523
+#| msgid "Screen keyboard"
 msgid "Wireless keyboard"
 msgstr "વાયરલેસ કિબોર્ડ"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:518
+#: ../panels/power/cc-power-panel.c:527
 msgid "Uninterruptible power supply"
 msgstr "અવરોધી ન શકાય તેવો વીજ પુરવઠો"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:522
+#: ../panels/power/cc-power-panel.c:531
 msgid "Personal digital assistant"
 msgstr "વ્યક્તિગત ડિઝિટલ મદદકર્તા"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:526
+#: ../panels/power/cc-power-panel.c:535
 msgid "Cellphone"
 msgstr "સેલફોન"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:530
+#: ../panels/power/cc-power-panel.c:539
+#| msgid "_Music player:"
 msgid "Media player"
 msgstr "મીડિયા પ્લેયર"
 
 # #-#-#-#-#  gnome-applets.gnome-2-2.hi.po (gnome-applets 2.x)  #-#-#-#-# gtk/gtkinputdialog.c:238
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:534
+#: ../panels/power/cc-power-panel.c:543
+#| msgid "Enabled"
 msgid "Tablet"
 msgstr "ટૅબલેટ"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:538
+#: ../panels/power/cc-power-panel.c:547
+#| msgctxt "print job"
+#| msgid "Completed"
 msgid "Computer"
 msgstr "કમ્પ્યૂટર"
 
 #. TRANSLATORS: secondary battery, misc
-#: ../panels/power/cc-power-panel.c:542
+#: ../panels/power/cc-power-panel.c:551
+#| msgid "Battery charging"
 msgid "Battery"
 msgstr "બેટરી"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:553
+#: ../panels/power/cc-power-panel.c:562
 msgctxt "Battery power"
 msgid "Charging"
 msgstr "ચાર્જિંગ"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:560
+#: ../panels/power/cc-power-panel.c:569
 msgctxt "Battery power"
 msgid "Caution"
 msgstr "સાવધાન"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:565
+#: ../panels/power/cc-power-panel.c:574
 msgctxt "Battery power"
 msgid "Low"
 msgstr "નીચે"
 
 #. TRANSLATORS: secondary battery
-#: ../panels/power/cc-power-panel.c:570
+#: ../panels/power/cc-power-panel.c:579
 msgctxt "Battery power"
 msgid "Good"
 msgstr "સરસ"
 
 #. TRANSLATORS: primary battery
-#: ../panels/power/cc-power-panel.c:575
+#: ../panels/power/cc-power-panel.c:584
 msgctxt "Battery power"
 msgid "Charging - fully charged"
 msgstr "ચાર્જિંગ - સંપૂર્ણ ચાર્જ"
 
 #. TRANSLATORS: primary battery
-#: ../panels/power/cc-power-panel.c:579
+#: ../panels/power/cc-power-panel.c:588
 msgctxt "Battery power"
 msgid "Empty"
 msgstr "ખાલી"
 
-#: ../panels/power/cc-power-panel.c:1075
-msgid "Tip: <a href=\"screen\">screen brightness</a> affects how much power is used"
-msgstr "મદદ: <a href=\"screen\">સ્ક્રીન પ્રકાશતા</a> કેટલો પાવર વાપરો છે તેની પર અસર કરે છે"
+#: ../panels/power/cc-power-panel.c:1091
+msgid ""
+"Tip: <a href=\"screen\">screen brightness</a> affects how much power is used"
+msgstr ""
+"મદદ: <a href=\"screen\">સ્ક્રીન પ્રકાશતા</a> કેટલો પાવર વાપરો છે તેની પર અસર "
+"કરે છે"
 
 #: ../panels/power/gnome-power-panel.desktop.in.in.h:1
 msgid "Power"
@@ -2608,6 +2758,7 @@ msgid "Hibernate"
 msgstr "હાઇબરનેટ"
 
 #: ../panels/power/power.ui.h:2
+#| msgid "Power"
 msgid "Power off"
 msgstr "પાવર બંધ"
 
@@ -2619,172 +2770,209 @@ msgstr "5 મિનિટો"
 msgid "10 minutes"
 msgstr "10 મિનિટો"
 
-#: ../panels/power/power.ui.h:5 ../panels/screen/screen.ui.h:8
+#: ../panels/power/power.ui.h:5
+msgid "20 minutes"
+msgstr ""
+
+#: ../panels/power/power.ui.h:6 ../panels/screen/screen.ui.h:8
 msgid "30 minutes"
 msgstr "30 મિનિટો"
 
-#: ../panels/power/power.ui.h:6 ../panels/screen/screen.ui.h:9
+#: ../panels/power/power.ui.h:7 ../panels/screen/screen.ui.h:9
 msgid "1 hour"
 msgstr "1 કલાક"
 
+#: ../panels/power/power.ui.h:8
+msgid "2 hours"
+msgstr ""
+
 # #-#-#-#-#  gnome-icon-theme.gnome-2-2.hi.po (gnome-icon theme 2.2)  #-#-#-#-# 48x48/emblems/emblem-sound.icon.in.h:1
 # 48x48/emblems/emblem-sound.icon.in.h:1
-#: ../panels/power/power.ui.h:7
+#: ../panels/power/power.ui.h:9
 msgid "Don't suspend"
 msgstr "અટકાવો નહિં"
 
-#: ../panels/power/power.ui.h:8
+#: ../panels/power/power.ui.h:10
+msgid "Suspend"
+msgstr ""
+
+#: ../panels/power/power.ui.h:12
+msgid "When battery is present"
+msgstr ""
+
+#: ../panels/power/power.ui.h:13
+msgid "When battery is charging/in use"
+msgstr ""
+
+#: ../panels/power/power.ui.h:14 ../panels/screen/screen.ui.h:10
+msgid "Never"
+msgstr "ક્યારેય નહિં"
+
+#: ../panels/power/power.ui.h:15
+#| msgid "On battery power:"
 msgid "On battery power"
 msgstr "બેટરી પાવર પર:"
 
-#: ../panels/power/power.ui.h:9
+#: ../panels/power/power.ui.h:16
 msgid "When plugged in"
 msgstr "જ્યારે પ્લગ થયેલ હોય"
 
-#: ../panels/power/power.ui.h:10
+#: ../panels/power/power.ui.h:17
 msgid "Suspend when inactive for"
 msgstr "જ્યારે નિષ્ક્રિય હોય ત્યારે સ્થગિત કરો"
 
-#: ../panels/power/power.ui.h:11
+#: ../panels/power/power.ui.h:18
 msgid "When power is _critically low"
 msgstr "જ્યારે પાવર ખૂબ ઓછો હોય (_c)"
 
+#: ../panels/power/power.ui.h:19
+msgid "When the lid is closed"
+msgstr ""
+
+#: ../panels/power/power.ui.h:20
+msgid "Show battery status in the _menu bar"
+msgstr ""
+
 #. Translators: The printer is low on toner
-#: ../panels/printers/cc-printers-panel.c:589
+#: ../panels/printers/cc-printers-panel.c:592
 msgid "Low on toner"
 msgstr "ટૉનર ઓછુ છે"
 
 #. Translators: The printer has no toner left
-#: ../panels/printers/cc-printers-panel.c:591
+#: ../panels/printers/cc-printers-panel.c:594
 msgid "Out of toner"
 msgstr "ટોનરની બહાર"
 
 #. Translators: "Developer" is a chemical for photo development,
 #. * http://en.wikipedia.org/wiki/Photographic_developer
-#: ../panels/printers/cc-printers-panel.c:594
+#: ../panels/printers/cc-printers-panel.c:597
 msgid "Low on developer"
 msgstr "ડેવલપર ઓછું છે"
 
 #. Translators: "Developer" is a chemical for photo development,
 #. * http://en.wikipedia.org/wiki/Photographic_developer
-#: ../panels/printers/cc-printers-panel.c:597
+#: ../panels/printers/cc-printers-panel.c:600
 msgid "Out of developer"
 msgstr "ડેવલપરની બહાર"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../panels/printers/cc-printers-panel.c:599
+#: ../panels/printers/cc-printers-panel.c:602
 msgid "Low on a marker supply"
 msgstr "માર્કર પૂરવઠો ઓછો છે"
 
 #. Translators: "marker" is one color bin of the printer
-#: ../panels/printers/cc-printers-panel.c:601
+#: ../panels/printers/cc-printers-panel.c:604
 msgid "Out of a marker supply"
 msgstr "માર્કર પૂરવઠાની બહાર"
 
 #. Translators: One or more covers on the printer are open
-#: ../panels/printers/cc-printers-panel.c:603
+#: ../panels/printers/cc-printers-panel.c:606
 msgid "Open cover"
 msgstr "કવર ખોલો"
 
 #. Translators: One or more doors on the printer are open
-#: ../panels/printers/cc-printers-panel.c:605
+#: ../panels/printers/cc-printers-panel.c:608
+#| msgid "Vendors"
 msgid "Open door"
 msgstr "દરવાજો ખોલો"
 
 #. Translators: At least one input tray is low on media
-#: ../panels/printers/cc-printers-panel.c:607
+#: ../panels/printers/cc-printers-panel.c:610
 msgid "Low on paper"
 msgstr "પેપર ઓછા"
 
 #. Translators: At least one input tray is empty
-#: ../panels/printers/cc-printers-panel.c:609
+#: ../panels/printers/cc-printers-panel.c:612
 msgid "Out of paper"
 msgstr "પેપરની બહાર"
 
 #. Translators: The printer is offline
-#: ../panels/printers/cc-printers-panel.c:611
+#: ../panels/printers/cc-printers-panel.c:614
 msgctxt "printer state"
 msgid "Offline"
 msgstr "ઓફલાઇન"
 
 #. Translators: Someone has paused the Printer
-#: ../panels/printers/cc-printers-panel.c:613
+#: ../panels/printers/cc-printers-panel.c:616
 msgctxt "printer state"
 msgid "Paused"
 msgstr "અટકેલ"
 
 #. Translators: The printer marker supply waste receptacle is almost full
-#: ../panels/printers/cc-printers-panel.c:615
+#: ../panels/printers/cc-printers-panel.c:618
 msgid "Waste receptacle almost full"
 msgstr "લગભગ સંપૂર્ણ પાત્ર કચરો"
 
 #. Translators: The printer marker supply waste receptacle is full
-#: ../panels/printers/cc-printers-panel.c:617
+#: ../panels/printers/cc-printers-panel.c:620
 msgid "Waste receptacle full"
 msgstr "સંપૂર્ણ પાત્ર કચરો"
 
 #. Translators: Optical photo conductors are used in laser printers
-#: ../panels/printers/cc-printers-panel.c:619
+#: ../panels/printers/cc-printers-panel.c:622
 msgid "The optical photo conductor is near end of life"
 msgstr "ઓપ્ટીકલ ફોટો કન્ડક્ટર જીવનનાં અંત નજીક છે"
 
 #. Translators: Optical photo conductors are used in laser printers
-#: ../panels/printers/cc-printers-panel.c:621
+#: ../panels/printers/cc-printers-panel.c:624
 msgid "The optical photo conductor is no longer functioning"
 msgstr "ઓપ્ટીકલ ફોટો કન્ડક્ટર લાંબા સમય સુધી કાર્ય કરતુ નથી"
 
 #. Translators: Printer's state (printer is being configured right now)
-#: ../panels/printers/cc-printers-panel.c:724
+#: ../panels/printers/cc-printers-panel.c:727
 msgctxt "printer state"
 msgid "Configuring"
 msgstr "રૂપરેખાંકિત કરી રહ્યા છે"
 
 #. Translators: Printer's state (can start new job without waiting)
-#: ../panels/printers/cc-printers-panel.c:781
+#: ../panels/printers/cc-printers-panel.c:784
+#| msgid "Search"
 msgctxt "printer state"
 msgid "Ready"
 msgstr "તૈયાર"
 
 #. Translators: Printer's state (jobs are processing)
-#: ../panels/printers/cc-printers-panel.c:785
+#: ../panels/printers/cc-printers-panel.c:788
+#| msgid "_Profession:"
 msgctxt "printer state"
 msgid "Processing"
 msgstr "પ્રોસેસીંગ"
 
 #. Translators: Printer's state (no jobs can be processed)
-#: ../panels/printers/cc-printers-panel.c:789
+#: ../panels/printers/cc-printers-panel.c:792
 msgctxt "printer state"
 msgid "Stopped"
 msgstr "બંધ થયેલ"
 
 #. Translators: Toner supply
-#: ../panels/printers/cc-printers-panel.c:906
+#: ../panels/printers/cc-printers-panel.c:909
 msgid "Toner Level"
 msgstr "ટૉનર સ્તર"
 
 #. Translators: Ink supply
-#: ../panels/printers/cc-printers-panel.c:909
+#: ../panels/printers/cc-printers-panel.c:912
 msgid "Ink Level"
 msgstr "ઇંક સ્તર"
 
 #. Translators: By supply we mean ink, toner, staples, water, ...
-#: ../panels/printers/cc-printers-panel.c:912
+#: ../panels/printers/cc-printers-panel.c:915
 msgid "Supply Level"
 msgstr "પૂરવઠો સ્તર"
 
 #. Translators: Printer's state (printer is being installed right now)
-#: ../panels/printers/cc-printers-panel.c:930
+#: ../panels/printers/cc-printers-panel.c:933
 msgctxt "printer state"
 msgid "Installing"
 msgstr "સ્થાપિત કરી રહ્યા છે"
 
 #. Translators: There are no printers available (none is configured or CUPS is not running)
-#: ../panels/printers/cc-printers-panel.c:1107
+#: ../panels/printers/cc-printers-panel.c:1110
+#| msgid "Update Available"
 msgid "No printers available"
 msgstr "પ્રિન્ટરો ઉપલબ્ધ નથી"
 
 #. Translators: there is n active print jobs on this printer
-#: ../panels/printers/cc-printers-panel.c:1411
+#: ../panels/printers/cc-printers-panel.c:1414
 #, c-format
 msgid "%u active"
 msgid_plural "%u active"
@@ -2792,45 +2980,48 @@ msgstr[0] "%u સક્રિય"
 msgstr[1] "%u સક્રિય"
 
 #. Translators: Addition of the new printer failed.
-#: ../panels/printers/cc-printers-panel.c:1731
+#: ../panels/printers/cc-printers-panel.c:1734
+#| msgid "Failed to create user"
 msgid "Failed to add new printer."
 msgstr "નવાં પ્રિન્ટરને ઉમેરવાનું નિષ્ફળ."
 
-#: ../panels/printers/cc-printers-panel.c:1896
+#: ../panels/printers/cc-printers-panel.c:1899
 msgid "Select PPD File"
 msgstr "PPD ફાઇલ પસંદ કરો"
 
-#: ../panels/printers/cc-printers-panel.c:1905
+#: ../panels/printers/cc-printers-panel.c:1908
 msgid ""
-"PostScript Printer Description files (*.ppd, *.PPD, *.ppd.gz, *.PPD.gz, *."
-"PPD.GZ)"
-msgstr "PostScript પ્રિન્ટર વર્ણન ફાઈલો (*.ppd, *.PPD, *.ppd.gz, *.PPD.gz, *.PPD.GZ)"
+"PostScript Printer Description files (*.ppd, *.PPD, *.ppd.gz, *.PPD.gz, "
+"*.PPD.GZ)"
+msgstr ""
+"PostScript પ્રિન્ટર વર્ણન ફાઈલો (*.ppd, *.PPD, *.ppd.gz, *.PPD.gz, *.PPD.GZ)"
 
-#: ../panels/printers/cc-printers-panel.c:2210
+#: ../panels/printers/cc-printers-panel.c:2213
 msgid "No suitable driver found"
 msgstr "સુસંગત ડ્રાઇવર મળ્યુ નથી"
 
-#: ../panels/printers/cc-printers-panel.c:2279
+#: ../panels/printers/cc-printers-panel.c:2282
 msgid "Searching for preferred drivers..."
 msgstr "પસંદ થયેલ ડ્રાઇવરોને શોધી રહ્યા છે..."
 
-#: ../panels/printers/cc-printers-panel.c:2294
+#: ../panels/printers/cc-printers-panel.c:2297
 msgid "Select from database..."
 msgstr "ડેટાબેઝમાંથી પસંદ કરો..."
 
-#: ../panels/printers/cc-printers-panel.c:2303
+#: ../panels/printers/cc-printers-panel.c:2306
 msgid "Provide PPD File..."
 msgstr "PPD ફાઈલ પૂરી પાડો..."
 
 #. Translators: Name of job which makes printer to print test page
-#: ../panels/printers/cc-printers-panel.c:2454
-#: ../panels/printers/cc-printers-panel.c:2477
+#: ../panels/printers/cc-printers-panel.c:2457
+#: ../panels/printers/cc-printers-panel.c:2480
 msgid "Test page"
 msgstr "ચકાસણી પાનું"
 
 #. Translators: The XML file containing user interface can not be loaded
-#: ../panels/printers/cc-printers-panel.c:2880
+#: ../panels/printers/cc-printers-panel.c:2883
 #, c-format
+#| msgid "Could not load user interface file: %s"
 msgid "Could not load ui: %s"
 msgstr "ui ને લોડ કરી શક્યા નહિં: %s"
 
@@ -2876,7 +3067,8 @@ msgid "Cancel Print Job"
 msgstr "છાપન ક્રિયા રદ કરો"
 
 #: ../panels/printers/new-printer-dialog.ui.h:2
-#: ../panels/user-accounts/um-account-dialog.c:1044
+#: ../panels/user-accounts/um-account-dialog.c:1070
+#| msgid "Add"
 msgid "_Add"
 msgstr "ઉમેરો (_A)"
 
@@ -2889,6 +3081,7 @@ msgid "Search for network printers or filter result"
 msgstr "નેટવર્ક પ્રિન્ટર અથવા ફિલ્ટર પરિણાં માટે શોધો"
 
 #: ../panels/printers/options-dialog.ui.h:2
+#: ../panels/region/gnome-region-panel.ui.h:31
 msgid "Options"
 msgstr "વિકલ્પો"
 
@@ -2898,7 +3091,7 @@ msgstr "વિકલ્પો લાવી રહ્યા છે..."
 
 #: ../panels/printers/ppd-selection-dialog.ui.h:2
 #: ../panels/user-accounts/data/photo-dialog.ui.h:8
-#: ../panels/user-accounts/um-account-dialog.c:1043
+#: ../panels/user-accounts/um-account-dialog.c:1069
 msgid "Cancel"
 msgstr "રદ કરો"
 
@@ -2950,18 +3143,21 @@ msgstr "વિપરીત પૉર્ટ્રેટ"
 
 #. Translators: Job's state (job is waiting to be printed)
 #: ../panels/printers/pp-jobs-dialog.c:143
+#| msgid "Rendering"
 msgctxt "print job"
 msgid "Pending"
 msgstr "સ્થગિત"
 
 #. Translators: Job's state (job is held for printing)
 #: ../panels/printers/pp-jobs-dialog.c:147
+#| msgid "Help"
 msgctxt "print job"
 msgid "Held"
 msgstr "અટકેલ"
 
 #. Translators: Job's state (job is currently printing)
 #: ../panels/printers/pp-jobs-dialog.c:151
+#| msgid "_Profession:"
 msgctxt "print job"
 msgid "Processing"
 msgstr "પ્રોસેસીંગ"
@@ -2980,6 +3176,7 @@ msgstr "રદ થયેલ"
 
 #. Translators: Job's state (job has aborted due to error)
 #: ../panels/printers/pp-jobs-dialog.c:163
+#| msgid "About Me"
 msgctxt "print job"
 msgid "Aborted"
 msgstr "કાઢી નાંખેલ"
@@ -3122,7 +3319,7 @@ msgstr "સ્વયં પસંદ કરો"
 #: ../panels/printers/pp-ppd-option-widget.c:83
 #: ../panels/printers/pp-ppd-option-widget.c:87
 msgid "Printer Default"
-msgstr "મૂળભૂત પ્રિન્ટર "
+msgstr "મૂળભૂત પ્રિન્ટર"
 
 #. Translators: this is an option of "GhostScript"
 #: ../panels/printers/pp-ppd-option-widget.c:89
@@ -3157,10 +3354,12 @@ msgid "Drivers"
 msgstr "ડ્રાઈવરો"
 
 #: ../panels/printers/printers.ui.h:1
+#| msgid "Add New Printer"
 msgid "Add Printer"
 msgstr "પ્રિન્ટરને ઉમેરો"
 
 #: ../panels/printers/printers.ui.h:2
+#| msgid "Remove profile"
 msgid "Remove Printer"
 msgstr "પ્રિન્ટર દૂર કરો"
 
@@ -3176,6 +3375,7 @@ msgstr "સ્થાન"
 
 #. Translators: This checkbox is checked when the default printer is selected.
 #: ../panels/printers/printers.ui.h:8
+#| msgid "Default"
 msgid "_Default"
 msgstr "મૂળભૂત (_D)"
 
@@ -3185,6 +3385,7 @@ msgstr "જોબ"
 
 #. Tanslators: Opens a dialog containing printer's jobs
 #: ../panels/printers/printers.ui.h:11
+#| msgid "Show"
 msgid "_Show"
 msgstr "બતાવો (_S)"
 
@@ -3194,17 +3395,9 @@ msgstr "બતાવો (_S)"
 msgid "Model"
 msgstr "મોડેલ"
 
-#: ../panels/printers/printers.ui.h:14
-msgid "page 1"
-msgstr "પાનું 1"
-
 #: ../panels/printers/printers.ui.h:15
 msgid "label"
 msgstr "લેબલ"
-
-#: ../panels/printers/printers.ui.h:16
-msgid "page 2"
-msgstr "પાનું 2"
 
 #: ../panels/printers/printers.ui.h:17
 msgid "Setting new driver..."
@@ -3216,16 +3409,19 @@ msgstr "પાનું 3"
 
 #. Translators: This button executes command which prints test page.
 #: ../panels/printers/printers.ui.h:20
+#| msgid "Print Test Page"
 msgid "Print _Test Page"
 msgstr "ચકાસણી પાનાંને છાપો (_T)"
 
 #. Translators: This button opens printer's options tab
 #: ../panels/printers/printers.ui.h:22
+#| msgid "Options"
 msgid "_Options"
 msgstr "વિકલ્પો (_O)"
 
 #. Translators: This button adds new printer.
 #: ../panels/printers/printers.ui.h:24
+#| msgid "Printer"
 msgid "Add New Printer"
 msgstr "નવાં પ્રિન્ટરને ઉમેરો"
 
@@ -3249,11 +3445,11 @@ msgstr "તમારો પ્રદેશ અને ભાષા સુયો�
 msgid "Language;Layout;Keyboard;"
 msgstr "ભાષા;લેઆઉટ;કિબોર્ડ;"
 
-#: ../panels/region/gnome-region-panel-formats.c:142
+#: ../panels/region/gnome-region-panel-formats.c:143
 msgid "Imperial"
 msgstr "ઇમ્પેરીઅલ"
 
-#: ../panels/region/gnome-region-panel-formats.c:144
+#: ../panels/region/gnome-region-panel-formats.c:145
 msgid "Metric"
 msgstr "મેટ્રીક"
 
@@ -3265,30 +3461,32 @@ msgstr "ઇનપુટ સ્ત્રોતને પસંદ કરો"
 msgid "Select an input source to add"
 msgstr "ઉમેરવા માટે ઇનપુટ સ્ત્રોતને પસંદ કરો"
 
-#: ../panels/region/gnome-region-panel-system.c:465
+#: ../panels/region/gnome-region-panel-system.c:512
 msgid ""
 "The login screen, system accounts and new user accounts use the system-wide "
 "Region and Language settings."
 msgstr ""
-"પ્રવેશ સ્ક્રીન, સિસ્ટમ ખાતા અને નવાં વપરાશકર્તા ખાતાઓ સિસ્ટમ-વાઇડ વિસ્તાર અને ભાષા સુયોજનોને "
-"વાપરે છે."
+"પ્રવેશ સ્ક્રીન, સિસ્ટમ ખાતા અને નવાં વપરાશકર્તા ખાતાઓ સિસ્ટમ-વાઇડ વિસ્તાર "
+"અને ભાષા સુયોજનોને વાપરે છે."
 
-#: ../panels/region/gnome-region-panel-system.c:470
-#: ../panels/region/gnome-region-panel.ui.h:30
+#: ../panels/region/gnome-region-panel-system.c:517
+#: ../panels/region/gnome-region-panel.ui.h:33
 msgid ""
 "The login screen, system accounts and new user accounts use the system-wide "
 "Region and Language settings. You may change the system settings to match "
 "yours."
 msgstr ""
-"પ્રવેશ સ્ક્રીન, સિસ્ટમ ખાતા અને નવાં વપરાશકર્તા ખાતાઓ સિસ્ટમ-વાઇડ વિસ્તાર અને ભાષા સુયોજનોને "
-"વાપરે છે. તમે તમારાંને બંધબેસાડવા માટે સિસ્ટમ સુયોજનોને બદલી શકે છે."
+"પ્રવેશ સ્ક્રીન, સિસ્ટમ ખાતા અને નવાં વપરાશકર્તા ખાતાઓ સિસ્ટમ-વાઇડ વિસ્તાર "
+"અને ભાષા સુયોજનોને વાપરે છે. તમે તમારાંને બંધબેસાડવા માટે સિસ્ટમ સુયોજનોને "
+"બદલી શકે છે."
 
-#: ../panels/region/gnome-region-panel-system.c:473
+#: ../panels/region/gnome-region-panel-system.c:520
 msgid "Copy Settings"
 msgstr "સુયોજનોની નકલ કરો"
 
-#: ../panels/region/gnome-region-panel-system.c:476
-#: ../panels/region/gnome-region-panel.ui.h:37
+#: ../panels/region/gnome-region-panel-system.c:523
+#: ../panels/region/gnome-region-panel.ui.h:40
+#| msgid "Mouse Settings"
 msgid "Copy Settings..."
 msgstr "સુયોજનોની નકલ કરો..."
 
@@ -3297,10 +3495,12 @@ msgid "Region and Language"
 msgstr "પ્રદેશ અને ભાષા"
 
 #: ../panels/region/gnome-region-panel.ui.h:2
-msgid "Select a display language (change will be applied next time you log in)"
+msgid ""
+"Select a display language (change will be applied next time you log in)"
 msgstr "દેખાતી ભાષાને પસંદ કરો (બદલાવ પછી તમે ફરી પ્રવેશશો ત્યારે લાગુ થશે)"
 
 #: ../panels/region/gnome-region-panel.ui.h:3
+#| msgid "Language"
 msgid "Add Language"
 msgstr "ભાષા ઉમેરો"
 
@@ -3317,10 +3517,12 @@ msgid "Select a region (change will be applied the next time you log in)"
 msgstr "વિસ્તારને પસંદ કરો (બદલાવ પછી તમે ફરી પ્રવેશશો ત્યારે લાગુ થશે)"
 
 #: ../panels/region/gnome-region-panel.ui.h:7
+#| msgid "_Region:"
 msgid "Add Region"
 msgstr "વિસ્તાર ઉમેરો"
 
 #: ../panels/region/gnome-region-panel.ui.h:8
+#| msgid "Removable Media"
 msgid "Remove Region"
 msgstr "વિસ્તાર દૂર કરો"
 
@@ -3329,10 +3531,12 @@ msgid "Dates"
 msgstr "તારીખો"
 
 #: ../panels/region/gnome-region-panel.ui.h:10
+#| msgid "Time"
 msgid "Times"
 msgstr "સમય"
 
 #: ../panels/region/gnome-region-panel.ui.h:11
+#| msgid "November"
 msgid "Numbers"
 msgstr "નંબરો"
 
@@ -3349,6 +3553,7 @@ msgid "Examples"
 msgstr "ઉદાહરણો"
 
 #: ../panels/region/gnome-region-panel.ui.h:15
+#| msgid "Normal"
 msgid "Formats"
 msgstr "બંધારણો"
 
@@ -3358,7 +3563,7 @@ msgstr "કિબોર્ડ અથવા બીજા ઇનપુટ સ્�
 
 #: ../panels/region/gnome-region-panel.ui.h:17
 msgid "Add Input Source"
-msgstr "ઇનપુટ સ્ત્રોત ઉમેરો "
+msgstr "ઇનપુટ સ્ત્રોત ઉમેરો"
 
 #: ../panels/region/gnome-region-panel.ui.h:18
 msgid "Remove Input Source"
@@ -3366,11 +3571,11 @@ msgstr "ઇનપુટ સ્ત્રોત દૂર કરો"
 
 #: ../panels/region/gnome-region-panel.ui.h:19
 msgid "Move Input Source Up"
-msgstr "ઇનપુટ સ્ત્રોતને ઉપર ખસેડો "
+msgstr "ઇનપુટ સ્ત્રોતને ઉપર ખસેડો"
 
 #: ../panels/region/gnome-region-panel.ui.h:20
 msgid "Move Input Source Down"
-msgstr "ઇનપુટ સ્ત્રોતને નીચે ખસેડો "
+msgstr "ઇનપુટ સ્ત્રોતને નીચે ખસેડો"
 
 #: ../panels/region/gnome-region-panel.ui.h:21
 msgid "Input Source Settings"
@@ -3393,29 +3598,44 @@ msgid "Shortcut Settings"
 msgstr "ટૂંકાણ સુયોજનો"
 
 #: ../panels/region/gnome-region-panel.ui.h:29
+msgid "Use the same source for all windows"
+msgstr ""
+
+#: ../panels/region/gnome-region-panel.ui.h:30
+msgid "Allow different sources for each window"
+msgstr ""
+
+#: ../panels/region/gnome-region-panel.ui.h:32
 msgid "Input Sources"
 msgstr "ઇનપુટ સ્ત્રોત"
 
 #. 'display' means 'output' here, as in 'translated messages that are displayed to the user'
-#: ../panels/region/gnome-region-panel.ui.h:32
+#: ../panels/region/gnome-region-panel.ui.h:35
 msgid "Display language:"
 msgstr "ભાષાને દર્શાવો:"
 
-#: ../panels/region/gnome-region-panel.ui.h:33
+#: ../panels/region/gnome-region-panel.ui.h:36
 msgid "Input source:"
-msgstr "ઇનપુટ સ્ત્રોત: "
+msgstr "ઇનપુટ સ્ત્રોત:"
 
-#: ../panels/region/gnome-region-panel.ui.h:34
+#: ../panels/region/gnome-region-panel.ui.h:37
+#| msgid "Contact"
 msgid "Format:"
 msgstr "બંધારણ:"
 
-#: ../panels/region/gnome-region-panel.ui.h:35
+#: ../panels/region/gnome-region-panel.ui.h:38
+#| msgid "Network settings"
 msgid "Your settings"
 msgstr "તમારાં સુયોજનો"
 
-#: ../panels/region/gnome-region-panel.ui.h:36
+#: ../panels/region/gnome-region-panel.ui.h:39
+#| msgid "System Settings"
 msgid "System settings"
 msgstr "સિસ્ટમ સુયોજનો"
+
+#: ../panels/region/gtkentryaccel.c:180
+msgid "New accelerator…"
+msgstr ""
 
 #: ../panels/screen/gnome-screen-panel.desktop.in.in.h:1
 msgid "Brightness & Lock"
@@ -3450,36 +3670,40 @@ msgstr "2 મિનિટો"
 msgid "3 minutes"
 msgstr "3 મિનિટો"
 
-#: ../panels/screen/screen.ui.h:10
+#: ../panels/screen/screen.ui.h:11
 msgid "_Dim screen to save power"
 msgstr "પાવર બચાવવા માટે સ્ક્રીન ઝાંખી રાખો (_D)"
 
-#: ../panels/screen/screen.ui.h:11
+#: ../panels/screen/screen.ui.h:12
 msgid "Brightness"
 msgstr "પ્રકાશતા"
 
-#: ../panels/screen/screen.ui.h:12
+#: ../panels/screen/screen.ui.h:13
 msgid "_Turn screen off when inactive for:"
 msgstr "જ્યારે નિષ્ક્રિય હોય ત્યારે સ્ક્રીન બંધ કરો (_T):"
 
-#: ../panels/screen/screen.ui.h:13
+#: ../panels/screen/screen.ui.h:14
 msgid "_Lock screen after:"
 msgstr "પછી સ્ક્રીનને તાળુ મારો (_L):"
 
-#. To translators: This asks whether you want to lock the screen (through the screensaver) when you're detected to be physically in your home (your house, etc.)
 #: ../panels/screen/screen.ui.h:15
+msgid "Require my password when waking from suspend"
+msgstr ""
+
+#. To translators: This asks whether you want to lock the screen (through the screensaver) when you're detected to be physically in your home (your house, etc.)
+#: ../panels/screen/screen.ui.h:17
 msgid "Don't lock when at home"
 msgstr "તાળુ મારો નહિં જ્યારે ઘરે હોવ"
 
-#: ../panels/screen/screen.ui.h:16
+#: ../panels/screen/screen.ui.h:18
 msgid "Locations..."
 msgstr "સ્થાનો..."
 
-#: ../panels/screen/screen.ui.h:17
+#: ../panels/screen/screen.ui.h:19
 msgid "Show _notifications when locked"
 msgstr "સૂચના બતાવો જ્યારે તાળુ મારેલ હોય (_n)"
 
-#: ../panels/screen/screen.ui.h:18
+#: ../panels/screen/screen.ui.h:20
 msgid "Lock"
 msgstr "તાળુ મારો"
 
@@ -3488,6 +3712,7 @@ msgid "Enable debugging code"
 msgstr "ડિબગીંગ સ્થિતિ સક્રિય કરો"
 
 #: ../panels/sound/applet-main.c:50
+#| msgid "Open with Default Application"
 msgid "Version of this application"
 msgstr "આ કાર્યક્રમની આવૃત્તિ"
 
@@ -3507,10 +3732,12 @@ msgstr "ડેસ્કટોપ વોલ્યુમ નિયંત્રણ�
 # 48x48/emblems/emblem-sound.icon.in.h:1
 # 48x48/emblems/emblem-sound.icon.in.h:1
 #: ../panels/sound/data/gnome-sound-panel.desktop.in.in.h:1
+#: ../panels/sound-nua/data/gnome-sound-nua-panel.desktop.in.in.h:1
 msgid "Sound"
 msgstr "ધ્વનિ"
 
 #: ../panels/sound/data/gnome-sound-panel.desktop.in.in.h:2
+#: ../panels/sound-nua/data/gnome-sound-nua-panel.desktop.in.in.h:2
 msgid "Change sound volume and sound events"
 msgstr "સાઉન્ડ વોલ્યુમ અને સાઉન્ડ ઘટનાઓને બદલો"
 
@@ -3546,6 +3773,7 @@ msgid "Sonar"
 msgstr "સોનાર"
 
 #: ../panels/sound/gvc-applet.c:270 ../panels/sound/gvc-mixer-dialog.c:1656
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1770
 msgid "Output"
 msgstr "આઉટપુટ"
 
@@ -3554,6 +3782,7 @@ msgid "Sound Output Volume"
 msgstr "સાઉન્ડ આઉટપુટ વોલ્યુમ"
 
 #: ../panels/sound/gvc-applet.c:276 ../panels/sound/gvc-mixer-dialog.c:1697
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1903
 msgid "Input"
 msgstr "ઇનપુટ"
 
@@ -3562,16 +3791,19 @@ msgid "Microphone Volume"
 msgstr "માઇક્રોફોન વોલ્યુમ"
 
 #: ../panels/sound/gvc-balance-bar.c:111
+#: ../panels/sound-nua/gvc-balance-bar.c:111
 msgctxt "balance"
 msgid "Left"
 msgstr "ડાબું"
 
 #: ../panels/sound/gvc-balance-bar.c:112
+#: ../panels/sound-nua/gvc-balance-bar.c:112
 msgctxt "balance"
 msgid "Right"
 msgstr "જમણું"
 
 #: ../panels/sound/gvc-balance-bar.c:115
+#: ../panels/sound-nua/gvc-balance-bar.c:115
 msgctxt "balance"
 msgid "Rear"
 msgstr "પાછળનું"
@@ -3579,29 +3811,35 @@ msgstr "પાછળનું"
 # #-#-#-#-#  libgnomecanvas.gnome-2-2.hi.po (libgnomecanvas)  #-#-#-#-# libgnomecanvas/gnome-canvas-text.c:238
 # #-#-#-#-#  libgnomeui.gnome-2-2.hi.po (libgnomeui HEAD)  #-#-#-#-# libgnomeui/gnome-font-picker.c:184 libgnomeui/gnome-font-picker.c:979
 #: ../panels/sound/gvc-balance-bar.c:116
+#: ../panels/sound-nua/gvc-balance-bar.c:116
 msgctxt "balance"
 msgid "Front"
 msgstr "આગળનું"
 
 #: ../panels/sound/gvc-balance-bar.c:119
+#: ../panels/sound-nua/gvc-balance-bar.c:119
 msgctxt "balance"
 msgid "Minimum"
 msgstr "ન્યૂનતમ"
 
 #: ../panels/sound/gvc-balance-bar.c:120
+#: ../panels/sound-nua/gvc-balance-bar.c:120
 msgctxt "balance"
 msgid "Maximum"
 msgstr "મહત્તમ"
 
 #: ../panels/sound/gvc-balance-bar.c:295
+#: ../panels/sound-nua/gvc-balance-bar.c:295
 msgid "_Balance:"
 msgstr "સમતુલન (_B):"
 
 #: ../panels/sound/gvc-balance-bar.c:298
+#: ../panels/sound-nua/gvc-balance-bar.c:298
 msgid "_Fade:"
 msgstr "ઝાંખુ પડવુ (_F):"
 
 #: ../panels/sound/gvc-balance-bar.c:301
+#: ../panels/sound-nua/gvc-balance-bar.c:301
 msgid "_Subwoofer:"
 msgstr "સબવુફર (_S):"
 
@@ -3649,22 +3887,26 @@ msgid "_Test Speakers"
 msgstr "સ્પીકર ચકાસો (_T)"
 
 #: ../panels/sound/gvc-mixer-dialog.c:426
+#: ../panels/sound-nua/gvc-mixer-dialog.c:343
 msgid "Peak detect"
 msgstr "પીક મળ્યુ"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1506
 #: ../panels/sound/gvc-sound-theme-chooser.c:595
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1600
 msgid "Name"
 msgstr "નામ"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1588
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1702
 #, c-format
 msgid "Speaker Testing for %s"
 msgstr "%s માટે સ્પીકર ચકાસણી"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1642
+#: ../panels/sound-nua/gvc-mixer-dialog.c:2043
 msgid "_Output volume:"
-msgstr "આઉટપુટ વોલ્યુમ (_O): "
+msgstr "આઉટપુટ વોલ્યુમ (_O):"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1661
 msgid "C_hoose a device for sound output:"
@@ -3675,10 +3917,12 @@ msgid "Settings for the selected device:"
 msgstr "પસંદ થયેલ ઉપકરણ માટે સુયોજનો:"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1704
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1950
 msgid "_Input volume:"
-msgstr "ઇનપુટ વોલ્યુમ (_I): "
+msgstr "ઇનપુટ વોલ્યુમ (_I):"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1727
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1983
 msgid "Input level:"
 msgstr "ઈનપુટ સ્તર:"
 
@@ -3687,18 +3931,23 @@ msgid "C_hoose a device for sound input:"
 msgstr "સાઉન્ડ ઇનપુટ માટે ઉપકરણને પસંદ કરો (_h):"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1782
+#: ../panels/sound-nua/gvc-mixer-dialog.c:2004
 msgid "Sound Effects"
 msgstr "સાઉન્ડ અસરો"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1789
+#: ../panels/sound-nua/gvc-mixer-dialog.c:2011
+#| msgid "_Input volume: "
 msgid "_Alert volume:"
 msgstr "ચેતવણી વોલ્યુમ (_A):"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1802
+#: ../panels/sound-nua/gvc-mixer-dialog.c:2024
 msgid "Applications"
 msgstr "કાર્યક્રમો"
 
 #: ../panels/sound/gvc-mixer-dialog.c:1806
+#: ../panels/sound-nua/gvc-mixer-dialog.c:2028
 msgid "No application is currently playing or recording audio."
 msgstr "કાર્યક્રમ હાલમાં ઓડિયોને વગાડી અથવા રેકોર્ડ કરી રહ્યુ છે."
 
@@ -3749,6 +3998,7 @@ msgid "Failed to start Sound Preferences: %s"
 msgstr "સાઉન્ડ પસંદગીઓને શરૂ કરવામાં નિષ્ફળતા: %s"
 
 #: ../panels/sound/gvc-stream-status-icon.c:262
+#| msgid "Mutt"
 msgid "_Mute"
 msgstr "મૂંગુ (_M)"
 
@@ -3757,6 +4007,7 @@ msgid "_Sound Preferences"
 msgstr "સાઉન્ડ પસંદગીઓ (_S)"
 
 #: ../panels/sound/gvc-stream-status-icon.c:416
+#| msgid "Multimedia"
 msgid "Muted"
 msgstr "મૂંગુ"
 
@@ -3768,8 +4019,46 @@ msgstr "મૂંગુ"
 msgid "Custom"
 msgstr "વૈવિધ્યપૂર્ણ"
 
-#: ../panels/universal-access/cc-ua-panel.c:286
-#: ../panels/universal-access/cc-ua-panel.c:292
+#. Translators: those are keywords for the sound control-center panel
+#: ../panels/sound-nua/data/gnome-sound-nua-panel.desktop.in.in.h:4
+msgid "Card;Microphone;Volume;Fade;Balance;Bluetooth;Headset;"
+msgstr ""
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:776
+#: ../panels/sound-nua/gvc-mixer-dialog.c:946
+#, c-format
+msgid "Settings for %s"
+msgstr ""
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:802
+#: ../panels/sound-nua/gvc-mixer-dialog.c:955
+msgid "Mode:"
+msgstr ""
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1775
+msgid "Play sound through"
+msgstr ""
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1800
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1932
+msgid "Settings for the selected device"
+msgstr ""
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1873
+msgid "Test:"
+msgstr ""
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1880
+msgid "Test Sound"
+msgstr "ચકાસણી ધ્વનિ"
+
+#: ../panels/sound-nua/gvc-mixer-dialog.c:1907
+msgid "Record sound from"
+msgstr ""
+
+#: ../panels/universal-access/cc-ua-panel.c:289
+#: ../panels/universal-access/cc-ua-panel.c:295
+#| msgid "New shortcut..."
 msgid "No shortcut set"
 msgstr "ટૂંકાણો સુયોજિત નથી"
 
@@ -3780,23 +4069,26 @@ msgstr "સાર્વત્રિક વપરાશ પસંદગીઓ"
 #. Translators: those are keywords for the universal access control-center panel
 #: ../panels/universal-access/gnome-universal-access-panel.desktop.in.in.h:4
 msgid ""
-"Keyboard;Mouse;a11y;Accessibility;Contrast;Zoom;Screen Reader;text;font;size;"
-"AccessX;Sticky Keys;Slow Keys;Bounce Keys;Mouse Keys;"
+"Keyboard;Mouse;a11y;Accessibility;Contrast;Zoom;Screen "
+"Reader;text;font;size;AccessX;Sticky Keys;Slow Keys;Bounce Keys;Mouse Keys;"
 msgstr ""
-"કિબોર્ડ;માઉસ;a11y;સુલભતા;ભેદ;નાનું મોટુ કરો;સ્ક્રીન રીડર;લખાણ;ફોન્ટ;માપ;"
-"AccessX;સ્ટીકી કી;સ્લો કી;બાઉન્સ કી;માઉસ કી;"
+"કિબોર્ડ;માઉસ;a11y;સુલભતા;ભેદ;નાનું મોટુ કરો;સ્ક્રીન "
+"રીડર;લખાણ;ફોન્ટ;માપ;AccessX;સ્ટીકી કી;સ્લો કી;બાઉન્સ કી;માઉસ કી;"
 
 #: ../panels/universal-access/uap.ui.h:1
+#| msgid "Low"
 msgctxt "universal access, contrast"
 msgid "Low"
 msgstr "ઓછુ"
 
 #: ../panels/universal-access/uap.ui.h:2
+#| msgid "Normal"
 msgctxt "universal access, contrast"
 msgid "Normal"
 msgstr "સામાન્ય"
 
 #: ../panels/universal-access/uap.ui.h:3
+#| msgid "High"
 msgctxt "universal access, contrast"
 msgid "High"
 msgstr "વધારે"
@@ -3828,6 +4120,7 @@ msgid "75%"
 msgstr "75%"
 
 #: ../panels/universal-access/uap.ui.h:11
+#| msgid "Small"
 msgctxt "universal access, text size"
 msgid "Small"
 msgstr "નાનું"
@@ -3838,6 +4131,7 @@ msgid "100%"
 msgstr "100%"
 
 #: ../panels/universal-access/uap.ui.h:14
+#| msgid "Normal"
 msgctxt "universal access, text size"
 msgid "Normal"
 msgstr "સામાન્ય"
@@ -3848,6 +4142,7 @@ msgid "125%"
 msgstr "125%"
 
 #: ../panels/universal-access/uap.ui.h:17
+#| msgid "Large"
 msgctxt "universal access, text size"
 msgid "Large"
 msgstr "વિશાળ"
@@ -3858,6 +4153,7 @@ msgid "150%"
 msgstr "150%"
 
 #: ../panels/universal-access/uap.ui.h:20
+#| msgid "Larger"
 msgctxt "universal access, text size"
 msgid "Larger"
 msgstr "વિશાળ"
@@ -3875,6 +4171,7 @@ msgid "Options..."
 msgstr "વિકલ્પો..."
 
 #: ../panels/universal-access/uap.ui.h:24
+#| msgid "Linux Screen Reader"
 msgid "Screen Reader"
 msgstr "સ્ક્રીન વાંચક"
 
@@ -3888,10 +4185,12 @@ msgid "Zoom"
 msgstr "નાનુ મોટુ કરો"
 
 #: ../panels/universal-access/uap.ui.h:27
+#| msgid "Zoom"
 msgid "Zoom in:"
 msgstr "નાનુ મોટુ કરો:"
 
 #: ../panels/universal-access/uap.ui.h:28
+#| msgid "Zoom"
 msgid "Zoom out:"
 msgstr "નાનુ મોટુ કરો:"
 
@@ -3904,6 +4203,7 @@ msgid "Seeing"
 msgstr "જોઇ રહ્યા છે"
 
 #: ../panels/universal-access/uap.ui.h:31
+#| msgid "Visual"
 msgid "Visual Alerts"
 msgstr "દેખીતી ચેતવણીઓ"
 
@@ -3912,10 +4212,12 @@ msgid "Use a visual indication when an alert sound occurs"
 msgstr "દ્રશ્ય સંકેત વાપરો જ્યારે ચેતવણી અવાજ કરે"
 
 #: ../panels/universal-access/uap.ui.h:33
+#| msgid "Flash _window titlebar"
 msgid "Flash the window title"
 msgstr "વિન્ડો શીર્ષકપટ્ટી ઝબકાવો"
 
 #: ../panels/universal-access/uap.ui.h:34
+#| msgid "Flash entire _screen"
 msgid "Flash the entire screen"
 msgstr "આખી સ્ક્રીન ઝબકાવો"
 
@@ -3940,6 +4242,7 @@ msgid "On Screen Keyboard"
 msgstr "ઓન સ્ક્રીન કિબોર્ડ"
 
 #: ../panels/universal-access/uap.ui.h:41
+#| msgid "<b>Sticky Keys</b>"
 msgid "Sticky Keys"
 msgstr "સ્ટીકી કીઓ"
 
@@ -3956,12 +4259,14 @@ msgid "Beep when a _modifer key is pressed"
 msgstr "જ્યારે બદલનાર દબાયેલ હોય ત્યારે બીપ વગાડો (_m)"
 
 #: ../panels/universal-access/uap.ui.h:45
+#| msgid "<b>Slow Keys</b>"
 msgid "Slow Keys"
 msgstr "ધીમી કીઓ"
 
 #: ../panels/universal-access/uap.ui.h:46
 msgid "Puts a delay between when a key is pressed and when it is accepted"
-msgstr "જ્યારે કી દબાયેલ હોય અને જ્યારે તેને સ્વીકારેલ હોય તો તેની વચ્ચે વિલંબ મૂકો"
+msgstr ""
+"જ્યારે કી દબાયેલ હોય અને જ્યારે તેને સ્વીકારેલ હોય તો તેની વચ્ચે વિલંબ મૂકો"
 
 #: ../panels/universal-access/uap.ui.h:47
 msgid "A_cceptance delay:"
@@ -3973,6 +4278,7 @@ msgstr "સ્લો કી વિલંબને સૂચવે છે"
 
 #. This string is part of a line of checkboxes: Beep when a key is [ ] pressed  [ ] accepted  [ ] rejected
 #: ../panels/universal-access/uap.ui.h:54
+#| msgid "Beep when a key is pr_essed"
 msgid "Beep when a key is"
 msgstr "જ્યારે કી દબાયેલ હોય ત્યારે બીપ વગાડો"
 
@@ -3992,10 +4298,12 @@ msgid "rejected"
 msgstr "રદ કરેલ"
 
 #: ../panels/universal-access/uap.ui.h:61
+#| msgid "Mouse Keys"
 msgid "Bounce Keys"
 msgstr "બાઉન્સ કી"
 
 #: ../panels/universal-access/uap.ui.h:62
+#| msgid "_Ignore fast duplicate keypresses"
 msgid "Ignores fast duplicate keypresses"
 msgstr "આમાં ઝડપી નકલી કી દબાણ અવગણો"
 
@@ -4028,6 +4336,7 @@ msgid "Control the pointer using the keypad"
 msgstr "કીપેડની મદદથી નિર્દેશકને નિયંત્રિત કરો"
 
 #: ../panels/universal-access/uap.ui.h:71
+#| msgid "Mouse"
 msgid "Video Mouse"
 msgstr "વિડિઓ માઉસ"
 
@@ -4036,6 +4345,7 @@ msgid "Control the pointer using the video camera."
 msgstr "વિડિયો કૅમેરાની મદદથી નિર્દેશકને નિયંત્રિત કરો."
 
 #: ../panels/universal-access/uap.ui.h:73
+#| msgid "<b>Simulated Secondary Click</b>"
 msgid "Simulated Secondary Click"
 msgstr "પ્રદર્શનીય દ્દિતીય ક્લિક"
 
@@ -4048,6 +4358,7 @@ msgid "Secondary click delay"
 msgstr "ગૌણ કી વિલંબ"
 
 #: ../panels/universal-access/uap.ui.h:76
+#| msgid "Dwell Click"
 msgid "Hover Click"
 msgstr "Hover ક્લિક"
 
@@ -4074,6 +4385,7 @@ msgid "Large"
 msgstr "વિશાળ"
 
 #: ../panels/universal-access/uap.ui.h:84
+#| msgid "_Mouse Settings"
 msgid "Mouse Settings"
 msgstr "માઉસ સુયોજનો"
 
@@ -4107,6 +4419,7 @@ msgid "Long"
 msgstr "લાંબુ"
 
 #: ../panels/universal-access/zoom-options.ui.h:1
+#| msgid "Screen"
 msgid "Full Screen"
 msgstr "સંપૂર્ણ સ્ક્રીન"
 
@@ -4139,10 +4452,12 @@ msgid "Magnification:"
 msgstr "વિસ્તૃતીકરણ:"
 
 #: ../panels/universal-access/zoom-options.ui.h:9
+#| msgid "Allowed users"
 msgid "Follow mouse cursor"
 msgstr "માઉસ કર્સર અનૂસરો"
 
 #: ../panels/universal-access/zoom-options.ui.h:10
+#| msgid "Screen Reader"
 msgid "Screen part:"
 msgstr "સ્ક્રીન ભાગ:"
 
@@ -4176,6 +4491,7 @@ msgstr "જાડાઈ:"
 
 #. short delay
 #: ../panels/universal-access/zoom-options.ui.h:19
+#| msgid "China"
 msgid "Thin"
 msgstr "પાતળુ"
 
@@ -4189,6 +4505,7 @@ msgid "Length:"
 msgstr "લંબાઇ:"
 
 #: ../panels/universal-access/zoom-options.ui.h:23
+#| msgid "Color"
 msgid "Color:"
 msgstr "રંગ:"
 
@@ -4238,6 +4555,7 @@ msgstr "નીચે"
 
 #. long delay
 #: ../panels/universal-access/zoom-options.ui.h:36
+#| msgid "Right"
 msgid "High"
 msgstr "વધારે"
 
@@ -4259,6 +4577,7 @@ msgstr "પ્રમાણભૂત"
 #: ../panels/user-accounts/data/account-dialog.ui.h:2
 #: ../panels/user-accounts/data/user-accounts-dialog.ui.h:2
 #: ../panels/user-accounts/um-account-type.c:37
+#| msgid "Terminator"
 msgctxt "Account type"
 msgid "Administrator"
 msgstr "વહીવટકર્તા"
@@ -4276,10 +4595,12 @@ msgid "_Enterprise Login"
 msgstr "એન્ટરપ્રાઇઝ પ્રવેશ (_E)"
 
 #: ../panels/user-accounts/data/account-dialog.ui.h:6
+#| msgid "_Username:"
 msgid "_Username"
 msgstr "વપરાશકર્તા નામ (_U)"
 
 #: ../panels/user-accounts/data/account-dialog.ui.h:7
+#| msgid "_Full name:"
 msgid "_Full name"
 msgstr "સંપૂર્ણ નામ (_F)"
 
@@ -4298,6 +4619,7 @@ msgstr "પ્રવેશ નામ (_L)"
 
 #: ../panels/user-accounts/data/account-dialog.ui.h:11
 #: ../panels/user-accounts/data/user-accounts-dialog.ui.h:8
+#| msgid "Password"
 msgid "_Password"
 msgstr "પાસવર્ડ (_P)"
 
@@ -4319,8 +4641,9 @@ msgid ""
 "enrolled in the domain. Please have your network administrator\n"
 "type their domain password here."
 msgstr ""
-"એન્ટરપ્રાઇઝ પ્રવેશને વાપરવા માટે ક્રમમાં, આ કમ્યૂટરને ડોમેઇનમાં ઉમેદવારી કરવાની જરૂર છે. "
-"મહેરબાની કરીને તમારુ નેટવર્ક સંચાલકને લઇને તેનાં ડોમેઇન પાસવર્ડને અહિં ટાઇપ કરો."
+"એન્ટરપ્રાઇઝ પ્રવેશને વાપરવા માટે ક્રમમાં, આ કમ્યૂટરને ડોમેઇનમાં ઉમેદવારી "
+"કરવાની જરૂર છે. મહેરબાની કરીને તમારુ નેટવર્ક સંચાલકને લઇને તેનાં ડોમેઇન "
+"પાસવર્ડને અહિં ટાઇપ કરો."
 
 #: ../panels/user-accounts/data/account-dialog.ui.h:18
 msgid "Administrator _Name"
@@ -4335,30 +4658,37 @@ msgid "Left thumb"
 msgstr "થમ્ભને છોડો"
 
 #: ../panels/user-accounts/data/account-fingerprint.ui.h:2
+#| msgid "Left index finger"
 msgid "Left middle finger"
 msgstr "ડાબી મધ્ય આંગળી"
 
 #: ../panels/user-accounts/data/account-fingerprint.ui.h:3
+#| msgid "Left index finger"
 msgid "Left ring finger"
 msgstr "ડાબી વીંટી આંગળી"
 
 #: ../panels/user-accounts/data/account-fingerprint.ui.h:4
+#| msgid "Left index finger"
 msgid "Left little finger"
 msgstr "ડાબી નાની આંગળી"
 
 #: ../panels/user-accounts/data/account-fingerprint.ui.h:5
+#| msgid "Right"
 msgid "Right thumb"
 msgstr "જમણું થમ્ભ"
 
 #: ../panels/user-accounts/data/account-fingerprint.ui.h:6
+#| msgid "Right index finger"
 msgid "Right middle finger"
 msgstr "જમણી મધ્ય આંગળી"
 
 #: ../panels/user-accounts/data/account-fingerprint.ui.h:7
+#| msgid "Right index finger"
 msgid "Right ring finger"
 msgstr "જમણી વીંટી આંગળી"
 
 #: ../panels/user-accounts/data/account-fingerprint.ui.h:8
+#| msgid "Right index finger"
 msgid "Right little finger"
 msgstr "જમણી નાની આંગળી"
 
@@ -4377,15 +4707,15 @@ msgstr "ડાબી અનુક્રમાંક આંગળી (_L)"
 
 #: ../panels/user-accounts/data/account-fingerprint.ui.h:12
 msgid "_Other finger:"
-msgstr "બીજી આંગળી (_O): "
+msgstr "બીજી આંગળી (_O):"
 
 #: ../panels/user-accounts/data/account-fingerprint.ui.h:13
 msgid ""
 "Your fingerprint was successfully saved. You should now be able to log in "
 "using your fingerprint reader."
 msgstr ""
-"તમારી આંગળી છાપ એ સફળતાપૂર્વક સંગ્રહ થયેલ છે. તમારે હવે તમારા આંગળી છાપ વાંચનાર ની "
-"મદદથી પ્રવેશવા માટે સક્ષમ થવુ જ જોઇએ."
+"તમારી આંગળી છાપ એ સફળતાપૂર્વક સંગ્રહ થયેલ છે. તમારે હવે તમારા આંગળી છાપ "
+"વાંચનાર ની મદદથી પ્રવેશવા માટે સક્ષમ થવુ જ જોઇએ."
 
 #: ../panels/user-accounts/data/gnome-user-accounts-panel.desktop.in.in.h:1
 msgid "User Accounts"
@@ -4429,14 +4759,16 @@ msgid ""
 "This hint may be displayed at the login screen.  It will be visible to all "
 "users of this system.  Do <b>not</b> include the password here."
 msgstr ""
-"આ સંકેત પ્રવેશ સ્ક્રીન પર દેખાઇ શકે છે. તે આ સિસ્ટમનાં બધા વપરાશકર્તાઓમાં દેખાશે. અહિંયા "
-"પાસવર્ડને સમાવો <b>નહિં</b>."
+"આ સંકેત પ્રવેશ સ્ક્રીન પર દેખાઇ શકે છે. તે આ સિસ્ટમનાં બધા વપરાશકર્તાઓમાં "
+"દેખાશે. અહિંયા પાસવર્ડને સમાવો <b>નહિં</b>."
 
 #: ../panels/user-accounts/data/password-dialog.ui.h:8
+#| msgid "C_onfirm password:"
 msgid "C_onfirm password"
 msgstr "પાસવર્ડની ખાતરી કરો (_o)"
 
 #: ../panels/user-accounts/data/password-dialog.ui.h:9
+#| msgid "_New password:"
 msgid "_New password"
 msgstr "નવો પાસવર્ડ (_N)"
 
@@ -4449,16 +4781,19 @@ msgid "Fair"
 msgstr "વ્યાજબી"
 
 #: ../panels/user-accounts/data/password-dialog.ui.h:12
+#| msgid "Current _password:"
 msgid "Current _password"
 msgstr "વર્તમાન પાસવર્ડ (_p)"
 
 # #-#-#-#-#  gnome-session.gnome-2-2.hi.po (gnome-session VERSION)  #-#-#-#-#
 # gnome-session/logout.c:266
 #: ../panels/user-accounts/data/password-dialog.ui.h:13
+#| msgid "_Action:"
 msgid "_Action"
 msgstr "ક્રિયા (_A)"
 
 #: ../panels/user-accounts/data/password-dialog.ui.h:14
+#| msgid "Changing password for:"
 msgid "Changing password for"
 msgstr "તેની માટે પાસવર્ડને બદલી રહ્યા છે"
 
@@ -4479,7 +4814,8 @@ msgid "Changing photo for:"
 msgstr "તેની માટે ફોટોને બદલી રહ્યા છે:"
 
 #: ../panels/user-accounts/data/photo-dialog.ui.h:2
-msgid "Choose a picture that will be shown at the login screen for this account."
+msgid ""
+"Choose a picture that will be shown at the login screen for this account."
 msgstr "ચિત્રને પસંદ કરો કે જે આ ખાતા માટે પ્રવેશ સ્ક્રીન પર દેખાશે."
 
 #: ../panels/user-accounts/data/photo-dialog.ui.h:3
@@ -4508,10 +4844,12 @@ msgid "Account Information"
 msgstr "ખાતા જાણકારી"
 
 #: ../panels/user-accounts/data/user-accounts-dialog.ui.h:4
+#| msgid "User Accounts"
 msgid "Add User Account"
 msgstr "વપરાશકર્તા ખાતુ ઉમેરો"
 
 #: ../panels/user-accounts/data/user-accounts-dialog.ui.h:5
+#| msgid "User Accounts"
 msgid "Remove User Account"
 msgstr "વપરાશકર્તા ખાતુ દૂર કરો"
 
@@ -4528,10 +4866,12 @@ msgid "_Fingerprint Login"
 msgstr "આંગળીછાપન પ્રવેશ (_F)"
 
 #: ../panels/user-accounts/data/user-accounts-dialog.ui.h:11
+#| msgid "User Accounts"
 msgid "User Icon"
 msgstr "વપરાશકર્તા ચિહ્ન"
 
 #: ../panels/user-accounts/data/user-accounts-dialog.ui.h:12
+#| msgid "Language"
 msgid "_Language"
 msgstr "ભાષા (_L)"
 
@@ -4544,7 +4884,7 @@ msgid "Authentication is required to change user data"
 msgstr "વપરાશકર્તા માહિતીને બદલવા માટે સત્તાધિકરણ જરૂરી છે"
 
 #: ../panels/user-accounts/pw-utils.c:94
-#: ../panels/user-accounts/um-password-dialog.c:569
+#: ../panels/user-accounts/um-password-dialog.c:607
 msgctxt "Password strength"
 msgid "Too short"
 msgstr "ઘણો ટૂંકો"
@@ -4555,25 +4895,25 @@ msgid "Not good enough"
 msgstr "પૂરતુ નથી"
 
 #: ../panels/user-accounts/pw-utils.c:108
-#: ../panels/user-accounts/um-password-dialog.c:570
+#: ../panels/user-accounts/um-password-dialog.c:608
 msgctxt "Password strength"
 msgid "Weak"
 msgstr "નબળુ"
 
 #: ../panels/user-accounts/pw-utils.c:111
-#: ../panels/user-accounts/um-password-dialog.c:571
+#: ../panels/user-accounts/um-password-dialog.c:609
 msgctxt "Password strength"
 msgid "Fair"
 msgstr "વ્યાજબી"
 
 #: ../panels/user-accounts/pw-utils.c:114
-#: ../panels/user-accounts/um-password-dialog.c:572
+#: ../panels/user-accounts/um-password-dialog.c:610
 msgctxt "Password strength"
 msgid "Good"
 msgstr "સરસ"
 
 #: ../panels/user-accounts/pw-utils.c:117
-#: ../panels/user-accounts/um-password-dialog.c:573
+#: ../panels/user-accounts/um-password-dialog.c:611
 msgctxt "Password strength"
 msgid "Strong"
 msgstr "મજબૂત"
@@ -4583,7 +4923,7 @@ msgid "Authentication failed"
 msgstr "સત્તાધિકરણ નિષ્ફળ"
 
 #: ../panels/user-accounts/run-passwd.c:504
-#: ../panels/user-accounts/um-password-dialog.c:239
+#: ../panels/user-accounts/um-password-dialog.c:240
 #, c-format
 msgid "The new password is too short"
 msgstr "નવો પાસવર્ડ ઘણો ટૂંકો છે"
@@ -4600,11 +4940,13 @@ msgstr "જૂના અને નવા પાસવર્ડો એકદમ �
 
 #: ../panels/user-accounts/run-passwd.c:519
 #, c-format
+#| msgid "The two passwords are not equal."
 msgid "The new password has already been used recently."
 msgstr "નવો પાસવર્ડ પહેલેથી જ તાજેતરમાં વાપરી દેવાયો છે."
 
 #: ../panels/user-accounts/run-passwd.c:522
 #, c-format
+#| msgid "The new password must contain numeric or special character(s)."
 msgid "The new password must contain numeric or special characters"
 msgstr "નવો પાસવર્ડ આંકડા અને વિશિષ્ટ અક્ષરો સમાવતો હોવો જ જોઈએ."
 
@@ -4615,11 +4957,16 @@ msgstr "જૂના અને નવા પાસવર્ડો સરખા �
 
 #: ../panels/user-accounts/run-passwd.c:530
 #, c-format
+#| msgid ""
+#| "Your password has been changed since you initially authenticated! Please "
+#| "re-authenticate."
 msgid "Your password has been changed since you initially authenticated!"
-msgstr "તમારો પાસવર્ડ બદલાઈ ગયેલ છે કારણ કે તમે શરૂઆતમાં સત્તાધિકારીત થઈ ગયેલ છે!"
+msgstr ""
+"તમારો પાસવર્ડ બદલાઈ ગયેલ છે કારણ કે તમે શરૂઆતમાં સત્તાધિકારીત થઈ ગયેલ છે!"
 
 #: ../panels/user-accounts/run-passwd.c:534
 #, c-format
+#| msgid "The new password must contain numeric or special character(s)."
 msgid "The new password does not contain enough different characters"
 msgstr "નવો પાસવર્ડ પૂરતા વિવિધ અક્ષરોને સમાવતુ નથી"
 
@@ -4632,26 +4979,29 @@ msgstr "અજ્ઞાત ભૂલ"
 msgid "Failed to add account"
 msgstr "ખાતાને ઉમેરવામાં નિષ્ફળ"
 
-#: ../panels/user-accounts/um-account-dialog.c:378
-#: ../panels/user-accounts/um-account-dialog.c:419
+#: ../panels/user-accounts/um-account-dialog.c:404
+#: ../panels/user-accounts/um-account-dialog.c:445
 msgid "Failed to register account"
 msgstr "ખાતાને રજીસ્ટર કરવામાં નિષ્ફળ"
 
-#: ../panels/user-accounts/um-account-dialog.c:551
+#: ../panels/user-accounts/um-account-dialog.c:577
 msgid "No supported way to authenticate with this domain"
 msgstr "આ ડોમેઇન સાથે આ રીતે સત્તાધિકરણ કરવાનું આધારભૂત નથી"
 
-#: ../panels/user-accounts/um-account-dialog.c:605
+#: ../panels/user-accounts/um-account-dialog.c:631
 msgid "Failed to join domain"
 msgstr "ડોમેઇન સાથે જોડાવામાં નિષ્ફળ"
 
-#: ../panels/user-accounts/um-account-dialog.c:662
+#: ../panels/user-accounts/um-account-dialog.c:688
 msgid "Failed to log into domain"
 msgstr "ડોમેઇનમાં પ્રવેશ કરવામાં નિષ્ફળતા"
 
 #: ../panels/user-accounts/um-fingerprint-dialog.c:139
-msgid "You are not allowed to access the device. Contact your system administrator."
-msgstr "તમને ઉપકરણ ને દાખલ કરવા માટે પરવાનગી આપેલ નથી. તમારા સિસ્ટમ વહીવટકર્તાને સંપર્ક કરો."
+msgid ""
+"You are not allowed to access the device. Contact your system administrator."
+msgstr ""
+"તમને ઉપકરણ ને દાખલ કરવા માટે પરવાનગી આપેલ નથી. તમારા સિસ્ટમ વહીવટકર્તાને "
+"સંપર્ક કરો."
 
 #: ../panels/user-accounts/um-fingerprint-dialog.c:141
 msgid "The device is already in use."
@@ -4681,8 +5031,8 @@ msgid ""
 "Do you want to delete your registered fingerprints so fingerprint login is "
 "disabled?"
 msgstr ""
-"શું તમે તમારી રજીસ્ટર થયેલ આંગળીની છાપો ને કાઢી નાંખવા માંગો છો તેથી આંગળીની છાપ પ્રવેશ ને "
-"નિષ્ક્રિય થયેલ હોય?"
+"શું તમે તમારી રજીસ્ટર થયેલ આંગળીની છાપો ને કાઢી નાંખવા માંગો છો તેથી આંગળીની "
+"છાપ પ્રવેશ ને નિષ્ક્રિય થયેલ હોય?"
 
 #: ../panels/user-accounts/um-fingerprint-dialog.c:455
 msgid "Done!"
@@ -4717,17 +5067,18 @@ msgstr "મહેરબાની કરીને મદદ માટે તમ�
 #. * The variable is the name of the device, for example:
 #. * "To enable fingerprint login, you need to save one of your fingerprints, using the
 #. * 'Digital Persona U.are.U 4000/4000B' device."
-#.
+#. 
 #: ../panels/user-accounts/um-fingerprint-dialog.c:740
 #, c-format
 msgid ""
 "To enable fingerprint login, you need to save one of your fingerprints, "
 "using the '%s' device."
 msgstr ""
-"આંગળી છાપ દાખલ કરવાનું સક્રિય કરવા માટે, તમારે તમારા આંગળી છાપોનાં એક ને સંગ્રહ કરવાની "
-"જરૂર પડશે, '%s' ઉપકરણની મદદથી."
+"આંગળી છાપ દાખલ કરવાનું સક્રિય કરવા માટે, તમારે તમારા આંગળી છાપોનાં એક ને "
+"સંગ્રહ કરવાની જરૂર પડશે, '%s' ઉપકરણની મદદથી."
 
 #: ../panels/user-accounts/um-fingerprint-dialog.c:747
+#| msgid "Left ring finger"
 msgid "Selecting finger"
 msgstr "આંગળી પસંદ કરી રહ્યા છે"
 
@@ -4739,47 +5090,47 @@ msgstr "આંગળી છાપનની નોંધણી"
 msgid "Summary"
 msgstr "સારાંશ"
 
-#: ../panels/user-accounts/um-password-dialog.c:96
+#: ../panels/user-accounts/um-password-dialog.c:97
 msgid "_Generate a password"
 msgstr "પાસવર્ડને ઉત્પન્ન કરો (_G)"
 
-#: ../panels/user-accounts/um-password-dialog.c:150
+#: ../panels/user-accounts/um-password-dialog.c:151
 msgid "Please choose another password."
 msgstr "મહેરબાની કરીને બીજા પાસવર્ડને પસંદ કરો."
 
-#: ../panels/user-accounts/um-password-dialog.c:159
+#: ../panels/user-accounts/um-password-dialog.c:160
 msgid "Please type your current password again."
 msgstr "મહેરબાની કરીને ફરીથી તમારા હાલના પાસવર્ડને લખો."
 
-#: ../panels/user-accounts/um-password-dialog.c:165
+#: ../panels/user-accounts/um-password-dialog.c:166
 msgid "Password could not be changed"
 msgstr "પાસવર્ડને બદલી શક્યા નહિં"
 
-#: ../panels/user-accounts/um-password-dialog.c:236
+#: ../panels/user-accounts/um-password-dialog.c:237
 msgid "You need to enter a new password"
 msgstr "તમારે નવો પાસવર્ડ દાખલ કરવાની જરૂર છે"
 
-#: ../panels/user-accounts/um-password-dialog.c:245
+#: ../panels/user-accounts/um-password-dialog.c:246
 msgid "You need to confirm the password"
 msgstr "તમારે પાસવર્ડની ખાતરી કરવાની જરૂર છે"
 
-#: ../panels/user-accounts/um-password-dialog.c:248
+#: ../panels/user-accounts/um-password-dialog.c:249
 msgid "The passwords do not match"
 msgstr "પાસવર્ડો બંધબેસતા નથી"
 
-#: ../panels/user-accounts/um-password-dialog.c:254
+#: ../panels/user-accounts/um-password-dialog.c:255
 msgid "You need to enter your current password"
 msgstr "તમારે તમારા હાલના પાસવર્ડને દાખલ કરવાની જરૂર છે"
 
-#: ../panels/user-accounts/um-password-dialog.c:257
+#: ../panels/user-accounts/um-password-dialog.c:258
 msgid "The current password is not correct"
 msgstr "હાલનો પાસવર્ડ યોગ્ય નથી"
 
-#: ../panels/user-accounts/um-password-dialog.c:347
+#: ../panels/user-accounts/um-password-dialog.c:348
 msgid "Passwords do not match"
 msgstr "પાસવર્ડો બંધબેસતા નથી"
 
-#: ../panels/user-accounts/um-password-dialog.c:409
+#: ../panels/user-accounts/um-password-dialog.c:410
 msgid "Wrong password"
 msgstr "ખોટો પાસવર્ડ"
 
@@ -4802,27 +5153,28 @@ msgstr "વધારે ચિત્રો માટે બ્રાઉઝ ક�
 msgid "Used by %s"
 msgstr "%s દ્દારા વપરાયેલ છે"
 
-#: ../panels/user-accounts/um-realm-manager.c:379
+#: ../panels/user-accounts/um-realm-manager.c:408
 #, c-format
 msgid "No such domain or realm found"
 msgstr "આવુ કોઈ ડોમેઈન અથવા ક્ષેત્ર મળ્યુ નથી"
 
-#: ../panels/user-accounts/um-realm-manager.c:780
+#: ../panels/user-accounts/um-realm-manager.c:809
 #, c-format
 msgid "Cannot log in as %s at the %s domain"
 msgstr "%s ડોમેઇન પર %s તરીકે પ્રવેશી શકાતુ નથી"
 
-#: ../panels/user-accounts/um-realm-manager.c:785
+#: ../panels/user-accounts/um-realm-manager.c:814
 msgid "Invalid password, please try again"
 msgstr "અયોગ્ય પાસવર્ડ, મહેરબાની કરીને ફરી પ્રયત્ન કરો"
 
-#: ../panels/user-accounts/um-realm-manager.c:789
+#: ../panels/user-accounts/um-realm-manager.c:818
 #, c-format
 msgid "Couldn't connect to the %s domain: %s"
 msgstr "%s ડોમેઇનમાં જોડાઇ શકાયુ નહિં: %s"
 
 #: ../panels/user-accounts/um-user-manager.c:466
 #, c-format
+#| msgid "The location already exists."
 msgid "A user with name '%s' already exists."
 msgstr "નામ '%s' સાથે વપરાશકર્તા પહેલેથી અસ્તિત્વ ધરાવે છે."
 
@@ -4853,7 +5205,8 @@ msgid ""
 "Deleting a user while they are logged in can leave the system in an "
 "inconsistent state."
 msgstr ""
-"વપરાશકર્તાને કાઢી રહ્યા છે જ્યારે તેઓ પ્રવેશેલ છે કે જે અસ્થાયી સ્થિતિમાં સિસ્ટમને છોડી શકે છે."
+"વપરાશકર્તાને કાઢી રહ્યા છે જ્યારે તેઓ પ્રવેશેલ છે કે જે અસ્થાયી સ્થિતિમાં "
+"સિસ્ટમને છોડી શકે છે."
 
 #: ../panels/user-accounts/um-user-panel.c:453
 #, c-format
@@ -4865,8 +5218,8 @@ msgid ""
 "It is possible to keep the home directory, mail spool and temporary files "
 "around when deleting a user account."
 msgstr ""
-"તેની આજુબાજુ ઘર ડિરેક્ટરી, મેઇલ સ્પુલ અને કામચલાઉ ફાઇલોને રાખવાનું શક્ય છે જ્યારે વપરાશકર્તા "
-"ખાતાને કાઢી રહ્યા હોય."
+"તેની આજુબાજુ ઘર ડિરેક્ટરી, મેઇલ સ્પુલ અને કામચલાઉ ફાઇલોને રાખવાનું શક્ય છે "
+"જ્યારે વપરાશકર્તા ખાતાને કાઢી રહ્યા હોય."
 
 #: ../panels/user-accounts/um-user-panel.c:460
 msgid "_Delete Files"
@@ -4891,15 +5244,17 @@ msgctxt "Password mode"
 msgid "None"
 msgstr "કઈ નહિં"
 
-#: ../panels/user-accounts/um-user-panel.c:871
+#: ../panels/user-accounts/um-user-panel.c:875
 msgid "Failed to contact the accounts service"
 msgstr "ખાતા સેવાને સંપર્ક કરવામાં નિષ્ફળ"
 
-#: ../panels/user-accounts/um-user-panel.c:873
+#: ../panels/user-accounts/um-user-panel.c:877
+#| msgid "Please make sure that the applet is properly installed"
 msgid "Please make sure that the AccountService is installed and enabled."
-msgstr "મહેરબાની કરીને ખાતરી કરો કે AccountService એ સ્થાપિત અને સક્રિય થયેલ છે."
+msgstr ""
+"મહેરબાની કરીને ખાતરી કરો કે AccountService એ સ્થાપિત અને સક્રિય થયેલ છે."
 
-#: ../panels/user-accounts/um-user-panel.c:913
+#: ../panels/user-accounts/um-user-panel.c:917
 msgid ""
 "To make changes,\n"
 "click the * icon first"
@@ -4907,12 +5262,13 @@ msgstr ""
 "ફેરફારો કરવા માટે,\n"
 "પહેલાં * ચિહ્ન પર ક્લિક કરો"
 
-#: ../panels/user-accounts/um-user-panel.c:951
+#: ../panels/user-accounts/um-user-panel.c:955
+#| msgid "Create new account"
 msgid "Create a user account"
 msgstr "વપરાશકર્તા ખાતાને બનાવો"
 
-#: ../panels/user-accounts/um-user-panel.c:962
-#: ../panels/user-accounts/um-user-panel.c:1274
+#: ../panels/user-accounts/um-user-panel.c:966
+#: ../panels/user-accounts/um-user-panel.c:1278
 msgid ""
 "To create a user account,\n"
 "click the * icon first"
@@ -4920,12 +5276,13 @@ msgstr ""
 "વપરાશકર્તા ખાતાને બનાવવા માટે,\n"
 "પહેલાં * ચિહ્ન પર ક્લિક કરો"
 
-#: ../panels/user-accounts/um-user-panel.c:971
+#: ../panels/user-accounts/um-user-panel.c:975
+#| msgid "Delete the selected user"
 msgid "Delete the selected user account"
 msgstr "પસંદ થયેલ વપરાશકર્તા ખાતાને કાઢી નાંખો"
 
-#: ../panels/user-accounts/um-user-panel.c:983
-#: ../panels/user-accounts/um-user-panel.c:1279
+#: ../panels/user-accounts/um-user-panel.c:987
+#: ../panels/user-accounts/um-user-panel.c:1283
 msgid ""
 "To delete the selected user account,\n"
 "click the * icon first"
@@ -4933,11 +5290,11 @@ msgstr ""
 "પસંદ થયેલ વપરાશકર્તા ખાતાને કાઢી નાંખવા માટે,\n"
 "પહેલાં * ચિહ્ન પર ક્લિક કરો"
 
-#: ../panels/user-accounts/um-user-panel.c:1176
+#: ../panels/user-accounts/um-user-panel.c:1180
 msgid "My Account"
 msgstr "મારુ ખાતુ"
 
-#: ../panels/user-accounts/um-user-panel.c:1186
+#: ../panels/user-accounts/um-user-panel.c:1190
 msgid "Other Accounts"
 msgstr "બીજા ખાતાઓ"
 
@@ -4977,6 +5334,7 @@ msgstr "વિધેયોનાં માપન બટનો"
 
 #. Text printed on screen
 #: ../panels/wacom/calibrator/gui_gtk.c:78
+#| msgid "Applications"
 msgid "Screen Calibration"
 msgstr "સ્ક્રીન માપાંકન"
 
@@ -4984,7 +5342,9 @@ msgstr "સ્ક્રીન માપાંકન"
 msgid ""
 "Please tap the target markers as they appear on screen to calibrate the "
 "tablet."
-msgstr "લક્ષ્ય માર્કરને મહેરબાની કરીને ટૅપ કરો તેઓ ટૅબલેટને ગોઠવવા માટે સ્ક્રીન પર દેખાશે."
+msgstr ""
+"લક્ષ્ય માર્કરને મહેરબાની કરીને ટૅપ કરો તેઓ ટૅબલેટને ગોઠવવા માટે સ્ક્રીન પર "
+"દેખાશે."
 
 #: ../panels/wacom/calibrator/gui_gtk.c:368
 msgid "Mis-click detected, restarting..."
@@ -5006,6 +5366,7 @@ msgstr "એકજ મોનિટરનું માપ લો"
 
 #: ../panels/wacom/cc-wacom-nav-button.c:89
 #, c-format
+#| msgid "%d x %d"
 msgid "%d of %d"
 msgstr "%d નું %d"
 
@@ -5029,6 +5390,7 @@ msgid "Up"
 msgstr "ઉપર"
 
 #: ../panels/wacom/cc-wacom-page.c:601
+#| msgid "Done!"
 msgid "Down"
 msgstr "નીચે"
 
@@ -5048,6 +5410,7 @@ msgid "Action"
 msgstr "ક્રિયા"
 
 #: ../panels/wacom/cc-wacom-page.c:886
+#| msgid "Display language:"
 msgid "Display Mapping"
 msgstr "માપન દર્શાવો"
 
@@ -5057,6 +5420,7 @@ msgid "Wacom Tablet"
 msgstr "Wacom ટૅબલેટ"
 
 #: ../panels/wacom/gnome-wacom-panel.desktop.in.in.h:2
+#| msgid "Set your mouse and touchpad preferences"
 msgid "Set your Wacom tablet preferences"
 msgstr "તમારાં Wacom ટૅબલેટ પસંદગીઓને સુયોજિત કરો"
 
@@ -5074,6 +5438,7 @@ msgid "Touchpad (relative)"
 msgstr "ટચપેડ (સંબંધિત)"
 
 #: ../panels/wacom/gnome-wacom-properties.ui.h:3
+#| msgid "Mouse Preferences"
 msgid "Tablet Preferences"
 msgstr "ટૅબલેટ પસંદગીઓ"
 
@@ -5086,6 +5451,7 @@ msgid "Please plug in or turn on your Wacom tablet"
 msgstr "મહેરબાની કરીને પ્લગ કરો અથવા તમારાં Wacom ટૅબલેટને ચાલુ રાખો"
 
 #: ../panels/wacom/gnome-wacom-properties.ui.h:6
+#| msgid "Layout Settings"
 msgid "Bluetooth Settings"
 msgstr "Bluetooth સુયોજનો"
 
@@ -5114,73 +5480,75 @@ msgstr "ટ્રેકિંગ સ્થિતિ"
 msgid "Left-Handed Orientation"
 msgstr "ડાબી બાજુની દિશા"
 
-#: ../panels/wacom/gsd-wacom-device.c:1010
+#: ../panels/wacom/gsd-wacom-device.c:1013
 #, c-format
 msgid "Left Ring Mode #%d"
 msgstr "ડાબી રીંગ સ્થિતિ #%d"
 
-#: ../panels/wacom/gsd-wacom-device.c:1019
+#: ../panels/wacom/gsd-wacom-device.c:1023
 #, c-format
+#| msgid "Right ring finger"
 msgid "Right Ring Mode #%d"
 msgstr "જમણી રીંગ સ્થિતિ #%d"
 
-#: ../panels/wacom/gsd-wacom-device.c:1049
+#: ../panels/wacom/gsd-wacom-device.c:1054
 #, c-format
 msgid "Left Touchstrip Mode #%d"
 msgstr "ડાબી ટચસ્ટ્રીપ સ્થિતિ #%d"
 
-#: ../panels/wacom/gsd-wacom-device.c:1058
+#: ../panels/wacom/gsd-wacom-device.c:1064
 #, c-format
 msgid "Right Touchstrip Mode #%d"
 msgstr "જમણી ટચસ્ટ્રીપ સ્થિતિ #%d"
 
-#: ../panels/wacom/gsd-wacom-device.c:1075
+#: ../panels/wacom/gsd-wacom-device.c:1081
 #, c-format
 msgid "Left Touchring Mode Switch"
 msgstr "ડાબુ ટચરીંગ મોડ સ્વીચ"
 
-#: ../panels/wacom/gsd-wacom-device.c:1077
+#: ../panels/wacom/gsd-wacom-device.c:1083
 #, c-format
 msgid "Right Touchring Mode Switch"
 msgstr "જમણી ટચરીંગ મોડ સ્વીચ"
 
-#: ../panels/wacom/gsd-wacom-device.c:1080
+#: ../panels/wacom/gsd-wacom-device.c:1086
 #, c-format
 msgid "Left Touchstrip Mode Switch"
 msgstr "ડાબી ટચસ્ટ્રીપ મોડ સ્વીચ"
 
-#: ../panels/wacom/gsd-wacom-device.c:1082
+#: ../panels/wacom/gsd-wacom-device.c:1088
 #, c-format
 msgid "Right Touchstrip Mode Switch"
 msgstr "જમણી ટચસ્ટ્રીપ મોડ સ્વીચ"
 
-#: ../panels/wacom/gsd-wacom-device.c:1087
+#: ../panels/wacom/gsd-wacom-device.c:1093
 #, c-format
 msgid "Mode Switch #%d"
 msgstr "મોડ સ્વીચ #%d"
 
-#: ../panels/wacom/gsd-wacom-device.c:1159
+#: ../panels/wacom/gsd-wacom-device.c:1164
 #, c-format
 msgid "Left Button #%d"
 msgstr "ડાબુ બટન #%d"
 
-#: ../panels/wacom/gsd-wacom-device.c:1162
+#: ../panels/wacom/gsd-wacom-device.c:1167
 #, c-format
 msgid "Right Button #%d"
 msgstr "જમણુ બટન #%d"
 
-#: ../panels/wacom/gsd-wacom-device.c:1165
+#: ../panels/wacom/gsd-wacom-device.c:1170
 #, c-format
 msgid "Top Button #%d"
 msgstr "ટોચનુ બટન #%d"
 
-#: ../panels/wacom/gsd-wacom-device.c:1168
+#: ../panels/wacom/gsd-wacom-device.c:1173
 #, c-format
 msgid "Bottom Button #%d"
 msgstr "નીચેનું બટન #%d"
 
 # #-#-#-#-#  gnome-session.gnome-2-2.hi.po (gnome-session VERSION)  #-#-#-#-# gnome-session/logout.c:266
 #: ../panels/wacom/wacom-stylus-page.ui.h:1
+#| msgid "Action"
 msgid "No Action"
 msgstr "ક્રિયા નથી"
 
@@ -5197,18 +5565,22 @@ msgid "Right Mouse Button Click"
 msgstr "જમણુ માઉસ બટન ક્લિક"
 
 #: ../panels/wacom/wacom-stylus-page.ui.h:5
+#| msgid "Scrolling"
 msgid "Scroll Up"
 msgstr "ઉપર સ્ક્રોલ કરો"
 
 #: ../panels/wacom/wacom-stylus-page.ui.h:6
+#| msgid "Scrolling"
 msgid "Scroll Down"
 msgstr "નીચે સ્ક્રોલ કરો"
 
 #: ../panels/wacom/wacom-stylus-page.ui.h:7
+#| msgid "Scrolling"
 msgid "Scroll Left"
 msgstr "ડાબે સ્ક્રોલ કરો"
 
 #: ../panels/wacom/wacom-stylus-page.ui.h:8
+#| msgid "Scrolling"
 msgid "Scroll Right"
 msgstr "જમણે સ્ક્રોલ કરો"
 
@@ -5229,6 +5601,7 @@ msgid "Eraser Pressure Feel"
 msgstr "ઇરૅજર પ્રેસર ફીલ"
 
 #: ../panels/wacom/wacom-stylus-page.ui.h:13
+#| msgid "Short"
 msgid "Soft"
 msgstr "નરમ"
 
@@ -5248,7 +5621,12 @@ msgstr "નીચેનું બટન"
 msgid "Tip Pressure Feel"
 msgstr "ટીપ પ્રેસર ફીલ"
 
+#: ../shell/cc-shell-nav-bar.c:117
+msgid "_All Settings"
+msgstr "બધા સુયોજનો (_A)"
+
 #: ../shell/control-center.c:58
+#| msgid "Enable debugging code"
 msgid "Enable verbose mode"
 msgstr "વર્બોસ સ્થિતિ સક્રિય કરો"
 
@@ -5278,13 +5656,17 @@ msgstr ""
 "%s\n"
 "ઉપલબ્ધ આદેશ વાક્ય વિકલ્પોની સંપૂર્ણ યાદીને જોવા માટે  '%s --help' ચલાવો.\n"
 
-#: ../shell/control-center.c:211
-msgid "Help"
-msgstr "મદદ"
+#: ../shell/control-center.c:269
+msgid "Contents"
+msgstr ""
 
-#: ../shell/control-center.c:212
+#: ../shell/control-center.c:272 ../shell/control-center.c:288
 msgid "Quit"
 msgstr "બહાર નીકળો"
+
+#: ../shell/control-center.c:274 ../shell/control-center.c:287
+msgid "Help"
+msgstr "મદદ"
 
 #: ../shell/gnomecc.directory.in.h:1
 msgid "Control Center"
@@ -5298,637 +5680,15 @@ msgstr "સિસ્ટમ સુયોજનો"
 msgid "Preferences;Settings;"
 msgstr "પસંદગીઓ;સુયોજનો;"
 
-#: ../shell/shell.ui.h:2
-msgid "All Settings"
-msgstr "બધા સુયોજનો"
-
-#~ msgid "Remove Language"
-#~ msgstr "ભાષા દૂર કરો"
-
-#~ msgid "Security Key"
-#~ msgstr "સુરક્ષા કી"
-
-#~ msgid "Subnet Mask"
-#~ msgstr "સબનેટ માસ્ક"
-
-#~ msgid "Add wallpaper"
-#~ msgstr "વોલપેપર ઉમેરો"
-
-#~ msgid "Remove wallpaper"
-#~ msgstr "વોલપેપર દૂર કરો"
-
-#~ msgid "Swap colors"
-#~ msgstr "સ્વેર રંગ"
-
-#~| msgid "Solid Color"
-#~ msgid "Secondary color"
-#~ msgstr "ગૌણ રંગ"
-
-#~ msgid "Horizontal Gradient"
-#~ msgstr "આડો ઢાળ"
-
-#~ msgid "Vertical Gradient"
-#~ msgstr "ઊભો ઢાળ"
-
-#~ msgid "Solid Color"
-#~ msgstr "ઘટ્ટ રંગ"
-
-#~ msgid "Pictures Folder"
-#~ msgstr "ચિત્ર ફોલ્ડર"
-
-# #-#-#-#-#  gnome-session.gnome-2-2.hi.po (gnome-session VERSION)  #-#-#-#-#
-# gnome-session/logout.c:266
-#~ msgid "Acti_on:"
-#~ msgstr "ક્રિયા (_o)"
-
-#~| msgid "Take a photo..."
-#~ msgid "Take a screenshot"
-#~ msgstr "સ્ક્રીનશોટ લો"
-
-#~ msgid "Shortcut"
-#~ msgstr "ટુંકાણ"
-
-#~ msgid "_Right-handed"
-#~ msgstr "જમણા-હાથવાળી (_R)"
-
-#~ msgid "_Left-handed"
-#~ msgstr "ડાબા હાથવાળુ (_L)"
-
-#~ msgid "Sh_ow position of pointer when the Control key is pressed"
-#~ msgstr "જ્યારે Control કી દબાયેલ હોય ત્યારે પોઇંટરની જગ્યાને બતાવો"
-
-#~| msgid "_Acceleration:"
-#~ msgid "A_cceleration:"
-#~ msgstr "પ્રવેગ (_c):"
-
-#~ msgid "_Sensitivity:"
-#~ msgstr "ચેતના (_S):"
-
-#~ msgid "Drag and Drop"
-#~ msgstr "ખેંચો અને છોડો"
-
-#~ msgid "Thr_eshold:"
-#~ msgstr "થ્રેશોલ્ડ (_e):"
-
-#, fuzzy
-#~| msgid "Thr_eshold:"
-#~ msgid "Drag Threshold"
-#~ msgstr "થ્રેશોલ્ડ (_e):"
-
-#~ msgid "Double-Click Timeout"
-#~ msgstr "બે ક્લિકની સમયસમાપ્તિ"
-
-#~ msgid "_Timeout:"
-#~ msgstr "સમય સમાપ્ત (_T):"
-
-#, fuzzy
-#~| msgid ""
-#~| "To test your double-click settings, try to double-click on the light "
-#~| "bulb."
-#~ msgid "To test your settings, try to double-click on the face."
-#~ msgstr "તમારી ડબલ-ક્લિક સુયોજનોને ચકાસો, લાઇટ બલ્બ પર ડબલ-ક્લિક નો પ્રયત્ન કરો."
-
-#~ msgid "Enable _mouse clicks with touchpad"
-#~ msgstr "ટચપેડ સાથે માઉસ ક્લિકોને સક્રિય કરો (_m)"
-
-#~ msgid "Scrolling"
-#~ msgstr "સ્ક્રોલ કરી રહ્યા છે"
-
-# #-#-#-#-#  gnome-applets.gnome-2-2.hi.po (gnome-applets 2.x)  #-#-#-#-#
-# gtk/gtkinputdialog.c:238
-#~ msgid "_Disabled"
-#~ msgstr "નિષ્ક્રિય થયેલ (_D)"
-
-#~ msgid "_Edge scrolling"
-#~ msgstr "બાજુ સ્ક્રોલીંગ (_E)"
-
-#~ msgid "Enable h_orizontal scrolling"
-#~ msgstr "આડુ સ્ક્રોલીંગ ને સક્રિય કરો (_o)"
-
-#~ msgctxt "Wireless access point"
-#~ msgid "Other..."
-#~ msgstr "બીજા..."
-
-#~ msgid "Not connected to the internet."
-#~ msgstr "ઇન્ટરનેટમામાં જોડાયેલ નથી"
-
-#~ msgid "This is your only connection to the internet."
-#~ msgstr "આ ફક્ત તમારા ઇન્ટરનેટનું જોડાણ છે."
-
-#, fuzzy
-#~| msgid "Device"
-#~ msgid "Device Off"
-#~ msgstr "ઉપકરણ"
-
-#~ msgid "_Network Name"
-#~ msgstr "નેટવર્ક નામ (_N)"
-
-# #-#-#-#-#  gnome-applets.gnome-2-2.hi.po (gnome-applets 2.x)  #-#-#-#-# gtk/gtkinputdialog.c:238
-#~| msgid "Disabled"
-#~ msgid "Disable VPN"
-#~ msgstr "VPN નિષ્ક્રિય કરો"
-
-#~| msgid "_HTTP Proxy"
-#~ msgid "HTTP Port"
-#~ msgstr "HTTP પોર્ટ"
-
-#~| msgid "H_TTPS Proxy"
-#~ msgid "HTTPS Port"
-#~ msgstr "HTTPS પોર્ટ"
-
-#~| msgid "_FTP Proxy"
-#~ msgid "FTP Port"
-#~ msgstr "FTP પોર્ટ"
-
-#~| msgid "_Socks Host"
-#~ msgid "Socks Port"
-#~ msgstr "Socks પોર્ટ"
-
-#~ msgid "To add a new account, first select the account type"
-#~ msgstr "નવાં ખાતાને ઉમેરવા માટે, પહેલાં ખાતા પ્રકાર પસંદ કરો"
-
-#~ msgid "_Add..."
-#~ msgstr "ઉમેરો (_A)..."
-
-#~| msgid "_Type:"
-#~ msgid "Tip:"
-#~ msgstr "મદદ:"
-
-#, fuzzy
-#~| msgid "Brightness"
-#~ msgid "Brightness Settings"
-#~ msgstr "પ્રકાશતા"
-
-#~ msgid "A_ddress:"
-#~ msgstr "સરનામું (_d):"
-
-#~ msgid "_Search by Address"
-#~ msgstr "સરનામાં પ્રમાણે શોધો (_S)"
-
-#~ msgid "Devices"
-#~ msgstr "ઉપકરણો"
-
-#~ msgctxt "printer type"
-#~ msgid "Local"
-#~ msgstr "સ્થાનિક"
-
-#~ msgctxt "printer type"
-#~ msgid "Network"
-#~ msgstr "નેટવર્ક"
-
-#~ msgid "Device types"
-#~ msgstr "ઉપકરણ પ્રકારો"
-
-#~ msgid "Automatic configuration"
-#~ msgstr "આપમેળે રૂપરેખાંકન"
-
-#~ msgid "Opening firewall for mDNS connections"
-#~ msgstr "mDNS જોડાણો માટે ફાયરવોલ ખોલી રહ્યા છે"
-
-#~ msgid "Opening firewall for Samba connections"
-#~ msgstr "સામ્બા જોડાણો માટે ફાયરવોલને ખોલી રહ્યા છે"
-
-#~ msgid "Opening firewall for IPP connections"
-#~ msgstr "IPP જોડાણો માટે ફાયરવોલને ખોલી રહ્યા છે"
-
-#~ msgid "_Back"
-#~ msgstr "પાછળ (_B)"
-
-#~ msgid "Add User"
-#~ msgstr "વપરાશકર્તાને ઉમેરો"
-
-#, fuzzy
-#~| msgid "Remove wallpaper"
-#~ msgid "Remove User"
-#~ msgstr "વોલપેપર દૂર કરો"
-
-#~ msgid "Allowed users"
-#~ msgstr "પરવાનગી આપેવ વપરાશકર્તાઓ"
-
-#~ msgid "Choose a Layout"
-#~ msgstr "લેઆઉટ પસંદ કરો"
-
-#~ msgid "Preview"
-#~ msgstr "પૂર્વદર્શન"
-
-#~| msgid "Layout"
-#~ msgid "Add Layout"
-#~ msgstr "લેઆઉટને ઉમેરો"
-
-#~| msgid "Choose a Layout"
-#~ msgid "Remove Layout"
-#~ msgstr "લેઆઉટ દૂર કરો"
-
-#~ msgid "Move Up"
-#~ msgstr "ઉપર ખસેડો"
-
-#~| msgid "Volume down"
-#~ msgid "Move Down"
-#~ msgstr "નીચે ખસેડો"
-
-#~| msgid "Preview"
-#~ msgid "Preview Layout"
-#~ msgstr "લેઆઉટનું પૂર્વદર્શન"
-
-#, fuzzy
-#~| msgid "Use same layout in all windows"
-#~ msgid "Use the same layout for all windows"
-#~ msgstr "બધી વિન્ડોમાં એજ લેઆઉટને વાપરો"
-
-#, fuzzy
-#~| msgid "Allow different layouts for each window"
-#~ msgid "Allow different layouts for individual windows"
-#~ msgstr "દરેક વિન્ડો માટે વિવિધ લેઆઉટોને પરવાનગી આપો"
-
-#~ msgid "New windows use the default layout"
-#~ msgstr "નવી વિન્ડો મૂળભૂત લેઆઉટને વાપરે છે"
-
-#, fuzzy
-#~| msgid "Use previous window's layout in new windows"
-#~ msgid "New windows use the previous window's layout"
-#~ msgstr "નવી વિન્ડોમાં પહેલાંની વિન્ડોનાં લેઆઉટને વાપરો"
-
-#~ msgid "View and edit keyboard layout options"
-#~ msgstr "કિબોર્ડ લેઆઉટ વિકલ્પોમાં ફેરફાર કરો અને દર્શાવો"
-
-#~ msgid "Reset to De_faults"
-#~ msgstr "મૂળભૂતોમાં પુનઃસુયોજિત કરો (_f)"
-
-#~ msgid ""
-#~ "Replace the current keyboard layout settings with the\n"
-#~ "default settings"
-#~ msgstr "હાલનાં કીબોર્ડ લેઆઉટ સુયોજનોને મૂળભૂત સુયોજનો સાથે બદલો"
-
-#~ msgid "Layouts"
-#~ msgstr "દેખાવો"
-
-#~ msgid "Layout"
-#~ msgstr "દેખાવ"
-
-#, fuzzy
-#~| msgid "Co_untry:"
-#~ msgid "Co_nnector:"
-#~ msgstr "દેશ (_u):"
-
-#~ msgid "Hardware"
-#~ msgstr "હાર્ડવેર"
-
-#~ msgid "C_hoose a device to configure:"
-#~ msgstr "રૂપરેખાંકિત કરવા માટે ઉપકરણને પસંદ કરો (_h):"
-
-#~ msgid "Dasher"
-#~ msgstr "ડેશર"
-
-#, fuzzy
-#~| msgid "None"
-#~ msgid "Nomon"
-#~ msgstr "કંઈ જ નહિં"
-
-#, fuzzy
-#~| msgid "Change set"
-#~ msgid "Change contrast:"
-#~ msgstr "બદલનાર સમૂહ"
-
-#~ msgid "_Text size:"
-#~ msgstr "લખાણ માપ (_T):"
-
-#~ msgid "Increase size:"
-#~ msgstr "માપ વધારો:"
-
-#~ msgid "Decrease size:"
-#~ msgstr "માપને ઘટાડો:"
-
-#~ msgctxt "universal access, seeing"
-#~ msgid "Display"
-#~ msgstr "દેખાવ"
-
-#~ msgctxt "universal access, seeing"
-#~ msgid "Zoom"
-#~ msgstr "નાનુ મોટુ કરો"
-
-#~ msgid "Screen keyboard"
-#~ msgstr "સ્ક્રીન કીબોર્ડ"
-
-#~ msgid "Typing Assistant"
-#~ msgstr "ટાઇપીંગ સહાયક"
-
-#~ msgid "Type here to test settings"
-#~ msgstr "સુયોજનોની ચકાસણી કરવા માટે અહિંયા ટાઇપ કરો"
-
-#~| msgid "Screen"
-#~ msgid "1/2 Screen"
-#~ msgstr "1/2 સ્ક્રીન"
-
-#~| msgid "Screen"
-#~ msgid "3/4 Screen"
-#~ msgstr "3/4 સ્ક્રીન"
-
-#~ msgid "Create new account"
-#~ msgstr "નવા ખાતાને બનાવો"
-
-#~ msgid "_Account Type"
-#~ msgstr "ખાતા પ્રકાર (_A)"
-
-# #-#-#-#-#  libgnomeui.gnome-2-2.hi.po (libgnomeui HEAD)  #-#-#-#-#
-# libgnomeui/gnome-app-helper.c:166
-#~ msgid "Cr_eate"
-#~ msgstr "બનાવો (_e)"
-
-#~ msgid "Choose a generated password"
-#~ msgstr "ઉત્પન્ન થયેલ પાસવર્ડને પસંદ કરો"
-
-#~ msgid "Account _type"
-#~ msgstr "ખાતા પ્રકાર (_t)"
-
-#~ msgid "More choices..."
-#~ msgstr "વધારે પસંદગીઓ..."
-
-#~ msgid "Wacom Graphics Tablet"
-#~ msgstr "Wacom ગ્રાફિક ટૅબલેટ"
-
-#~ msgid "Upside-down"
-#~ msgstr "અસ્તવ્યસ્ત"
-
-#~ msgid "Could not get session bus while applying display configuration"
-#~ msgstr ""
-#~ "જ્યારે રૂપરેખાંકનને દર્શાવવાનું અમલમાં કરી રહ્યા હોય ત્યારે સત્ર બસ ને મેળવી શકાયુ નહિં"
-
-#~ msgid "System Info"
-#~ msgstr "સિસ્ટમ જાણકારી"
-
-#, fuzzy
-#~| msgid "Change set"
-#~ msgid "Toggle contrast"
-#~ msgstr "બદલનાર સમૂહ"
-
-#, fuzzy
-#~| msgid "Linux Screen Reader"
-#~ msgid "Toggle screen reader"
-#~ msgstr "Linux સ્ક્રીન વાંચક"
-
-#~ msgid "New shortcut..."
-#~ msgstr "નવાં ટુંકાણો..."
-
-#~ msgid "Accelerator key"
-#~ msgstr "પ્રવેગક કી"
-
-#~ msgid "Accelerator modifiers"
-#~ msgstr "પ્રવેગ બદલનાર"
-
-#~ msgid "Accelerator keycode"
-#~ msgstr "પ્રવેગક કી કોડ"
-
-#~ msgid "Accel Mode"
-#~ msgstr "એક્સેલ સ્થિતિ"
-
-#~ msgid "The type of accelerator."
-#~ msgstr "પ્રવેગનો પ્રકાર."
-
-#~ msgid "Error saving the new shortcut"
-#~ msgstr "નવા ટુંકાણોનો સંગ્રહ કરવા દરમિયાન ભૂલ"
-
-#~ msgid "Too many custom shortcuts"
-#~ msgstr "ઘણાબધા વૈવિધ્યપૂર્ણ ટુંકાણો"
-
-#~ msgid "_Photos:"
-#~ msgstr "ફોટા (_P):"
-
-#~ msgid "cd;dvd;usb;audio;video;disc;"
-#~ msgstr "cd;dvd;usb;ઓડિયો;વિડિયો;ડિસ્ક;"
-
-#~ msgid "Speed"
-#~ msgstr "ઝડપ"
-
-#~ msgid "Unlock"
-#~ msgstr "તાળુ ખોલો"
-
-#~ msgid "Ask me"
-#~ msgstr "મને પૂછો"
-
-#~ msgid "Shutdown"
-#~ msgstr "બંધ કરો"
-
-# #-#-#-#-#  gnome-icon-theme.gnome-2-2.hi.po (gnome-icon theme 2.2)  #-#-#-#-#
-# 48x48/emblems/emblem-sound.icon.in.h:1
-# 48x48/emblems/emblem-sound.icon.in.h:1
-#, fuzzy
-#~| msgid "Sound"
-#~ msgid "Suspend"
-#~ msgstr "ધ્વનિ"
-
-#, fuzzy
-#~| msgid "Turn off after:"
-#~ msgid "_Turn off after:"
-#~ msgstr "પછી બંધ કરો:"
-
-#~ msgid "Mute"
-#~ msgstr "મૂંગુ"
-
-#~ msgid "Key"
-#~ msgstr "કી"
-
-#~ msgid "GConf key to which this property editor is attached"
-#~ msgstr "જીકોન્ફ કી કે જેની સાથે આ ગુણધર્મ સંપાદક સંકળાયેલ છે"
-
-#~ msgid "Callback"
-#~ msgstr "કોલબેક"
-
-#~ msgid "Issue this callback when the value associated with key gets changed"
-#~ msgstr "જ્યારે આ કીને સંબંધિત કિંમત બદલાય ત્યારે કોલબેક ચાલુ કરો"
-
-#~ msgid "Change set"
-#~ msgstr "બદલનાર સમૂહ"
-
-#~ msgid ""
-#~ "GConf change set containing data to be forwarded to the gconf client on "
-#~ "apply"
-#~ msgstr ""
-#~ "જીકોન્ફ બદલનાર સમૂહ પાસે માહિતી હોય છે જે અમલમાં મૂકતાં જીકોન્ફ ક્લાયન્ટને મોકલાય છે"
-
-#~ msgid "Conversion to widget callback"
-#~ msgstr "વિજેટ કોલબેકમાં ફેરવો"
-
-#~ msgid ""
-#~ "Callback to be issued when data are to be converted from GConf to the "
-#~ "widget"
-#~ msgstr "જ્યારે માહિતી જીકોન્ફમાંથી વિજેટમાં ફેરવાય છે ત્યારે કોલબેક અપાય છે"
-
-#~ msgid "Conversion from widget callback"
-#~ msgstr "વિજેટ કોલબેકમાંથી ફેરવો"
-
-#~ msgid ""
-#~ "Callback to be issued when data are to be converted to GConf from the "
-#~ "widget"
-#~ msgstr "જ્યારે માહિતી વિજેટમાંથી જીકોન્ફમાં ફેરવાય છે ત્યારે કોલબેક અપાય છે"
-
-#~ msgid "UI Control"
-#~ msgstr "UI નિયંત્રણ"
-
-#~ msgid "Object that controls the property (normally a widget)"
-#~ msgstr "ઓબ્જેક્ટ કે જે ગુણધર્મનું નિયંત્રણ કરે છે (સામાન્ય રીતે વિજેટ)"
-
-#~ msgid "Property editor object data"
-#~ msgstr "ઓબ્જેક્ટની માહિતીનો ગુણધર્મ સંપાદક"
-
-#~ msgid "Custom data required by the specific property editor"
-#~ msgstr "વિશિષ્ટ ગુણધર્મ સંપાદકને કસ્ટમ માહિતી જોઈએ છે"
-
-#~ msgid "Property editor data freeing callback"
-#~ msgstr "ગુણધર્મ સંપાદક માહિતી મુક્ત કરે છે કોલબેક"
-
-#~ msgid ""
-#~ "Callback to be issued when property editor object data is to be freed"
-#~ msgstr "ગુણધર્મ સંપાદક ઓબ્જેક્ટની માહિતી જ્યારે મુક્ત થાય ત્યારે કોલબેક અપાય છે"
-
-#~ msgid ""
-#~ "Couldn't find the file '%s'.\n"
-#~ "\n"
-#~ "Please make sure it exists and try again, or choose a different "
-#~ "background picture."
-#~ msgstr ""
-#~ "ફાઈલ '%s' શોધી શકાઈ નહિં. \n"
-#~ "મહેરબાની કરી ખાતરી કરો કે તે અસ્તિત્વમાં છે કે તે  ચકાસો, \n"
-#~ "અથવા અલગ જ પાશ્વ ભાગનું ચિત્ર પસંદ કરો."
-
-#~ msgid ""
-#~ "I don't know how to open the file '%s'.\n"
-#~ "Perhaps it's a kind of picture that is not yet supported.\n"
-#~ "\n"
-#~ "Please select a different picture instead."
-#~ msgstr ""
-#~ "મને ખબર નથી કે ફાઈલ '%s' કેવી રીતે ખોલવી. \n"
-#~ "કદાચ આ એ પ્રકારનું ચિત્ર છે કે જે હજુ સુધી ટેકો આપી શકાય તેવુ નથી\n"
-#~ "\n"
-#~ "મહેરબાની કરીને એના બદલામાં બીજુ ચિત્ર પસંદ કરો."
-
-#~ msgid "Please select an image."
-#~ msgstr "મહેરબાની કરીને ચિત્ર પસંદ કરો."
-
-# #-#-#-#-#  libgnomeui.gnome-2-2.hi.po (libgnomeui HEAD)  #-#-#-#-#
-# libgnomeui/gnome-app-helper.c:166
-#~ msgid "Create a user"
-#~ msgstr "વપરાશકર્તાને બનાવો"
-
-#~ msgid "Current network location"
-#~ msgstr "હાલનું નેટવર્ક સ્થાન"
-
-#~ msgid "More backgrounds URL"
-#~ msgstr "વધારે પાશ્ર્વભાગો URL"
-
-#~ msgid "More themes URL"
-#~ msgstr "વધારે થીમો URL"
-
-#~ msgid ""
-#~ "Set this to your current location name. This is used to determine the "
-#~ "appropriate network proxy configuration."
-#~ msgstr ""
-#~ "તમારા હાલનાં સ્થાન નામમાં આને સુયોજિત કરો. આ અનૂકુળ નેટવર્ક પ્રોક્સી રૂપરેખાંકનને નક્કી "
-#~ "કરવા માટે વપરાયેલ છે."
-
-#~ msgid ""
-#~ "URL for where to get more desktop backgrounds. If set to an empty string "
-#~ "the link will not appear."
-#~ msgstr ""
-#~ "ક્યાં વધારે ડેસ્કટોપ પાશ્ર્વભાગો મળે છે તે માટે URL, જો ખાલી શબ્દમાળા માં સુયોજિત હોય "
-#~ "તો કડી દેખાશે નહિં."
-
-#~ msgid ""
-#~ "URL for where to get more desktop themes. If set to an empty string the "
-#~ "link will not appear."
-#~ msgstr ""
-#~ "ક્યાં વધારે ડેસ્કટોપ થીમો મળે છે તે માટે URL. જો ખાલી શબ્દમાળા માટે સુયોજિત હોય તો "
-#~ "કડી દેખાશે."
-
-#~ msgid "Locked"
-#~ msgstr "તાળુ મારેલ"
-
-#~ msgid ""
-#~ "Dialog is unlocked.\n"
-#~ "Click to prevent further changes"
-#~ msgstr ""
-#~ "સંવાદને તાળુ મારેલ નથી.\n"
-#~ "ભવિષ્યનાં બદલાવોને અટકાવવા માટે ક્લિક કરો"
-
-#~ msgid ""
-#~ "Dialog is locked.\n"
-#~ "Click to make changes"
-#~ msgstr ""
-#~ "સંવાદને તાળુ મારેલ છે.\n"
-#~ "બદલાવો કરવા માટે ક્લિક કરો"
-
-#, fuzzy
-#~| msgid "Please contact your system administrator for help."
-#~ msgid ""
-#~ "System policy prevents changes.\n"
-#~ "Contact your system administrator"
-#~ msgstr "મહેરબાની કરીને મદદ માટે તમારા સિસ્ટમ વહીવટકર્તા ને સંપર્ક કરો."
-
-#~ msgid "24-Hour Time"
-#~ msgstr "24-કલાક સમય"
-
-#~ msgid "%u byte"
-#~ msgid_plural "%u bytes"
-#~ msgstr[0] "%u બાઇટ"
-#~ msgstr[1] "%u બાઇટો"
-
-#~ msgid "%.1f KB"
-#~ msgstr "%.1f KB"
-
-#~ msgid "%.1f MB"
-#~ msgstr "%.1f MB"
-
-#~ msgid "%.1f GB"
-#~ msgstr "%.1f GB"
-
-#~ msgid "%.1f TB"
-#~ msgstr "%.1f TB"
-
-#~ msgid "%.1f PB"
-#~ msgstr "%.1f PB"
-
-#~ msgid "%.1f EB"
-#~ msgstr "%.1f EB"
-
-#~| msgid "_Photos:"
-#~ msgid "Photos"
-#~ msgstr "ફોટા"
-
-#~| msgid "Update Available"
-#~ msgid "Updates Available"
-#~ msgstr "સુધારો ઉપલબ્ધ"
-
-#~ msgid "---"
-#~ msgstr "---"
-
-#~ msgid "Use default layout in new windows"
-#~ msgstr "નવી વિન્ડોમાં મૂળભૂત લેઆઉટને વાપરો"
-
-#~ msgid "On AC power:"
-#~ msgstr "AC પાવર પર:"
-
-#~ msgid "When the power button is pressed:"
-#~ msgstr "જ્યારે પાવર બટન દબાયેલ હોય:"
-
-#~| msgid "_Keyboard Accessibility"
-#~ msgid "Keyboard;Mouse;a11y;Accessibility;"
-#~ msgstr "કીબોર્ડ;માઉસ;a11y;સુલભતા;"
-
-#~| msgid "<span size=\"x-large\">High</span>"
-#~ msgctxt "universal access, contrast"
-#~ msgid "<span size=\"x-large\">High/Inverse</span>"
-#~ msgstr "<span size=\"x-large\">વધારે/ઊલટું</span>"
-
-#~| msgid "<span size=\"x-large\">High</span>"
-#~ msgctxt "universal access, contrast"
-#~ msgid "<span size=\"x-large\">High</span>"
-#~ msgstr "<span size=\"x-large\">વધારે</span>"
-
-#~| msgid "<span size=\"x-large\">Low</span>"
-#~ msgctxt "universal access, contrast"
-#~ msgid "<span size=\"x-large\">Low</span>"
-#~ msgstr "<span size=\"x-large\">ઓછુ</span>"
-
-#~| msgid "<span size=\"x-large\">Normal</span>"
-#~ msgctxt "universal access, contrast"
-#~ msgid "<span size=\"x-large\">Normal</span>"
-#~ msgstr "<span size=\"x-large\">સામાન્ય</span>"
+#: ../panels/region/gnome-unity-region-panel.desktop.in.in.h:1
+msgid "Text Entry"
+msgstr ""
+
+#: ../panels/region/gnome-unity-region-panel.desktop.in.in.h:2
+msgid "Change your keyboard or input method settings"
+msgstr ""
+
+#. Translators: those are keywords for the region control-center panel
+#: ../panels/region/gnome-unity-region-panel.desktop.in.in.h:4
+msgid "Language;Layout;Keyboard;Input Method;Text Entry;"
+msgstr ""
