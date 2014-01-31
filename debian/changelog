@@ -1,9 +1,9 @@
-unity-control-center (14.04.1-0ubuntu4) UNRELEASED; urgency=medium
+unity-control-center (14.04.1-0ubuntu4) trusty; urgency=medium
 
   * don't set the alignment of a frame that doesn't exist, fixes a warning
   * run "cd po; make update-po" to refresh the strings lists
 
- -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 30 Jan 2014 16:24:39 +0100
+ -- Sebastien Bacher <seb128@ubuntu.com>  Fri, 31 Jan 2014 11:50:16 +0100
 
 unity-control-center (14.04.1-0ubuntu3) trusty; urgency=medium
 
