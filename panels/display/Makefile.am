@@ -16,6 +16,8 @@ ccpanelsdir = $(PANELS_DIR)
 ccpanels_LTLIBRARIES = libdisplay.la
 
 libdisplay_la_SOURCES =		\
+  display-cfg-parser.c \
+	display-cfg-parser.h \
 	display-module.c	\
 	cc-display-panel.c	\
 	cc-display-panel.h	\
