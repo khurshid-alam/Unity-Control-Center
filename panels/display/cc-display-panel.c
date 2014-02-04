@@ -25,6 +25,7 @@
 #include <sys/wait.h>
 
 #include "cc-display-panel.h"
+#include "display-cfg-parser.h"
 
 #include <gtk/gtk.h>
 #include "scrollarea.h"
@@ -96,6 +97,9 @@ struct _CcDisplayPanelPrivate
   GtkWidget      *clone_checkbox;
   GtkWidget      *clone_label;
   GtkWidget      *show_icon_checkbox;
+  GtkWidget      *fonts_scale;
+  double         fonts_prev_scale;
+  ConfigString   *config_string;
 
   /* We store the event timestamp when the Apply button is clicked */
   guint32         apply_button_clicked_timestamp;
@@ -552,6 +556,38 @@ rebuild_rotation_combo (CcDisplayPanel *self)
     gtk_combo_box_set_active (GTK_COMBO_BOX (self->priv->rotation_combo), 0);
 }
 
+static void
+rebuild_fonts_scale (CcDisplayPanel *self)
+{
+  float value;
+  const char *gstring, *output_name;
+  if (self->priv->config_string)
+    cfgstr_destroy (self->priv->config_string);
+
+  g_settings_get (self->priv->unity_settings, "fonts-scale-factor", "s", &gstring);
+  if (!gstring)
+    return;
+
+  if (!(self->priv->config_string = cfgstr_create (gstring)))
+    return;
+
+  output_name = gnome_rr_output_info_get_name (self->priv->current_output);
+
+  GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE(self->priv->fonts_scale));
+  gtk_adjustment_set_upper (adj, 3);
+  gtk_adjustment_set_lower (adj, 0.5);
+
+  if (!(value = cfgstr_get_float (self->priv->config_string, output_name))) {
+    value = 1.0;
+    if (cfgstr_set_float (self->priv->config_string, output_name, value) == -1)
+      return;
+  }
+
+  gtk_adjustment_set_value (adj, value);
+  g_settings_set_string (self->priv->unity_settings, "fonts-scale-factor",
+      cfgstr_get_string (self->priv->config_string));
+}
+
 static int
 count_active_outputs (CcDisplayPanel *self)
 {
@@ -884,6 +920,7 @@ rebuild_gui (CcDisplayPanel *self)
   rebuild_on_off_radios (self);
   rebuild_resolution_combo (self);
   rebuild_rotation_combo (self);
+  rebuild_fonts_scale (self);
   refresh_unity_launcher_placement (self);
 
   self->priv->ignore_gui_changes = FALSE;
@@ -939,6 +976,41 @@ on_rotation_changed (GtkComboBox *box, gpointer data)
   foo_scroll_area_invalidate (FOO_SCROLL_AREA (self->priv->area));
 }
 
+static gboolean
+on_fonts_scale_button_press (GtkWidget *fonts_scale, GdkEvent *ev, gpointer data)
+{
+  CcDisplayPanel *self = data;
+  GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE(fonts_scale));
+  self->priv->fonts_prev_scale = gtk_adjustment_get_value (adj);
+
+  return 0; /* gtk should still process this event */
+}
+
+static gboolean
+on_fonts_scale_button_release (GtkWidget *fonts_scale, GdkEvent *ev, gpointer data)
+{
+  const char *gstring, *output_name;
+  GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE(fonts_scale));
+  float val = gtk_adjustment_get_value (adj);
+  CcDisplayPanel *self = data;
+  ConfigString *cfgstr = self->priv->config_string;
+
+  if (!cfgstr)
+    return 0;
+
+  if (val != self->priv->fonts_prev_scale)
+  {
+    output_name = gnome_rr_output_info_get_name (self->priv->current_output);
+    if (cfgstr_set_float(cfgstr, output_name, val) == -1)
+      return 0;
+
+    gstring = cfgstr_get_string(cfgstr);
+    g_settings_set_string (self->priv->unity_settings, "fonts-scale-factor", gstring);
+  }
+
+  return 0;  /* gtk should still process this event */
+}
+
 static void
 select_resolution_for_current_output (CcDisplayPanel *self)
 {
@@ -951,10 +1023,10 @@ select_resolution_for_current_output (CcDisplayPanel *self)
   height = gnome_rr_output_info_get_preferred_height (self->priv->current_output);
 
   if (width != 0 && height != 0)
-    {
-      gnome_rr_output_info_set_geometry (self->priv->current_output, x, y, width, height);
-      return;
-    }
+  {
+    gnome_rr_output_info_set_geometry (self->priv->current_output, x, y, width, height);
+    return;
+  }
 
   modes = get_current_modes (self);
   if (!modes)
@@ -2925,6 +2997,12 @@ cc_display_panel_constructor (GType                  gtype,
   self->priv->rotation_combo = WID ("rotation_combo");
   g_signal_connect (self->priv->rotation_combo, "changed",
                     G_CALLBACK (on_rotation_changed), self);
+
+  self->priv->fonts_scale = WID ("fonts_scale");
+  g_signal_connect (self->priv->fonts_scale, "button-press-event",
+                    G_CALLBACK (on_fonts_scale_button_press), self);
+  g_signal_connect (self->priv->fonts_scale, "button-release-event",
+                    G_CALLBACK (on_fonts_scale_button_release), self);
 
   self->priv->clone_checkbox = WID ("clone_checkbox");
   g_signal_connect (self->priv->clone_checkbox, "toggled",
