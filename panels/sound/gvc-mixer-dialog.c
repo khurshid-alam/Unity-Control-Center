@@ -1879,10 +1879,6 @@ gvc_mixer_dialog_constructor (GType                  type,
                             sbox,
                             FALSE, FALSE, 0);
 
-        label = gtk_label_new (_("Test:"));
-        gtk_box_pack_start (GTK_BOX (sbox),
-                            label,
-                            FALSE, FALSE, 0);
         if (self->priv->size_group != NULL)
                 gtk_size_group_add_widget (self->priv->size_group, sbox);
 
