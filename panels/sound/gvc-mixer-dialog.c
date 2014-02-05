@@ -962,7 +962,7 @@ active_output_update (GvcMixerDialog *dialog,
 
                 if (dialog->priv->size_group != NULL) {
                         gvc_combo_box_set_size_group (GVC_COMBO_BOX (dialog->priv->output_profile_combo),
-                                                      dialog->priv->size_group, FALSE);
+                                                      dialog->priv->size_group, TRUE);
                 }
 
                 active_profile = gvc_mixer_ui_device_get_active_profile (active_output);
