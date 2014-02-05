@@ -1752,11 +1752,20 @@ gvc_mixer_dialog_constructor (GType                  type,
 
         self->priv->output_stream_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
         alignment = gtk_alignment_new (0, 0, 1, 1);
-        gtk_alignment_set_padding (GTK_ALIGNMENT (alignment), 0, 0, 0, 0);
+        gtk_widget_set_margin_top (alignment, 12);
         gtk_container_add (GTK_CONTAINER (alignment), self->priv->output_stream_box);
         gtk_box_pack_start (GTK_BOX (main_vbox),
                             alignment,
                             FALSE, FALSE, 0);
+        // Output volume
+        self->priv->output_bar = create_bar (self, FALSE, TRUE);
+        gvc_channel_bar_set_name (GVC_CHANNEL_BAR (self->priv->output_bar),
+                                  _("_Output volume:"));
+        gtk_widget_set_sensitive (self->priv->output_bar, FALSE);
+        gtk_widget_set_size_request (self->priv->output_bar, 460, -1);        
+
+        gtk_box_pack_start (GTK_BOX (self->priv->output_stream_box),
+                            self->priv->output_bar, TRUE, FALSE, 12);
 
         self->priv->notebook = gtk_notebook_new ();
         gtk_box_pack_start (GTK_BOX (main_vbox),
@@ -2029,23 +2038,6 @@ gvc_mixer_dialog_constructor (GType                  type,
         gtk_box_pack_start (GTK_BOX (self->priv->applications_box),
                             self->priv->no_apps_label,
                             TRUE, TRUE, 0);
-
-        self->priv->output_stream_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
-        alignment = gtk_alignment_new (0, 0, 1, 1);
-        gtk_alignment_set_padding (GTK_ALIGNMENT (alignment), 12, 0, 0, 0);
-        gtk_container_add (GTK_CONTAINER (alignment), self->priv->output_stream_box);
-        gtk_box_pack_start (GTK_BOX (main_vbox),
-                            alignment,
-                            FALSE, FALSE, 0);
-        // Output volume
-        self->priv->output_bar = create_bar (self, FALSE, TRUE);
-        gvc_channel_bar_set_name (GVC_CHANNEL_BAR (self->priv->output_bar),
-                                  _("_Output volume:"));
-        gtk_widget_set_sensitive (self->priv->output_bar, FALSE);
-        gtk_widget_set_size_request (self->priv->output_bar, 460, -1);        
-
-        gtk_box_pack_start (GTK_BOX (self->priv->output_stream_box),
-                            self->priv->output_bar, TRUE, FALSE, 12);
 
         gtk_widget_show_all (main_vbox);
 
