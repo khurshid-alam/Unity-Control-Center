@@ -1819,8 +1819,8 @@ gvc_mixer_dialog_constructor (GType                  type,
 
         gtk_box_pack_start (GTK_BOX (self->priv->output_box),
                             settings_box,
-                            FALSE,
-                            FALSE,
+                            TRUE,
+                            TRUE,
                             0);
         gtk_box_pack_start (GTK_BOX (settings_box),
                             self->priv->selected_output_label,
@@ -1892,7 +1892,7 @@ gvc_mixer_dialog_constructor (GType                  type,
          * Here 8 works fine, not sure why. */
         gtk_box_pack_start (GTK_BOX (test_sound_box),
                             self->priv->test_output_button,
-                            TRUE, TRUE, 8);
+                            FALSE, FALSE, 8);
 
         /* Is this needed */
         if (self->priv->size_group != NULL)
@@ -1945,8 +1945,8 @@ gvc_mixer_dialog_constructor (GType                  type,
         self->priv->input_settings_box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
         gtk_box_pack_start (GTK_BOX (self->priv->input_box),
                             self->priv->input_settings_box,
-                            FALSE,
-                            FALSE,
+                            TRUE,
+                            TRUE,
                             0);
         gtk_box_pack_start (GTK_BOX (self->priv->input_settings_box),
                             self->priv->selected_input_label,
