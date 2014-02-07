@@ -26,7 +26,7 @@
 #include <string.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
-#include <gnome-settings-daemon/gsd-enums.h>
+#include <unity-settings-daemon/gsd-enums.h>
 #include <math.h>
 
 #include "gnome-mouse-test.h"
