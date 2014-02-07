@@ -130,14 +130,14 @@ cfgstr_get_string (const ConfigString *cfgstr)
   char *key;
   char *value;
 
-  GHashTableIter *iter;
+  GHashTableIter iter;
 
   free (cfgstr->string);
 
   /* determine the string size */
   len = 0;
-  g_hash_table_iter_init (iter, cfgstr->hash);
-  while (g_hash_table_iter_next (iter, (void**)&key, (void**)&value))
+  g_hash_table_iter_init (&iter, cfgstr->hash);
+  while (g_hash_table_iter_next (&iter, (void**)&key, (void**)&value))
   {
     len += strlen (key) + strlen (value) + 2;
   }
@@ -147,8 +147,8 @@ cfgstr_get_string (const ConfigString *cfgstr)
 
   end = cfgstr->string;
 
-  g_hash_table_iter_init (iter, cfgstr->hash);
-  while (g_hash_table_iter_next (iter, (void**)&key, (void**)&value))
+  g_hash_table_iter_init (&iter, cfgstr->hash);
+  while (g_hash_table_iter_next (&iter, (void**)&key, (void**)&value))
   {
     end += sprintf (end, "%s=%s;", key, value);
   }
