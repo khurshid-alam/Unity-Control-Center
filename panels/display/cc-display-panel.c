@@ -1026,10 +1026,10 @@ select_resolution_for_current_output (CcDisplayPanel *self)
   height = gnome_rr_output_info_get_preferred_height (self->priv->current_output);
 
   if (width != 0 && height != 0)
-  {
-    gnome_rr_output_info_set_geometry (self->priv->current_output, x, y, width, height);
-    return;
-  }
+    {
+      gnome_rr_output_info_set_geometry (self->priv->current_output, x, y, width, height);
+      return;
+    }
 
   modes = get_current_modes (self);
   if (!modes)
