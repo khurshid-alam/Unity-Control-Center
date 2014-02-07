@@ -562,7 +562,10 @@ rebuild_fonts_scale (CcDisplayPanel *self)
   float value;
   const char *gstring, *output_name;
   if (self->priv->config_string)
+  {
     cfgstr_destroy (self->priv->config_string);
+    self->priv->config_string = 0;
+  }
 
   g_settings_get (self->priv->unity_settings, "fonts-scale-factor", "s", &gstring);
   if (!gstring)

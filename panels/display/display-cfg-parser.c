@@ -21,23 +21,19 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <glib.h>
+
 #include "display-cfg-parser.h"
-
-static char *strip_whitespace (char *buf);
-
-/* Linked List */
 
 struct Node {
   char *key;
   char *value;
-
-  struct Node *next;
 };
 
 /* ConfigString */
 
 struct ConfigString {
-  struct Node *list;
+  GHashTable *hash;
   char *string;
 };
 
@@ -53,13 +49,14 @@ cfgstr_create (const char *orig_str)
   if (!(cfgstr = malloc (sizeof *cfgstr)))
     return 0;
 
-  cfgstr->list = NULL;
+  cfgstr->hash = g_hash_table_new_full (g_str_hash, g_str_equal, free, free);
   cfgstr->string = NULL;
+
+  /* parsing */
 
   sptr = str;
   while (sptr && *sptr != 0) {
     char *key, *value, *end, *start, *vstart;
-    struct Node *node;
 
     if (*sptr == ';')
     {
@@ -87,8 +84,8 @@ cfgstr_create (const char *orig_str)
     }
     *vstart++ = 0;  /* terminate the key part and move the pointer to the start of the value */
 
-    start = strip_whitespace (start);
-    vstart = strip_whitespace (vstart);
+    start = g_strstrip (start);
+    vstart = g_strstrip (vstart);
 
     if (!(key = malloc (strlen (start) + 1)))
     {
@@ -106,20 +103,8 @@ cfgstr_create (const char *orig_str)
     strcpy (key, start);
     strcpy (value, vstart);
 
-    /* create new list node and add to the list */
-    if(!(node = malloc (sizeof *node)))
-    {
-      free (key);
-      free (value);
-      cfgstr_destroy (cfgstr);
-
-      return 0;
-    }
-
-    node->key = key;
-    node->value = value;
-    node->next = cfgstr->list;
-    cfgstr->list = node;
+    /* insert to the hash table */
+    g_hash_table_insert (cfgstr->hash, key, value);
   }
 
   return cfgstr;
@@ -131,14 +116,8 @@ cfgstr_destroy (ConfigString *cfgstr)
   if (!cfgstr)
     return;
 
-  while (cfgstr->list)
-  {
-    struct Node *node = cfgstr->list;
-    cfgstr->list = cfgstr->list->next;
-    free (node->key);
-    free (node->value);
-    free (node);
-  }
+  g_hash_table_destroy (cfgstr->hash);
+
   free (cfgstr->string);
   free (cfgstr);
 }
@@ -147,58 +126,40 @@ const char *
 cfgstr_get_string (const ConfigString *cfgstr)
 {
   int len;
-  const struct Node *node;
   char *end;
+  char *key;
+  char *value;
+
+  GHashTableIter *iter;
 
   free (cfgstr->string);
 
   /* determine the string size */
   len = 0;
-  node = cfgstr->list;
-  while (node)
+  g_hash_table_iter_init (iter, cfgstr->hash);
+  while (g_hash_table_iter_next (iter, (void**)&key, (void**)&value))
   {
-    len += strlen (node->key) + strlen (node->value) + 2;
-    node = node->next;
+    len += strlen (key) + strlen (value) + 2;
   }
 
   if (!(((ConfigString*)cfgstr)->string = malloc (len + 1)))
     return 0;
 
   end = cfgstr->string;
-  node = cfgstr->list;
 
-  while (node)
+  g_hash_table_iter_init (iter, cfgstr->hash);
+  while (g_hash_table_iter_next (iter, (void**)&key, (void**)&value))
   {
-    end += sprintf (end, "%s=%s;", node->key, node->value);
-    node = node->next;
+    end += sprintf (end, "%s=%s;", key, value);
   }
 
   return cfgstr->string;
 }
 
-static struct Node *
-find_node (struct Node *node, const char *key)
-{
-  while (node)
-  {
-    if (strcmp (node->key, key) == 0)
-      return node;
-
-    node = node->next;
-  }
-
-  return 0;
-}
-
 const char *
 cfgstr_get (const ConfigString *cfgstr, const char *key)
 {
-  struct Node *node = find_node (cfgstr->list, key);
-
-  if (!node)
-    return 0;
-
-  return node->value;
+  return g_hash_table_lookup (cfgstr->hash, key);
 }
 
 float
@@ -226,41 +187,20 @@ int
 cfgstr_set (ConfigString *cfgstr, const char *key, const char *value)
 {
   char *new_val;
-  struct Node *node = find_node (cfgstr->list, key);
+  char *new_key;
 
-  if (!node)
-  {
-    if ((!(node = malloc (sizeof *node))))
-      return -1;
-
-    if ((!(node->key = malloc (strlen (key) + 1))))
-    {
-      free (node);
-      return -1;
-    }
-
-    if ((!(node->value = malloc (strlen (value) + 1))))
-    {
-      free (node->key);
-      free (node);
-      return -1;
-    }
-
-    strcpy (node->key, key);
-    strcpy (node->value, value);
-    node->next = cfgstr->list;
-    cfgstr->list = node;
-
-    return 1;
-  }
+  if ((!(new_key = malloc (strlen (key) + 1))))
+    return -1;
+  strcpy (new_key, key);
 
   if((!(new_val = malloc (strlen (value) + 1))))
+  {
+    free (new_key);
     return -1;
-
+  }
   strcpy (new_val, value);
-  free (node->value);
-  node->value = new_val;
 
+  g_hash_table_insert (cfgstr->hash, new_key, new_val);
   return 0;
 }
 
@@ -282,22 +222,4 @@ cfgstr_set_int (ConfigString *cfgstr, const char *key, int value)
   buf[sizeof buf - 1] = 0; /* make sure it's null terminated */
 
   return cfgstr_set (cfgstr, key, buf);
-}
-
-static char *
-strip_whitespace (char *buf)
-{
-  while (*buf && isspace (*buf))
-    buf++;
-
-  if (!*buf)
-    return 0;
-
-  char *end = buf + strlen (buf) - 1;
-  while (end > buf && isspace (*end))
-    end--;
-
-  end[1] = 0;
-
-  return buf;
 }
