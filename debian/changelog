@@ -1,3 +1,11 @@
+unity-control-center (14.04.1-0ubuntu5) trusty; urgency=medium
+
+  * debian/control:
+    - Run with either gnome-settings-daemon or unity-settings-daemon
+      (LP: #1277487)
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Fri, 07 Feb 2014 16:22:09 +0000
+
 unity-control-center (14.04.1-0ubuntu4) trusty; urgency=medium
 
   * don't set the alignment of a frame that doesn't exist, fixes a warning
