@@ -32,7 +32,7 @@ with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "settings-shared.h"
 #include "utils.h"
 
-#define DATETIME_DIALOG_UI_FILE PKGDATADIR "/datetime-dialog.ui"
+#define DATETIME_DIALOG_UI_FILE PKGDATADIR "/ui/datetime/datetime-dialog.ui"
 
 #define COL_NAME         0
 #define COL_TIME         1

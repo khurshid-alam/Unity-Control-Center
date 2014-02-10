@@ -1,6 +1,9 @@
 # This is used in PANEL_CFLAGS
 cappletname = datetime
 
+uidir = $(pkgdatadir)/ui/datetime
+dist_ui_DATA = datetime-dialog.ui
+
 icons16dir = $(datadir)/icons/hicolor/16x16/apps
 dist_icons16_DATA = icons/16x16/unity-datetime-panel.png
 icons22dir = $(datadir)/icons/hicolor/22x22/apps

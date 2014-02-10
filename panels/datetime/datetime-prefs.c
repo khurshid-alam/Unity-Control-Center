@@ -39,7 +39,7 @@ with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "utils.h"
 #include "datetime-prefs-locations.h"
 
-#define DATETIME_DIALOG_UI_FILE PKGDATADIR "/datetime-dialog.ui"
+#define DATETIME_DIALOG_UI_FILE PKGDATADIR "/ui/datetime/datetime-dialog.ui"
 
 #define INDICATOR_DATETIME_TYPE_PANEL indicator_datetime_panel_get_type()
 
@@ -676,7 +676,7 @@ indicator_datetime_panel_init (IndicatorDatetimePanel * self)
   gtk_container_add (GTK_CONTAINER (alignment), polkit_button);
   gtk_box_pack_start (GTK_BOX (WIG ("timeDateBox")), alignment, FALSE, TRUE, 0);
 
-  const gchar * polkit_name = "com.canonical.gnome.controlcenter.datetime.configure";
+  const gchar * polkit_name = "com.canonical.controlcenter.datetime.configure";
   polkit_permission_new (polkit_name, NULL, NULL, polkit_perm_ready, polkit_button);
 
   /* Add map */

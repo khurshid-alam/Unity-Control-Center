@@ -1,4 +1,4 @@
-m4_define([unity_control_center_version], 14.04.2)
+m4_define([unity_control_center_version], 14.04.3)
 AC_INIT([unity-control-center], [unity_control_center_version])
 
 AC_CONFIG_SRCDIR([shell])
