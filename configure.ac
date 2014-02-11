@@ -1,4 +1,4 @@
-m4_define([unity_control_center_version], 14.04.2)
+m4_define([unity_control_center_version], 14.04.3)
 AC_INIT([unity-control-center], [unity_control_center_version])
 
 AC_CONFIG_SRCDIR([shell])
@@ -130,10 +130,8 @@ PKG_CHECK_MODULES(LIBSHORTCUTS, $COMMON_MODULES x11)
 PKG_CHECK_MODULES(SHELL, $COMMON_MODULES libgnome-menu-3.0 gio-unix-2.0 x11)
 PKG_CHECK_MODULES(APPEARANCE_PANEL, $COMMON_MODULES libxml-2.0 gnome-desktop-3.0
                   gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED_VERSION)
-PKG_CHECK_MODULES(DATETIME_PANEL, $COMMON_MODULES
-                  gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION
-                  polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION
-                  gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED_VERSION)
+PKG_CHECK_MODULES(DATETIME_PANEL, $COMMON_MODULES timezonemap
+                  polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION)
 PKG_CHECK_MODULES(DISPLAY_PANEL, $COMMON_MODULES gnome-desktop-3.0 >= 3.1.0 x11)
 PKG_CHECK_MODULES(INFO_PANEL, $COMMON_MODULES libgtop-2.0 gl x11
 		  polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION webkitgtk-3.0)
@@ -412,6 +410,8 @@ panels/appearance/Makefile
 panels/appearance/unity-appearance-panel.desktop.in
 panels/bluetooth/Makefile
 panels/bluetooth/unity-bluetooth-panel.desktop.in
+panels/datetime/Makefile
+panels/datetime/unity-datetime-panel.desktop.in
 panels/display/Makefile
 panels/display/unity-display-panel.desktop.in
 panels/keyboard/Makefile

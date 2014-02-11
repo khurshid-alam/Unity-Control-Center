@@ -1,3 +1,9 @@
+unity-control-center (14.04.3-0ubuntu1) UNRELEASED; urgency=medium
+
+  * Merge in datetime panel from indicator-datetime
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Tue, 11 Feb 2014 11:24:04 +1300
+
 unity-control-center (14.04.1-0ubuntu5) trusty; urgency=medium
 
   * debian/control:

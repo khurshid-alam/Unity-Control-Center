@@ -16,6 +16,12 @@ panels/common/cc-common-language.c
 panels/common/cc-language-chooser.c
 panels/common/gdm-languages.c
 [type: gettext/glade]panels/common/language-chooser.ui
+panels/datetime/com.canonical.controlcenter.datetime.policy.in
+[type: gettext/glade]panels/datetime/datetime-dialog.ui
+panels/datetime/datetime-prefs.c
+panels/datetime/datetime-prefs-locations.c
+panels/datetime/unity-datetime-panel.desktop.in.in
+panels/datetime/utils.c
 panels/display/cc-display-panel.c
 [type: gettext/glade]panels/display/display-capplet.ui
 panels/display/unity-display-panel.desktop.in.in
