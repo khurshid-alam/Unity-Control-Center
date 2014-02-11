@@ -94,6 +94,7 @@ Suggests: gnome-screensaver | xscreensaver,
           gstreamer0.10-pulseaudio,
           libcanberra-gtk-module,
           x11-xserver-utils
+Provides: unity-control-center-datetime
 Description: utilities to configure the GNOME desktop
  This package contains configuration applets for the GNOME desktop,
  allowing to set accessibility configuration, desktop fonts, keyboard
