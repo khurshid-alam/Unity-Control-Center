@@ -63,6 +63,11 @@ CC_PANEL_REGISTER (CcDisplayPanel, cc_display_panel)
 #define UNITY2D_GSETTINGS_MAIN "com.canonical.Unity2d"
 #define UNITY2D_GSETTINGS_LAUNCHER "com.canonical.Unity2d.Launcher"
 
+#define FONTS_SCALE_MIN 4.0
+#define FONTS_SCALE_MAX 30.0
+#define FONTS_SCALE_MIN_DISP 0.5
+#define FONTS_SCALE_MAX_DISP 3.0
+
 enum {
   TEXT_COL,
   WIDTH_COL,
@@ -576,9 +581,10 @@ rebuild_fonts_scale (CcDisplayPanel *self)
 
   output_name = gnome_rr_output_info_get_name (self->priv->current_output);
 
+  gtk_scale_set_digits(self->priv->fonts_scale, 0);
   GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE(self->priv->fonts_scale));
-  gtk_adjustment_set_upper (adj, 3);
-  gtk_adjustment_set_lower (adj, 0.5);
+  gtk_adjustment_set_upper (adj, FONTS_SCALE_MAX);
+  gtk_adjustment_set_lower (adj, FONTS_SCALE_MIN);
 
   if (!(value = cfgstr_get_float (self->priv->config_string, output_name))) {
     value = 1.0;
@@ -1012,6 +1018,17 @@ on_fonts_scale_button_release (GtkWidget *fonts_scale, GdkEvent *ev, gpointer da
   }
 
   return 0;  /* gtk should still process this event */
+}
+
+static gchar*
+on_fonts_scale_format_value (GtkScale *fonts_scale, gdouble value)
+{
+  double dist = FONTS_SCALE_MAX - FONTS_SCALE_MIN;
+  double t = (value - FONTS_SCALE_MIN) / dist; /* t in [0,1] */
+
+  value = t * (FONTS_SCALE_MAX_DISP - FONTS_SCALE_MIN_DISP) + FONTS_SCALE_MIN_DISP;
+
+  return g_strdup_printf ("%.3g", value);
 }
 
 static void
@@ -3006,6 +3023,8 @@ cc_display_panel_constructor (GType                  gtype,
                     G_CALLBACK (on_fonts_scale_button_press), self);
   g_signal_connect (self->priv->fonts_scale, "button-release-event",
                     G_CALLBACK (on_fonts_scale_button_release), self);
+  g_signal_connect (self->priv->fonts_scale, "format-value",
+                    G_CALLBACK (on_fonts_scale_format_value), self);
 
   self->priv->clone_checkbox = WID ("clone_checkbox");
   g_signal_connect (self->priv->clone_checkbox, "toggled",
