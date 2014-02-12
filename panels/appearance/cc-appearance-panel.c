@@ -116,7 +116,7 @@ enum
 #define UNITY_FAVORITES_KEY "favorites"
 #define SHOW_DESKTOP_UNITY_FAVORITE_STR "unity://desktop-icon"
 
-#define MIN_ICONSIZE 32.0
+#define MIN_ICONSIZE 16.0
 #define MAX_ICONSIZE 64.0
 
 #define MIN_LAUNCHER_SENSIVITY 0.2
