@@ -574,8 +574,8 @@ add_dict_entry (GVariant *dict, const char *key, int value)
   GVariant *pair[2];
   GVariantIter iter;
   unsigned long sz;
-  int i;
   char str[512];
+  int i = 0;
 
   pair[0] = g_variant_new_string (key);
   pair[1] = g_variant_new_int32 (value);
@@ -583,18 +583,17 @@ add_dict_entry (GVariant *dict, const char *key, int value)
 
   if (!dict)
   {
-    dict = g_variant_new_array (NULL, &dict_entry, 1);
+    dict = g_variant_new_array (G_VARIANT_TYPE_DICT_ENTRY, &dict_entry, 1);
     return dict;
   }
 
   sz = g_variant_n_children (dict);
-  assert ((int)sz > 0);
   dict_entries = malloc (sizeof(GVariant*) * (sz + 1));
 
   g_variant_iter_init (&iter, dict);
   while (tmp = g_variant_iter_next_value (&iter))
   {
-    g_variant_get_child (tmp, 0, "s", str);
+    g_variant_get_child (tmp, 0, "@s", str);
     if (strcmp (str, key) != 0)
     {
       dict_entries[i++] = tmp;
@@ -602,10 +601,9 @@ add_dict_entry (GVariant *dict, const char *key, int value)
     g_variant_unref (tmp);
   }
   dict_entries[i++] = dict_entry;
-  dict = g_variant_new_array (NULL, dict_entries, i);
+  dict = g_variant_new_array (G_VARIANT_TYPE_DICT_ENTRY, dict_entries, i);
 
   g_variant_iter_free (&iter);
-  g_variant_unref (tmp);
   return dict;
 }
 
@@ -644,7 +642,7 @@ rebuild_fonts_scale (CcDisplayPanel *self)
   if (value == self->priv->fonts_prev_scale)
     return;
 
-  g_settings_get (self->priv->desktop_settings, "scale-factor", "a", &dict);
+  g_settings_get (self->priv->desktop_settings, "scale-factor", "@a{si}", &dict);
   dict = add_dict_entry (dict, monitor_name, value);
 
   gtk_adjustment_set_value (adj, value);
@@ -1072,10 +1070,13 @@ on_fonts_scale_button_release (GtkWidget *fonts_scale, GdkEvent *ev, gpointer da
     GVariant *dict_entry;
 
     monitor_name = gnome_rr_output_info_get_name (self->priv->current_output);
-    g_settings_set (self->priv->desktop_settings, monitor_name, "i", value);
+    g_settings_get (self->priv->desktop_settings, "scale-factor", "@a{si}", &dict);
+    dict = add_dict_entry (dict, monitor_name, value);
+    g_settings_set (self->priv->desktop_settings, "scale-factor", "a{si}", dict);
 
+    /*
     g_variant_unref (dict_entry);
-    g_variant_unref (dict);
+    g_variant_unref (dict);*/
   }
 
   return 0;  /* gtk should still process this event */
