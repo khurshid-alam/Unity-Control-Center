@@ -1696,21 +1696,6 @@ on_enable_showdesktop_changed (GtkToggleButton *button, gpointer user_data)
 }
 
 static void
-on_restore_defaults_page2_clicked (GtkButton *button, gpointer user_data)
-{
-  CcAppearancePanel *self = CC_APPEARANCE_PANEL (user_data);
-  CcAppearancePanelPrivate *priv = self->priv;
-
-  /* reset defaut for the profile and get the default */
-  g_settings_reset (priv->unity_settings, UNITY_LAUNCHERHIDE_KEY);
-  g_settings_reset (priv->unity_settings, UNITY_LAUNCHERSENSITIVITY_KEY);
-  g_settings_reset (priv->unity_settings, UNITY_LAUNCHERREVEAL_KEY);
-  g_settings_reset (priv->compizcore_settings, COMPIZCORE_HSIZE_KEY);
-  g_settings_reset (priv->compizcore_settings, COMPIZCORE_VSIZE_KEY);
-  g_settings_reset (priv->unity_own_settings, UNITY_INTEGRATED_MENUS_KEY);
-}
-
-static void
 menulocation_widget_refresh (CcAppearancePanel *self)
 {
   CcAppearancePanelPrivate *priv = self->priv;
@@ -1739,6 +1724,21 @@ on_menulocation_changed (GtkToggleButton *button, gpointer user_data)
 
   g_settings_set_boolean (priv->unity_own_settings, UNITY_INTEGRATED_MENUS_KEY, local_menus);
   menulocation_widget_refresh (self);
+}
+
+static void
+on_restore_defaults_page2_clicked (GtkButton *button, gpointer user_data)
+{
+  CcAppearancePanel *self = CC_APPEARANCE_PANEL (user_data);
+  CcAppearancePanelPrivate *priv = self->priv;
+
+  /* reset defaut for the profile and get the default */
+  g_settings_reset (priv->unity_settings, UNITY_LAUNCHERHIDE_KEY);
+  g_settings_reset (priv->unity_settings, UNITY_LAUNCHERSENSITIVITY_KEY);
+  g_settings_reset (priv->unity_settings, UNITY_LAUNCHERREVEAL_KEY);
+  g_settings_reset (priv->compizcore_settings, COMPIZCORE_HSIZE_KEY);
+  g_settings_reset (priv->compizcore_settings, COMPIZCORE_VSIZE_KEY);
+  g_settings_reset (priv->unity_own_settings, UNITY_INTEGRATED_MENUS_KEY);
 }
 
 /* <hacks> */
