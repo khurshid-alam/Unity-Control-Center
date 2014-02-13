@@ -25,9 +25,9 @@
 #include <sys/wait.h>
 
 #include "cc-display-panel.h"
-#include "display-cfg-parser.h"
 
 #include <gtk/gtk.h>
+#include <glib.h>
 #include "scrollarea.h"
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-rr.h>
@@ -63,6 +63,8 @@ CC_PANEL_REGISTER (CcDisplayPanel, cc_display_panel)
 #define UNITY2D_GSETTINGS_MAIN "com.canonical.Unity2d"
 #define UNITY2D_GSETTINGS_LAUNCHER "com.canonical.Unity2d.Launcher"
 
+#define DESKTOP_GSETTINGS_SCHEMA "com.ubuntu.desktop"
+
 #define FONTS_SCALE_MIN 4.0
 #define FONTS_SCALE_MAX 30.0
 #define FONTS_SCALE_MIN_DISP 0.5
@@ -89,6 +91,7 @@ struct _CcDisplayPanelPrivate
   GSettings      *unity_settings;
   GSettings      *unity2d_settings_main;
   GSettings      *unity2d_settings_launcher;
+  GSettings      *desktop_settings;
   GtkBuilder     *builder;
   guint           focus_id;
 
@@ -104,7 +107,6 @@ struct _CcDisplayPanelPrivate
   GtkWidget      *show_icon_checkbox;
   GtkWidget      *fonts_scale;
   double         fonts_prev_scale;
-  ConfigString   *config_string;
 
   /* We store the event timestamp when the Apply button is clicked */
   guint32         apply_button_clicked_timestamp;
@@ -196,6 +198,8 @@ cc_display_panel_finalize (GObject *object)
     g_object_unref (self->priv->unity2d_settings_launcher);
   if (self->priv->unity_settings != NULL)
     g_object_unref (self->priv->unity_settings);
+  if (self->priv->desktop_settings != NULL)
+    g_object_unref (self->priv->desktop_settings);
 
   shell = cc_panel_get_shell (CC_PANEL (self));
   if (shell != NULL)
@@ -561,40 +565,99 @@ rebuild_rotation_combo (CcDisplayPanel *self)
     gtk_combo_box_set_active (GTK_COMBO_BOX (self->priv->rotation_combo), 0);
 }
 
+static GVariant*
+add_dict_entry (GVariant *dict, const char *key, int value)
+{
+  GVariant *dict_entry;
+  GVariant **dict_entries;
+  GVariant *tmp;
+  GVariant *pair[2];
+  GVariantIter iter;
+  unsigned long sz;
+  int i;
+  char str[512];
+
+  pair[0] = g_variant_new_string (key);
+  pair[1] = g_variant_new_int32 (value);
+  dict_entry = g_variant_new_dict_entry (pair[0], pair[1]);
+
+  if (!dict)
+  {
+    dict = g_variant_new_array (NULL, &dict_entry, 1);
+    return dict;
+  }
+
+  sz = g_variant_n_children (dict);
+  assert ((int)sz > 0);
+  dict_entries = malloc (sizeof(GVariant*) * (sz + 1));
+
+  g_variant_iter_init (&iter, dict);
+  while (tmp = g_variant_iter_next_value (&iter))
+  {
+    g_variant_get_child (tmp, 0, "s", str);
+    if (strcmp (str, key) != 0)
+    {
+      dict_entries[i++] = tmp;
+    }
+    g_variant_unref (tmp);
+  }
+  dict_entries[i++] = dict_entry;
+  dict = g_variant_new_array (NULL, dict_entries, i);
+
+  g_variant_iter_free (&iter);
+  g_variant_unref (tmp);
+  return dict;
+}
+
 static void
 rebuild_fonts_scale (CcDisplayPanel *self)
 {
   float value;
-  const char *gstring, *output_name;
-  if (self->priv->config_string)
-  {
-    cfgstr_destroy (self->priv->config_string);
-    self->priv->config_string = 0;
-  }
+  float t, default_value;
 
-  g_settings_get (self->priv->unity_settings, "fonts-scale-factor", "s", &gstring);
-  if (!gstring)
-    return;
+  GVariant *dict;
+  GVariant *dict_entry;
+  GVariant *child;
+  GVariantIter iter;
 
-  if (!(self->priv->config_string = cfgstr_create (gstring)))
-    return;
+  const char *monitor_name = gnome_rr_output_info_get_name (self->priv->current_output);
 
-  output_name = gnome_rr_output_info_get_name (self->priv->current_output);
-
-  gtk_scale_set_digits(self->priv->fonts_scale, 0);
   GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE(self->priv->fonts_scale));
+
   gtk_adjustment_set_upper (adj, FONTS_SCALE_MAX);
   gtk_adjustment_set_lower (adj, FONTS_SCALE_MIN);
 
-  if (!(value = cfgstr_get_float (self->priv->config_string, output_name))) {
-    value = 1.0;
-    if (cfgstr_set_float (self->priv->config_string, output_name, value) == -1)
-      return;
-  }
+  gtk_scale_set_digits (GTK_SCALE(self->priv->fonts_scale), 0);
+  value = gtk_adjustment_get_value (adj);
+
+  /*
+   * if we were using the gnome text scaling factor, the default value would be 1.0
+   * we map the interval: [0.5, 3.0] to the [FONTS_SCALE_MIN, FONTS_SCALE_MAX] to find the
+   * equivalent default value.
+  */
+  t = (1.0 - 0.5) / (3.0 - 0.5);
+  default_value = FONTS_SCALE_MIN + t * (FONTS_SCALE_MAX - FONTS_SCALE_MIN);
+
+  if (!value)
+    value = default_value;
+
+  if (value == self->priv->fonts_prev_scale)
+    return;
+
+  g_settings_get (self->priv->desktop_settings, "scale-factor", "a", &dict);
+  dict = add_dict_entry (dict, monitor_name, value);
 
   gtk_adjustment_set_value (adj, value);
-  g_settings_set_string (self->priv->unity_settings, "fonts-scale-factor",
-      cfgstr_get_string (self->priv->config_string));
+  g_settings_set (self->priv->desktop_settings, "scale-factor", "a{si}", dict);
+
+/*  g_variant_iter_init (&iter, dict);
+   while (child = g_variant_iter_next_value (&iter))
+  {
+      g_variant_unref (child);
+  }
+  g_variant_unref (dict_entry);
+  g_variant_unref (dict);
+  g_variant_iter_free (&iter);*/
 }
 
 static int
@@ -998,23 +1061,21 @@ on_fonts_scale_button_press (GtkWidget *fonts_scale, GdkEvent *ev, gpointer data
 static gboolean
 on_fonts_scale_button_release (GtkWidget *fonts_scale, GdkEvent *ev, gpointer data)
 {
-  const char *gstring, *output_name;
-  GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE(fonts_scale));
-  float val = gtk_adjustment_get_value (adj);
+  const char *monitor_name;
   CcDisplayPanel *self = data;
-  ConfigString *cfgstr = self->priv->config_string;
+  GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE(fonts_scale));
+  float value = gtk_adjustment_get_value (adj);
 
-  if (!cfgstr)
-    return 0;
-
-  if (val != self->priv->fonts_prev_scale)
+  if (value != self->priv->fonts_prev_scale)
   {
-    output_name = gnome_rr_output_info_get_name (self->priv->current_output);
-    if (cfgstr_set_float(cfgstr, output_name, val) == -1)
-      return 0;
+    GVariant *dict;
+    GVariant *dict_entry;
 
-    gstring = cfgstr_get_string(cfgstr);
-    g_settings_set_string (self->priv->unity_settings, "fonts-scale-factor", gstring);
+    monitor_name = gnome_rr_output_info_get_name (self->priv->current_output);
+    g_settings_set (self->priv->desktop_settings, monitor_name, "i", value);
+
+    g_variant_unref (dict_entry);
+    g_variant_unref (dict);
   }
 
   return 0;  /* gtk should still process this event */
@@ -1025,7 +1086,6 @@ on_fonts_scale_format_value (GtkScale *fonts_scale, gdouble value)
 {
   double dist = FONTS_SCALE_MAX - FONTS_SCALE_MIN;
   double t = (value - FONTS_SCALE_MIN) / dist; /* t in [0,1] */
-
   value = t * (FONTS_SCALE_MAX_DISP - FONTS_SCALE_MIN_DISP) + FONTS_SCALE_MIN_DISP;
 
   return g_strdup_printf ("%.3g", value);
@@ -2993,6 +3053,7 @@ cc_display_panel_constructor (GType                  gtype,
     }
 
   self->priv->clock_settings = g_settings_new (CLOCK_SCHEMA);
+  self->priv->desktop_settings = g_settings_new (DESKTOP_GSETTINGS_SCHEMA);
 
   shell = cc_panel_get_shell (CC_PANEL (self));
   toplevel = cc_shell_get_toplevel (shell);

@@ -25,11 +25,6 @@
 
 #include "display-cfg-parser.h"
 
-struct Node {
-  char *key;
-  char *value;
-};
-
 /* ConfigString */
 
 struct ConfigString {
