@@ -1707,6 +1707,7 @@ on_restore_defaults_page2_clicked (GtkButton *button, gpointer user_data)
   g_settings_reset (priv->unity_settings, UNITY_LAUNCHERREVEAL_KEY);
   g_settings_reset (priv->compizcore_settings, COMPIZCORE_HSIZE_KEY);
   g_settings_reset (priv->compizcore_settings, COMPIZCORE_VSIZE_KEY);
+  g_settings_reset (priv->unity_own_settings, UNITY_INTEGRATED_MENUS_KEY);
 }
 
 static void
