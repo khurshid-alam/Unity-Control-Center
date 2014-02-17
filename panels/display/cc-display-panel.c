@@ -565,6 +565,31 @@ rebuild_rotation_combo (CcDisplayPanel *self)
     gtk_combo_box_set_active (GTK_COMBO_BOX (self->priv->rotation_combo), 0);
 }
 
+/* DEBUG */
+/*
+static void
+print_dict_entries (GVariant *dict)
+{
+  GVariantIter iter;
+  GVariant *gvar;
+  int i=0;
+
+  printf ("\n\nPrinting dict entries:\n");
+
+  g_variant_iter_init (&iter, dict);
+  while (gvar = g_variant_iter_next_value (&iter))
+  {
+    char *key;
+    int val;
+    g_variant_get_child (gvar, 0, "s", &key);
+    g_variant_get_child (gvar, 1, "i", &val);
+
+    printf ("GVar index: %d key: %s value: %d\n", i, key, val);
+  }
+  printf ("\n");
+}
+*/
+
 static GVariant*
 add_dict_entry (GVariant *dict, const char *key, int value)
 {
@@ -593,15 +618,22 @@ add_dict_entry (GVariant *dict, const char *key, int value)
   g_variant_iter_init (&iter, dict);
   while (tmp = g_variant_iter_next_value (&iter))
   {
-    g_variant_get_child (tmp, 0, "@s", str);
+    int val = 0; char *str;
+    g_variant_get_child (tmp, 0, "s", &str);
+    if (!str)
+    {
+      fprintf (stderr, "Invalid dictionary entry\n");
+      break;
+    }
+
     if (strcmp (str, key) != 0)
     {
       dict_entries[i++] = tmp;
     }
-    g_variant_unref (tmp);
+    g_free(str);
   }
   dict_entries[i++] = dict_entry;
-  dict = g_variant_new_array (G_VARIANT_TYPE_DICT_ENTRY, dict_entries, i);
+  dict = g_variant_new_array (NULL, dict_entries, i);
 
   g_variant_iter_free (&iter);
   return dict;
@@ -610,13 +642,11 @@ add_dict_entry (GVariant *dict, const char *key, int value)
 static void
 rebuild_fonts_scale (CcDisplayPanel *self)
 {
-  float value;
-  float t, default_value;
+  int value, default_value;
+  float t;
 
   GVariant *dict;
   GVariant *dict_entry;
-  GVariant *child;
-  GVariantIter iter;
 
   const char *monitor_name = gnome_rr_output_info_get_name (self->priv->current_output);
 
@@ -626,7 +656,6 @@ rebuild_fonts_scale (CcDisplayPanel *self)
   gtk_adjustment_set_lower (adj, FONTS_SCALE_MIN);
 
   gtk_scale_set_digits (GTK_SCALE(self->priv->fonts_scale), 0);
-  value = gtk_adjustment_get_value (adj);
 
   /*
    * if we were using the gnome text scaling factor, the default value would be 1.0
@@ -636,26 +665,15 @@ rebuild_fonts_scale (CcDisplayPanel *self)
   t = (1.0 - 0.5) / (3.0 - 0.5);
   default_value = FONTS_SCALE_MIN + t * (FONTS_SCALE_MAX - FONTS_SCALE_MIN);
 
-  if (!value)
-    value = default_value;
-
-  if (value == self->priv->fonts_prev_scale)
-    return;
-
   g_settings_get (self->priv->desktop_settings, "scale-factor", "@a{si}", &dict);
-  dict = add_dict_entry (dict, monitor_name, value);
-
-  gtk_adjustment_set_value (adj, value);
-  g_settings_set (self->priv->desktop_settings, "scale-factor", "a{si}", dict);
-
-/*  g_variant_iter_init (&iter, dict);
-   while (child = g_variant_iter_next_value (&iter))
+  if (!g_variant_lookup (dict, monitor_name, "i", &value))
   {
-      g_variant_unref (child);
+    value = default_value;
+    self->priv->fonts_prev_scale = value;
   }
-  g_variant_unref (dict_entry);
-  g_variant_unref (dict);
-  g_variant_iter_free (&iter);*/
+  add_dict_entry (dict, monitor_name, value);
+  g_settings_set (self->priv->desktop_settings, "scale-factor", "@a{si}", dict);
+  gtk_adjustment_set_value (adj, value);
 }
 
 static int
@@ -1068,15 +1086,15 @@ on_fonts_scale_button_release (GtkWidget *fonts_scale, GdkEvent *ev, gpointer da
   {
     GVariant *dict;
     GVariant *dict_entry;
+    int foo;
 
     monitor_name = gnome_rr_output_info_get_name (self->priv->current_output);
     g_settings_get (self->priv->desktop_settings, "scale-factor", "@a{si}", &dict);
     dict = add_dict_entry (dict, monitor_name, value);
-    g_settings_set (self->priv->desktop_settings, "scale-factor", "a{si}", dict);
+    g_settings_set (self->priv->desktop_settings, "scale-factor", "@a{si}", dict);
 
-    /*
-    g_variant_unref (dict_entry);
-    g_variant_unref (dict);*/
+   /* g_variant_unref (dict_entry);
+    g_variant_unref (dict); */
   }
 
   return 0;  /* gtk should still process this event */
