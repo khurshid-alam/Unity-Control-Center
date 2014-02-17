@@ -575,7 +575,6 @@ print_dict_entries (GVariant *dict)
   int i=0;
 
   printf ("\n\nPrinting dict entries:\n");
-
   g_variant_iter_init (&iter, dict);
   while (gvar = g_variant_iter_next_value (&iter))
   {
@@ -635,7 +634,6 @@ add_dict_entry (GVariant *dict, const char *key, int value)
   dict_entries[i++] = dict_entry;
   dict = g_variant_new_array (NULL, dict_entries, i);
 
-  g_variant_iter_free (&iter);
   return dict;
 }
 
@@ -1080,21 +1078,19 @@ on_ui_scale_button_release (GtkWidget *ui_scale, GdkEvent *ev, gpointer data)
   const char *monitor_name;
   CcDisplayPanel *self = data;
   GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE(ui_scale));
-  float value = gtk_adjustment_get_value (adj);
+  int value = gtk_adjustment_get_value (adj);
 
   if (value != self->priv->ui_prev_scale)
   {
     GVariant *dict;
     GVariant *dict_entry;
+    GVariant *tmp;
     int foo;
 
     monitor_name = gnome_rr_output_info_get_name (self->priv->current_output);
     g_settings_get (self->priv->desktop_settings, "scale-factor", "@a{si}", &dict);
     dict = add_dict_entry (dict, monitor_name, value);
     g_settings_set (self->priv->desktop_settings, "scale-factor", "@a{si}", dict);
-
-   /* g_variant_unref (dict_entry);
-    g_variant_unref (dict); */
   }
 
   return 0;  /* gtk should still process this event */
