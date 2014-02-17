@@ -1306,7 +1306,7 @@ um_user_panel_init (UmUserPanel *self)
         const gchar *filename;
         GtkWidget *button;
         GtkStyleContext *context;
-        const gchar * const *schemas;
+        GSettingsSchema *schema;
 
         d = self->priv = UM_USER_PANEL_PRIVATE (self);
 
@@ -1343,12 +1343,11 @@ um_user_panel_init (UmUserPanel *self)
         context = gtk_widget_get_style_context (get_widget (d, "add-remove-toolbar"));
         gtk_style_context_set_junction_sides (context, GTK_JUNCTION_TOP);
 
-        for (schemas = g_settings_list_schemas (); *schemas != NULL; schemas++) {
-                if (g_strcmp0 (*schemas, INDICATOR_SESSION_SCHEMA) == 0) {
-                        d->indicator_session_schema = g_settings_new (INDICATOR_SESSION_SCHEMA);
-                        g_settings_bind (d->indicator_session_schema, "show-real-name-on-panel", get_widget (d, "show-login-name-checkbutton"), "active", G_SETTINGS_BIND_DEFAULT);
-                        break;
-                }
+        schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (), INDICATOR_SESSION_SCHEMA, TRUE);
+        if (schema) {
+                d->indicator_session_schema = g_settings_new (INDICATOR_SESSION_SCHEMA);
+                g_settings_bind (d->indicator_session_schema, "show-real-name-on-panel", get_widget (d, "show-login-name-checkbutton"), "active", G_SETTINGS_BIND_DEFAULT);
+                g_object_unref (schema);
         }
 }
 
