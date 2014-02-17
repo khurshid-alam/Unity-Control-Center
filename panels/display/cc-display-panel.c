@@ -105,8 +105,8 @@ struct _CcDisplayPanelPrivate
   GtkWidget      *clone_checkbox;
   GtkWidget      *clone_label;
   GtkWidget      *show_icon_checkbox;
-  GtkWidget      *fonts_scale;
-  double         fonts_prev_scale;
+  GtkWidget      *ui_scale;
+  double         ui_prev_scale;
 
   /* We store the event timestamp when the Apply button is clicked */
   guint32         apply_button_clicked_timestamp;
@@ -640,7 +640,7 @@ add_dict_entry (GVariant *dict, const char *key, int value)
 }
 
 static void
-rebuild_fonts_scale (CcDisplayPanel *self)
+rebuild_ui_scale (CcDisplayPanel *self)
 {
   int value, default_value;
   float t;
@@ -650,12 +650,12 @@ rebuild_fonts_scale (CcDisplayPanel *self)
 
   const char *monitor_name = gnome_rr_output_info_get_name (self->priv->current_output);
 
-  GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE(self->priv->fonts_scale));
+  GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE(self->priv->ui_scale));
 
   gtk_adjustment_set_upper (adj, FONTS_SCALE_MAX);
   gtk_adjustment_set_lower (adj, FONTS_SCALE_MIN);
 
-  gtk_scale_set_digits (GTK_SCALE(self->priv->fonts_scale), 0);
+  gtk_scale_set_digits (GTK_SCALE(self->priv->ui_scale), 0);
 
   /*
    * if we were using the gnome text scaling factor, the default value would be 1.0
@@ -669,7 +669,7 @@ rebuild_fonts_scale (CcDisplayPanel *self)
   if (!g_variant_lookup (dict, monitor_name, "i", &value))
   {
     value = default_value;
-    self->priv->fonts_prev_scale = value;
+    self->priv->ui_prev_scale = value;
   }
   add_dict_entry (dict, monitor_name, value);
   g_settings_set (self->priv->desktop_settings, "scale-factor", "@a{si}", dict);
@@ -1008,7 +1008,7 @@ rebuild_gui (CcDisplayPanel *self)
   rebuild_on_off_radios (self);
   rebuild_resolution_combo (self);
   rebuild_rotation_combo (self);
-  rebuild_fonts_scale (self);
+  rebuild_ui_scale (self);
   refresh_unity_launcher_placement (self);
 
   self->priv->ignore_gui_changes = FALSE;
@@ -1065,24 +1065,24 @@ on_rotation_changed (GtkComboBox *box, gpointer data)
 }
 
 static gboolean
-on_fonts_scale_button_press (GtkWidget *fonts_scale, GdkEvent *ev, gpointer data)
+on_ui_scale_button_press (GtkWidget *ui_scale, GdkEvent *ev, gpointer data)
 {
   CcDisplayPanel *self = data;
-  GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE(fonts_scale));
-  self->priv->fonts_prev_scale = gtk_adjustment_get_value (adj);
+  GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE(ui_scale));
+  self->priv->ui_prev_scale = gtk_adjustment_get_value (adj);
 
   return 0; /* gtk should still process this event */
 }
 
 static gboolean
-on_fonts_scale_button_release (GtkWidget *fonts_scale, GdkEvent *ev, gpointer data)
+on_ui_scale_button_release (GtkWidget *ui_scale, GdkEvent *ev, gpointer data)
 {
   const char *monitor_name;
   CcDisplayPanel *self = data;
-  GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE(fonts_scale));
+  GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE(ui_scale));
   float value = gtk_adjustment_get_value (adj);
 
-  if (value != self->priv->fonts_prev_scale)
+  if (value != self->priv->ui_prev_scale)
   {
     GVariant *dict;
     GVariant *dict_entry;
@@ -1101,7 +1101,7 @@ on_fonts_scale_button_release (GtkWidget *fonts_scale, GdkEvent *ev, gpointer da
 }
 
 static gchar*
-on_fonts_scale_format_value (GtkScale *fonts_scale, gdouble value)
+on_ui_scale_format_value (GtkScale *ui_scale, gdouble value)
 {
   double dist = FONTS_SCALE_MAX - FONTS_SCALE_MIN;
   double t = (value - FONTS_SCALE_MIN) / dist; /* t in [0,1] */
@@ -3098,13 +3098,13 @@ cc_display_panel_constructor (GType                  gtype,
   g_signal_connect (self->priv->rotation_combo, "changed",
                     G_CALLBACK (on_rotation_changed), self);
 
-  self->priv->fonts_scale = WID ("fonts_scale");
-  g_signal_connect (self->priv->fonts_scale, "button-press-event",
-                    G_CALLBACK (on_fonts_scale_button_press), self);
-  g_signal_connect (self->priv->fonts_scale, "button-release-event",
-                    G_CALLBACK (on_fonts_scale_button_release), self);
-  g_signal_connect (self->priv->fonts_scale, "format-value",
-                    G_CALLBACK (on_fonts_scale_format_value), self);
+  self->priv->ui_scale = WID ("ui_scale");
+  g_signal_connect (self->priv->ui_scale, "button-press-event",
+                    G_CALLBACK (on_ui_scale_button_press), self);
+  g_signal_connect (self->priv->ui_scale, "button-release-event",
+                    G_CALLBACK (on_ui_scale_button_release), self);
+  g_signal_connect (self->priv->ui_scale, "format-value",
+                    G_CALLBACK (on_ui_scale_format_value), self);
 
   self->priv->clone_checkbox = WID ("clone_checkbox");
   g_signal_connect (self->priv->clone_checkbox, "toggled",
