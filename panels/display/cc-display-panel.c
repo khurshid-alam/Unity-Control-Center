@@ -2815,29 +2815,21 @@ on_launcher_placement_combo_changed (GtkComboBox *combo, CcDisplayPanel *self)
 static void
 setup_unity_settings (CcDisplayPanel *self)
 {
-  const gchar * const *schemas;
+  GSettingsSchema *schema;
 
   /* Only use the unity-2d schema if it's installed */
-  schemas = g_settings_list_schemas ();
-  while (*schemas != NULL)
+  schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (), UNITY2D_GSETTINGS_MAIN, TRUE);
+  if (schema)
     {
-      if (g_strcmp0 (*schemas, UNITY2D_GSETTINGS_LAUNCHER) == 0)
-        {
-          self->priv->unity2d_settings_main = g_settings_new (UNITY2D_GSETTINGS_MAIN);
-          self->priv->unity2d_settings_launcher = g_settings_new (UNITY2D_GSETTINGS_LAUNCHER);
-          break;
-        }
-      schemas++;
+      self->priv->unity2d_settings_main = g_settings_new (UNITY2D_GSETTINGS_MAIN);
+      self->priv->unity2d_settings_launcher = g_settings_new (UNITY2D_GSETTINGS_LAUNCHER);
+      g_object_unref (schema);
     }
-  schemas = g_settings_list_relocatable_schemas ();
-  while (*schemas != NULL)
+  schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (), UNITY_GSETTINGS_SCHEMA, TRUE);
+  if (schema)
     {
-      if (g_strcmp0 (*schemas, UNITY_GSETTINGS_SCHEMA) == 0)
-        {
-          self->priv->unity_settings = g_settings_new_with_path (UNITY_GSETTINGS_SCHEMA, UNITY_GSETTINGS_PATH);
-          break;
-        }
-      schemas++;
+      self->priv->unity_settings = g_settings_new_with_path (UNITY_GSETTINGS_SCHEMA, UNITY_GSETTINGS_PATH);
+      g_object_unref (schema);
     }
 
   if (!self->priv->unity_settings)

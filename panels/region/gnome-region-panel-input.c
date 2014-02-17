@@ -107,20 +107,18 @@ is_unity (void)
 static gboolean
 has_indicator_keyboard (void)
 {
-  if (is_unity ())
-    {
-      const gchar * const *schemas = g_settings_list_schemas ();
+	GSettingsSchema *schema;
 
-      while (*schemas != NULL)
-        {
-          if (g_strcmp0 (*schemas, INDICATOR_KEYBOARD_SCHEMA_ID) == 0)
-            return TRUE;
+	if (!is_unity ())
+		return FALSE;
 
-          schemas++;
-        }
-    }
+	schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (), INDICATOR_KEYBOARD_SCHEMA_ID, TRUE);
+	if (schema) {
+			g_object_unref (schema);
+			return TRUE;
+	}
 
-  return FALSE;
+	return FALSE;
 }
 
 static gboolean
