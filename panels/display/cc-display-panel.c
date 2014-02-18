@@ -565,30 +565,6 @@ rebuild_rotation_combo (CcDisplayPanel *self)
     gtk_combo_box_set_active (GTK_COMBO_BOX (self->priv->rotation_combo), 0);
 }
 
-/* DEBUG */
-/*
-static void
-print_dict_entries (GVariant *dict)
-{
-  GVariantIter iter;
-  GVariant *gvar;
-  int i=0;
-
-  printf ("\n\nPrinting dict entries:\n");
-  g_variant_iter_init (&iter, dict);
-  while (gvar = g_variant_iter_next_value (&iter))
-  {
-    char *key;
-    int val;
-    g_variant_get_child (gvar, 0, "s", &key);
-    g_variant_get_child (gvar, 1, "i", &val);
-
-    printf ("GVar index: %d key: %s value: %d\n", i, key, val);
-  }
-  printf ("\n");
-}
-*/
-
 static GVariant*
 add_dict_entry (GVariant *dict, const char *key, int value)
 {
