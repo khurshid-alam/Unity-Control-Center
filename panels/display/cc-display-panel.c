@@ -1066,8 +1066,7 @@ static gboolean
 on_ui_scale_button_press (GtkWidget *ui_scale, GdkEvent *ev, gpointer data)
 {
   CcDisplayPanel *self = data;
-  GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE(ui_scale));
-  self->priv->ui_prev_scale = gtk_adjustment_get_value (adj);
+  self->priv->ui_prev_scale = gtk_range_get_value (GTK_RANGE(ui_scale));
 
   return FALSE; /* gtk should still process this event */
 }
@@ -1077,8 +1076,7 @@ on_ui_scale_button_release (GtkWidget *ui_scale, GdkEvent *ev, gpointer data)
 {
   const char *monitor_name;
   CcDisplayPanel *self = data;
-  GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE(ui_scale));
-  int value = gtk_adjustment_get_value (adj);
+  int value = (int)gtk_range_get_value (GTK_RANGE(ui_scale));
 
   if (value != self->priv->ui_prev_scale)
   {
