@@ -76,7 +76,7 @@ static gboolean on_scale_scroll_event         (GtkWidget      *widget,
 static void on_adjustment_value_changed       (GtkAdjustment *adjustment,
                                                GvcBalanceBar *bar);
 
-G_DEFINE_TYPE (GvcBalanceBar, gvc_balance_bar, GTK_TYPE_HBOX)
+G_DEFINE_TYPE (GvcBalanceBar, gvc_balance_bar, GTK_TYPE_BOX)
 
 static GtkWidget *
 _scale_box_new (GvcBalanceBar *bar)
@@ -90,7 +90,7 @@ _scale_box_new (GvcBalanceBar *bar)
         gdouble              lower, upper;
 
         bar->priv->scale_box = box = gtk_box_new (FALSE, 6);
-        priv->scale = gtk_hscale_new (priv->adjustment);
+        priv->scale = gtk_scale_new (GTK_ORIENTATION_HORIZONTAL, priv->adjustment);
         gtk_widget_set_size_request (priv->scale, SCALE_SIZE, -1);
         gtk_scale_set_has_origin (GTK_SCALE (priv->scale), FALSE);
         gtk_widget_set_name (priv->scale, "balance-bar-scale");
@@ -569,7 +569,9 @@ gvc_balance_bar_new (GvcBalanceType btype)
 {
         GObject *bar;
         bar = g_object_new (GVC_TYPE_BALANCE_BAR,
-                            "balance-type", btype, NULL);
+                            "balance-type", btype,
+                            "orientation", GTK_ORIENTATION_HORIZONTAL,
+                            NULL);
 
         return GTK_WIDGET (bar);
 }

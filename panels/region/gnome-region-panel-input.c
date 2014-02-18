@@ -1431,7 +1431,7 @@ get_key_setting (GValue   *value,
                  GVariant *variant,
                  gpointer  user_data)
 {
-    gchar **switch_key;
+    const gchar **switch_key;
 
     switch_key = g_variant_get_strv (variant, NULL);
     g_value_set_string (value, switch_key[0]);
@@ -1445,7 +1445,7 @@ set_key_setting (const GValue   *value,
                  const GVariantType *expected_type,
                  gpointer  user_data)
 {
-    gchar *switch_key;
+    const gchar *switch_key;
     gchar **switch_strv;
     GVariant *ret = NULL;
 

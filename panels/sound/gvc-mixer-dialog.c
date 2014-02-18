@@ -141,7 +141,7 @@ static void   on_control_active_input_update (GvcMixerControl *control,
                                               guint            id,
                                               GvcMixerDialog  *dialog);
 
-G_DEFINE_TYPE (GvcMixerDialog, gvc_mixer_dialog, GTK_TYPE_VBOX)
+G_DEFINE_TYPE (GvcMixerDialog, gvc_mixer_dialog, GTK_TYPE_BOX)
 
 
 static void
@@ -2171,6 +2171,7 @@ gvc_mixer_dialog_new (GvcMixerControl *control)
         GObject *dialog;
         dialog = g_object_new (GVC_TYPE_MIXER_DIALOG,
                                "mixer-control", control,
+                               "orientation", GTK_ORIENTATION_VERTICAL,
                                NULL);
         return GVC_MIXER_DIALOG (dialog);
 }

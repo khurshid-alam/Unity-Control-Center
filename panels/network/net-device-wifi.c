@@ -140,7 +140,7 @@ add_access_point (NetDeviceWifi *device_wifi, NMAccessPoint *ap, NMAccessPoint *
 {
         const GByteArray *ssid;
         const gchar *object_path;
-        const gchar *ssid_text;
+        gchar *ssid_text;
         gboolean is_active_ap;
         gchar *title;
         GtkListStore *liststore_network;
@@ -520,7 +520,7 @@ add_saved_connection (NetDeviceWifi *device_wifi, NMConnection *connection, NMDe
 {
         const GByteArray *ssid;
         const gchar *id;
-        const gchar *ssid_text;
+        gchar *ssid_text;
         gchar *title;
         GtkListStore *store;
         GtkTreeIter iter;
@@ -1076,7 +1076,7 @@ wireless_try_to_connect (NetDeviceWifi *device_wifi,
                          const gchar *ap_object_path)
 {
         const GByteArray *ssid;
-        const gchar *ssid_tmp = NULL;
+        gchar *ssid_tmp = NULL;
         GSList *list, *l;
         GSList *filtered;
         NMConnection *connection_activate = NULL;

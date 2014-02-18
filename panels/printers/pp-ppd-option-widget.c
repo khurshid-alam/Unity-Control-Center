@@ -58,7 +58,7 @@ struct PpPPDOptionWidgetPrivate
   gboolean  ppd_filename_set;
 };
 
-G_DEFINE_TYPE (PpPPDOptionWidget, pp_ppd_option_widget, GTK_TYPE_HBOX)
+G_DEFINE_TYPE (PpPPDOptionWidget, pp_ppd_option_widget, GTK_TYPE_BOX)
 
 /* This list comes from Gtk+ */
 static const struct {
@@ -233,7 +233,7 @@ pp_ppd_option_widget_new (ppd_option_t *option,
 
   if (option && printer_name)
     {
-      widget = g_object_new (PP_TYPE_PPD_OPTION_WIDGET, NULL);
+      widget = g_object_new (PP_TYPE_PPD_OPTION_WIDGET, "orientation", GTK_ORIENTATION_HORIZONTAL, NULL);
 
       priv = PP_PPD_OPTION_WIDGET_GET_PRIVATE (widget);
 
