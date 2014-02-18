@@ -218,8 +218,8 @@ sync_entry (IndicatorDatetimePanel * self, const gchar * location)
   gtk_entry_set_text (GTK_ENTRY (self->priv->tz_entry), name);
   g_free (name);
 
-  gtk_entry_set_icon_from_stock (GTK_ENTRY (self->priv->tz_entry),
-                                 GTK_ENTRY_ICON_SECONDARY, NULL);
+  gtk_entry_set_icon_from_icon_name (GTK_ENTRY (self->priv->tz_entry),
+                                     GTK_ENTRY_ICON_SECONDARY, NULL);
 }
 
 static void
@@ -634,8 +634,8 @@ entry_focus_out (GtkEntry * entry,
   g_free (name);
   g_free (zone);
 
-  gtk_entry_set_icon_from_stock (entry, GTK_ENTRY_ICON_SECONDARY,
-                                 correct ? NULL : GTK_STOCK_DIALOG_ERROR);
+  gtk_entry_set_icon_from_icon_name (entry, GTK_ENTRY_ICON_SECONDARY,
+                                     correct ? NULL : "dialog-error");
   gtk_entry_set_icon_tooltip_text (entry, GTK_ENTRY_ICON_SECONDARY,
                                    _("You need to choose a location to change the time zone."));
   gtk_entry_set_icon_activatable (entry, GTK_ENTRY_ICON_SECONDARY, FALSE);

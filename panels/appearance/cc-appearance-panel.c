@@ -1048,8 +1048,8 @@ update_chooser_preview (GtkFileChooser    *chooser,
 	}
       else
         {
-          gtk_image_set_from_stock (GTK_IMAGE (preview),
-				    GTK_STOCK_DIALOG_QUESTION,
+          gtk_image_set_from_icon_name (GTK_IMAGE (preview),
+				    "dialog-question",
 				    GTK_ICON_SIZE_DIALOG);
 	}
 
@@ -1082,8 +1082,8 @@ add_button_clicked (GtkButton         *button,
   chooser = gtk_file_chooser_dialog_new (_("Browse for more pictures"),
 					 GTK_WINDOW (gtk_widget_get_toplevel (WID ("appearance-panel"))),
 					 GTK_FILE_CHOOSER_ACTION_OPEN,
-					 GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-					 GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+					 _("_Cancel"), GTK_RESPONSE_CANCEL,
+					 _("_Open"), GTK_RESPONSE_ACCEPT,
 					 NULL);
   gtk_file_chooser_set_filter (GTK_FILE_CHOOSER (chooser), filter);
   gtk_file_chooser_set_select_multiple (GTK_FILE_CHOOSER (chooser), TRUE);

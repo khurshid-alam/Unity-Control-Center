@@ -227,7 +227,7 @@ gcm_prefs_file_chooser_get_icc_profile (CcColorPanel *prefs)
   /* TRANSLATORS: an ICC profile is a file containing colorspace data */
   dialog = gtk_file_chooser_dialog_new (_("Select ICC Profile File"), window,
                                         GTK_FILE_CHOOSER_ACTION_OPEN,
-                                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                        _("_Cancel"), GTK_RESPONSE_CANCEL,
                                         _("_Import"), GTK_RESPONSE_ACCEPT,
                                         NULL);
   gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER(dialog), g_get_home_dir ());
