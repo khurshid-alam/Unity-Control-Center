@@ -411,7 +411,7 @@ update_preview (CcAppearancePanelPrivate *priv,
 
   if (priv->current_background)
     {
-      GdkColor pcolor, scolor;
+      GdkRGBA pcolor, scolor;
       const char* bgsize = NULL;
 
       markup = g_strdup_printf ("<i>%s</i>", cc_appearance_item_get_name (priv->current_background));
@@ -428,11 +428,11 @@ update_preview (CcAppearancePanelPrivate *priv,
       else
           gtk_label_set_text (GTK_LABEL (WID ("size_label")), "");
 
-      gdk_color_parse (cc_appearance_item_get_pcolor (priv->current_background), &pcolor);
-      gdk_color_parse (cc_appearance_item_get_scolor (priv->current_background), &scolor);
+      gdk_rgba_parse (&pcolor, cc_appearance_item_get_pcolor (priv->current_background));
+      gdk_rgba_parse (&scolor, cc_appearance_item_get_scolor (priv->current_background));
 
-      gtk_color_button_set_color (GTK_COLOR_BUTTON (WID ("style-pcolor")), &pcolor);
-      gtk_color_button_set_color (GTK_COLOR_BUTTON (WID ("style-scolor")), &scolor);
+      gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (WID ("style-pcolor")), &pcolor);
+      gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (WID ("style-scolor")), &scolor);
 
       select_style (GTK_COMBO_BOX (WID ("style-combobox")),
                     cc_appearance_item_get_placement (priv->current_background));
@@ -869,20 +869,30 @@ style_changed_cb (GtkComboBox       *box,
   update_preview (priv, NULL);
 }
 
+/* Convert RGBA to the old GdkColor string format for backwards compatibility */
+static gchar *
+rgba_to_string (GdkRGBA *color)
+{
+    return g_strdup_printf ("#%04x%04x%04x",
+                            (int)(color->red * 65535. + 0.5),
+                            (int)(color->green * 65535. + 0.5),
+                            (int)(color->blue * 65535. + 0.5));
+}
+
 static void
 color_changed_cb (GtkColorButton    *button,
                   CcAppearancePanel *panel)
 {
   CcAppearancePanelPrivate *priv = panel->priv;
-  GdkColor color;
+  GdkRGBA color;
   gchar *value;
   gboolean is_pcolor = FALSE;
 
-  gtk_color_button_get_color (button, &color);
+  gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (button), &color);
   if (WID ("style-pcolor") == GTK_WIDGET (button))
     is_pcolor = TRUE;
 
-  value = gdk_color_to_string (&color);
+  value = rgba_to_string (&color);
 
   if (priv->current_background)
     {
@@ -905,17 +915,17 @@ swap_colors_clicked (GtkButton         *button,
                      CcAppearancePanel *panel)
 {
   CcAppearancePanelPrivate *priv = panel->priv;
-  GdkColor pcolor, scolor;
+  GdkRGBA pcolor, scolor;
   char *new_pcolor, *new_scolor;
 
-  gtk_color_button_get_color (GTK_COLOR_BUTTON (WID ("style-pcolor")), &pcolor);
-  gtk_color_button_get_color (GTK_COLOR_BUTTON (WID ("style-scolor")), &scolor);
+  gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (WID ("style-pcolor")), &pcolor);
+  gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (WID ("style-scolor")), &scolor);
 
-  gtk_color_button_set_color (GTK_COLOR_BUTTON (WID ("style-scolor")), &pcolor);
-  gtk_color_button_set_color (GTK_COLOR_BUTTON (WID ("style-pcolor")), &scolor);
+  gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (WID ("style-scolor")), &pcolor);
+  gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (WID ("style-pcolor")), &scolor);
 
-  new_pcolor = gdk_color_to_string (&scolor);
-  new_scolor = gdk_color_to_string (&pcolor);
+  new_pcolor = rgba_to_string (&scolor);
+  new_scolor = rgba_to_string (&pcolor);
 
   g_object_set (priv->current_background,
                 "primary-color", new_pcolor,
