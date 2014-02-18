@@ -969,7 +969,7 @@ forget_button_clicked_cb (GtkButton *button, NetDeviceWifi *device_wifi)
                                          NULL);
         gtk_message_dialog_set_markup (GTK_MESSAGE_DIALOG (dialog), warning);
         gtk_dialog_add_buttons (GTK_DIALOG (dialog),
-                                GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                _("_Cancel"), GTK_RESPONSE_CANCEL,
                                 _("Forget"), GTK_RESPONSE_OK,
                                 NULL);
         g_signal_connect (dialog, "response",
@@ -1632,7 +1632,7 @@ switch_hotspot_changed_cb (GtkSwitch *sw,
                                          GTK_BUTTONS_NONE,
                                          _("Stop hotspot and disconnect any users?"));
         gtk_dialog_add_buttons (GTK_DIALOG (dialog),
-                                GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                _("_Cancel"), GTK_RESPONSE_CANCEL,
                                 _("_Stop Hotspot"), GTK_RESPONSE_OK,
                                 NULL);
         g_signal_connect (dialog, "response",
