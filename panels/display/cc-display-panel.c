@@ -1069,7 +1069,7 @@ on_ui_scale_button_press (GtkWidget *ui_scale, GdkEvent *ev, gpointer data)
   GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE(ui_scale));
   self->priv->ui_prev_scale = gtk_adjustment_get_value (adj);
 
-  return 0; /* gtk should still process this event */
+  return FALSE; /* gtk should still process this event */
 }
 
 static gboolean
@@ -1093,7 +1093,7 @@ on_ui_scale_button_release (GtkWidget *ui_scale, GdkEvent *ev, gpointer data)
     g_settings_set (self->priv->desktop_settings, "scale-factor", "@a{si}", dict);
   }
 
-  return 0;  /* gtk should still process this event */
+  return FALSE;  /* gtk should still process this event */
 }
 
 static gchar*
