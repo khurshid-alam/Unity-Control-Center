@@ -1057,9 +1057,6 @@ on_ui_scale_button_release (GtkWidget *ui_scale, GdkEvent *ev, gpointer data)
   if (value != self->priv->ui_prev_scale)
   {
     GVariant *dict;
-    GVariant *dict_entry;
-    GVariant *tmp;
-    int foo;
 
     monitor_name = gnome_rr_output_info_get_name (self->priv->current_output);
     g_settings_get (self->priv->desktop_settings, "scale-factor", "@a{si}", &dict);
