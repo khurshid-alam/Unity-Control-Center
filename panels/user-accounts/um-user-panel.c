@@ -55,6 +55,7 @@
 #include "cc-common-language.h"
 
 #define USER_ACCOUNTS_PERMISSION "com.canonical.controlcenter.user-accounts.administration"
+#define INDICATOR_SESSION_SCHEMA "com.canonical.indicator.session"
 
 CC_PANEL_REGISTER (UmUserPanel, um_user_panel)
 
@@ -71,6 +72,8 @@ struct _UmUserPanelPrivate {
 
         UmPasswordDialog *password_dialog;
         UmPhotoDialog *photo_dialog;
+
+        GSettings *indicator_session_schema;
 };
 
 static GtkWidget *
@@ -633,6 +636,14 @@ show_user (UmUser *user, UmUserPanelPrivate *d)
            work if user turns it on. */
         show = um_user_is_local_account (user) &&
                !is_using_ecryptfs (um_user_get_user_name (user));
+        gtk_widget_set_visible (widget, show);
+        gtk_widget_set_visible (label, show);
+
+        /* Menu bar: show when self and have indicator schema */
+        widget = get_widget (d, "show-login-name-checkbutton");
+        label = get_widget (d, "show-login-name-spacer");
+        show = um_user_get_uid (user) == getuid() &&
+               d->indicator_session_schema;
         gtk_widget_set_visible (widget, show);
         gtk_widget_set_visible (label, show);
 }
@@ -1295,6 +1306,7 @@ um_user_panel_init (UmUserPanel *self)
         const gchar *filename;
         GtkWidget *button;
         GtkStyleContext *context;
+        GSettingsSchema *schema;
 
         d = self->priv = UM_USER_PANEL_PRIVATE (self);
 
@@ -1330,6 +1342,13 @@ um_user_panel_init (UmUserPanel *self)
         gtk_style_context_set_junction_sides (context, GTK_JUNCTION_BOTTOM);
         context = gtk_widget_get_style_context (get_widget (d, "add-remove-toolbar"));
         gtk_style_context_set_junction_sides (context, GTK_JUNCTION_TOP);
+
+        schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (), INDICATOR_SESSION_SCHEMA, TRUE);
+        if (schema) {
+                d->indicator_session_schema = g_settings_new (INDICATOR_SESSION_SCHEMA);
+                g_settings_bind (d->indicator_session_schema, "show-real-name-on-panel", get_widget (d, "show-login-name-checkbutton"), "active", G_SETTINGS_BIND_DEFAULT);
+                g_object_unref (schema);
+        }
 }
 
 static void

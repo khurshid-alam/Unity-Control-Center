@@ -54,7 +54,7 @@ static void     gvc_sound_theme_chooser_class_init (GvcSoundThemeChooserClass *k
 static void     gvc_sound_theme_chooser_init       (GvcSoundThemeChooser      *sound_theme_chooser);
 static void     gvc_sound_theme_chooser_finalize   (GObject            *object);
 
-G_DEFINE_TYPE (GvcSoundThemeChooser, gvc_sound_theme_chooser, GTK_TYPE_VBOX)
+G_DEFINE_TYPE (GvcSoundThemeChooser, gvc_sound_theme_chooser, GTK_TYPE_BOX)
 
 #define KEY_SOUNDS_SCHEMA          "org.gnome.desktop.sound"
 #define EVENT_SOUNDS_KEY           "event-sounds"
@@ -828,6 +828,7 @@ gvc_sound_theme_chooser_new (void)
         GObject *chooser;
         chooser = g_object_new (GVC_TYPE_SOUND_THEME_CHOOSER,
                                 "spacing", 6,
+                                "orientation", GTK_ORIENTATION_VERTICAL,
                                 NULL);
         return GTK_WIDGET (chooser);
 }

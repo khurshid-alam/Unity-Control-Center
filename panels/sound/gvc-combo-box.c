@@ -75,7 +75,7 @@ static void     gvc_combo_box_class_init (GvcComboBoxClass *klass);
 static void     gvc_combo_box_init       (GvcComboBox      *combo_box);
 static void     gvc_combo_box_finalize   (GObject            *object);
 
-G_DEFINE_TYPE (GvcComboBox, gvc_combo_box, GTK_TYPE_HBOX)
+G_DEFINE_TYPE (GvcComboBox, gvc_combo_box, GTK_TYPE_BOX)
 
 void
 gvc_combo_box_set_size_group (GvcComboBox *combo_box,
@@ -392,6 +392,7 @@ gvc_combo_box_new (const char *label)
         GObject *combo_box;
         combo_box = g_object_new (GVC_TYPE_COMBO_BOX,
                                   "label", label,
+                                  "orientation", GTK_ORIENTATION_HORIZONTAL,
                                   NULL);
         return GTK_WIDGET (combo_box);
 }

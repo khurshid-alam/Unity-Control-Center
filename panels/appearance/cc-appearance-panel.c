@@ -119,7 +119,7 @@ enum
 #define UNITY_INTEGRATED_MENUS_KEY "integrated-menus"
 #define SHOW_DESKTOP_UNITY_FAVORITE_STR "unity://desktop-icon"
 
-#define MIN_ICONSIZE 32.0
+#define MIN_ICONSIZE 16.0
 #define MAX_ICONSIZE 64.0
 
 #define MIN_LAUNCHER_SENSIVITY 0.2
@@ -414,7 +414,7 @@ update_preview (CcAppearancePanelPrivate *priv,
 
   if (priv->current_background)
     {
-      GdkColor pcolor, scolor;
+      GdkRGBA pcolor, scolor;
       const char* bgsize = NULL;
 
       markup = g_strdup_printf ("<i>%s</i>", cc_appearance_item_get_name (priv->current_background));
@@ -431,11 +431,11 @@ update_preview (CcAppearancePanelPrivate *priv,
       else
           gtk_label_set_text (GTK_LABEL (WID ("size_label")), "");
 
-      gdk_color_parse (cc_appearance_item_get_pcolor (priv->current_background), &pcolor);
-      gdk_color_parse (cc_appearance_item_get_scolor (priv->current_background), &scolor);
+      gdk_rgba_parse (&pcolor, cc_appearance_item_get_pcolor (priv->current_background));
+      gdk_rgba_parse (&scolor, cc_appearance_item_get_scolor (priv->current_background));
 
-      gtk_color_button_set_color (GTK_COLOR_BUTTON (WID ("style-pcolor")), &pcolor);
-      gtk_color_button_set_color (GTK_COLOR_BUTTON (WID ("style-scolor")), &scolor);
+      gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (WID ("style-pcolor")), &pcolor);
+      gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (WID ("style-scolor")), &scolor);
 
       select_style (GTK_COMBO_BOX (WID ("style-combobox")),
                     cc_appearance_item_get_placement (priv->current_background));
@@ -872,20 +872,30 @@ style_changed_cb (GtkComboBox       *box,
   update_preview (priv, NULL);
 }
 
+/* Convert RGBA to the old GdkColor string format for backwards compatibility */
+static gchar *
+rgba_to_string (GdkRGBA *color)
+{
+    return g_strdup_printf ("#%04x%04x%04x",
+                            (int)(color->red * 65535. + 0.5),
+                            (int)(color->green * 65535. + 0.5),
+                            (int)(color->blue * 65535. + 0.5));
+}
+
 static void
 color_changed_cb (GtkColorButton    *button,
                   CcAppearancePanel *panel)
 {
   CcAppearancePanelPrivate *priv = panel->priv;
-  GdkColor color;
+  GdkRGBA color;
   gchar *value;
   gboolean is_pcolor = FALSE;
 
-  gtk_color_button_get_color (button, &color);
+  gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (button), &color);
   if (WID ("style-pcolor") == GTK_WIDGET (button))
     is_pcolor = TRUE;
 
-  value = gdk_color_to_string (&color);
+  value = rgba_to_string (&color);
 
   if (priv->current_background)
     {
@@ -908,17 +918,17 @@ swap_colors_clicked (GtkButton         *button,
                      CcAppearancePanel *panel)
 {
   CcAppearancePanelPrivate *priv = panel->priv;
-  GdkColor pcolor, scolor;
+  GdkRGBA pcolor, scolor;
   char *new_pcolor, *new_scolor;
 
-  gtk_color_button_get_color (GTK_COLOR_BUTTON (WID ("style-pcolor")), &pcolor);
-  gtk_color_button_get_color (GTK_COLOR_BUTTON (WID ("style-scolor")), &scolor);
+  gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (WID ("style-pcolor")), &pcolor);
+  gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (WID ("style-scolor")), &scolor);
 
-  gtk_color_button_set_color (GTK_COLOR_BUTTON (WID ("style-scolor")), &pcolor);
-  gtk_color_button_set_color (GTK_COLOR_BUTTON (WID ("style-pcolor")), &scolor);
+  gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (WID ("style-scolor")), &pcolor);
+  gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (WID ("style-pcolor")), &scolor);
 
-  new_pcolor = gdk_color_to_string (&scolor);
-  new_scolor = gdk_color_to_string (&pcolor);
+  new_pcolor = rgba_to_string (&scolor);
+  new_scolor = rgba_to_string (&pcolor);
 
   g_object_set (priv->current_background,
                 "primary-color", new_pcolor,
@@ -1051,8 +1061,8 @@ update_chooser_preview (GtkFileChooser    *chooser,
 	}
       else
         {
-          gtk_image_set_from_stock (GTK_IMAGE (preview),
-				    GTK_STOCK_DIALOG_QUESTION,
+          gtk_image_set_from_icon_name (GTK_IMAGE (preview),
+				    "dialog-question",
 				    GTK_ICON_SIZE_DIALOG);
 	}
 
@@ -1085,8 +1095,8 @@ add_button_clicked (GtkButton         *button,
   chooser = gtk_file_chooser_dialog_new (_("Browse for more pictures"),
 					 GTK_WINDOW (gtk_widget_get_toplevel (WID ("appearance-panel"))),
 					 GTK_FILE_CHOOSER_ACTION_OPEN,
-					 GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-					 GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+					 _("_Cancel"), GTK_RESPONSE_CANCEL,
+					 _("_Open"), GTK_RESPONSE_ACCEPT,
 					 NULL);
   gtk_file_chooser_set_filter (GTK_FILE_CHOOSER (chooser), filter);
   gtk_file_chooser_set_select_multiple (GTK_FILE_CHOOSER (chooser), TRUE);
@@ -1788,26 +1798,34 @@ setup_unity_settings (CcAppearancePanel *self)
   GtkAdjustment* launcher_sensitivity_adj;
   GtkScale* iconsize_scale;
   GtkScale* launcher_sensitivity_scale;
-  const gchar * const *schemas;
+  GSettingsSchema *schema;
+  GSettingsSchemaSource* source;
 
-  schemas = g_settings_list_schemas ();
-  while (*schemas != NULL)
+  source = g_settings_schema_source_get_default ();
+
+  schema = g_settings_schema_source_lookup (source, UNITY_OWN_GSETTINGS_SCHEMA, TRUE);
+  if (schema)
     {
-      if (g_strcmp0 (*schemas, UNITY_OWN_GSETTINGS_SCHEMA) == 0)
-          priv->unity_own_settings = g_settings_new (UNITY_OWN_GSETTINGS_SCHEMA);
-      if (g_strcmp0 (*schemas, UNITY_LAUNCHER_GSETTINGS_SCHEMA) == 0)
-          priv->unity_launcher_settings = g_settings_new (UNITY_LAUNCHER_GSETTINGS_SCHEMA);
-
-      schemas++;
+      priv->unity_own_settings = g_settings_new (UNITY_OWN_GSETTINGS_SCHEMA);
+      g_object_unref (schema);
     }
-  schemas = g_settings_list_relocatable_schemas ();
-  while (*schemas != NULL)
+  schema = g_settings_schema_source_lookup (source, UNITY_LAUNCHER_GSETTINGS_SCHEMA, TRUE);
+  if (schema)
     {
-      if (g_strcmp0 (*schemas, UNITY_GSETTINGS_SCHEMA) == 0)
-          priv->unity_settings = g_settings_new_with_path (UNITY_GSETTINGS_SCHEMA, UNITY_GSETTINGS_PATH);
-      if (g_strcmp0 (*schemas, COMPIZCORE_GSETTINGS_SCHEMA) == 0)
-          priv->compizcore_settings = g_settings_new_with_path (COMPIZCORE_GSETTINGS_SCHEMA, COMPIZCORE_GSETTINGS_PATH);
-      schemas++;
+      priv->unity_launcher_settings = g_settings_new (UNITY_LAUNCHER_GSETTINGS_SCHEMA);
+      g_object_unref (schema);
+    }
+  schema = g_settings_schema_source_lookup (source, UNITY_GSETTINGS_SCHEMA, TRUE);
+  if (schema)
+    {
+      priv->unity_settings = g_settings_new_with_path (UNITY_GSETTINGS_SCHEMA, UNITY_GSETTINGS_PATH);
+      g_object_unref (schema);
+    }
+  schema = g_settings_schema_source_lookup (source, COMPIZCORE_GSETTINGS_SCHEMA, TRUE);
+  if (schema)
+    {
+      priv->compizcore_settings = g_settings_new_with_path (COMPIZCORE_GSETTINGS_SCHEMA, COMPIZCORE_GSETTINGS_PATH);
+      g_object_unref (schema);
     }
 
   if (!priv->unity_settings || !priv->compizcore_settings || !priv->unity_own_settings || !priv->unity_launcher_settings)

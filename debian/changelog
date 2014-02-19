@@ -1,8 +1,26 @@
-unity-control-center (14.04.3-0ubuntu1) UNRELEASED; urgency=medium
+unity-control-center (14.04.3-0ubuntu1) trusty; urgency=medium
+
+  * Add option to toggle username in session indicator (LP: #1116497)
+
+  [ Sebastian Bacher ]
+  * debian/control.in:
+    - Build-Depends on dh-migrations
+  * debian/unity-control-center.migrations, debian/ucc-unity-launcher.py:
+    - script to migration the g-c-c Unity's launcher entry to u-c-c
+  * debian/rules:
+    - clean some leftover references to g-c-c
+    - use dh_migrations.
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Tue, 18 Feb 2014 12:12:04 +1300
+
+unity-control-center (14.04.2-0ubuntu1) trusty; urgency=medium
 
   * Merge in datetime panel from indicator-datetime
+  * Backport commit to fix notebook spacing issues.
+  * Let the launcher icons be scaled down to 16. (LP: #1168409).
+  * keyboard: wrap information label in the shortcuts panel. (LP: #1276119).             
 
- -- Robert Ancell <robert.ancell@canonical.com>  Tue, 11 Feb 2014 11:24:04 +1300
+ -- Robert Ancell <robert.ancell@canonical.com>  Fri, 14 Feb 2014 14:28:24 +1300
 
 unity-control-center (14.04.1-0ubuntu5) trusty; urgency=medium
 

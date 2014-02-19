@@ -308,7 +308,7 @@ handle_edit (GtkCellRendererText * renderer G_GNUC_UNUSED,
 
     gtk_list_store_set (store, &iter,
                         COL_VISIBLE_NAME, new_text,
-                        COL_ICON, correct ? NULL : GTK_STOCK_DIALOG_ERROR,
+                        COL_ICON, correct ? NULL : "dialog-error",
                         -1);
   }
 }

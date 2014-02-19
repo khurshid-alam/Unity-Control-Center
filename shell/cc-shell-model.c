@@ -54,7 +54,7 @@ load_pixbuf_for_gicon (GIcon *icon)
           g_error_free (err);
         }
 
-      gtk_icon_info_free (icon_info);
+      g_object_unref (icon_info);
     }
   else
     {

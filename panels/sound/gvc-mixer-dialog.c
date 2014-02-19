@@ -141,7 +141,7 @@ static void   on_control_active_input_update (GvcMixerControl *control,
                                               guint            id,
                                               GvcMixerDialog  *dialog);
 
-G_DEFINE_TYPE (GvcMixerDialog, gvc_mixer_dialog, GTK_TYPE_VBOX)
+G_DEFINE_TYPE (GvcMixerDialog, gvc_mixer_dialog, GTK_TYPE_BOX)
 
 
 static void
@@ -1703,7 +1703,7 @@ on_test_speakers_clicked (GtkButton *widget,
         d = gtk_dialog_new_with_buttons (title,
                                          GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (widget))),
                                          GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                         GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
+                                         _("_Close"), GTK_RESPONSE_CLOSE,
                                          NULL);
         gtk_window_set_has_resize_grip (GTK_WINDOW (d), FALSE);
 
@@ -2171,6 +2171,7 @@ gvc_mixer_dialog_new (GvcMixerControl *control)
         GObject *dialog;
         dialog = g_object_new (GVC_TYPE_MIXER_DIALOG,
                                "mixer-control", control,
+                               "orientation", GTK_ORIENTATION_VERTICAL,
                                NULL);
         return GVC_MIXER_DIALOG (dialog);
 }
