@@ -17,7 +17,6 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="border_width">10</property>
-        <property name="orientation">vertical</property>
         <property name="spacing">12</property>
         <child>
           <object class="GtkAlignment" id="align">
@@ -267,6 +266,7 @@
                           <object class="GtkHBox" id="hbox4">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="margin_bottom">1</property>
                             <property name="spacing">12</property>
                             <child>
                               <object class="GtkSwitch" id="stickyedge_switch">
@@ -303,7 +303,7 @@
                   <object class="GtkBox" id="box1">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="margin_top">7</property>
+                    <property name="homogeneous">True</property>
                     <child>
                       <object class="GtkLabel" id="ui_label">
                         <property name="visible">True</property>
