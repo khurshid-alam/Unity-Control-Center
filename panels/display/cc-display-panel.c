@@ -56,14 +56,13 @@ CC_PANEL_REGISTER (CcDisplayPanel, cc_display_panel)
 #define MINIMUM_WIDTH 675
 #define MINIMUM_HEIGHT 530
 
-#define UNITY_GSETTINGS_SCHEMA "org.compiz.unityshell"
 #define UNITY_GSETTINGS_PATH "/org/compiz/profiles/unity/plugins/unityshell/"
 #define UNITY_LAUNCHER_ALL_MONITORS_KEY "num-launchers"
 #define UNITY_STICKY_EDGE_KEY "launcher-capture-mouse"
 #define UNITY2D_GSETTINGS_MAIN "com.canonical.Unity2d"
 #define UNITY2D_GSETTINGS_LAUNCHER "com.canonical.Unity2d.Launcher"
 
-#define DESKTOP_GSETTINGS_SCHEMA "com.ubuntu.desktop"
+#define DESKTOP_GSETTINGS_SCHEMA "com.ubuntu.user-interface"
 
 #define FONTS_SCALE_MIN 4.0
 #define FONTS_SCALE_MAX 24.0
