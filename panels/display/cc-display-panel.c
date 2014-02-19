@@ -56,6 +56,7 @@ CC_PANEL_REGISTER (CcDisplayPanel, cc_display_panel)
 #define MINIMUM_WIDTH 675
 #define MINIMUM_HEIGHT 530
 
+#define UNITY_GSETTINGS_SCHEMA "org.compiz.unityshell"
 #define UNITY_GSETTINGS_PATH "/org/compiz/profiles/unity/plugins/unityshell/"
 #define UNITY_LAUNCHER_ALL_MONITORS_KEY "num-launchers"
 #define UNITY_STICKY_EDGE_KEY "launcher-capture-mouse"
