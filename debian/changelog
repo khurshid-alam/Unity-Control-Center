@@ -1,3 +1,14 @@
+unity-control-center (14.04.3+14.04.20140219-0ubuntu1) trusty; urgency=low
+
+  [ Robert Ancell ]
+  * Fix various compile warnings.
+  * Stop using deprecated GtkStock.
+  * Stop using deprecated GdkColor.
+  * Use appropriate GSettings API for checking existence of schemas.
+  * Backport Wacom panel from GNOME Control Center 3.8
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 19 Feb 2014 10:42:13 +0000
+
 unity-control-center (14.04.3-0ubuntu1) trusty; urgency=medium
 
   * Add option to toggle username in session indicator (LP: #1116497)
