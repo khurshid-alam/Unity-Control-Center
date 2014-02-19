@@ -66,7 +66,7 @@ CC_PANEL_REGISTER (CcDisplayPanel, cc_display_panel)
 #define DESKTOP_GSETTINGS_SCHEMA "com.ubuntu.desktop"
 
 #define FONTS_SCALE_MIN 4.0
-#define FONTS_SCALE_MAX 30.0
+#define FONTS_SCALE_MAX 24.0
 #define FONTS_SCALE_MIN_DISP 0.5
 #define FONTS_SCALE_MAX_DISP 3.0
 
