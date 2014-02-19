@@ -631,7 +631,7 @@ rebuild_ui_scale (CcDisplayPanel *self)
   g_settings_get (self->priv->desktop_settings, "scale-factor", "@a{si}", &dict);
   if (!g_variant_lookup (dict, monitor_name, "i", &value))
   {
-    value = 1;
+    value = 8;
     self->priv->ui_prev_scale = value;
   }
   add_dict_entry (dict, monitor_name, value);
