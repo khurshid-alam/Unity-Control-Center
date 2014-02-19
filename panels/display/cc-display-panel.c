@@ -65,10 +65,8 @@ CC_PANEL_REGISTER (CcDisplayPanel, cc_display_panel)
 
 #define DESKTOP_GSETTINGS_SCHEMA "com.ubuntu.user-interface"
 
-#define FONTS_SCALE_MIN 4.0
-#define FONTS_SCALE_MAX 24.0
-#define FONTS_SCALE_MIN_DISP 0.5
-#define FONTS_SCALE_MAX_DISP 3.0
+#define UI_SCALE_MIN 4.0
+#define UI_SCALE_MAX 32.0
 
 enum {
   TEXT_COL,
@@ -616,7 +614,7 @@ add_dict_entry (GVariant *dict, const char *key, int value)
 static void
 rebuild_ui_scale (CcDisplayPanel *self)
 {
-  int value, default_value;
+  int value;
   float t;
 
   GVariant *dict;
@@ -626,23 +624,15 @@ rebuild_ui_scale (CcDisplayPanel *self)
 
   GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE(self->priv->ui_scale));
 
-  gtk_adjustment_set_upper (adj, FONTS_SCALE_MAX);
-  gtk_adjustment_set_lower (adj, FONTS_SCALE_MIN);
+  gtk_adjustment_set_upper (adj, UI_SCALE_MAX);
+  gtk_adjustment_set_lower (adj, UI_SCALE_MIN);
 
   gtk_scale_set_digits (GTK_SCALE(self->priv->ui_scale), 0);
-
-  /*
-   * if we were using the gnome text scaling factor, the default value would be 1.0
-   * we map the interval: [0.5, 3.0] to the [FONTS_SCALE_MIN, FONTS_SCALE_MAX] to find the
-   * equivalent default value.
-  */
-  t = (1.0 - 0.5) / (3.0 - 0.5);
-  default_value = FONTS_SCALE_MIN + t * (FONTS_SCALE_MAX - FONTS_SCALE_MIN);
 
   g_settings_get (self->priv->desktop_settings, "scale-factor", "@a{si}", &dict);
   if (!g_variant_lookup (dict, monitor_name, "i", &value))
   {
-    value = default_value;
+    value = 1;
     self->priv->ui_prev_scale = value;
   }
   add_dict_entry (dict, monitor_name, value);
@@ -1070,11 +1060,7 @@ on_ui_scale_button_release (GtkWidget *ui_scale, GdkEvent *ev, gpointer data)
 static gchar*
 on_ui_scale_format_value (GtkScale *ui_scale, gdouble value)
 {
-  double dist = FONTS_SCALE_MAX - FONTS_SCALE_MIN;
-  double t = (value - FONTS_SCALE_MIN) / dist; /* t in [0,1] */
-  value = t * (FONTS_SCALE_MAX_DISP - FONTS_SCALE_MIN_DISP) + FONTS_SCALE_MIN_DISP;
-
-  return g_strdup_printf ("%.3g", value);
+  return g_strdup_printf ("%.3g", value / 8.0);
 }
 
 static void
