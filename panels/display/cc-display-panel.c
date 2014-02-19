@@ -618,7 +618,6 @@ rebuild_ui_scale (CcDisplayPanel *self)
   float t;
 
   GVariant *dict;
-  GVariant *dict_entry;
 
   const char *monitor_name = gnome_rr_output_info_get_name (self->priv->current_output);
 
