@@ -302,12 +302,13 @@
                   <object class="GtkBox" id="box1">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="margin_top">7</property>
                     <child>
                       <object class="GtkLabel" id="ui_label">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">0.23999999463558197</property>
-                        <property name="yalign">0.56000000238418579</property>
+                        <property name="xalign">0.25</property>
+                        <property name="yalign">1</property>
                         <property name="xpad">3</property>
                         <property name="ypad">3</property>
                         <property name="label" translatable="yes">UI scale:  </property>
