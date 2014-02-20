@@ -346,7 +346,7 @@ gvc_combo_box_init (GvcComboBox *combo_box)
 
 
         combo_box->priv->end_box = ebox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
-        gtk_box_pack_start (GTK_BOX (box), ebox, FALSE, FALSE, 0);
+        gtk_box_pack_start (GTK_BOX (box), ebox, TRUE, FALSE, 0);
 
         if (combo_box->priv->size_group != NULL) {
                 gtk_size_group_add_widget (combo_box->priv->size_group, sbox);
