@@ -192,6 +192,7 @@ typedef struct _IBusXMLState IBusXMLState;
 struct _IBusXMLState
 {
   GHashTable *table;
+  GString    *buffer;
   gchar      *name;
   gchar      *setup;
   gboolean    is_name;
@@ -217,6 +218,10 @@ ibus_xml_state_free (gpointer data)
 
       g_free (state->setup);
       g_free (state->name);
+
+      if (state->buffer)
+        g_string_free (state->buffer, TRUE);
+
       g_hash_table_unref (state->table);
 
       g_free (state);
@@ -233,8 +238,14 @@ parse_start (GMarkupParseContext  *context,
 {
   IBusXMLState *state = user_data;
 
-  if (g_strcmp0 (element_name, "engine") == 0)
+  if (g_str_equal (element_name, "engine"))
     {
+      if (state->buffer)
+        {
+          g_string_free (state->buffer, TRUE);
+          state->buffer = NULL;
+        }
+
       if (state->name)
         {
           g_free (state->name);
@@ -250,10 +261,28 @@ parse_start (GMarkupParseContext  *context,
       state->is_name = FALSE;
       state->is_setup = FALSE;
     }
-  else if (g_strcmp0 (element_name, "name") == 0)
-    state->is_name = TRUE;
-  else if (g_strcmp0 (element_name, "setup") == 0)
-    state->is_setup = TRUE;
+  else if (g_str_equal (element_name, "name"))
+    {
+      if (state->buffer)
+        {
+          g_string_free (state->buffer, TRUE);
+          state->buffer = NULL;
+        }
+
+      state->buffer = g_string_new (NULL);
+      state->is_name = TRUE;
+    }
+  else if (g_str_equal (element_name, "setup"))
+    {
+      if (state->buffer)
+        {
+          g_string_free (state->buffer, TRUE);
+          state->buffer = NULL;
+        }
+
+      state->buffer = g_string_new (NULL);
+      state->is_setup = TRUE;
+    }
 }
 
 static void
@@ -264,10 +293,16 @@ parse_end (GMarkupParseContext  *context,
 {
   IBusXMLState *state = user_data;
 
-  if (g_strcmp0 (element_name, "engine") == 0)
+  if (g_str_equal (element_name, "engine"))
     {
       if (state->name && state->setup)
         g_hash_table_insert (state->table, g_strdup (state->name), g_strdup (state->setup));
+
+      if (state->buffer)
+        {
+          g_string_free (state->buffer, TRUE);
+          state->buffer = NULL;
+        }
 
       if (state->name)
         {
@@ -280,11 +315,30 @@ parse_end (GMarkupParseContext  *context,
           g_free (state->setup);
           state->setup = NULL;
         }
+
+      state->is_name = FALSE;
+      state->is_setup = FALSE;
     }
-  else if (g_strcmp0 (element_name, "name") == 0)
-    state->is_name = FALSE;
-  else if (g_strcmp0 (element_name, "setup") == 0)
-    state->is_setup = FALSE;
+  else if (g_str_equal (element_name, "name"))
+    {
+      if (state->is_name && !state->name && state->buffer)
+        {
+          state->name = g_string_free (state->buffer, FALSE);
+          state->buffer = NULL;
+        }
+
+      state->is_name = FALSE;
+    }
+  else if (g_str_equal (element_name, "setup"))
+    {
+      if (state->is_setup && !state->setup && state->buffer)
+        {
+          state->setup = g_string_free (state->buffer, FALSE);
+          state->buffer = NULL;
+        }
+
+      state->is_setup = FALSE;
+    }
 }
 
 static void
@@ -296,16 +350,8 @@ parse_text (GMarkupParseContext  *context,
 {
   IBusXMLState *state = user_data;
 
-  if (state->is_name && !state->name)
-    {
-      state->name = g_memdup (text, text_len + 1);
-      state->name[text_len] = 0;
-    }
-  else if (state->is_setup && !state->setup)
-    {
-      state->setup = g_memdup (text, text_len + 1);
-      state->setup[text_len] = 0;
-    }
+  if ((state->is_name || state->is_setup) && state->buffer)
+    g_string_append_len (state->buffer, text, text_len);
 }
 
 static void
@@ -321,7 +367,7 @@ parse_ibus_component (const gchar *path,
 
   context = g_markup_parse_context_new (&parser, 0, ibus_xml_state_new (table), ibus_xml_state_free);
 
-  if (!g_markup_parse_context_parse (context, text, length, &error))
+  if (!(g_markup_parse_context_parse (context, text, length, &error) && g_markup_parse_context_end_parse (context, &error)))
     {
       g_warning ("Couldn't parse file '%s': %s", path, error->message);
       g_error_free (error);
@@ -341,16 +387,16 @@ legacy_setup_table (void)
       const gchar *name;
       GError *error = NULL;
 
+      table = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+
       dir = g_dir_open (LEGACY_IBUS_XML_DIR, 0, &error);
 
       if (!dir)
         {
           g_warning ("Couldn't open directory '%s': %s", LEGACY_IBUS_XML_DIR, error->message);
           g_error_free (error);
-          return NULL;
+          return table;
         }
-
-      table = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
       for (name = g_dir_read_name (dir); name; name = g_dir_read_name (dir))
         {
@@ -358,7 +404,7 @@ legacy_setup_table (void)
           gchar *text;
           gssize length;
 
-          path = g_strdup_printf ("%s/%s", LEGACY_IBUS_XML_DIR, name);
+          path = g_build_filename (LEGACY_IBUS_XML_DIR, name, NULL);
 
           if (g_file_get_contents (path, &text, &length, &error))
             {
@@ -385,29 +431,27 @@ legacy_setup_for_id (const gchar *id)
 {
   GHashTable *table;
   const gchar *lookup;
+  gchar *name;
   gchar *path;
-  GFile *file;
 
-  table = legacy_setup_table ();
+  lookup = g_hash_table_lookup (legacy_setup_table (), id);
 
-  if (table)
-    {
-      lookup = g_hash_table_lookup (table, id);
+  if (lookup)
+    return g_strdup (lookup);
 
-      if (lookup)
-        return g_strdup (lookup);
-    }
+  name = g_strdup_printf (LEGACY_IBUS_SETUP_FMT, id);
+  path = g_build_filename (LEGACY_IBUS_SETUP_DIR, name, NULL);
 
-  path = g_strdup_printf (LEGACY_IBUS_SETUP_DIR "/" LEGACY_IBUS_SETUP_FMT, id);
-  file = g_file_new_for_path (path);
+  g_free (name);
 
-  if (!g_file_query_exists (file, NULL))
+  if (g_access (path, R_OK))
     {
       g_free (path);
       path = NULL;
     }
 
-  g_object_unref (file);
+  if (path)
+    g_hash_table_insert (legacy_setup_table (), g_strdup (id), g_strdup (path));
 
   return path;
 }
