@@ -1,3 +1,17 @@
+unity-control-center (14.04.3+14.04.20140220.1-0ubuntu1) trusty; urgency=low
+
+  [ Sebastien Bacher ]
+  * info: backport fixes and cleanings from gnome-3-8
+  * [bluetooth] backport some upstream changes
+
+  [ Iain Lane ]
+  * gsettings-ubuntu-schemas should be in Depends, not Build Depends
+
+  [ Marco Trevisan (Treviño) ]
+  * Appearance: Add Application Menu settings to Unity behaviour tab
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 20 Feb 2014 18:22:53 +0000
+
 unity-control-center (14.04.3+14.04.20140220-0ubuntu1) trusty; urgency=low
 
   [ Eleni Maria Stea ]
