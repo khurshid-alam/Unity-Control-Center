@@ -74,6 +74,7 @@ struct _CcAppearancePanelPrivate
   GSettings *unity_settings;
   GSettings *compizcore_settings;
   GSettings *unity_own_settings;
+  GSettings *unity_launcher_settings;
 
   GnomeDesktopThumbnailFactory *thumb_factory;
 
@@ -112,8 +113,10 @@ enum
 #define COMPIZCORE_HSIZE_KEY "hsize"
 #define COMPIZCORE_VSIZE_KEY "vsize"
 
-#define UNITY_OWN_GSETTINGS_SCHEMA "com.canonical.Unity.Launcher"
+#define UNITY_OWN_GSETTINGS_SCHEMA "com.canonical.Unity"
+#define UNITY_LAUNCHER_GSETTINGS_SCHEMA "com.canonical.Unity.Launcher"
 #define UNITY_FAVORITES_KEY "favorites"
+#define UNITY_INTEGRATED_MENUS_KEY "integrated-menus"
 #define SHOW_DESKTOP_UNITY_FAVORITE_STR "unity://desktop-icon"
 
 #define MIN_ICONSIZE 16.0
@@ -233,10 +236,10 @@ cc_appearance_panel_dispose (GObject *object)
       priv->compizcore_settings = NULL;
     }
 
-  if (priv->unity_own_settings)
+  if (priv->unity_launcher_settings)
     {
-      g_object_unref (priv->unity_own_settings);
-      priv->unity_own_settings = NULL;
+      g_object_unref (priv->unity_launcher_settings);
+      priv->unity_launcher_settings = NULL;
     }
 
   if (priv->copy_cancellable)
@@ -1626,7 +1629,7 @@ enable_showdesktop_widget_refresh (gpointer user_data)
   gchar **favorites = NULL;
   gboolean show_desktop_found = FALSE;
 
-  favorites = g_settings_get_strv (priv->unity_own_settings, UNITY_FAVORITES_KEY);
+  favorites = g_settings_get_strv (priv->unity_launcher_settings, UNITY_FAVORITES_KEY);
   while (*favorites != NULL)
     {
       if (g_strcmp0 (*favorites, SHOW_DESKTOP_UNITY_FAVORITE_STR) == 0)
@@ -1658,7 +1661,7 @@ on_enable_showdesktop_changed (GtkToggleButton *button, gpointer user_data)
   GPtrArray* newfavorites = g_ptr_array_new ();
   gboolean show_desktop_in_array = FALSE;
 
-  favorites = g_settings_get_strv (priv->unity_own_settings, UNITY_FAVORITES_KEY);
+  favorites = g_settings_get_strv (priv->unity_launcher_settings, UNITY_FAVORITES_KEY);
   if (gtk_toggle_button_get_active (button))
     {
 
@@ -1697,9 +1700,69 @@ on_enable_showdesktop_changed (GtkToggleButton *button, gpointer user_data)
         }
     }
   g_ptr_array_add (newfavorites, NULL);
-  g_settings_set_strv (priv->unity_own_settings, UNITY_FAVORITES_KEY, (const gchar **)newfavorites->pdata);
+  g_settings_set_strv (priv->unity_launcher_settings, UNITY_FAVORITES_KEY, (const gchar **)newfavorites->pdata);
   g_ptr_array_free (newfavorites, TRUE);
   
+}
+
+static gboolean
+unity_own_setting_exists (CcAppearancePanel *self, const gchar* key_name)
+{
+  if (!self->priv->unity_own_settings)
+    return FALSE;
+
+  gchar** unity_keys;
+  gchar** key;
+
+  unity_keys = g_settings_list_keys (self->priv->unity_own_settings);
+
+  for (key = unity_keys; *key; ++key)
+    {
+      if (g_strcmp0 (*key, key_name) == 0)
+        return TRUE;
+    }
+
+  g_strfreev (unity_keys);
+  return FALSE;
+}
+
+static void
+menulocation_widget_refresh (CcAppearancePanel *self)
+{
+  CcAppearancePanelPrivate *priv = self->priv;
+
+  gboolean has_setting = unity_own_setting_exists (self, UNITY_INTEGRATED_MENUS_KEY);
+  gtk_widget_set_visible (WID ("unity_menus_box"), has_setting);
+  gtk_widget_set_visible (WID ("menu_separator"), has_setting);
+
+  if (!has_setting)
+    return;
+
+  gboolean value = g_settings_get_boolean (priv->unity_own_settings, UNITY_INTEGRATED_MENUS_KEY);
+
+  if (value)
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (WID ("unity_local_menus")), TRUE);
+  else
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (WID ("unity_global_menus")), TRUE);
+}
+
+static void
+ext_menulocation_changed_callback (GSettings* settings,
+                                   guint key,
+                                   gpointer user_data)
+{
+  menulocation_widget_refresh (CC_APPEARANCE_PANEL (user_data));
+}
+
+static void
+on_menulocation_changed (GtkToggleButton *button, gpointer user_data)
+{
+  CcAppearancePanel *self = CC_APPEARANCE_PANEL (user_data);
+  CcAppearancePanelPrivate *priv = self->priv;
+  gboolean local_menus = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (WID ("unity_local_menus")));
+
+  g_settings_set_boolean (priv->unity_own_settings, UNITY_INTEGRATED_MENUS_KEY, local_menus);
+  menulocation_widget_refresh (self);
 }
 
 static void
@@ -1714,6 +1777,9 @@ on_restore_defaults_page2_clicked (GtkButton *button, gpointer user_data)
   g_settings_reset (priv->unity_settings, UNITY_LAUNCHERREVEAL_KEY);
   g_settings_reset (priv->compizcore_settings, COMPIZCORE_HSIZE_KEY);
   g_settings_reset (priv->compizcore_settings, COMPIZCORE_VSIZE_KEY);
+
+  if (unity_own_setting_exists (self, UNITY_INTEGRATED_MENUS_KEY))
+    g_settings_reset (priv->unity_own_settings, UNITY_INTEGRATED_MENUS_KEY);
 }
 
 /* <hacks> */
@@ -1764,27 +1830,36 @@ setup_unity_settings (CcAppearancePanel *self)
   GtkScale* iconsize_scale;
   GtkScale* launcher_sensitivity_scale;
   GSettingsSchema *schema;
+  GSettingsSchemaSource* source;
 
-  schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (), UNITY_OWN_GSETTINGS_SCHEMA, TRUE);
+  source = g_settings_schema_source_get_default ();
+
+  schema = g_settings_schema_source_lookup (source, UNITY_OWN_GSETTINGS_SCHEMA, TRUE);
   if (schema)
     {
       priv->unity_own_settings = g_settings_new (UNITY_OWN_GSETTINGS_SCHEMA);
       g_object_unref (schema);
     }
-  schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (), UNITY_GSETTINGS_SCHEMA, TRUE);
+  schema = g_settings_schema_source_lookup (source, UNITY_LAUNCHER_GSETTINGS_SCHEMA, TRUE);
+  if (schema)
+    {
+      priv->unity_launcher_settings = g_settings_new (UNITY_LAUNCHER_GSETTINGS_SCHEMA);
+      g_object_unref (schema);
+    }
+  schema = g_settings_schema_source_lookup (source, UNITY_GSETTINGS_SCHEMA, TRUE);
   if (schema)
     {
       priv->unity_settings = g_settings_new_with_path (UNITY_GSETTINGS_SCHEMA, UNITY_GSETTINGS_PATH);
       g_object_unref (schema);
     }
-  schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (), COMPIZCORE_GSETTINGS_SCHEMA, TRUE);
+  schema = g_settings_schema_source_lookup (source, COMPIZCORE_GSETTINGS_SCHEMA, TRUE);
   if (schema)
     {
       priv->compizcore_settings = g_settings_new_with_path (COMPIZCORE_GSETTINGS_SCHEMA, COMPIZCORE_GSETTINGS_PATH);
       g_object_unref (schema);
     }
 
-  if (!priv->unity_settings || !priv->compizcore_settings || !priv->unity_own_settings)
+  if (!priv->unity_settings || !priv->compizcore_settings || !priv->unity_own_settings || !priv->unity_launcher_settings)
     return;
 
   /* Icon size change */
@@ -1844,11 +1919,20 @@ setup_unity_settings (CcAppearancePanel *self)
   enable_workspaces_widget_refresh (self);
 
   /* Enabling show desktop icon */
-  g_signal_connect (priv->unity_own_settings, "changed::" UNITY_FAVORITES_KEY,
+  g_signal_connect (priv->unity_launcher_settings, "changed::" UNITY_FAVORITES_KEY,
                     G_CALLBACK (ext_enableshowdesktop_changed_callback), self);
   g_signal_connect (WID ("check_showdesktop_in_launcher"), "toggled",
                      G_CALLBACK (on_enable_showdesktop_changed), self);
   enable_showdesktop_widget_refresh (self);
+
+  /* Menu location */
+  g_signal_connect (priv->unity_own_settings, "changed::" UNITY_INTEGRATED_MENUS_KEY,
+                    G_CALLBACK (ext_menulocation_changed_callback), self);
+  g_signal_connect (WID ("unity_global_menus"), "toggled",
+                     G_CALLBACK (on_menulocation_changed), self);
+  g_signal_connect (WID ("unity_local_menus"), "toggled",
+                     G_CALLBACK (on_menulocation_changed), self);
+  menulocation_widget_refresh (self);
 
   /* Restore defaut on second page */
   g_signal_connect (WID ("button-restore-unitybehavior"), "clicked",
