@@ -1,6 +1,7 @@
 SUBDIRS= \
 	appearance \
 	common \
+	datetime \
 	screen \
 	power \
 	color \

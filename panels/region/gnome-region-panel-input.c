@@ -107,20 +107,18 @@ is_unity (void)
 static gboolean
 has_indicator_keyboard (void)
 {
-  if (is_unity ())
-    {
-      const gchar * const *schemas = g_settings_list_schemas ();
+	GSettingsSchema *schema;
 
-      while (*schemas != NULL)
-        {
-          if (g_strcmp0 (*schemas, INDICATOR_KEYBOARD_SCHEMA_ID) == 0)
-            return TRUE;
+	if (!is_unity ())
+		return FALSE;
 
-          schemas++;
-        }
-    }
+	schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (), INDICATOR_KEYBOARD_SCHEMA_ID, TRUE);
+	if (schema) {
+			g_object_unref (schema);
+			return TRUE;
+	}
 
-  return FALSE;
+	return FALSE;
 }
 
 static gboolean
@@ -1431,7 +1429,7 @@ get_key_setting (GValue   *value,
                  GVariant *variant,
                  gpointer  user_data)
 {
-    gchar **switch_key;
+    const gchar **switch_key;
 
     switch_key = g_variant_get_strv (variant, NULL);
     g_value_set_string (value, switch_key[0]);
@@ -1445,7 +1443,7 @@ set_key_setting (const GValue   *value,
                  const GVariantType *expected_type,
                  gpointer  user_data)
 {
-    gchar *switch_key;
+    const gchar *switch_key;
     gchar **switch_strv;
     GVariant *ret = NULL;
 

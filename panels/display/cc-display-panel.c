@@ -27,6 +27,7 @@
 #include "cc-display-panel.h"
 
 #include <gtk/gtk.h>
+#include <glib.h>
 #include "scrollarea.h"
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-rr.h>
@@ -62,6 +63,11 @@ CC_PANEL_REGISTER (CcDisplayPanel, cc_display_panel)
 #define UNITY2D_GSETTINGS_MAIN "com.canonical.Unity2d"
 #define UNITY2D_GSETTINGS_LAUNCHER "com.canonical.Unity2d.Launcher"
 
+#define DESKTOP_GSETTINGS_SCHEMA "com.ubuntu.user-interface"
+
+#define UI_SCALE_MIN 4.0
+#define UI_SCALE_MAX 32.0
+
 enum {
   TEXT_COL,
   WIDTH_COL,
@@ -83,6 +89,7 @@ struct _CcDisplayPanelPrivate
   GSettings      *unity_settings;
   GSettings      *unity2d_settings_main;
   GSettings      *unity2d_settings_launcher;
+  GSettings      *desktop_settings;
   GtkBuilder     *builder;
   guint           focus_id;
 
@@ -96,6 +103,8 @@ struct _CcDisplayPanelPrivate
   GtkWidget      *clone_checkbox;
   GtkWidget      *clone_label;
   GtkWidget      *show_icon_checkbox;
+  GtkWidget      *ui_scale;
+  double         ui_prev_scale;
 
   /* We store the event timestamp when the Apply button is clicked */
   guint32         apply_button_clicked_timestamp;
@@ -187,6 +196,8 @@ cc_display_panel_finalize (GObject *object)
     g_object_unref (self->priv->unity2d_settings_launcher);
   if (self->priv->unity_settings != NULL)
     g_object_unref (self->priv->unity_settings);
+  if (self->priv->desktop_settings != NULL)
+    g_object_unref (self->priv->desktop_settings);
 
   shell = cc_panel_get_shell (CC_PANEL (self));
   if (shell != NULL)
@@ -552,6 +563,82 @@ rebuild_rotation_combo (CcDisplayPanel *self)
     gtk_combo_box_set_active (GTK_COMBO_BOX (self->priv->rotation_combo), 0);
 }
 
+static GVariant*
+add_dict_entry (GVariant *dict, const char *key, int value)
+{
+  GVariant *dict_entry;
+  GVariant **dict_entries;
+  GVariant *tmp;
+  GVariant *pair[2];
+  GVariantIter iter;
+  unsigned long sz;
+  char str[512];
+  int i = 0;
+
+  pair[0] = g_variant_new_string (key);
+  pair[1] = g_variant_new_int32 (value);
+  dict_entry = g_variant_new_dict_entry (pair[0], pair[1]);
+
+  if (!dict)
+  {
+    dict = g_variant_new_array (G_VARIANT_TYPE_DICT_ENTRY, &dict_entry, 1);
+    return dict;
+  }
+
+  sz = g_variant_n_children (dict);
+  dict_entries = malloc (sizeof(GVariant*) * (sz + 1));
+
+  g_variant_iter_init (&iter, dict);
+  while (tmp = g_variant_iter_next_value (&iter))
+  {
+    int val = 0; char *str;
+    g_variant_get_child (tmp, 0, "s", &str);
+    if (!str)
+    {
+      fprintf (stderr, "Invalid dictionary entry\n");
+      break;
+    }
+
+    if (strcmp (str, key) != 0)
+    {
+      dict_entries[i++] = tmp;
+    }
+    g_free(str);
+  }
+  dict_entries[i++] = dict_entry;
+  dict = g_variant_new_array (NULL, dict_entries, i);
+
+  return dict;
+}
+
+static void
+rebuild_ui_scale (CcDisplayPanel *self)
+{
+  int value;
+  float t;
+
+  GVariant *dict;
+
+  const char *monitor_name = gnome_rr_output_info_get_name (self->priv->current_output);
+
+  GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE(self->priv->ui_scale));
+
+  gtk_adjustment_set_upper (adj, UI_SCALE_MAX);
+  gtk_adjustment_set_lower (adj, UI_SCALE_MIN);
+
+  gtk_scale_set_digits (GTK_SCALE(self->priv->ui_scale), 0);
+
+  g_settings_get (self->priv->desktop_settings, "scale-factor", "@a{si}", &dict);
+  if (!g_variant_lookup (dict, monitor_name, "i", &value))
+  {
+    value = 8;
+    self->priv->ui_prev_scale = value;
+  }
+  add_dict_entry (dict, monitor_name, value);
+  g_settings_set (self->priv->desktop_settings, "scale-factor", "@a{si}", dict);
+  gtk_adjustment_set_value (adj, value);
+}
+
 static int
 count_active_outputs (CcDisplayPanel *self)
 {
@@ -884,6 +971,7 @@ rebuild_gui (CcDisplayPanel *self)
   rebuild_on_off_radios (self);
   rebuild_resolution_combo (self);
   rebuild_rotation_combo (self);
+  rebuild_ui_scale (self);
   refresh_unity_launcher_placement (self);
 
   self->priv->ignore_gui_changes = FALSE;
@@ -937,6 +1025,41 @@ on_rotation_changed (GtkComboBox *box, gpointer data)
     gnome_rr_output_info_set_rotation (self->priv->current_output, rotation);
 
   foo_scroll_area_invalidate (FOO_SCROLL_AREA (self->priv->area));
+}
+
+static gboolean
+on_ui_scale_button_press (GtkWidget *ui_scale, GdkEvent *ev, gpointer data)
+{
+  CcDisplayPanel *self = data;
+  self->priv->ui_prev_scale = gtk_range_get_value (GTK_RANGE(ui_scale));
+
+  return FALSE; /* gtk should still process this event */
+}
+
+static gboolean
+on_ui_scale_button_release (GtkWidget *ui_scale, GdkEvent *ev, gpointer data)
+{
+  const char *monitor_name;
+  CcDisplayPanel *self = data;
+  int value = (int)gtk_range_get_value (GTK_RANGE(ui_scale));
+
+  if (value != self->priv->ui_prev_scale)
+  {
+    GVariant *dict;
+
+    monitor_name = gnome_rr_output_info_get_name (self->priv->current_output);
+    g_settings_get (self->priv->desktop_settings, "scale-factor", "@a{si}", &dict);
+    dict = add_dict_entry (dict, monitor_name, value);
+    g_settings_set (self->priv->desktop_settings, "scale-factor", "@a{si}", dict);
+  }
+
+  return FALSE;  /* gtk should still process this event */
+}
+
+static gchar*
+on_ui_scale_format_value (GtkScale *ui_scale, gdouble value)
+{
+  return g_strdup_printf ("%.3g", value / 8.0);
 }
 
 static void
@@ -2815,29 +2938,21 @@ on_launcher_placement_combo_changed (GtkComboBox *combo, CcDisplayPanel *self)
 static void
 setup_unity_settings (CcDisplayPanel *self)
 {
-  const gchar * const *schemas;
+  GSettingsSchema *schema;
 
   /* Only use the unity-2d schema if it's installed */
-  schemas = g_settings_list_schemas ();
-  while (*schemas != NULL)
+  schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (), UNITY2D_GSETTINGS_MAIN, TRUE);
+  if (schema)
     {
-      if (g_strcmp0 (*schemas, UNITY2D_GSETTINGS_LAUNCHER) == 0)
-        {
-          self->priv->unity2d_settings_main = g_settings_new (UNITY2D_GSETTINGS_MAIN);
-          self->priv->unity2d_settings_launcher = g_settings_new (UNITY2D_GSETTINGS_LAUNCHER);
-          break;
-        }
-      schemas++;
+      self->priv->unity2d_settings_main = g_settings_new (UNITY2D_GSETTINGS_MAIN);
+      self->priv->unity2d_settings_launcher = g_settings_new (UNITY2D_GSETTINGS_LAUNCHER);
+      g_object_unref (schema);
     }
-  schemas = g_settings_list_relocatable_schemas ();
-  while (*schemas != NULL)
+  schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (), UNITY_GSETTINGS_SCHEMA, TRUE);
+  if (schema)
     {
-      if (g_strcmp0 (*schemas, UNITY_GSETTINGS_SCHEMA) == 0)
-        {
-          self->priv->unity_settings = g_settings_new_with_path (UNITY_GSETTINGS_SCHEMA, UNITY_GSETTINGS_PATH);
-          break;
-        }
-      schemas++;
+      self->priv->unity_settings = g_settings_new_with_path (UNITY_GSETTINGS_SCHEMA, UNITY_GSETTINGS_PATH);
+      g_object_unref (schema);
     }
 
   if (!self->priv->unity_settings)
@@ -2901,6 +3016,7 @@ cc_display_panel_constructor (GType                  gtype,
     }
 
   self->priv->clock_settings = g_settings_new (CLOCK_SCHEMA);
+  self->priv->desktop_settings = g_settings_new (DESKTOP_GSETTINGS_SCHEMA);
 
   shell = cc_panel_get_shell (CC_PANEL (self));
   toplevel = cc_shell_get_toplevel (shell);
@@ -2925,6 +3041,14 @@ cc_display_panel_constructor (GType                  gtype,
   self->priv->rotation_combo = WID ("rotation_combo");
   g_signal_connect (self->priv->rotation_combo, "changed",
                     G_CALLBACK (on_rotation_changed), self);
+
+  self->priv->ui_scale = WID ("ui_scale");
+  g_signal_connect (self->priv->ui_scale, "button-press-event",
+                    G_CALLBACK (on_ui_scale_button_press), self);
+  g_signal_connect (self->priv->ui_scale, "button-release-event",
+                    G_CALLBACK (on_ui_scale_button_release), self);
+  g_signal_connect (self->priv->ui_scale, "format-value",
+                    G_CALLBACK (on_ui_scale_format_value), self);
 
   self->priv->clone_checkbox = WID ("clone_checkbox");
   g_signal_connect (self->priv->clone_checkbox, "toggled",

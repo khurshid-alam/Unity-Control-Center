@@ -19,6 +19,8 @@
  *
  */
 
+#include <string.h>
+
 #include "cc-screen-panel.h"
 
 CC_PANEL_REGISTER (CcScreenPanel, cc_screen_panel)

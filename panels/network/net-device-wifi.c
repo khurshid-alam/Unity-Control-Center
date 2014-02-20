@@ -140,7 +140,7 @@ add_access_point (NetDeviceWifi *device_wifi, NMAccessPoint *ap, NMAccessPoint *
 {
         const GByteArray *ssid;
         const gchar *object_path;
-        const gchar *ssid_text;
+        gchar *ssid_text;
         gboolean is_active_ap;
         gchar *title;
         GtkListStore *liststore_network;
@@ -520,7 +520,7 @@ add_saved_connection (NetDeviceWifi *device_wifi, NMConnection *connection, NMDe
 {
         const GByteArray *ssid;
         const gchar *id;
-        const gchar *ssid_text;
+        gchar *ssid_text;
         gchar *title;
         GtkListStore *store;
         GtkTreeIter iter;
@@ -969,7 +969,7 @@ forget_button_clicked_cb (GtkButton *button, NetDeviceWifi *device_wifi)
                                          NULL);
         gtk_message_dialog_set_markup (GTK_MESSAGE_DIALOG (dialog), warning);
         gtk_dialog_add_buttons (GTK_DIALOG (dialog),
-                                GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                _("_Cancel"), GTK_RESPONSE_CANCEL,
                                 _("Forget"), GTK_RESPONSE_OK,
                                 NULL);
         g_signal_connect (dialog, "response",
@@ -1076,7 +1076,7 @@ wireless_try_to_connect (NetDeviceWifi *device_wifi,
                          const gchar *ap_object_path)
 {
         const GByteArray *ssid;
-        const gchar *ssid_tmp = NULL;
+        gchar *ssid_tmp = NULL;
         GSList *list, *l;
         GSList *filtered;
         NMConnection *connection_activate = NULL;
@@ -1632,7 +1632,7 @@ switch_hotspot_changed_cb (GtkSwitch *sw,
                                          GTK_BUTTONS_NONE,
                                          _("Stop hotspot and disconnect any users?"));
         gtk_dialog_add_buttons (GTK_DIALOG (dialog),
-                                GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                _("_Cancel"), GTK_RESPONSE_CANCEL,
                                 _("_Stop Hotspot"), GTK_RESPONSE_OK,
                                 NULL);
         g_signal_connect (dialog, "response",

@@ -951,8 +951,8 @@ info_panel_setup_notice (CcInfoPanel  *self)
   g_signal_connect (G_OBJECT (webView), "navigation-policy-decision-requested",
                     G_CALLBACK (url_nav_callback), sw);
 
-  gtk_container_add (GTK_CONTAINER (sw), webView);
-  gtk_notebook_append_page (WID ("notebook"), sw, NULL);
+  gtk_container_add (GTK_CONTAINER (sw), GTK_WIDGET (webView));
+  gtk_notebook_append_page (GTK_NOTEBOOK (WID ("notebook")), sw, NULL);
   gtk_widget_show_all(sw);
 }
 

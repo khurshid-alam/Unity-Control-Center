@@ -1,4 +1,4 @@
-m4_define([unity_control_center_version], 14.04.2)
+m4_define([unity_control_center_version], 14.04.3)
 AC_INIT([unity-control-center], [unity_control_center_version])
 
 AC_CONFIG_SRCDIR([shell])
@@ -112,7 +112,7 @@ NETWORK_MANAGER_REQUIRED_VERSION=0.8.992
 LIBNOTIFY_REQUIRED_VERSION=0.7.3
 GNOME_DESKTOP_REQUIRED_VERSION=3.5.91
 SCHEMAS_REQUIRED_VERSION=3.7.2.2
-LIBWACOM_REQUIRED_VERSION=0.6
+LIBWACOM_REQUIRED_VERSION=0.7
 CLUTTER_REQUIRED_VERSION=1.11.3
 GOA_REQUIRED_VERSION=3.5.90
 
@@ -130,10 +130,8 @@ PKG_CHECK_MODULES(LIBSHORTCUTS, $COMMON_MODULES x11)
 PKG_CHECK_MODULES(SHELL, $COMMON_MODULES libgnome-menu-3.0 gio-unix-2.0 x11)
 PKG_CHECK_MODULES(APPEARANCE_PANEL, $COMMON_MODULES libxml-2.0 gnome-desktop-3.0
                   gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED_VERSION)
-PKG_CHECK_MODULES(DATETIME_PANEL, $COMMON_MODULES
-                  gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION
-                  polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION
-                  gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED_VERSION)
+PKG_CHECK_MODULES(DATETIME_PANEL, $COMMON_MODULES timezonemap
+                  polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION)
 PKG_CHECK_MODULES(DISPLAY_PANEL, $COMMON_MODULES gnome-desktop-3.0 >= 3.1.0 x11)
 PKG_CHECK_MODULES(INFO_PANEL, $COMMON_MODULES libgtop-2.0 gl x11
 		  polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION webkitgtk-3.0)
@@ -248,6 +246,7 @@ case $host_os in
                         gnome-settings-daemon >= $GSD_REQUIRED_VERSION
                         xi >= 1.2 x11 libwacom >= $LIBWACOM_REQUIRED_VERSION
                         gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION)
+      AC_DEFINE(BUILD_WACOM, 1, [Define to 1 to build the Wacom panel])
       have_wacom=yes
     fi
     ;;
@@ -412,6 +411,8 @@ panels/appearance/Makefile
 panels/appearance/unity-appearance-panel.desktop.in
 panels/bluetooth/Makefile
 panels/bluetooth/unity-bluetooth-panel.desktop.in
+panels/datetime/Makefile
+panels/datetime/unity-datetime-panel.desktop.in
 panels/display/Makefile
 panels/display/unity-display-panel.desktop.in
 panels/keyboard/Makefile

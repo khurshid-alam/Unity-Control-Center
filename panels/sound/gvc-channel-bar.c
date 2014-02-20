@@ -100,7 +100,7 @@ static gboolean on_scale_scroll_event         (GtkWidget      *widget,
                                                GdkEventScroll *event,
                                                GvcChannelBar  *bar);
 
-G_DEFINE_TYPE (GvcChannelBar, gvc_channel_bar, GTK_TYPE_HBOX)
+G_DEFINE_TYPE (GvcChannelBar, gvc_channel_bar, GTK_TYPE_BOX)
 
 static GtkWidget *
 _scale_box_new (GvcChannelBar *bar)
@@ -979,6 +979,7 @@ gvc_channel_bar_new (void)
 {
         GObject *bar;
         bar = g_object_new (GVC_TYPE_CHANNEL_BAR,
+                            "orientation", GTK_ORIENTATION_HORIZONTAL,
                             NULL);
         return GTK_WIDGET (bar);
 }
