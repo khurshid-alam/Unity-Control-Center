@@ -68,6 +68,7 @@ struct GvcChannelBarPrivate
         gboolean       click_lock;
         gboolean       is_amplified;
         guint32        base_volume;
+        GtkPositionType mark_position;
 };
 
 enum
@@ -612,24 +613,30 @@ gvc_channel_bar_set_is_amplified (GvcChannelBar *bar, gboolean amplified)
                 if (bar->priv->base_volume == ADJUSTMENT_MAX_NORMAL) {
                         str = g_strdup_printf ("<small>%s</small>", C_("volume", "100%"));
                         gtk_scale_add_mark (GTK_SCALE (bar->priv->scale), ADJUSTMENT_MAX_NORMAL,
-                                            GTK_POS_BOTTOM, str);
+                                            bar->priv->mark_position, str);
                 } else {
                         str = g_strdup_printf ("<small>%s</small>", C_("volume", "Unamplified"));
                         gtk_scale_add_mark (GTK_SCALE (bar->priv->scale), bar->priv->base_volume,
-                                            GTK_POS_BOTTOM, str);
+                                            bar->priv->mark_position, str);
                         /* Only show 100% if it's higher than the base volume */
                         if (bar->priv->base_volume < ADJUSTMENT_MAX_NORMAL) {
                                 str = g_strdup_printf ("<small>%s</small>", C_("volume", "100%"));
                                 gtk_scale_add_mark (GTK_SCALE (bar->priv->scale), ADJUSTMENT_MAX_NORMAL,
-                                                    GTK_POS_BOTTOM, str);
+                                                    bar->priv->mark_position, str);
                         }
                 }
 
                 g_free (str);
                 gtk_alignment_set (GTK_ALIGNMENT (bar->priv->mute_box), 0.5, 0, 0, 0);
-                gtk_misc_set_alignment (GTK_MISC (bar->priv->low_image), 0.5, 0.15);
-                gtk_misc_set_alignment (GTK_MISC (bar->priv->high_image), 0.5, 0.15);
                 gtk_misc_set_alignment (GTK_MISC (bar->priv->label), 0, 0);
+                if (bar->priv->mark_position == GTK_POS_TOP) {
+                        gtk_misc_set_alignment (GTK_MISC (bar->priv->low_image), 0.5, 1.0);
+                        gtk_misc_set_alignment (GTK_MISC (bar->priv->high_image), 0.5, 1.0);
+                }
+                else {
+                        gtk_misc_set_alignment (GTK_MISC (bar->priv->low_image), 0.5, 0.0);
+                        gtk_misc_set_alignment (GTK_MISC (bar->priv->high_image), 0.5, 0.0);
+                }
         } else {
                 gtk_alignment_set (GTK_ALIGNMENT (bar->priv->mute_box), 0.5, 0.5, 0, 0);
                 gtk_misc_set_alignment (GTK_MISC (bar->priv->low_image), 0.5, 0.5);
@@ -888,6 +895,7 @@ gvc_channel_bar_init (GvcChannelBar *bar)
         bar->priv->base_volume = ADJUSTMENT_MAX_NORMAL;
         bar->priv->low_icon_name = g_strdup ("audio-volume-low-symbolic");
         bar->priv->high_icon_name = g_strdup ("audio-volume-high-symbolic");
+        bar->priv->mark_position = GTK_POS_BOTTOM;
 
         bar->priv->orientation = GTK_ORIENTATION_VERTICAL;
         bar->priv->adjustment = GTK_ADJUSTMENT (gtk_adjustment_new (0.0,
@@ -973,4 +981,12 @@ gvc_channel_bar_new (void)
         bar = g_object_new (GVC_TYPE_CHANNEL_BAR,
                             NULL);
         return GTK_WIDGET (bar);
+}
+
+void
+gvc_channel_bar_set_mark_position (GvcChannelBar   *bar,
+                                   GtkPositionType  position)
+{
+        bar->priv->mark_position = position;
+        gvc_channel_bar_set_is_amplified (bar, bar->priv->is_amplified);
 }

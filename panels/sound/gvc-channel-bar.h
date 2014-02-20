@@ -84,6 +84,9 @@ void                gvc_channel_bar_set_ellipsize       (GvcChannelBar *bar,
 gboolean            gvc_channel_bar_scroll              (GvcChannelBar  *bar,
                                                          GdkEventScroll *event);
 
+void                gvc_channel_bar_set_mark_position   (GvcChannelBar   *bar,
+                                                         GtkPositionType  position);
+
 G_END_DECLS
 
 #endif /* __GVC_CHANNEL_BAR_H */

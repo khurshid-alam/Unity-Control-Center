@@ -904,8 +904,6 @@ active_output_update (GvcMixerDialog *dialog,
         bar_set_stream (dialog, dialog->priv->output_bar, stream);
         gvc_channel_bar_set_base_volume (GVC_CHANNEL_BAR (dialog->priv->output_bar),
                                          gvc_mixer_stream_get_base_volume (stream));
-        gvc_channel_bar_set_is_amplified (GVC_CHANNEL_BAR (dialog->priv->output_bar),
-                                          gvc_mixer_stream_get_can_decibel (stream));
         /* Update the adjustment in case the previous bar wasn't decibel
          * capable, and we clipped it */
         adj = GTK_ADJUSTMENT (gvc_channel_bar_get_adjustment (GVC_CHANNEL_BAR (dialog->priv->output_bar)));
@@ -1718,6 +1716,20 @@ on_test_speakers_clicked (GtkButton *widget,
         gtk_widget_destroy (d);
 }
 
+static void
+allow_amplify_check_changed (GObject    *object,
+                             GParamSpec *pspec,
+                             gpointer    user_data)
+{
+        const gchar *label;
+        if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (object)))
+                label = (_("Allow louder than 100% (may distort sound)"));
+        else
+                label = (_("Allow louder than 100%"));
+
+        gtk_button_set_label (GTK_BUTTON (object), label);
+}
+
 static GObject *
 gvc_mixer_dialog_constructor (GType                  type,
                               guint                  n_construct_properties,
@@ -1740,6 +1752,8 @@ gvc_mixer_dialog_constructor (GType                  type,
         GvcMixerStream   *stream;
         GvcMixerCard     *card;
         GtkTreeSelection *selection;
+        GtkWidget        *mute_check;
+        GtkWidget        *allow_amplify_check;
 
         object = G_OBJECT_CLASS (gvc_mixer_dialog_parent_class)->constructor (type, n_construct_properties, construct_params);
 
@@ -1750,22 +1764,51 @@ gvc_mixer_dialog_constructor (GType                  type,
 
         gtk_container_set_border_width (GTK_CONTAINER (self), 3);
 
-        self->priv->output_stream_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
-        alignment = gtk_alignment_new (0, 0, 1, 1);
-        gtk_widget_set_margin_top (alignment, 12);
-        gtk_container_add (GTK_CONTAINER (alignment), self->priv->output_stream_box);
-        gtk_box_pack_start (GTK_BOX (main_vbox),
-                            alignment,
-                            FALSE, FALSE, 0);
         // Output volume
         self->priv->output_bar = create_bar (self, FALSE, TRUE);
-        gvc_channel_bar_set_name (GVC_CHANNEL_BAR (self->priv->output_bar),
-                                  _("_Output volume:"));
+        gvc_channel_bar_set_show_mute (GVC_CHANNEL_BAR (self->priv->output_bar), FALSE);
+        gvc_channel_bar_set_mark_position (GVC_CHANNEL_BAR (self->priv->output_bar), GTK_POS_TOP);
         gtk_widget_set_sensitive (self->priv->output_bar, FALSE);
-        gtk_widget_set_size_request (self->priv->output_bar, 460, -1);        
+        gtk_widget_set_valign (self->priv->output_bar, GTK_ALIGN_END);
+        gtk_widget_set_size_request (self->priv->output_bar, 400, -1);
+        g_settings_bind (self->priv->indicator_settings, "allow-amplified-volume",
+                         self->priv->output_bar, "is-amplified", G_SETTINGS_BIND_DEFAULT);
 
-        gtk_box_pack_start (GTK_BOX (self->priv->output_stream_box),
-                            self->priv->output_bar, TRUE, FALSE, 12);
+        label = gtk_label_new_with_mnemonic (_("_Output volume:"));
+        gtk_widget_set_valign (label, GTK_ALIGN_END);
+        gtk_widget_set_margin_top (label, 30);
+
+        mute_check = gtk_check_button_new_with_label (_("Mute"));
+        gtk_widget_set_halign (mute_check, GTK_ALIGN_START);
+        g_object_bind_property (mute_check, "active", self->priv->output_bar, "is-muted",
+                                G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+
+        /* TRANSLATORS: This label is used in a checkbox close to volume
+         * slider. Please keep it brief. */
+        allow_amplify_check = gtk_check_button_new_with_label (_("Allow louder than 100%"));
+        gtk_widget_set_halign (allow_amplify_check, GTK_ALIGN_START);
+        gtk_widget_set_hexpand (allow_amplify_check, TRUE);
+        g_signal_connect (allow_amplify_check, "notify::active",
+                          G_CALLBACK (allow_amplify_check_changed), NULL);
+        g_settings_bind (self->priv->indicator_settings, "allow-amplified-volume",
+                         allow_amplify_check, "active", G_SETTINGS_BIND_DEFAULT);
+
+        self->priv->output_stream_box = gtk_grid_new ();
+        gtk_widget_set_halign (self->priv->output_stream_box, GTK_ALIGN_CENTER);
+        gtk_grid_set_column_spacing (GTK_GRID (self->priv->output_stream_box), 6);
+        gtk_grid_set_row_spacing (GTK_GRID (self->priv->output_stream_box), 6);
+        gtk_grid_attach (GTK_GRID (self->priv->output_stream_box),
+                         label, 0, 0, 1, 1);
+        gtk_grid_attach (GTK_GRID (self->priv->output_stream_box),
+                         self->priv->output_bar, 1, 0, 2, 1);
+        gtk_grid_attach (GTK_GRID (self->priv->output_stream_box),
+                         mute_check, 1, 1, 1, 1);
+        gtk_grid_attach (GTK_GRID (self->priv->output_stream_box),
+                         allow_amplify_check, 2, 1, 1, 1);
+
+        gtk_box_pack_start (GTK_BOX (main_vbox),
+                            self->priv->output_stream_box,
+                            FALSE, TRUE, 0);
 
         self->priv->notebook = gtk_notebook_new ();
         gtk_box_pack_start (GTK_BOX (main_vbox),
@@ -2137,6 +2180,7 @@ gvc_mixer_dialog_init (GvcMixerDialog *dialog)
         dialog->priv = GVC_MIXER_DIALOG_GET_PRIVATE (dialog);
         dialog->priv->bars = g_hash_table_new (NULL, NULL);
         dialog->priv->size_group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
+        dialog->priv->indicator_settings = g_settings_new ("com.canonical.indicator.sound");
 }
 
 static void
