@@ -29,6 +29,7 @@
 #include <shell/cc-shell.h>
 
 #include "cc-bluetooth-panel.h"
+#include "cc-bluetooth-resources.h"
 
 #include <bluetooth-client.h>
 #include <bluetooth-utils.h>
@@ -55,6 +56,7 @@ struct CcBluetoothPanelPrivate {
 	BluetoothKillswitch *killswitch;
 	gboolean             debug;
 	GHashTable          *connecting_devices;
+	GCancellable        *cancellable;
 };
 
 static void cc_bluetooth_panel_finalize (GObject *object);
@@ -100,6 +102,9 @@ cc_bluetooth_panel_finalize (GObject *object)
 	bluetooth_plugin_manager_cleanup ();
 
 	self = CC_BLUETOOTH_PANEL (object);
+	g_cancellable_cancel (self->priv->cancellable);
+	g_clear_object (&self->priv->cancellable);
+
 	g_clear_object (&self->priv->builder);
 	g_clear_object (&self->priv->killswitch);
 	g_clear_object (&self->priv->client);
@@ -163,10 +168,13 @@ connect_done (GObject      *source_object,
 	CcBluetoothPanel *self;
 	char *bdaddr;
 	gboolean success;
+	GError *error = NULL;
 	ConnectData *data = (ConnectData *) user_data;
 
 	success = bluetooth_client_connect_service_finish (BLUETOOTH_CLIENT (source_object),
-							   res, NULL);
+							   res, &error);
+	if (!success && g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+		goto out;
 
 	self = data->self;
 
@@ -185,7 +193,9 @@ connect_done (GObject      *source_object,
 	remove_connecting (self, data->bdaddr);
 
 	g_free (bdaddr);
-	g_object_unref (data->self);
+
+out:
+	g_clear_error (&error);
 	g_free (data->bdaddr);
 	g_free (data);
 }
@@ -219,12 +229,12 @@ switch_connected_active_changed (GtkSwitch        *button,
 
 	data = g_new0 (ConnectData, 1);
 	data->bdaddr = bdaddr;
-	data->self = g_object_ref (self);
+	data->self = self;
 
 	bluetooth_client_connect_service (self->priv->client,
 					  proxy,
 					  gtk_switch_get_active (button),
-					  NULL,
+					  self->priv->cancellable,
 					  connect_done,
 					  data);
 
@@ -796,8 +806,10 @@ cc_bluetooth_panel_init (CcBluetoothPanel *self)
 	GtkStyleContext *context;
 
 	self->priv = BLUETOOTH_PANEL_PRIVATE (self);
+	g_resources_register (cc_bluetooth_get_resource ());
 
 	bluetooth_plugin_manager_init ();
+	self->priv->cancellable = g_cancellable_new ();
 	self->priv->killswitch = bluetooth_killswitch_new ();
 	self->priv->client = bluetooth_client_new ();
 	self->priv->connecting_devices = g_hash_table_new_full (g_str_hash,
@@ -808,11 +820,11 @@ cc_bluetooth_panel_init (CcBluetoothPanel *self)
 
 	self->priv->builder = gtk_builder_new ();
 	gtk_builder_set_translation_domain (self->priv->builder, GETTEXT_PACKAGE);
-	gtk_builder_add_from_file (self->priv->builder,
-				   PKGDATADIR "/bluetooth.ui",
-				   &error);
+	gtk_builder_add_from_resource (self->priv->builder,
+                                       "/org/gnome/control-center/bluetooth/bluetooth.ui",
+                                       &error);
 	if (error != NULL) {
-		g_warning ("Failed to load '%s': %s", PKGDATADIR "/bluetooth.ui", error->message);
+		g_warning ("Could not load ui: %s", error->message);
 		g_error_free (error);
 		return;
 	}
