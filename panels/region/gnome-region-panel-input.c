@@ -63,11 +63,16 @@
 #define IBUS_USE_CUSTOM_FONT_KEY "use_custom_font"
 #define IBUS_CUSTOM_FONT_KEY     "custom_font"
 
+#define LEGACY_IBUS_XML_DIR   "/usr/share/ibus/component"
+#define LEGACY_IBUS_SETUP_DIR "/usr/lib/ibus"
+#define LEGACY_IBUS_SETUP_FMT "ibus-setup-%s"
+
 enum {
   NAME_COLUMN,
   TYPE_COLUMN,
   ID_COLUMN,
   SETUP_COLUMN,
+  LEGACY_SETUP_COLUMN,
   N_COLUMNS
 };
 
@@ -182,6 +187,231 @@ setup_app_info_for_id (const gchar *id)
   return app_info;
 }
 
+typedef struct _IBusXMLState IBusXMLState;
+
+struct _IBusXMLState
+{
+  GHashTable *table;
+  gchar      *name;
+  gchar      *setup;
+  gboolean    is_name;
+  gboolean    is_setup;
+};
+
+static IBusXMLState *
+ibus_xml_state_new (GHashTable *table)
+{
+  IBusXMLState *state = g_new0 (IBusXMLState, 1);
+
+  state->table = g_hash_table_ref (table);
+
+  return state;
+}
+
+static void
+ibus_xml_state_free (gpointer data)
+{
+  if (data)
+    {
+      IBusXMLState *state = data;
+
+      g_free (state->setup);
+      g_free (state->name);
+      g_hash_table_unref (state->table);
+
+      g_free (state);
+    }
+}
+
+static void
+parse_start (GMarkupParseContext  *context,
+             const gchar          *element_name,
+             const gchar         **attribute_names,
+             const gchar         **attribute_values,
+             gpointer              user_data,
+             GError              **error)
+{
+  IBusXMLState *state = user_data;
+
+  if (g_strcmp0 (element_name, "engine") == 0)
+    {
+      if (state->name)
+        {
+          g_free (state->name);
+          state->name = NULL;
+        }
+
+      if (state->setup)
+        {
+          g_free (state->setup);
+          state->setup = NULL;
+        }
+
+      state->is_name = FALSE;
+      state->is_setup = FALSE;
+    }
+  else if (g_strcmp0 (element_name, "name") == 0)
+    state->is_name = TRUE;
+  else if (g_strcmp0 (element_name, "setup") == 0)
+    state->is_setup = TRUE;
+}
+
+static void
+parse_end (GMarkupParseContext  *context,
+           const gchar          *element_name,
+           gpointer              user_data,
+           GError              **error)
+{
+  IBusXMLState *state = user_data;
+
+  if (g_strcmp0 (element_name, "engine") == 0)
+    {
+      if (state->name && state->setup)
+        g_hash_table_insert (state->table, g_strdup (state->name), g_strdup (state->setup));
+
+      if (state->name)
+        {
+          g_free (state->name);
+          state->name = NULL;
+        }
+
+      if (state->setup)
+        {
+          g_free (state->setup);
+          state->setup = NULL;
+        }
+    }
+  else if (g_strcmp0 (element_name, "name") == 0)
+    state->is_name = FALSE;
+  else if (g_strcmp0 (element_name, "setup") == 0)
+    state->is_setup = FALSE;
+}
+
+static void
+parse_text (GMarkupParseContext  *context,
+            const gchar          *text,
+            gsize                 text_len,
+            gpointer              user_data,
+            GError              **error)
+{
+  IBusXMLState *state = user_data;
+
+  if (state->is_name && !state->name)
+    {
+      state->name = g_memdup (text, text_len + 1);
+      state->name[text_len] = 0;
+    }
+  else if (state->is_setup && !state->setup)
+    {
+      state->setup = g_memdup (text, text_len + 1);
+      state->setup[text_len] = 0;
+    }
+}
+
+static void
+parse_ibus_component (const gchar *path,
+                      const gchar *text,
+                      gssize       length,
+                      GHashTable  *table)
+{
+  static const GMarkupParser parser = { parse_start, parse_end, parse_text, NULL, NULL };
+
+  GMarkupParseContext *context;
+  GError *error = NULL;
+
+  context = g_markup_parse_context_new (&parser, 0, ibus_xml_state_new (table), ibus_xml_state_free);
+
+  if (!g_markup_parse_context_parse (context, text, length, &error))
+    {
+      g_warning ("Couldn't parse file '%s': %s", path, error->message);
+      g_error_free (error);
+    }
+
+  g_markup_parse_context_free (context);
+}
+
+static GHashTable *
+legacy_setup_table (void)
+{
+  static GHashTable *table = NULL;
+
+  if (!table)
+    {
+      GDir *dir;
+      const gchar *name;
+      GError *error = NULL;
+
+      dir = g_dir_open (LEGACY_IBUS_XML_DIR, 0, &error);
+
+      if (!dir)
+        {
+          g_warning ("Couldn't open directory '%s': %s", LEGACY_IBUS_XML_DIR, error->message);
+          g_error_free (error);
+          return NULL;
+        }
+
+      table = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+
+      for (name = g_dir_read_name (dir); name; name = g_dir_read_name (dir))
+        {
+          gchar *path;
+          gchar *text;
+          gssize length;
+
+          path = g_strdup_printf ("%s/%s", LEGACY_IBUS_XML_DIR, name);
+
+          if (g_file_get_contents (path, &text, &length, &error))
+            {
+              parse_ibus_component (path, text, length, table);
+              g_free (text);
+            }
+          else
+            {
+              g_warning ("Couldn't read file '%s': %s", path, error->message);
+              g_clear_error (&error);
+            }
+
+          g_free (path);
+        }
+
+      g_dir_close (dir);
+    }
+
+  return table;
+}
+
+static gchar *
+legacy_setup_for_id (const gchar *id)
+{
+  GHashTable *table;
+  const gchar *lookup;
+  gchar *path;
+  GFile *file;
+
+  table = legacy_setup_table ();
+
+  if (table)
+    {
+      lookup = g_hash_table_lookup (table, id);
+
+      if (lookup)
+        return g_strdup (lookup);
+    }
+
+  path = g_strdup_printf (LEGACY_IBUS_SETUP_DIR "/" LEGACY_IBUS_SETUP_FMT, id);
+  file = g_file_new_for_path (path);
+
+  if (!g_file_query_exists (file, NULL))
+    {
+      g_free (path);
+      path = NULL;
+    }
+
+  g_object_unref (file);
+
+  return path;
+}
+
 static void
 input_chooser_repopulate (GtkListStore *active_sources_store)
 {
@@ -222,6 +452,7 @@ update_ibus_active_sources (GtkBuilder *builder)
         {
           IBusEngineDesc *engine_desc = NULL;
           GDesktopAppInfo *app_info = NULL;
+          gchar *legacy_setup = NULL;
           gchar *display_name = NULL;
 
           engine_desc = g_hash_table_lookup (ibus_engines, id);
@@ -229,12 +460,15 @@ update_ibus_active_sources (GtkBuilder *builder)
             {
               display_name = engine_get_display_name (engine_desc);
               app_info = setup_app_info_for_id (id);
+              legacy_setup = legacy_setup_for_id (id);
 
               gtk_list_store_set (GTK_LIST_STORE (model), &iter,
                                   NAME_COLUMN, display_name,
                                   SETUP_COLUMN, app_info,
+                                  LEGACY_SETUP_COLUMN, legacy_setup,
                                   -1);
               g_free (display_name);
+              g_free (legacy_setup);
               if (app_info)
                 g_object_unref (app_info);
             }
@@ -716,6 +950,7 @@ populate_with_active_sources (GtkListStore *store)
   const gchar *id;
   gchar *display_name;
   GDesktopAppInfo *app_info;
+  gchar *legacy_setup;
   GtkTreeIter tree_iter;
 
   sources = g_settings_get_value (input_sources_settings, KEY_INPUT_SOURCES);
@@ -725,6 +960,7 @@ populate_with_active_sources (GtkListStore *store)
     {
       display_name = NULL;
       app_info = NULL;
+      legacy_setup = NULL;
 
       if (g_str_equal (type, INPUT_SOURCE_TYPE_XKB))
         {
@@ -748,6 +984,7 @@ populate_with_active_sources (GtkListStore *store)
             {
               display_name = engine_get_display_name (engine_desc);
               app_info = setup_app_info_for_id (id);
+              legacy_setup = legacy_setup_for_id (id);
             }
 #else
           g_warning ("IBus input source type specified but IBus support was not compiled");
@@ -766,8 +1003,10 @@ populate_with_active_sources (GtkListStore *store)
                           TYPE_COLUMN, type,
                           ID_COLUMN, id,
                           SETUP_COLUMN, app_info,
+                          LEGACY_SETUP_COLUMN, legacy_setup,
                           -1);
       g_free (display_name);
+      g_free (legacy_setup);
       if (app_info)
         g_object_unref (app_info);
     }
@@ -879,6 +1118,7 @@ update_button_sensitivity (GtkBuilder *builder)
   gint index;
   gboolean settings_sensitive;
   GDesktopAppInfo *app_info;
+  gchar *legacy_setup;
 
   remove_button = WID("input_source_remove");
   show_button = WID("input_source_show");
@@ -892,18 +1132,24 @@ update_button_sensitivity (GtkBuilder *builder)
   if (get_selected_iter (builder, &model, &iter))
     {
       index = idx_from_model_iter (model, &iter);
-      gtk_tree_model_get (model, &iter, SETUP_COLUMN, &app_info, -1);
+      gtk_tree_model_get (model, &iter,
+                          SETUP_COLUMN, &app_info,
+                          LEGACY_SETUP_COLUMN, &legacy_setup,
+                          -1);
     }
   else
     {
       index = -1;
       app_info = NULL;
+      legacy_setup = NULL;
     }
 
-  settings_sensitive = (index >= 0 && app_info != NULL);
+  settings_sensitive = (index >= 0 && (app_info != NULL || legacy_setup != NULL));
 
   if (app_info)
     g_object_unref (app_info);
+
+  g_free (legacy_setup);
 
   gtk_widget_set_sensitive (remove_button, index >= 0 && n_active > 1);
   gtk_widget_set_sensitive (show_button, index >= 0);
@@ -952,6 +1198,7 @@ chooser_response (GtkWidget *chooser, gint response_id, gpointer data)
           gchar *type;
           gchar *id;
           GDesktopAppInfo *app_info = NULL;
+          gchar *legacy_setup = NULL;
 
           gtk_tree_model_get (model, &iter,
                               NAME_COLUMN, &name,
@@ -961,7 +1208,10 @@ chooser_response (GtkWidget *chooser, gint response_id, gpointer data)
 
 #ifdef HAVE_IBUS
           if (g_str_equal (type, INPUT_SOURCE_TYPE_IBUS))
-            app_info = setup_app_info_for_id (id);
+            {
+              app_info = setup_app_info_for_id (id);
+              legacy_setup = legacy_setup_for_id (id);
+            }
 #endif
 
           tv = GTK_TREE_VIEW (WID ("active_input_sources"));
@@ -974,7 +1224,9 @@ chooser_response (GtkWidget *chooser, gint response_id, gpointer data)
                               TYPE_COLUMN, type,
                               ID_COLUMN, id,
                               SETUP_COLUMN, app_info,
+                              LEGACY_SETUP_COLUMN, legacy_setup,
                               -1);
+          g_free (legacy_setup);
           g_free (name);
           g_free (type);
           g_free (id);
@@ -1210,6 +1462,7 @@ show_selected_settings (GtkButton *button, gpointer data)
   GtkTreeIter iter;
   GdkAppLaunchContext *ctx;
   GDesktopAppInfo *app_info;
+  gchar *legacy_setup;
   gchar *id;
   GError *error = NULL;
 
@@ -1218,28 +1471,38 @@ show_selected_settings (GtkButton *button, gpointer data)
   if (!get_selected_iter (builder, &model, &iter))
     return;
 
-  gtk_tree_model_get (model, &iter, SETUP_COLUMN, &app_info, -1);
+  gtk_tree_model_get (model, &iter, SETUP_COLUMN, &app_info, LEGACY_SETUP_COLUMN, &legacy_setup, -1);
 
-  if (!app_info)
-    return;
-
-  ctx = gdk_display_get_app_launch_context (gdk_display_get_default ());
-  gdk_app_launch_context_set_timestamp (ctx, gtk_get_current_event_time ());
-
-  gtk_tree_model_get (model, &iter, ID_COLUMN, &id, -1);
-  g_app_launch_context_setenv (G_APP_LAUNCH_CONTEXT (ctx),
-                               "IBUS_ENGINE_NAME",
-                               id);
-  g_free (id);
-
-  if (!g_app_info_launch (G_APP_INFO (app_info), NULL, G_APP_LAUNCH_CONTEXT (ctx), &error))
+  if (app_info)
     {
-      g_warning ("Failed to launch input source setup: %s", error->message);
-      g_error_free (error);
+      ctx = gdk_display_get_app_launch_context (gdk_display_get_default ());
+      gdk_app_launch_context_set_timestamp (ctx, gtk_get_current_event_time ());
+
+      gtk_tree_model_get (model, &iter, ID_COLUMN, &id, -1);
+      g_app_launch_context_setenv (G_APP_LAUNCH_CONTEXT (ctx),
+                                   "IBUS_ENGINE_NAME",
+                                   id);
+      g_free (id);
+
+      if (!g_app_info_launch (G_APP_INFO (app_info), NULL, G_APP_LAUNCH_CONTEXT (ctx), &error))
+        {
+          g_warning ("Failed to launch input source setup: %s", error->message);
+          g_error_free (error);
+        }
+
+      g_object_unref (ctx);
+      g_object_unref (app_info);
+    }
+  else if (legacy_setup)
+    {
+      if (!g_spawn_command_line_async (legacy_setup, &error))
+        {
+          g_warning ("Failed to launch input source setup: %s", error->message);
+          g_error_free (error);
+        }
     }
 
-  g_object_unref (ctx);
-  g_object_unref (app_info);
+  g_free (legacy_setup);
 }
 
 static gboolean
@@ -1491,7 +1754,8 @@ setup_input_tabs (GtkBuilder    *builder_,
                               G_TYPE_STRING,
                               G_TYPE_STRING,
                               G_TYPE_STRING,
-                              G_TYPE_DESKTOP_APP_INFO);
+                              G_TYPE_DESKTOP_APP_INFO,
+                              G_TYPE_STRING);
 
   gtk_tree_view_set_model (GTK_TREE_VIEW (treeview), GTK_TREE_MODEL (store));
 
