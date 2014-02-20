@@ -1769,19 +1769,19 @@ setup_unity_settings (CcAppearancePanel *self)
   if (schema)
     {
       priv->unity_own_settings = g_settings_new (UNITY_OWN_GSETTINGS_SCHEMA);
-      g_object_unref (schema);
+      g_settings_schema_unref (schema);
     }
   schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (), UNITY_GSETTINGS_SCHEMA, TRUE);
   if (schema)
     {
       priv->unity_settings = g_settings_new_with_path (UNITY_GSETTINGS_SCHEMA, UNITY_GSETTINGS_PATH);
-      g_object_unref (schema);
+      g_settings_schema_unref (schema);
     }
   schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (), COMPIZCORE_GSETTINGS_SCHEMA, TRUE);
   if (schema)
     {
       priv->compizcore_settings = g_settings_new_with_path (COMPIZCORE_GSETTINGS_SCHEMA, COMPIZCORE_GSETTINGS_PATH);
-      g_object_unref (schema);
+      g_settings_schema_unref (schema);
     }
 
   if (!priv->unity_settings || !priv->compizcore_settings || !priv->unity_own_settings)

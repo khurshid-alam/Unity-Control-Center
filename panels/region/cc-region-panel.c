@@ -66,7 +66,7 @@ has_indicator_keyboard (void)
 
 	schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (), INDICATOR_KEYBOARD_SCHEMA_ID, TRUE);
 	if (schema) {
-		g_settings_schema_source_unref (schema);
+		g_settings_schema_unref (schema);
 		return TRUE;
 	}
 

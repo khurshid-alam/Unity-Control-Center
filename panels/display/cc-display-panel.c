@@ -2823,13 +2823,13 @@ setup_unity_settings (CcDisplayPanel *self)
     {
       self->priv->unity2d_settings_main = g_settings_new (UNITY2D_GSETTINGS_MAIN);
       self->priv->unity2d_settings_launcher = g_settings_new (UNITY2D_GSETTINGS_LAUNCHER);
-      g_object_unref (schema);
+      g_settings_schema_unref (schema);
     }
   schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (), UNITY_GSETTINGS_SCHEMA, TRUE);
   if (schema)
     {
       self->priv->unity_settings = g_settings_new_with_path (UNITY_GSETTINGS_SCHEMA, UNITY_GSETTINGS_PATH);
-      g_object_unref (schema);
+      g_settings_schema_unref (schema);
     }
 
   if (!self->priv->unity_settings)
