@@ -1705,10 +1705,39 @@ on_enable_showdesktop_changed (GtkToggleButton *button, gpointer user_data)
   
 }
 
+static gboolean
+unity_own_setting_exists (CcAppearancePanel *self, const gchar* key_name)
+{
+  if (!self->priv->unity_own_settings)
+    return FALSE;
+
+  gchar** unity_keys;
+  gchar** key;
+
+  unity_keys = g_settings_list_keys (self->priv->unity_own_settings);
+
+  for (key = unity_keys; *key; ++key)
+    {
+      if (g_strcmp0 (*key, key_name) == 0)
+        return TRUE;
+    }
+
+  g_strfreev (unity_keys);
+  return FALSE;
+}
+
 static void
 menulocation_widget_refresh (CcAppearancePanel *self)
 {
   CcAppearancePanelPrivate *priv = self->priv;
+
+  gboolean has_setting = unity_own_setting_exists (self, UNITY_INTEGRATED_MENUS_KEY);
+  gtk_widget_set_visible (WID ("unity_menus_box"), has_setting);
+  gtk_widget_set_visible (WID ("menu_separator"), has_setting);
+
+  if (!has_setting)
+    return;
+
   gboolean value = g_settings_get_boolean (priv->unity_own_settings, UNITY_INTEGRATED_MENUS_KEY);
 
   if (value)
@@ -1748,7 +1777,9 @@ on_restore_defaults_page2_clicked (GtkButton *button, gpointer user_data)
   g_settings_reset (priv->unity_settings, UNITY_LAUNCHERREVEAL_KEY);
   g_settings_reset (priv->compizcore_settings, COMPIZCORE_HSIZE_KEY);
   g_settings_reset (priv->compizcore_settings, COMPIZCORE_VSIZE_KEY);
-  g_settings_reset (priv->unity_own_settings, UNITY_INTEGRATED_MENUS_KEY);
+
+  if (unity_own_setting_exists (self, UNITY_INTEGRATED_MENUS_KEY))
+    g_settings_reset (priv->unity_own_settings, UNITY_INTEGRATED_MENUS_KEY);
 }
 
 /* <hacks> */
