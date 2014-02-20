@@ -100,7 +100,6 @@ struct _CcInfoPanelPrivate
   char          *gnome_distributor;
   char          *gnome_date;
   UpdatesState   updates_state;
-  gboolean       is_fallback;
 
   /* Free space */
   GList         *primary_mounts;
@@ -115,7 +114,6 @@ struct _CcInfoPanelPrivate
   GDBusProxy          *pk_proxy;
   GDBusProxy          *pk_transaction_proxy;
   GDBusProxy          *hostnamed_proxy;
-  GSettings           *session_settings;
 
   GraphicsData  *graphics_data;
 };
@@ -431,10 +429,10 @@ get_graphics_data_xorg_vesa_hardware (void)
       tmp = g_match_info_fetch (match, 1);
       pretty_tmp = prettify_info (tmp);
       g_free (tmp);
-      /* Translators: VESA is an techncial acronym, don't translate it. */
-      result = g_strdup_printf (_("VESA: %s"), pretty_tmp); 
+      result = g_strdup_printf ("VESA: %s", pretty_tmp);
       g_free (pretty_tmp);
     }
+  g_free (log_contents);
   g_match_info_free (match);
   g_regex_unref (re);
 
@@ -459,65 +457,6 @@ get_graphics_data (void)
     result->hardware_string = _("Unknown");
 
   return result;
-}
-
-static gboolean
-get_current_is_fallback (CcInfoPanel  *self)
-{
-  GError   *error;
-  GVariant *reply;
-  GVariant *reply_str;
-  gboolean  is_fallback;
-
-  error = NULL;
-  if (!(reply = g_dbus_connection_call_sync (self->priv->session_bus,
-                                             "org.gnome.SessionManager",
-                                             "/org/gnome/SessionManager",
-                                             "org.freedesktop.DBus.Properties",
-                                             "Get",
-                                             g_variant_new ("(ss)", "org.gnome.SessionManager", "session-name"),
-                                             (GVariantType*)"(v)",
-                                             0,
-                                             -1,
-                                             NULL, &error)))
-    {
-      g_warning ("Failed to get fallback mode: %s", error->message);
-      g_clear_error (&error);
-      return FALSE;
-    }
-
-  g_variant_get (reply, "(v)", &reply_str);
-  is_fallback = g_strcmp0 ("gnome-fallback", g_variant_get_string (reply_str, NULL)) == 0;
-  g_variant_unref (reply_str);
-  g_variant_unref (reply);
-
-  return is_fallback;
-}
-
-static void
-cc_info_panel_get_property (GObject    *object,
-                            guint       property_id,
-                            GValue     *value,
-                            GParamSpec *pspec)
-{
-  switch (property_id)
-    {
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-    }
-}
-
-static void
-cc_info_panel_set_property (GObject      *object,
-                            guint         property_id,
-                            const GValue *value,
-                            GParamSpec   *pspec)
-{
-  switch (property_id)
-    {
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-    }
 }
 
 static void
@@ -557,32 +496,13 @@ cc_info_panel_finalize (GObject *object)
 {
   CcInfoPanelPrivate *priv = CC_INFO_PANEL (object)->priv;
 
-  if (priv->cancellable != NULL)
-    {
-      g_cancellable_cancel (priv->cancellable);
-      priv->cancellable = NULL;
-    }
+  g_clear_pointer (&priv->cancellable, g_cancellable_cancel);
   g_free (priv->gnome_version);
   g_free (priv->gnome_date);
   g_free (priv->gnome_distributor);
 
-  if (priv->hostnamed_proxy != NULL)
-    {
-      g_object_unref (priv->hostnamed_proxy);
-      priv->hostnamed_proxy = NULL;
-    }
-
-  if (priv->media_settings != NULL)
-    {
-      g_object_unref (priv->media_settings);
-      priv->media_settings = NULL;
-    }
-
-  if (priv->session_settings != NULL)
-    {
-      g_object_unref (priv->session_settings);
-      priv->session_settings = NULL;
-    }
+  g_clear_object (&priv->hostnamed_proxy);
+  g_clear_object (&priv->media_settings);
 
   G_OBJECT_CLASS (cc_info_panel_parent_class)->finalize (object);
 }
@@ -594,8 +514,6 @@ cc_info_panel_class_init (CcInfoPanelClass *klass)
 
   g_type_class_add_private (klass, sizeof (CcInfoPanelPrivate));
 
-  object_class->get_property = cc_info_panel_get_property;
-  object_class->set_property = cc_info_panel_set_property;
   object_class->dispose = cc_info_panel_dispose;
   object_class->finalize = cc_info_panel_finalize;
 }
@@ -758,7 +676,7 @@ get_cpu_info (const glibtop_sysinfo *info)
   /* count duplicates */
   for (i = 0; i != info->ncpu; ++i)
     {
-      const char * const keys[] = { "model name", "cpu" };
+      const char * const keys[] = { "model name", "cpu", "Processor" };
       char *model;
       int  *count;
 
@@ -771,7 +689,7 @@ get_cpu_info (const glibtop_sysinfo *info)
         }
 
       if (model == NULL)
-          model = _("Unknown model");
+          continue;
 
       count = g_hash_table_lookup (counts, model);
       if (count == NULL)
@@ -832,96 +750,6 @@ on_section_changed (GtkTreeSelection  *selection,
   gtk_tree_path_free (path);
 }
 
-static gboolean
-switch_fallback_get_mapping (GValue    *value,
-                             GVariant  *variant,
-                             gpointer   data)
-{
-  const char *setting;
-
-  setting = g_variant_get_string (variant, NULL);
-  g_value_set_boolean (value, strcmp (setting, "gnome") != 0);
-  return TRUE;
-}
-
-static void
-toggle_fallback_warning_label (CcInfoPanel *self,
-                               gboolean     visible)
-{
-  GtkWidget  *widget;
-  const char *text;
-
-  widget = WID ("graphics_logout_warning_label");
-
-  if (self->priv->is_fallback)
-    text = _("The next login will attempt to use the standard experience.");
-  else
-    text = _("The next login will use the fallback mode intended for unsupported graphics hardware.");
-
-  gtk_label_set_text (GTK_LABEL (widget), text);
-
-  if (visible)
-    gtk_widget_show (widget);
-  else
-    gtk_widget_hide (widget);
-}
-
-static GVariant *
-switch_fallback_set_mapping (const GValue        *value,
-                             const GVariantType  *expected_type,
-                             gpointer             data)
-{
-  CcInfoPanel *self = data;
-  gboolean     is_set;
-
-  is_set = g_value_get_boolean (value);
-  if (is_set != self->priv->is_fallback)
-    toggle_fallback_warning_label (self, TRUE);
-  else
-    toggle_fallback_warning_label (self, FALSE);
-
-  return g_variant_new_string (is_set ? "gnome-fallback" : "gnome");
-}
-
-static void
-info_panel_setup_graphics (CcInfoPanel  *self)
-{
-  GtkWidget *widget;
-  GtkSwitch *sw;
-  char *text;
-
-  widget = WID ("graphics_driver_label");
-  gtk_label_set_markup (GTK_LABEL (widget), self->priv->graphics_data->hardware_string);
-
-  self->priv->is_fallback = get_current_is_fallback (self);
-  if (self->priv->is_fallback)
-    {
-      /* translators: The hardware is not able to run GNOME 3's
-       * shell, so we use the GNOME "Fallback" session */
-      text = g_strdup (C_("Experience", "Fallback"));
-    }
-  else
-    {
-      /* translators: The hardware is able to run GNOME 3's
-       * shell, also called "Standard" experience */
-      text = g_strdup (C_("Experience", "Standard"));
-    }
-  widget = WID ("graphics_experience_label");
-  gtk_label_set_markup (GTK_LABEL (widget), text ? text : "");
-  g_free (text);
-
-  widget = WID ("graphics_fallback_switch_box");
-  sw = GTK_SWITCH (gtk_switch_new ());
-  g_settings_bind_with_mapping (self->priv->session_settings, KEY_SESSION_NAME,
-                                sw, "active", 0,
-                                switch_fallback_get_mapping,
-                                switch_fallback_set_mapping, self, NULL);
-  gtk_box_pack_start (GTK_BOX (widget), GTK_WIDGET (sw), FALSE, FALSE, 0);
-  gtk_widget_show_all (GTK_WIDGET (sw));
-  widget = WID ("fallback-label");
-  gtk_label_set_mnemonic_widget (GTK_LABEL (widget), GTK_WIDGET (sw));
-}
-
 static gboolean            
 url_nav_callback (WebKitWebView             *web_view,
               WebKitWebFrame            *frame,
@@ -975,6 +803,11 @@ default_app_changed (GtkAppChooserButton *button,
       g_error_free (error);
       error = NULL;
     }
+  else
+    {
+      g_debug ("Set '%s' as the default handler for '%s'",
+               g_app_info_get_name (info), app_data->content_type);
+    }
 
   if (app_data->extra_type_filter)
     {
@@ -996,6 +829,11 @@ default_app_changed (GtkAppChooserButton *button,
                          g_app_info_get_name (info), mime_types[i], error->message);
               g_error_free (error);
             }
+          else
+            {
+              g_debug ("Set '%s' as the default handler for '%s'",
+              g_app_info_get_name (info), mime_types[i]);
+            }
         }
 
       g_pattern_spec_free (pattern);
@@ -1008,23 +846,20 @@ static void
 info_panel_setup_default_app (CcInfoPanel    *self,
                               DefaultAppData *data,
                               guint           left_attach,
-                              guint           right_attach,
-                              guint           top_attach,
-                              guint           bottom_attach)
+                              guint           top_attach)
 {
   GtkWidget *button;
-  GtkWidget *table;
+  GtkWidget *grid;
   GtkWidget *label;
 
-  table = WID ("default_apps_table");
+  grid = WID ("default_apps_grid");
 
   button = gtk_app_chooser_button_new (data->content_type);
   g_object_set_data (G_OBJECT (button), "cc-default-app-data", data);
 
   gtk_app_chooser_button_set_show_default_item (GTK_APP_CHOOSER_BUTTON (button), TRUE);
-  gtk_table_attach (GTK_TABLE (table), button,
-                    left_attach, right_attach,
-                    top_attach, bottom_attach, GTK_FILL, 0, 0, 0);
+  gtk_grid_attach (GTK_GRID (grid), button, left_attach, top_attach,
+                   1, 1);
   g_signal_connect (G_OBJECT (button), "changed",
                     G_CALLBACK (default_app_changed), self);
   gtk_widget_show (button);
@@ -1054,7 +889,7 @@ info_panel_setup_default_apps (CcInfoPanel  *self)
   for (i = 0; i < G_N_ELEMENTS(preferred_app_infos); i++)
     {
       info_panel_setup_default_app (self, &preferred_app_infos[i],
-                                    1, 2, i, i+1);
+                                    1, i);
     }
 }
 
@@ -1584,11 +1419,6 @@ info_panel_setup_selector (CcInfoPanel  *self)
                       _("Removable Media"),
                       -1);
 
-  gtk_list_store_append (model, &iter);
-  gtk_list_store_set (model, &iter, section_name_column,
-                      _("Graphics"),
-                      -1);
-
   if (!g_strcmp0 (g_getenv ("XDG_CURRENT_DESKTOP"), "Unity"))
     {
       gtk_list_store_append (model, &iter);
@@ -2005,6 +1835,86 @@ on_updates_button_clicked (GtkWidget   *widget,
     }
 }
 
+static gboolean
+get_pk_version_property (GDBusProxy *pk_proxy,
+                         const char *property,
+                         guint32 *retval)
+{
+  GVariant *v;
+
+  v = g_dbus_proxy_get_cached_property (pk_proxy, property);
+  if (!v)
+    return FALSE;
+
+  g_variant_get (v, "u", retval);
+  g_variant_unref (v);
+  return TRUE;
+}
+
+static void
+got_pk_proxy_cb (GObject *source_object,
+		 GAsyncResult *res,
+		 CcInfoPanel *self)
+{
+  GError *error = NULL;
+  guint32 major, minor, micro;
+
+  self->priv->pk_proxy = g_dbus_proxy_new_for_bus_finish (res, &error);
+
+  if (self->priv->pk_proxy == NULL)
+    {
+      g_warning ("Unable to get PackageKit proxy object: %s", error->message);
+      g_error_free (error);
+      self->priv->updates_state = PK_NOT_AVAILABLE;
+      refresh_update_button (self);
+      return;
+    }
+
+  if (!get_pk_version_property(self->priv->pk_proxy, "VersionMajor", &major) ||
+      !get_pk_version_property(self->priv->pk_proxy, "VersionMinor", &minor) ||
+      !get_pk_version_property(self->priv->pk_proxy, "VersionMicro", &micro))
+    {
+      g_warning ("Unable to get PackageKit version");
+      g_clear_object (&self->priv->pk_proxy);
+      self->priv->updates_state = PK_NOT_AVAILABLE;
+      refresh_update_button (self);
+      return;
+    }
+
+  if (major != 0 || minor != 8)
+    {
+      g_warning ("PackageKit version %u.%u.%u not supported", major, minor, micro);
+      g_clear_object (&self->priv->pk_proxy);
+      self->priv->updates_state = PK_NOT_AVAILABLE;
+      refresh_update_button (self);
+    }
+  else
+    {
+      g_signal_connect (self->priv->pk_proxy,
+                        "g-signal",
+                        G_CALLBACK (on_pk_signal),
+                        self);
+      refresh_updates (self);
+    }
+}
+
+static void
+info_panel_setup_updates (CcInfoPanel *self)
+{
+  self->priv->updates_state = CHECKING_UPDATES;
+  refresh_update_button (self);
+
+  g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
+                            G_DBUS_PROXY_FLAGS_NONE,
+                            NULL,
+                            "org.freedesktop.PackageKit",
+                            "/org/freedesktop/PackageKit",
+                            "org.freedesktop.PackageKit",
+                            NULL,
+                            (GAsyncReadyCallback) got_pk_proxy_cb,
+                            self);
+}
+
 static void
 cc_info_panel_init (CcInfoPanel *self)
 {
@@ -2015,62 +1925,15 @@ cc_info_panel_init (CcInfoPanel *self)
 
   self->priv->builder = gtk_builder_new ();
 
-  self->priv->session_settings = g_settings_new (GNOME_SESSION_MANAGER_SCHEMA);
   self->priv->media_settings = g_settings_new (MEDIA_HANDLING_SCHEMA);
 
   self->priv->session_bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
 
   g_assert (self->priv->session_bus);
 
-  self->priv->pk_proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
-                                                        G_DBUS_PROXY_FLAGS_NONE,
-                                                        NULL,
-                                                        "org.freedesktop.PackageKit",
-                                                        "/org/freedesktop/PackageKit",
-                                                        "org.freedesktop.PackageKit",
-                                                        NULL,
-                                                        NULL);
-  if (self->priv->pk_proxy == NULL)
-    {
-      g_warning ("Unable to get PackageKit proxy object");
-      self->priv->updates_state = PK_NOT_AVAILABLE;
-    }
-  else
-    {
-      GVariant *v;
-      guint32 major, minor, micro;
-
-      v = g_dbus_proxy_get_cached_property (self->priv->pk_proxy, "VersionMajor");
-      g_variant_get (v, "u", &major);
-      g_variant_unref (v);
-      v = g_dbus_proxy_get_cached_property (self->priv->pk_proxy, "VersionMinor");
-      g_variant_get (v, "u", &minor);
-      g_variant_unref (v);
-      v = g_dbus_proxy_get_cached_property (self->priv->pk_proxy, "VersionMicro");
-      g_variant_get (v, "u", &micro);
-      g_variant_unref (v);
-
-      if (major != 0 || minor != 8)
-        {
-          g_warning ("PackageKit version %u.%u.%u not supported", major, minor, micro);
-          g_clear_object (&self->priv->pk_proxy);
-          self->priv->updates_state = PK_NOT_AVAILABLE;
-        }
-      else
-        {
-          g_signal_connect (self->priv->pk_proxy,
-                            "g-signal",
-                            G_CALLBACK (on_pk_signal),
-                            self);
-          refresh_updates (self);
-        }
-    }
-
-  gtk_builder_add_from_file (self->priv->builder,
-                             GNOMECC_UI_DIR "/info.ui",
-                             &error);
-
-  if (error != NULL)
+  if (gtk_builder_add_from_file (self->priv->builder,
+                                 GNOMECC_UI_DIR "/info.ui",
+                                 &error) == 0)
     {
       g_warning ("Could not load interface file: %s", error->message);
       g_error_free (error);
@@ -2082,11 +1945,11 @@ cc_info_panel_init (CcInfoPanel *self)
   widget = WID ("updates_button");
   g_signal_connect (widget, "clicked", G_CALLBACK (on_updates_button_clicked), self);
 
+  info_panel_setup_updates (self);
   info_panel_setup_selector (self);
   info_panel_setup_overview (self);
   info_panel_setup_default_apps (self);
   info_panel_setup_media (self);
-  info_panel_setup_graphics (self);
   if (!g_strcmp0 (g_getenv ("XDG_CURRENT_DESKTOP"), "Unity"))
     info_panel_setup_notice (self);
 }
