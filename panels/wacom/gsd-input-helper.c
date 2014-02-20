@@ -20,6 +20,8 @@
 
 #include "config.h"
 
+#include <string.h>
+
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 
@@ -189,9 +191,34 @@ device_info_is_touchscreen (XDeviceInfo *device_info)
 }
 
 gboolean
+device_info_is_tablet (XDeviceInfo *device_info)
+{
+        /* Note that this doesn't match Wacom tablets */
+        return (device_info->type == XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), XI_TABLET, False));
+}
+
+gboolean
 device_info_is_mouse (XDeviceInfo *device_info)
 {
         return (device_info->type == XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), XI_MOUSE, False));
+}
+
+gboolean
+device_info_is_trackball (XDeviceInfo *device_info)
+{
+        gboolean retval;
+
+        retval = (device_info->type == XInternAtom (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), XI_TRACKBALL, False));
+        if (retval == FALSE &&
+            device_info->name != NULL) {
+                char *lowercase;
+
+                lowercase = g_ascii_strdown (device_info->name, -1);
+                retval = strstr (lowercase, "trackball") != NULL;
+                g_free (lowercase);
+        }
+
+        return retval;
 }
 
 static gboolean
@@ -260,6 +287,13 @@ gboolean
 mouse_is_present (void)
 {
         return device_type_is_present (device_info_is_mouse,
+                                       NULL);
+}
+
+gboolean
+trackball_is_present (void)
+{
+        return device_type_is_present (device_info_is_trackball,
                                        NULL);
 }
 
@@ -480,7 +514,7 @@ run_custom_command (GdkDevice              *device,
         argv[2] = (char *) custom_command_to_string (command);
         argv[3] = "-i";
         argv[4] = g_strdup_printf ("%d", id);
-        argv[5] = g_strdup_printf ("%s", gdk_device_get_name (device));
+        argv[5] = (char*) gdk_device_get_name (device);
         argv[6] = NULL;
 
         rc = g_spawn_sync (g_get_home_dir (), argv, NULL, G_SPAWN_SEARCH_PATH,
@@ -491,9 +525,8 @@ run_custom_command (GdkDevice              *device,
 
         g_free (argv[0]);
         g_free (argv[4]);
-        g_free (argv[5]);
 
-        return (exit_status == 0);
+        return (exit_status == 1);
 }
 
 GList *

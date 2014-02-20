@@ -112,7 +112,7 @@ NETWORK_MANAGER_REQUIRED_VERSION=0.8.992
 LIBNOTIFY_REQUIRED_VERSION=0.7.3
 GNOME_DESKTOP_REQUIRED_VERSION=3.5.91
 SCHEMAS_REQUIRED_VERSION=3.7.2.2
-LIBWACOM_REQUIRED_VERSION=0.6
+LIBWACOM_REQUIRED_VERSION=0.7
 CLUTTER_REQUIRED_VERSION=1.11.3
 GOA_REQUIRED_VERSION=3.5.90
 
@@ -246,6 +246,7 @@ case $host_os in
                         gnome-settings-daemon >= $GSD_REQUIRED_VERSION
                         xi >= 1.2 x11 libwacom >= $LIBWACOM_REQUIRED_VERSION
                         gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION)
+      AC_DEFINE(BUILD_WACOM, 1, [Define to 1 to build the Wacom panel])
       have_wacom=yes
     fi
     ;;
