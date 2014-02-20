@@ -195,8 +195,6 @@ struct _IBusXMLState
   GString    *buffer;
   gchar      *name;
   gchar      *setup;
-  gboolean    is_name;
-  gboolean    is_setup;
 };
 
 static IBusXMLState *
@@ -237,51 +235,20 @@ parse_start (GMarkupParseContext  *context,
              GError              **error)
 {
   IBusXMLState *state = user_data;
+  const GSList *stack = g_markup_parse_context_get_element_stack (context);
+  const gchar *parent = stack->next ? stack->next->data : NULL;
 
-  if (g_str_equal (element_name, "engine"))
+  if (state->buffer)
     {
-      if (state->buffer)
-        {
-          g_string_free (state->buffer, TRUE);
-          state->buffer = NULL;
-        }
-
-      if (state->name)
-        {
-          g_free (state->name);
-          state->name = NULL;
-        }
-
-      if (state->setup)
-        {
-          g_free (state->setup);
-          state->setup = NULL;
-        }
-
-      state->is_name = FALSE;
-      state->is_setup = FALSE;
+      g_set_error (error, G_MARKUP_ERROR, G_MARKUP_ERROR_INVALID_CONTENT,
+                   "Didn't expect a tag within a <%s>", element_name);
     }
-  else if (g_str_equal (element_name, "name"))
+  else if (parent && g_str_equal (parent, "engine"))
     {
-      if (state->buffer)
-        {
-          g_string_free (state->buffer, TRUE);
-          state->buffer = NULL;
-        }
-
-      state->buffer = g_string_new (NULL);
-      state->is_name = TRUE;
-    }
-  else if (g_str_equal (element_name, "setup"))
-    {
-      if (state->buffer)
-        {
-          g_string_free (state->buffer, TRUE);
-          state->buffer = NULL;
-        }
-
-      state->buffer = g_string_new (NULL);
-      state->is_setup = TRUE;
+      if (g_str_equal (element_name, "name") && !state->name)
+        state->buffer = g_string_new (NULL);
+      else if (g_str_equal (element_name, "setup") && !state->setup)
+        state->buffer = g_string_new (NULL);
     }
 }
 
@@ -293,51 +260,26 @@ parse_end (GMarkupParseContext  *context,
 {
   IBusXMLState *state = user_data;
 
-  if (g_str_equal (element_name, "engine"))
+  /* only set for <name> and <setup> */
+  if (state->buffer)
+    {
+      if (g_str_equal (element_name, "name"))
+        state->name = g_string_free (state->buffer, FALSE);
+      else /* g_str_equal (element_name, "setup") */
+        state->setup = g_string_free (state->buffer, FALSE);
+
+      state->buffer = NULL;
+    }
+  else if (g_str_equal (element_name, "engine"))
     {
       if (state->name && state->setup)
         g_hash_table_insert (state->table, g_strdup (state->name), g_strdup (state->setup));
 
-      if (state->buffer)
-        {
-          g_string_free (state->buffer, TRUE);
-          state->buffer = NULL;
-        }
+      g_free (state->name);
+      g_free (state->setup);
 
-      if (state->name)
-        {
-          g_free (state->name);
-          state->name = NULL;
-        }
-
-      if (state->setup)
-        {
-          g_free (state->setup);
-          state->setup = NULL;
-        }
-
-      state->is_name = FALSE;
-      state->is_setup = FALSE;
-    }
-  else if (g_str_equal (element_name, "name"))
-    {
-      if (state->is_name && !state->name && state->buffer)
-        {
-          state->name = g_string_free (state->buffer, FALSE);
-          state->buffer = NULL;
-        }
-
-      state->is_name = FALSE;
-    }
-  else if (g_str_equal (element_name, "setup"))
-    {
-      if (state->is_setup && !state->setup && state->buffer)
-        {
-          state->setup = g_string_free (state->buffer, FALSE);
-          state->buffer = NULL;
-        }
-
-      state->is_setup = FALSE;
+      state->name = NULL;
+      state->setup = NULL;
     }
 }
 
@@ -350,7 +292,7 @@ parse_text (GMarkupParseContext  *context,
 {
   IBusXMLState *state = user_data;
 
-  if ((state->is_name || state->is_setup) && state->buffer)
+  if (state->buffer)
     g_string_append_len (state->buffer, text, text_len);
 }
 
@@ -376,65 +318,63 @@ parse_ibus_component (const gchar *path,
   g_markup_parse_context_free (context);
 }
 
-static GHashTable *
-legacy_setup_table (void)
+static void
+fetch_setup_entries (GHashTable *table)
 {
-  static GHashTable *table = NULL;
+  GDir *dir;
+  const gchar *name;
+  GError *error = NULL;
 
-  if (!table)
+  dir = g_dir_open (LEGACY_IBUS_XML_DIR, 0, &error);
+
+  if (!dir)
     {
-      GDir *dir;
-      const gchar *name;
-      GError *error = NULL;
-
-      table = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
-
-      dir = g_dir_open (LEGACY_IBUS_XML_DIR, 0, &error);
-
-      if (!dir)
-        {
-          g_warning ("Couldn't open directory '%s': %s", LEGACY_IBUS_XML_DIR, error->message);
-          g_error_free (error);
-          return table;
-        }
-
-      for (name = g_dir_read_name (dir); name; name = g_dir_read_name (dir))
-        {
-          gchar *path;
-          gchar *text;
-          gssize length;
-
-          path = g_build_filename (LEGACY_IBUS_XML_DIR, name, NULL);
-
-          if (g_file_get_contents (path, &text, &length, &error))
-            {
-              parse_ibus_component (path, text, length, table);
-              g_free (text);
-            }
-          else
-            {
-              g_warning ("Couldn't read file '%s': %s", path, error->message);
-              g_clear_error (&error);
-            }
-
-          g_free (path);
-        }
-
-      g_dir_close (dir);
+      g_warning ("Couldn't open directory '%s': %s", LEGACY_IBUS_XML_DIR, error->message);
+      g_error_free (error);
+      return;
     }
 
-  return table;
+  for (name = g_dir_read_name (dir); name; name = g_dir_read_name (dir))
+    {
+      gchar *path;
+      gchar *text;
+      gssize length;
+
+      path = g_build_filename (LEGACY_IBUS_XML_DIR, name, NULL);
+
+      if (g_file_get_contents (path, &text, &length, &error))
+        {
+          parse_ibus_component (path, text, length, table);
+          g_free (text);
+        }
+      else
+        {
+          g_warning ("Couldn't read file '%s': %s", path, error->message);
+          g_clear_error (&error);
+        }
+
+      g_free (path);
+    }
+
+  g_dir_close (dir);
 }
 
 static gchar *
 legacy_setup_for_id (const gchar *id)
 {
-  GHashTable *table;
+  static GHashTable *table;
+
   const gchar *lookup;
   gchar *name;
   gchar *path;
 
-  lookup = g_hash_table_lookup (legacy_setup_table (), id);
+  if (!table)
+    {
+      table = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+      fetch_setup_entries (table);
+    }
+
+  lookup = g_hash_table_lookup (table, id);
 
   if (lookup)
     return g_strdup (lookup);
@@ -444,14 +384,14 @@ legacy_setup_for_id (const gchar *id)
 
   g_free (name);
 
-  if (g_access (path, R_OK))
+  if (g_access (path, R_OK) != 0)
     {
       g_free (path);
       path = NULL;
     }
 
   if (path)
-    g_hash_table_insert (legacy_setup_table (), g_strdup (id), g_strdup (path));
+    g_hash_table_insert (table, g_strdup (id), g_strdup (path));
 
   return path;
 }
