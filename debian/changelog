@@ -1,3 +1,11 @@
+unity-control-center (14.04.3+14.04.20140220-0ubuntu1) trusty; urgency=low
+
+  [ Eleni Maria Stea ]
+  * Add a slider that can change the fonts-scale-factor gsetting (per
+    monitor text scaling factor)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 20 Feb 2014 10:43:50 +0000
+
 unity-control-center (14.04.3+14.04.20140219-0ubuntu1) trusty; urgency=low
 
   [ Robert Ancell ]
