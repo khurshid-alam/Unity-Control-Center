@@ -10,10 +10,21 @@ INCLUDES = 						\
 	-DLIBEXECDIR="\"$(libexecdir)\""		\
 	$(NULL)
 
-noinst_PROGRAMS = test-hostname
+noinst_PROGRAMS = test-hostname logo-generator
 test_hostname_SOURCES = hostname-helper.c hostname-helper.h test-hostname.c
 test_hostname_LDADD = $(PANEL_LIBS) $(INFO_PANEL_LIBS)
 test_hostname_CFLAGS = $(INCLUDES)
+
+logo_generator_SOURCES = logo-generator.vala
+
+logo_generator_VALAFLAGS = \
+	--pkg cairo        \
+	--pkg pango        \
+	--pkg pangocairo   \
+	--target-glib 2.32
+
+logo_generator_CFLAGS = $(PANEL_CFLAGS) $(INFO_PANEL_CFLAGS)
+logo_generator_LDADD = $(PANEL_LIBS) $(INFO_PANEL_LIBS)
 
 all-local: check-local
 
