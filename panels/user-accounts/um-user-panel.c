@@ -1347,7 +1347,7 @@ um_user_panel_init (UmUserPanel *self)
         if (schema) {
                 d->indicator_session_schema = g_settings_new (INDICATOR_SESSION_SCHEMA);
                 g_settings_bind (d->indicator_session_schema, "show-real-name-on-panel", get_widget (d, "show-login-name-checkbutton"), "active", G_SETTINGS_BIND_DEFAULT);
-                g_object_unref (schema);
+                g_settings_schema_unref (schema);
         }
 }
 
