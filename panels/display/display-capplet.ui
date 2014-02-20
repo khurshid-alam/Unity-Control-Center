@@ -114,7 +114,7 @@
                       <object class="GtkTable" id="table1">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="n_rows">5</property>
+                        <property name="n_rows">6</property>
                         <property name="n_columns">2</property>
                         <property name="column_spacing">12</property>
                         <property name="row_spacing">6</property>
@@ -290,6 +290,39 @@
                             <property name="y_options"/>
                           </packing>
                         </child>
+                        <child>
+                          <object class="GtkLabel" id="ui_label">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="xalign">1</property>
+                            <property name="yalign">1</property>
+                            <property name="xpad">3</property>
+                            <property name="ypad">3</property>
+                            <property name="label" translatable="yes">UI scale</property>
+                          </object>
+                          <packing>
+                            <property name="top_attach">5</property>
+                            <property name="bottom_attach">6</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkHScale" id="ui_scale">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="digits">2</property>
+                            <child internal-child="accessible">
+                              <object class="AtkObject" id="ui_scale-atkobject">
+                                <property name="AtkObject::accessible-description" translatable="yes">Cursor blink speed</property>
+                              </object>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="right_attach">2</property>
+                            <property name="top_attach">5</property>
+                            <property name="bottom_attach">6</property>
+                          </packing>
+                        </child>
                       </object>
                     </child>
                   </object>
@@ -300,49 +333,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkBox" id="box1">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="homogeneous">True</property>
-                    <child>
-                      <object class="GtkLabel" id="ui_label">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="xalign">0.25</property>
-                        <property name="yalign">1</property>
-                        <property name="xpad">3</property>
-                        <property name="ypad">3</property>
-                        <property name="label" translatable="yes">UI scale:  </property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkHScale" id="ui_scale">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="digits">2</property>
-                        <child internal-child="accessible">
-                          <object class="AtkObject" id="ui_scale-atkobject">
-                            <property name="AtkObject::accessible-description" translatable="yes">Cursor blink speed</property>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                    <property name="position">2</property>
-                  </packing>
+                  <placeholder/>
                 </child>
               </object>
               <packing>
