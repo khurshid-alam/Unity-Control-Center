@@ -256,7 +256,7 @@ static void
 delete_fingerprints_question (GtkWindow *parent,
                               GtkWidget *label1,
                               GtkWidget *label2,
-                              UmUser    *user)
+                              ActUser   *user)
 {
         GtkWidget *question;
         GtkWidget *button;
@@ -446,8 +446,8 @@ enroll_result (EnrollData *data, const char *result, gboolean done)
 
                 data->num_stages_done++;
                 name = g_strdup_printf ("image%d", data->num_stages_done);
-                path = g_build_filename (UM_PIXMAP_DIR, "print_ok.png", NULL);
-                gtk_image_set_from_file (GTK_IMAGE (WID (name)), path);
+                path = g_strdup_printf ("/org/gnome/control-center/user-accounts/print_ok.png");
+                gtk_image_set_from_resource (GTK_IMAGE (WID (name)), path);
                 g_free (name);
                 g_free (path);
         }
@@ -577,16 +577,12 @@ assistant_prepare (GtkAssistant *ass, GtkWidget *page, EnrollData *data)
                 }
                 /* And set the right image */
                 {
-                        char *filename;
-
-                        filename = g_strdup_printf ("%s.png", data->finger);
-                        path = g_build_filename (UM_PIXMAP_DIR, filename, NULL);
-                        g_free (filename);
+                        path = g_strdup_printf ("/org/gnome/control-center/user-accounts/%s.png", data->finger);
                 }
                 for (i = 1; i <= data->num_enroll_stages; i++) {
                         char *name;
                         name = g_strdup_printf ("image%d", i);
-                        gtk_image_set_from_file (GTK_IMAGE (WID (name)), path);
+                        gtk_image_set_from_resource (GTK_IMAGE (WID (name)), path);
                         g_free (name);
                 }
                 g_free (path);
@@ -628,13 +624,12 @@ static void
 enroll_fingerprints (GtkWindow *parent,
                      GtkWidget *label1,
                      GtkWidget *label2,
-                     UmUser    *user)
+                     ActUser   *user)
 {
         GDBusProxy *device;
         GtkBuilder *dialog;
         EnrollData *data;
         GtkWidget *ass;
-        const char *filename;
         char *msg;
         GVariant *result;
         GError *error = NULL;
@@ -692,10 +687,9 @@ enroll_fingerprints (GtkWindow *parent,
         }
 
         dialog = gtk_builder_new ();
-        filename = UIDIR "/account-fingerprint.ui";
-        if (!g_file_test (filename, G_FILE_TEST_EXISTS))
-                filename = "data/account-fingerprint.ui";
-        if (!gtk_builder_add_from_file (dialog, filename, &error)) {
+        if (!gtk_builder_add_from_resource (dialog,
+                                            "/org/gnome/control-center/user-accounts/account-fingerprint.ui",
+                                            &error)) {
                 g_error ("%s", error->message);
                 g_error_free (error);
                 return;
@@ -766,7 +760,7 @@ void
 fingerprint_button_clicked (GtkWindow *parent,
                             GtkWidget *label1,
                             GtkWidget *label2,
-                            UmUser    *user)
+                            ActUser   *user)
 {
         bindtextdomain ("fprintd", GNOMELOCALEDIR);
         bind_textdomain_codeset ("fprintd", "UTF-8");

@@ -32,15 +32,13 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 #include <polkit/polkit.h>
+#include <act/act.h>
 
 #ifdef HAVE_CHEESE
 #include <gst/gst.h>
 #endif /* HAVE_CHEESE */
 
 #include "shell/cc-editable-entry.h"
-
-#include "um-user.h"
-#include "um-user-manager.h"
 
 #include "um-editable-button.h"
 #include "um-editable-combo.h"
@@ -51,19 +49,21 @@
 #include "um-photo-dialog.h"
 #include "um-fingerprint-dialog.h"
 #include "um-utils.h"
+#include "um-resources.h"
+#include "um-history-dialog.h"
 
 #include "cc-common-language.h"
 
 #define USER_ACCOUNTS_PERMISSION "com.canonical.controlcenter.user-accounts.administration"
 #define INDICATOR_SESSION_SCHEMA "com.canonical.indicator.session"
 
-CC_PANEL_REGISTER (UmUserPanel, um_user_panel)
+CC_PANEL_REGISTER (CcUserPanel, cc_user_panel)
 
 #define UM_USER_PANEL_PRIVATE(o) \
-  (G_TYPE_INSTANCE_GET_PRIVATE ((o), UM_TYPE_USER_PANEL, UmUserPanelPrivate))
+  (G_TYPE_INSTANCE_GET_PRIVATE ((o), UM_TYPE_USER_PANEL, CcUserPanelPrivate))
 
-struct _UmUserPanelPrivate {
-        UmUserManager *um;
+struct _CcUserPanelPrivate {
+        ActUserManager *um;
         GtkBuilder *builder;
 
         GtkWidget *main_box;
@@ -72,12 +72,17 @@ struct _UmUserPanelPrivate {
 
         UmPasswordDialog *password_dialog;
         UmPhotoDialog *photo_dialog;
+        UmHistoryDialog *history_dialog;
+        gint other_accounts;
+        GtkTreeIter *other_iter;
+        
+        UmAccountDialog *account_dialog;
 
         GSettings *indicator_session_schema;
 };
 
 static GtkWidget *
-get_widget (UmUserPanelPrivate *d, const char *name)
+get_widget (CcUserPanelPrivate *d, const char *name)
 {
         return (GtkWidget *)gtk_builder_get_object (d->builder, name);
 }
@@ -94,14 +99,14 @@ enum {
         NUM_USER_LIST_COLS
 };
 
-static UmUser *
-get_selected_user (UmUserPanelPrivate *d)
+static ActUser *
+get_selected_user (CcUserPanelPrivate *d)
 {
         GtkTreeView *tv;
         GtkTreeIter iter;
         GtkTreeSelection *selection;
         GtkTreeModel *model;
-        UmUser *user;
+        ActUser *user;
 
         tv = (GtkTreeView *)get_widget (d, "list-treeview");
         selection = gtk_tree_view_get_selection (tv);
@@ -115,15 +120,15 @@ get_selected_user (UmUserPanelPrivate *d)
 }
 
 static char *
-get_name_col_str (UmUser *user)
+get_name_col_str (ActUser *user)
 {
         return g_markup_printf_escaped ("<b>%s</b>\n<small>%s</small>",
-                                        um_user_get_display_name (user),
-                                        um_user_get_user_name (user));
+                                        act_user_get_real_name (user),
+                                        act_user_get_user_name (user));
 }
 
 static void
-user_added (UmUserManager *um, UmUser *user, UmUserPanelPrivate *d)
+user_added (ActUserManager *um, ActUser *user, CcUserPanelPrivate *d)
 {
         GtkWidget *widget;
         GtkTreeModel *model;
@@ -131,26 +136,31 @@ user_added (UmUserManager *um, UmUser *user, UmUserPanelPrivate *d)
         GtkTreeIter iter;
         GtkTreeIter dummy;
         GdkPixbuf *pixbuf;
-        gchar *text;
+        gchar *text, *title;
         GtkTreeSelection *selection;
         gint sort_key;
         gboolean is_autologin;
 
-        g_debug ("user added: %d %s\n", um_user_get_uid (user), um_user_get_real_name (user));
+        if (act_user_is_system_account (user)) {
+                return;
+        }
+
+        g_debug ("user added: %d %s\n", act_user_get_uid (user), act_user_get_real_name (user));
         widget = get_widget (d, "list-treeview");
         model = gtk_tree_view_get_model (GTK_TREE_VIEW (widget));
         store = GTK_LIST_STORE (model);
         selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (widget));
 
-        pixbuf = um_user_render_icon (user, TRUE, 48);
+        pixbuf = render_user_icon (user, UM_ICON_STYLE_FRAME | UM_ICON_STYLE_STATUS, 48);
         text = get_name_col_str (user);
 
-        is_autologin = um_user_get_automatic_login (user);
+        is_autologin = act_user_get_automatic_login (user);
 
-        if (um_user_get_uid (user) == getuid ()) {
+        if (act_user_get_uid (user) == getuid ()) {
                 sort_key = 1;
         }
         else {
+                d->other_accounts++;
                 sort_key = 3;
         }
         gtk_list_store_append (store, &iter);
@@ -172,6 +182,19 @@ user_added (UmUserManager *um, UmUser *user, UmUserPanelPrivate *d)
             !gtk_tree_selection_get_selected (selection, &model, &dummy)) {
                 gtk_tree_selection_select_iter (selection, &iter);
         }
+
+        /* Show heading for other accounts if new one have been added. */
+        if (d->other_accounts == 1 && sort_key == 3) {
+                title = g_strdup_printf ("<small><span foreground=\"#555555\">%s</span></small>", _("Other Accounts"));
+                gtk_list_store_append (store, &iter);
+                gtk_list_store_set (store, &iter,
+                                    TITLE_COL, title,
+                                    HEADING_ROW_COL, TRUE,
+                                    SORT_KEY_COL, 2,
+                                    -1);
+                d->other_iter = gtk_tree_iter_copy (&iter);
+                g_free (title);
+        }
 }
 
 static void
@@ -180,7 +203,7 @@ get_previous_user_row (GtkTreeModel *model,
                        GtkTreeIter  *prev)
 {
         GtkTreePath *path;
-        UmUser *user;
+        ActUser *user;
 
         path = gtk_tree_model_get_path (model, iter);
         while (gtk_tree_path_prev (path)) {
@@ -199,7 +222,7 @@ get_next_user_row (GtkTreeModel *model,
                    GtkTreeIter  *iter,
                    GtkTreeIter  *next)
 {
-        UmUser *user;
+        ActUser *user;
 
         *next = *iter;
         while (gtk_tree_model_iter_next (model, next)) {
@@ -214,28 +237,32 @@ get_next_user_row (GtkTreeModel *model,
 }
 
 static void
-user_removed (UmUserManager *um, UmUser *user, UmUserPanelPrivate *d)
+user_removed (ActUserManager *um, ActUser *user, CcUserPanelPrivate *d)
 {
         GtkTreeView *tv;
         GtkTreeModel *model;
         GtkTreeSelection *selection;
         GtkListStore *store;
         GtkTreeIter iter, next;
-        UmUser *u;
+        ActUser *u;
+        gint key;
 
-        g_debug ("user removed: %s\n", um_user_get_user_name (user));
+        g_debug ("user removed: %s\n", act_user_get_user_name (user));
         tv = (GtkTreeView *)get_widget (d, "list-treeview");
         selection = gtk_tree_view_get_selection (tv);
         model = gtk_tree_view_get_model (tv);
         store = GTK_LIST_STORE (model);
         if (gtk_tree_model_get_iter_first (model, &iter)) {
                 do {
-                        gtk_tree_model_get (model, &iter, USER_COL, &u, -1);
+                        gtk_tree_model_get (model, &iter, USER_COL, &u, SORT_KEY_COL, &key, -1);
 
                         if (u != NULL) {
-                                if (um_user_get_uid (user) == um_user_get_uid (u)) {
+                                if (act_user_get_uid (user) == act_user_get_uid (u)) {
                                         if (!get_next_user_row (model, &iter, &next))
                                                 get_previous_user_row (model, &iter, &next);
+                                        if (key == 3) {
+                                                d->other_accounts--;
+                                        }
                                         gtk_list_store_remove (store, &iter);
                                         gtk_tree_selection_select_iter (selection, &next);
                                         g_object_unref (u);
@@ -245,18 +272,25 @@ user_removed (UmUserManager *um, UmUser *user, UmUserPanelPrivate *d)
                         }
                 } while (gtk_tree_model_iter_next (model, &iter));
         }
+
+        /* Hide heading for other accounts if last one have been removed. */
+        if (d->other_iter != NULL && d->other_accounts == 0 && key == 3) {
+                gtk_list_store_remove (store, d->other_iter);
+                gtk_tree_iter_free (d->other_iter);
+                d->other_iter = NULL;
+        }
 }
 
-static void show_user (UmUser *user, UmUserPanelPrivate *d);
+static void show_user (ActUser *user, CcUserPanelPrivate *d);
 
 static void
-user_changed (UmUserManager *um, UmUser *user, UmUserPanelPrivate *d)
+user_changed (ActUserManager *um, ActUser *user, CcUserPanelPrivate *d)
 {
         GtkTreeView *tv;
         GtkTreeSelection *selection;
         GtkTreeModel *model;
         GtkTreeIter iter;
-        UmUser *current;
+        ActUser *current;
         GdkPixbuf *pixbuf;
         char *text;
         gboolean is_autologin;
@@ -269,9 +303,9 @@ user_changed (UmUserManager *um, UmUser *user, UmUserPanelPrivate *d)
         do {
                 gtk_tree_model_get (model, &iter, USER_COL, &current, -1);
                 if (current == user) {
-                        pixbuf = um_user_render_icon (user, TRUE, 48);
+                        pixbuf = render_user_icon (user, UM_ICON_STYLE_FRAME | UM_ICON_STYLE_STATUS, 48);
                         text = get_name_col_str (user);
-                        is_autologin = um_user_get_automatic_login (user);
+                        is_autologin = act_user_get_automatic_login (user);
 
                         gtk_list_store_set (GTK_LIST_STORE (model), &iter,
                                             USER_COL, user,
@@ -306,19 +340,21 @@ select_created_user (GObject *object,
                      GAsyncResult *result,
                      gpointer user_data)
 {
-        UmUserPanelPrivate *d = user_data;
+        CcUserPanelPrivate *d = user_data;
         UmAccountDialog *dialog;
         GtkTreeView *tv;
         GtkTreeModel *model;
         GtkTreeSelection *selection;
         GtkTreeIter iter;
-        UmUser *current;
+        ActUser *current;
         GtkTreePath *path;
-        UmUser *user;
+        ActUser *user;
+        uid_t user_uid;
 
         dialog = UM_ACCOUNT_DIALOG (object);
         user = um_account_dialog_finish (dialog, result);
         gtk_widget_destroy (GTK_WIDGET (dialog));
+        d->account_dialog = NULL;
 
         if (user == NULL)
                 return;
@@ -326,45 +362,45 @@ select_created_user (GObject *object,
         tv = (GtkTreeView *)get_widget (d, "list-treeview");
         model = gtk_tree_view_get_model (tv);
         selection = gtk_tree_view_get_selection (tv);
+        user_uid = act_user_get_uid (user);
 
         gtk_tree_model_get_iter_first (model, &iter);
         do {
                 gtk_tree_model_get (model, &iter, USER_COL, &current, -1);
-                if (user == current) {
-                        path = gtk_tree_model_get_path (model, &iter);
-                        gtk_tree_view_scroll_to_cell (tv, path, NULL, FALSE, 0.0, 0.0);
-                        gtk_tree_selection_select_path (selection, path);
-                        gtk_tree_path_free (path);
+                if (current) {
+                        if (user_uid == act_user_get_uid (current)) {
+                                path = gtk_tree_model_get_path (model, &iter);
+                                gtk_tree_view_scroll_to_cell (tv, path, NULL, FALSE, 0.0, 0.0);
+                                gtk_tree_selection_select_path (selection, path);
+                                gtk_tree_path_free (path);
+                                g_object_unref (current);
+                                break;
+                        }
                         g_object_unref (current);
-                        break;
                 }
-                if (current)
-                        g_object_unref (current);
         } while (gtk_tree_model_iter_next (model, &iter));
 
         g_object_unref (user);
 }
 
 static void
-add_user (GtkButton *button, UmUserPanelPrivate *d)
+add_user (GtkButton *button, CcUserPanelPrivate *d)
 {
-        UmAccountDialog *dialog;
-
-        dialog = um_account_dialog_new ();
-        um_account_dialog_show (dialog, GTK_WINDOW (gtk_widget_get_toplevel (d->main_box)),
-                                select_created_user, d);
+        d->account_dialog = um_account_dialog_new ();
+        um_account_dialog_show (d->account_dialog, GTK_WINDOW (gtk_widget_get_toplevel (d->main_box)),
+                                d->permission, select_created_user, d);
 }
 
 static void
-delete_user_done (UmUserManager     *manager,
+delete_user_done (ActUserManager    *manager,
                   GAsyncResult      *res,
-                  UmUserPanelPrivate *d)
+                  CcUserPanelPrivate *d)
 {
         GError *error;
 
         error = NULL;
-        if (!um_user_manager_delete_user_finish (manager, res, &error)) {
-                if (!g_error_matches (error, UM_USER_MANAGER_ERROR, UM_USER_MANAGER_ERROR_PERMISSION_DENIED)) {
+        if (!act_user_manager_delete_user_finish (manager, res, &error)) {
+                if (!g_error_matches (error, ACT_USER_MANAGER_ERROR, ACT_USER_MANAGER_ERROR_PERMISSION_DENIED)) {
                         GtkWidget *dialog;
 
                         dialog = gtk_message_dialog_new (GTK_WINDOW (gtk_widget_get_toplevel (d->main_box)),
@@ -387,9 +423,9 @@ delete_user_done (UmUserManager     *manager,
 static void
 delete_user_response (GtkWidget         *dialog,
                       gint               response_id,
-                      UmUserPanelPrivate *d)
+                      CcUserPanelPrivate *d)
 {
-        UmUser *user;
+        ActUser *user;
         gboolean remove_files;
 
         gtk_widget_destroy (dialog);
@@ -406,27 +442,32 @@ delete_user_response (GtkWidget         *dialog,
 
         user = get_selected_user (d);
 
-        um_user_manager_delete_user (d->um,
-                                     user,
-                                     remove_files,
-                                     (GAsyncReadyCallback)delete_user_done,
-                                     d,
-                                     NULL);
+        /* remove autologin */
+        if (act_user_get_automatic_login (user)) {
+                act_user_set_automatic_login (user, FALSE);
+        }
+
+        act_user_manager_delete_user_async (d->um,
+                                            user,
+                                            remove_files,
+                                            NULL,
+                                            (GAsyncReadyCallback)delete_user_done,
+                                            d);
 
         g_object_unref (user);
 }
 
 static void
-delete_user (GtkButton *button, UmUserPanelPrivate *d)
+delete_user (GtkButton *button, CcUserPanelPrivate *d)
 {
-        UmUser *user;
+        ActUser *user;
         GtkWidget *dialog;
 
         user = get_selected_user (d);
         if (user == NULL) {
                 return;
         }
-        else if (um_user_get_uid (user) == getuid ()) {
+        else if (act_user_get_uid (user) == getuid ()) {
                 dialog = gtk_message_dialog_new (GTK_WINDOW (gtk_widget_get_toplevel (d->main_box)),
                                                  0,
                                                  GTK_MESSAGE_INFO,
@@ -435,13 +476,13 @@ delete_user (GtkButton *button, UmUserPanelPrivate *d)
                 g_signal_connect (dialog, "response",
                                   G_CALLBACK (gtk_widget_destroy), NULL);
         }
-        else if (um_user_is_logged_in (user)) {
+        else if (act_user_is_logged_in_anywhere (user)) {
                 dialog = gtk_message_dialog_new (GTK_WINDOW (gtk_widget_get_toplevel (d->main_box)),
                                                  0,
                                                  GTK_MESSAGE_INFO,
                                                  GTK_BUTTONS_CLOSE,
                                                  _("%s is still logged in"),
-                                                um_user_get_real_name (user));
+                                                act_user_get_real_name (user));
 
                 gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
                                                           _("Deleting a user while they are logged in can leave the system in an inconsistent state."));
@@ -454,7 +495,7 @@ delete_user (GtkButton *button, UmUserPanelPrivate *d)
                                                  GTK_MESSAGE_QUESTION,
                                                  GTK_BUTTONS_NONE,
                                                  _("Do you want to keep %s's files?"),
-                                                um_user_get_real_name (user));
+                                                act_user_get_real_name (user));
 
                 gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
                                                           _("It is possible to keep the home directory, mail spool and temporary files around when deleting a user account."));
@@ -508,22 +549,22 @@ get_invisible_text (void)
 }
 
 static const gchar *
-get_password_mode_text (UmUser *user)
+get_password_mode_text (ActUser *user)
 {
         const gchar *text;
 
-        if (um_user_get_locked (user)) {
+        if (act_user_get_locked (user)) {
                 text = C_("Password mode", "Account disabled");
         }
         else {
-                switch (um_user_get_password_mode (user)) {
-                case UM_PASSWORD_MODE_REGULAR:
+                switch (act_user_get_password_mode (user)) {
+                case ACT_USER_PASSWORD_MODE_REGULAR:
                         text = get_invisible_text ();
                         break;
-                case UM_PASSWORD_MODE_SET_AT_LOGIN:
+                case ACT_USER_PASSWORD_MODE_SET_AT_LOGIN:
                         text = C_("Password mode", "To be set at next login");
                         break;
-                case UM_PASSWORD_MODE_NONE:
+                case ACT_USER_PASSWORD_MODE_NONE:
                         text = C_("Password mode", "None");
                         break;
                 default:
@@ -537,24 +578,24 @@ get_password_mode_text (UmUser *user)
 static void
 autologin_changed (GObject            *object,
                    GParamSpec         *pspec,
-                   UmUserPanelPrivate *d)
+                   CcUserPanelPrivate *d)
 {
         gboolean active;
-        UmUser *user;
+        ActUser *user;
 
         active = gtk_switch_get_active (GTK_SWITCH (object));
         user = get_selected_user (d);
 
-        if (active != um_user_get_automatic_login (user)) {
-                um_user_set_automatic_login (user, active);
-                if (um_user_get_automatic_login (user)) {
+        if (active != act_user_get_automatic_login (user)) {
+                act_user_set_automatic_login (user, active);
+                if (act_user_get_automatic_login (user)) {
                         GSList *list;
                         GSList *l;
-                        list = um_user_manager_list_users (d->um);
+                        list = act_user_manager_list_users (d->um);
                         for (l = list; l != NULL; l = l->next) {
-                                UmUser *u = l->data;
-                                if (um_user_get_uid (u) != um_user_get_uid (user)) {
-                                        um_user_set_automatic_login (user, FALSE);
+                                ActUser *u = l->data;
+                                if (act_user_get_uid (u) != act_user_get_uid (user)) {
+                                        act_user_set_automatic_login (user, FALSE);
                                 }
                         }
                         g_slist_free (list);
@@ -564,21 +605,65 @@ autologin_changed (GObject            *object,
         g_object_unref (user);
 }
 
+static gchar *
+get_login_time_text (ActUser *user)
+{
+        gchar *text, *date_str, *time_str;
+        GDateTime *date_time;
+        gint64 time;
+
+        time = act_user_get_login_time (user);
+        if (act_user_is_logged_in (user)) {
+                text = g_strdup (_("Logged in"));
+        }
+        else if (time > 0) {
+                date_time = g_date_time_new_from_unix_local (time);
+                date_str = get_smart_date (date_time);
+                time_str = g_date_time_format (date_time, "%k:%M");
+
+                text = g_strconcat (date_str, ", ", time_str, NULL);
+
+                g_date_time_unref (date_time);
+                g_free (date_str);
+                g_free (time_str);
+        }
+        else {
+                text = g_strdup ("—");
+        }
+
+        return text;
+}
+
+static gboolean
+get_autologin_possible (ActUser *user)
+{
+        gboolean locked;
+        gboolean set_password_at_login;
+
+        locked = act_user_get_locked (user);
+        set_password_at_login = (act_user_get_password_mode (user) == ACT_USER_PASSWORD_MODE_SET_AT_LOGIN);
+
+        return !(locked || set_password_at_login);
+}
+
+static void on_permission_changed (GPermission *permission, GParamSpec *pspec, gpointer data);
+
 static void
-show_user (UmUser *user, UmUserPanelPrivate *d)
+show_user (ActUser *user, CcUserPanelPrivate *d)
 {
         GtkWidget *image;
         GtkWidget *label;
         GtkWidget *label2;
         GtkWidget *label3;
         GdkPixbuf *pixbuf;
-        gchar *lang;
+        gchar *lang, *text;
         GtkWidget *widget;
         GtkTreeModel *model;
         GtkTreeIter iter;
         gboolean show, enable;
+        ActUser *current;
 
-        pixbuf = um_user_render_icon (user, FALSE, 48);
+        pixbuf = render_user_icon (user, UM_ICON_STYLE_NONE, 48);
         image = get_widget (d, "user-icon-image");
         gtk_image_set_from_pixbuf (GTK_IMAGE (image), pixbuf);
         image = get_widget (d, "user-icon-image2");
@@ -588,34 +673,32 @@ show_user (UmUser *user, UmUserPanelPrivate *d)
         um_photo_dialog_set_user (d->photo_dialog, user);
 
         widget = get_widget (d, "full-name-entry");
-        cc_editable_entry_set_text (CC_EDITABLE_ENTRY (widget), um_user_get_real_name (user));
-        gtk_widget_set_tooltip_text (widget, um_user_get_user_name (user));
+        cc_editable_entry_set_text (CC_EDITABLE_ENTRY (widget), act_user_get_real_name (user));
+        gtk_widget_set_tooltip_text (widget, act_user_get_user_name (user));
 
         widget = get_widget (d, "account-type-combo");
-        um_editable_combo_set_active (UM_EDITABLE_COMBO (widget), um_user_get_account_type (user));
+        um_editable_combo_set_active (UM_EDITABLE_COMBO (widget), act_user_get_account_type (user));
 
         widget = get_widget (d, "account-password-button");
         um_editable_button_set_text (UM_EDITABLE_BUTTON (widget), get_password_mode_text (user));
-        enable = um_user_is_local_account (user);
+        enable = act_user_is_local_account (user);
         gtk_widget_set_sensitive (widget, enable);
 
         widget = get_widget (d, "autologin-switch");
         g_signal_handlers_block_by_func (widget, autologin_changed, d);
-        gtk_switch_set_active (GTK_SWITCH (widget), um_user_get_automatic_login (user));
+        gtk_switch_set_active (GTK_SWITCH (widget), act_user_get_automatic_login (user));
         g_signal_handlers_unblock_by_func (widget, autologin_changed, d);
-
-        if (um_user_get_locked (user))
-                gtk_widget_set_sensitive (widget, FALSE);
+        gtk_widget_set_sensitive (widget, get_autologin_possible (user));
 
         widget = get_widget (d, "account-language-combo");
         model = um_editable_combo_get_model (UM_EDITABLE_COMBO (widget));
         cc_add_user_languages (model);
 
-        lang = g_strdup (um_user_get_language (user));
+        lang = g_strdup (act_user_get_language (user));
         if (!lang)
                 lang = cc_common_language_get_current_language ();
-        cc_common_language_get_iter_for_language (model, lang, &iter);
-        um_editable_combo_set_active_iter (UM_EDITABLE_COMBO (widget), &iter);
+        if (cc_common_language_get_iter_for_language (model, lang, &iter))
+          um_editable_combo_set_active_iter (UM_EDITABLE_COMBO (widget), &iter);
         g_free (lang);
 
         /* Fingerprint: show when self, possible, and local account */
@@ -623,8 +706,8 @@ show_user (UmUser *user, UmUserPanelPrivate *d)
         label = get_widget (d, "account-fingerprint-label");
         label2 = get_widget (d, "account-fingerprint-value-label");
         label3 = get_widget (d, "account-fingerprint-button-label");
-        show = (um_user_get_uid (user) == getuid() &&
-                um_user_is_local_account (user) &&
+        show = (act_user_get_uid (user) == getuid() &&
+                act_user_is_local_account (user) &&
                 set_fingerprint_label (label2, label3));
         gtk_widget_set_visible (label, show);
         gtk_widget_set_visible (widget, show);
@@ -634,34 +717,53 @@ show_user (UmUser *user, UmUserPanelPrivate *d)
         label = get_widget (d, "autologin-label");
         /* Don't show autologin option if ecryptfs is in use, because it won't
            work if user turns it on. */
-        show = um_user_is_local_account (user) &&
-               !is_using_ecryptfs (um_user_get_user_name (user));
+        show = act_user_is_local_account (user) &&
+               !is_using_ecryptfs (act_user_get_user_name (user));
         gtk_widget_set_visible (widget, show);
         gtk_widget_set_visible (label, show);
 
         /* Menu bar: show when self and have indicator schema */
         widget = get_widget (d, "show-login-name-checkbutton");
         label = get_widget (d, "show-login-name-spacer");
-        show = um_user_get_uid (user) == getuid() &&
+        show = act_user_get_uid (user) == getuid() &&
                d->indicator_session_schema;
         gtk_widget_set_visible (widget, show);
         gtk_widget_set_visible (label, show);
+
+        /* Last login: show when administrator or current user */
+        widget = get_widget (d, "last-login-value-label");
+        label = get_widget (d, "last-login-label");
+
+        current = act_user_manager_get_user_by_id (d->um, getuid ());
+        show = act_user_get_uid (user) == getuid () ||
+               act_user_get_account_type (current) == ACT_USER_ACCOUNT_TYPE_ADMINISTRATOR;
+        if (show) {
+                text = get_login_time_text (user);
+                gtk_label_set_text (GTK_LABEL (widget), text);
+                g_free (text);
+        }
+        gtk_widget_set_visible (widget, show);
+        gtk_widget_set_visible (label, show);
+
+        enable = act_user_get_login_history (user) != NULL;
+        widget = get_widget (d, "last-login-history-button");
+        gtk_widget_set_visible (widget, show);
+        gtk_widget_set_sensitive (widget, enable);
+
+        if (d->permission != NULL)
+                on_permission_changed (d->permission, NULL, d);
 }
 
-static void on_permission_changed (GPermission *permission, GParamSpec *pspec, gpointer data);
-
 static void
-selected_user_changed (GtkTreeSelection *selection, UmUserPanelPrivate *d)
+selected_user_changed (GtkTreeSelection *selection, CcUserPanelPrivate *d)
 {
         GtkTreeModel *model;
         GtkTreeIter iter;
-        UmUser *user;
+        ActUser *user;
 
         if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
                 gtk_tree_model_get (model, &iter, USER_COL, &user, -1);
                 show_user (user, d);
-                if (d->permission != NULL)
-                        on_permission_changed (d->permission, NULL, d);
                 gtk_widget_set_sensitive (get_widget (d, "main-user-vbox"), TRUE);
                 g_object_unref (user);
         } else {
@@ -671,16 +773,17 @@ selected_user_changed (GtkTreeSelection *selection, UmUserPanelPrivate *d)
 
 static void
 change_name_done (GtkWidget          *entry,
-                  UmUserPanelPrivate *d)
+                  CcUserPanelPrivate *d)
 {
         const gchar *text;
-        UmUser *user;
+        ActUser *user;
 
         user = get_selected_user (d);
 
         text = cc_editable_entry_get_text (CC_EDITABLE_ENTRY (entry));
-        if (g_strcmp0 (text, um_user_get_real_name (user)) != 0) {
-                um_user_set_real_name (user, text);
+        if (g_strcmp0 (text, act_user_get_real_name (user)) != 0 &&
+            is_valid_name (text)) {
+                act_user_set_real_name (user, text);
         }
 
         g_object_unref (user);
@@ -688,9 +791,9 @@ change_name_done (GtkWidget          *entry,
 
 static void
 account_type_changed (UmEditableCombo    *combo,
-                      UmUserPanelPrivate *d)
+                      CcUserPanelPrivate *d)
 {
-        UmUser *user;
+        ActUser *user;
         GtkTreeModel *model;
         GtkTreeIter iter;
         gint account_type;
@@ -701,8 +804,8 @@ account_type_changed (UmEditableCombo    *combo,
         um_editable_combo_get_active_iter (combo, &iter);
         gtk_tree_model_get (model, &iter, 1, &account_type, -1);
 
-        if (account_type != um_user_get_account_type (user)) {
-                um_user_set_account_type (user, account_type);
+        if (account_type != act_user_get_account_type (user)) {
+                act_user_set_account_type (user, account_type);
         }
 
         g_object_unref (user);
@@ -711,10 +814,10 @@ account_type_changed (UmEditableCombo    *combo,
 static void
 language_response (GtkDialog         *dialog,
                    gint               response_id,
-                   UmUserPanelPrivate *d)
+                   CcUserPanelPrivate *d)
 {
         GtkWidget *combo;
-        UmUser *user;
+        ActUser *user;
         gchar *lang;
         GtkTreeModel *model;
         GtkTreeIter iter;
@@ -726,10 +829,10 @@ language_response (GtkDialog         *dialog,
 
         if (response_id == GTK_RESPONSE_OK) {
                 lang = cc_language_chooser_get_language (GTK_WIDGET (dialog));
-                um_user_set_language (user, lang);
+                act_user_set_language (user, lang);
         }
         else {
-                lang = g_strdup (um_user_get_language (user));
+                lang = g_strdup (act_user_get_language (user));
                 if (!lang)
                         lang = cc_common_language_get_current_language ();
         }
@@ -745,12 +848,12 @@ language_response (GtkDialog         *dialog,
 
 static void
 language_changed (UmEditableCombo    *combo,
-                  UmUserPanelPrivate *d)
+                  CcUserPanelPrivate *d)
 {
         GtkTreeModel *model;
         GtkTreeIter iter;
         gchar *lang;
-        UmUser *user;
+        ActUser *user;
 
         if (!um_editable_combo_get_active_iter (combo, &iter))
                  return;
@@ -761,8 +864,8 @@ language_changed (UmEditableCombo    *combo,
 
         gtk_tree_model_get (model, &iter, 0, &lang, -1);
         if (lang) {
-                if (g_strcmp0 (lang, um_user_get_language (user)) != 0) {
-                        um_user_set_language (user, lang);
+                if (g_strcmp0 (lang, act_user_get_language (user)) != 0) {
+                        act_user_set_language (user, lang);
                 }
                 g_free (lang);
                 goto out;
@@ -791,9 +894,9 @@ out:
 }
 
 static void
-change_password (GtkButton *button, UmUserPanelPrivate *d)
+change_password (GtkButton *button, CcUserPanelPrivate *d)
 {
-        UmUser *user;
+        ActUser *user;
 
         user = get_selected_user (d);
 
@@ -805,18 +908,31 @@ change_password (GtkButton *button, UmUserPanelPrivate *d)
 }
 
 static void
-change_fingerprint (GtkButton *button, UmUserPanelPrivate *d)
+change_fingerprint (GtkButton *button, CcUserPanelPrivate *d)
 {
         GtkWidget *label, *label2;
-        UmUser *user;
+        ActUser *user;
 
         user = get_selected_user (d);
 
-        g_assert (g_strcmp0 (g_get_user_name (), um_user_get_user_name (user)) == 0);
+        g_assert (g_strcmp0 (g_get_user_name (), act_user_get_user_name (user)) == 0);
 
         label = get_widget (d, "account-fingerprint-value-label");
         label2 = get_widget (d, "account-fingerprint-button-label");
         fingerprint_button_clicked (GTK_WINDOW (gtk_widget_get_toplevel (d->main_box)), label, label2, user);
+
+        g_object_unref (user);
+}
+
+static void
+show_history (GtkButton *button, CcUserPanelPrivate *d)
+{
+        ActUser *user;
+
+        user = get_selected_user (d);
+
+        um_history_dialog_set_user (d->history_dialog, user);
+        um_history_dialog_show (d->history_dialog, GTK_WINDOW (gtk_widget_get_toplevel (d->main_box)));
 
         g_object_unref (user);
 }
@@ -827,7 +943,7 @@ sort_users (GtkTreeModel *model,
             GtkTreeIter  *b,
             gpointer      data)
 {
-        UmUser *ua, *ub;
+        ActUser *ua, *ub;
         gint sa, sb;
         gint result;
 
@@ -841,7 +957,7 @@ sort_users (GtkTreeModel *model,
                 result = 1;
         }
         else {
-                result = um_user_collate (ua, ub);
+                result = act_user_collate (ua, ub);
         }
 
         if (ua) {
@@ -871,14 +987,15 @@ dont_select_headings (GtkTreeSelection *selection,
 }
 
 static void
-users_loaded (UmUserManager     *manager,
-              UmUserPanelPrivate *d)
+users_loaded (ActUserManager     *manager,
+              GParamSpec         *pspec,
+              CcUserPanelPrivate *d)
 {
         GSList *list, *l;
-        UmUser *user;
+        ActUser *user;
         GtkWidget *dialog;
 
-        if (um_user_manager_no_service (d->um)) {
+        if (act_user_manager_no_service (d->um)) {
                 dialog = gtk_message_dialog_new (GTK_WINDOW (gtk_widget_get_toplevel (d->main_box)),
                                                  GTK_DIALOG_MODAL,
                                                  GTK_MESSAGE_OTHER,
@@ -894,14 +1011,15 @@ users_loaded (UmUserManager     *manager,
                 gtk_widget_set_sensitive (d->main_box, FALSE);
         }
 
-        list = um_user_manager_list_users (d->um);
+        list = act_user_manager_list_users (d->um);
         g_debug ("Got %d users\n", g_slist_length (list));
 
         g_signal_connect (d->um, "user-changed", G_CALLBACK (user_changed), d);
+        g_signal_connect (d->um, "user-is-logged-in-changed", G_CALLBACK (user_changed), d);
 
         for (l = list; l; l = l->next) {
                 user = l->data;
-                g_debug ("adding user %s\n", um_user_get_real_name (user));
+                g_debug ("adding user %s\n", act_user_get_real_name (user));
                 user_added (d->um, user, d);
         }
         g_slist_free (list);
@@ -946,10 +1064,10 @@ on_permission_changed (GPermission *permission,
                        GParamSpec  *pspec,
                        gpointer     data)
 {
-        UmUserPanelPrivate *d = data;
+        CcUserPanelPrivate *d = data;
         gboolean is_authorized;
         gboolean self_selected;
-        UmUser *user;
+        ActUser *user;
         GtkWidget *widget;
 
         user = get_selected_user (d);
@@ -958,7 +1076,7 @@ on_permission_changed (GPermission *permission,
         }
 
         is_authorized = g_permission_get_allowed (G_PERMISSION (d->permission));
-        self_selected = um_user_get_uid (user) == geteuid ();
+        self_selected = act_user_get_uid (user) == geteuid ();
 
         widget = get_widget (d, "add-user-toolbutton");
         gtk_widget_set_sensitive (widget, is_authorized);
@@ -981,7 +1099,8 @@ on_permission_changed (GPermission *permission,
         }
 
         widget = get_widget (d, "remove-user-toolbutton");
-        gtk_widget_set_sensitive (widget, is_authorized && !self_selected);
+        gtk_widget_set_sensitive (widget, is_authorized && !self_selected
+                                  && !would_demote_only_admin (user));
         if (is_authorized) {
                 setup_tooltip_with_embedded_icon (widget, _("Delete the selected user account"), NULL, NULL);
         }
@@ -1001,28 +1120,37 @@ on_permission_changed (GPermission *permission,
                 g_object_unref (icon);
         }
 
-        if (!um_user_is_local_account (user)) {
+        if (!act_user_is_local_account (user)) {
                 um_editable_combo_set_editable (UM_EDITABLE_COMBO (get_widget (d, "account-type-combo")), FALSE);
                 remove_unlock_tooltip (get_widget (d, "account-type-combo"));
                 gtk_widget_set_sensitive (GTK_WIDGET (get_widget (d, "autologin-switch")), FALSE);
                 remove_unlock_tooltip (get_widget (d, "autologin-switch"));
 
-        } else if (is_authorized && um_user_is_local_account (user)) {
-                um_editable_combo_set_editable (UM_EDITABLE_COMBO (get_widget (d, "account-type-combo")), TRUE);
+        } else if (is_authorized && act_user_is_local_account (user)) {
+                if (would_demote_only_admin (user)) {
+                        um_editable_combo_set_editable (UM_EDITABLE_COMBO (get_widget (d, "account-type-combo")), FALSE);
+                } else {
+                        um_editable_combo_set_editable (UM_EDITABLE_COMBO (get_widget (d, "account-type-combo")), TRUE);
+                }
                 remove_unlock_tooltip (get_widget (d, "account-type-combo"));
-                gtk_widget_set_sensitive (GTK_WIDGET (get_widget (d, "autologin-switch")), TRUE);
+
+                gtk_widget_set_sensitive (GTK_WIDGET (get_widget (d, "autologin-switch")), get_autologin_possible (user));
                 remove_unlock_tooltip (get_widget (d, "autologin-switch"));
         }
         else {
                 um_editable_combo_set_editable (UM_EDITABLE_COMBO (get_widget (d, "account-type-combo")), FALSE);
-                add_unlock_tooltip (get_widget (d, "account-type-combo"));
+                if (would_demote_only_admin (user)) {
+                        remove_unlock_tooltip (get_widget (d, "account-type-combo"));
+                } else {
+                        add_unlock_tooltip (get_widget (d, "account-type-combo"));
+                }
                 gtk_widget_set_sensitive (GTK_WIDGET (get_widget (d, "autologin-switch")), FALSE);
                 add_unlock_tooltip (get_widget (d, "autologin-switch"));
         }
 
         /* The full name entry: insensitive if remote or not authorized and not self */
         widget = get_widget (d, "full-name-entry");
-        if (!um_user_is_local_account (user)) {
+        if (!act_user_is_local_account (user)) {
                 cc_editable_entry_set_editable (CC_EDITABLE_ENTRY (widget), FALSE);
                 remove_unlock_tooltip (widget);
 
@@ -1060,6 +1188,7 @@ on_permission_changed (GPermission *permission,
                 gtk_notebook_set_current_page (GTK_NOTEBOOK (get_widget (d, "account-fingerprint-notebook")), 0);
         }
 
+        um_password_dialog_set_user (d->password_dialog, user);
         um_password_dialog_set_privileged (d->password_dialog, is_authorized);
 
         g_object_unref (user);
@@ -1072,7 +1201,7 @@ match_user (GtkTreeModel *model,
             GtkTreeIter  *iter,
             gpointer      search_data)
 {
-        UmUser *user;
+        ActUser *user;
         const gchar *name;
         gchar *normalized_key = NULL;
         gchar *normalized_name = NULL;
@@ -1097,10 +1226,10 @@ match_user (GtkTreeModel *model,
 
         for (i = 0; i < 2; i++) {
                 if (i == 0) {
-                        name = um_user_get_real_name (user);
+                        name = act_user_get_real_name (user);
                 }
                 else {
-                        name = um_user_get_user_name (user);
+                        name = act_user_get_user_name (user);
                 }
                 g_free (normalized_name);
                 normalized_name = g_utf8_normalize (name, -1, G_NORMALIZE_ALL);
@@ -1134,7 +1263,7 @@ autologin_cell_data_func (GtkTreeViewColumn    *tree_column,
                           GtkCellRenderer      *cell,
                           GtkTreeModel         *model,
                           GtkTreeIter          *iter,
-                          UmUserPanelPrivate   *d)
+                          CcUserPanelPrivate   *d)
 {
         gboolean is_autologin;
 
@@ -1148,7 +1277,7 @@ autologin_cell_data_func (GtkTreeViewColumn    *tree_column,
 }
 
 static void
-setup_main_window (UmUserPanelPrivate *d)
+setup_main_window (CcUserPanelPrivate *d)
 {
         GtkWidget *userlist;
         GtkTreeModel *model;
@@ -1163,10 +1292,11 @@ setup_main_window (UmUserPanelPrivate *d)
         GIcon *icon;
         GError *error = NULL;
         gchar *names[3];
+        gboolean loaded;
 
         userlist = get_widget (d, "list-treeview");
         store = gtk_list_store_new (NUM_USER_LIST_COLS,
-                                    UM_TYPE_USER,
+                                    ACT_TYPE_USER,
                                     GDK_TYPE_PIXBUF,
                                     G_TYPE_STRING,
                                     G_TYPE_BOOLEAN,
@@ -1183,8 +1313,6 @@ setup_main_window (UmUserPanelPrivate *d)
                                              match_user, NULL, NULL);
         g_object_unref (model);
 
-        g_signal_connect (d->um, "users-loaded", G_CALLBACK (users_loaded), d);
-
         gtk_widget_style_get (userlist, "expander-size", &expander_size, NULL);
         gtk_tree_view_set_level_indentation (GTK_TREE_VIEW (userlist), - (expander_size + 6));
 
@@ -1198,15 +1326,8 @@ setup_main_window (UmUserPanelPrivate *d)
                             -1);
         g_free (title);
 
-        title = g_strdup_printf ("<small><span foreground=\"#555555\">%s</span></small>", _("Other Accounts"));
-        gtk_list_store_append (store, &iter);
-        gtk_list_store_set (store, &iter,
-                            TITLE_COL, title,
-                            HEADING_ROW_COL, TRUE,
-                            SORT_KEY_COL, 2,
-                            AUTOLOGIN_COL, FALSE,
-                            -1);
-        g_free (title);
+        d->other_accounts = 0;
+        d->other_iter = NULL;
 
         column = gtk_tree_view_column_new ();
         cell = gtk_cell_renderer_pixbuf_new ();
@@ -1270,6 +1391,10 @@ setup_main_window (UmUserPanelPrivate *d)
         g_signal_connect (button, "clicked",
                           G_CALLBACK (change_fingerprint), d);
 
+        button = get_widget (d, "last-login-history-button");
+        g_signal_connect (button, "clicked",
+                          G_CALLBACK (show_history), d);
+
         d->permission = (GPermission *)polkit_permission_new_sync (USER_ACCOUNTS_PERMISSION, NULL, NULL, &error);
         if (d->permission != NULL) {
                 g_signal_connect (d->permission, "notify",
@@ -1295,20 +1420,26 @@ setup_main_window (UmUserPanelPrivate *d)
                                           "*",
                                           icon);
         g_object_unref (icon);
+
+        g_object_get (d->um, "is-loaded", &loaded, NULL);
+        if (loaded)
+                users_loaded (d->um, NULL, d);
+        else
+                g_signal_connect (d->um, "notify::is-loaded", G_CALLBACK (users_loaded), d);
 }
 
 static void
-um_user_panel_init (UmUserPanel *self)
+cc_user_panel_init (CcUserPanel *self)
 {
-        UmUserPanelPrivate *d;
+        CcUserPanelPrivate *d;
         GError *error;
         volatile GType type G_GNUC_UNUSED;
-        const gchar *filename;
         GtkWidget *button;
         GtkStyleContext *context;
         GSettingsSchema *schema;
 
         d = self->priv = UM_USER_PANEL_PRIVATE (self);
+        g_resources_register (um_get_resource ());
 
         /* register types that the builder might need */
         type = um_editable_button_get_type ();
@@ -1318,25 +1449,24 @@ um_user_panel_init (UmUserPanel *self)
         gtk_widget_set_size_request (GTK_WIDGET (self), -1, 350);
 
         d->builder = gtk_builder_new ();
-        d->um = um_user_manager_ref_default ();
+        d->um = act_user_manager_get_default ();
 
-        filename = UIDIR "/user-accounts-dialog.ui";
-        if (!g_file_test (filename, G_FILE_TEST_EXISTS)) {
-                filename = "data/user-accounts-dialog.ui";
-        }
         error = NULL;
-        if (!gtk_builder_add_from_file (d->builder, filename, &error)) {
+        if (!gtk_builder_add_from_resource (d->builder,
+                                            "/org/gnome/control-center/user-accounts/user-accounts-dialog.ui",
+                                            &error)) {
                 g_error ("%s", error->message);
                 g_error_free (error);
                 return;
         }
 
-        setup_main_window (d);
         d->password_dialog = um_password_dialog_new ();
         button = get_widget (d, "user-icon-button");
         d->photo_dialog = um_photo_dialog_new (button);
         d->main_box = get_widget (d, "accounts-vbox");
         gtk_widget_reparent (d->main_box, GTK_WIDGET (self));
+        d->history_dialog = um_history_dialog_new ();
+        setup_main_window (d);
 
         context = gtk_widget_get_style_context (get_widget (d, "list-scrolledwindow"));
         gtk_style_context_set_junction_sides (context, GTK_JUNCTION_BOTTOM);
@@ -1352,12 +1482,12 @@ um_user_panel_init (UmUserPanel *self)
 }
 
 static void
-um_user_panel_dispose (GObject *object)
+cc_user_panel_dispose (GObject *object)
 {
-        UmUserPanelPrivate *priv = UM_USER_PANEL (object)->priv;
+        CcUserPanelPrivate *priv = UM_USER_PANEL (object)->priv;
 
         if (priv->um) {
-                g_object_unref (priv->um);
+                g_signal_handlers_disconnect_by_data (priv->um, priv);
                 priv->um = NULL;
         }
         if (priv->builder) {
@@ -1372,6 +1502,14 @@ um_user_panel_dispose (GObject *object)
                 um_photo_dialog_free (priv->photo_dialog);
                 priv->photo_dialog = NULL;
         }
+        if (priv->history_dialog) {
+                um_history_dialog_free (priv->history_dialog);
+                priv->history_dialog = NULL;
+        }
+        if (priv->account_dialog) {
+                gtk_dialog_response (GTK_DIALOG (priv->account_dialog), GTK_RESPONSE_DELETE_EVENT);
+                priv->account_dialog = NULL;
+        }
         if (priv->language_chooser) {
                 gtk_widget_destroy (priv->language_chooser);
                 priv->language_chooser = NULL;
@@ -1380,19 +1518,23 @@ um_user_panel_dispose (GObject *object)
                 g_object_unref (priv->permission);
                 priv->permission = NULL;
         }
-        G_OBJECT_CLASS (um_user_panel_parent_class)->dispose (object);
+        if (priv->other_iter) {
+                gtk_tree_iter_free (priv->other_iter);
+                priv->other_iter = NULL;
+        }
+        G_OBJECT_CLASS (cc_user_panel_parent_class)->dispose (object);
 }
 
 static GPermission *
-um_user_panel_get_permission (CcPanel *panel)
+cc_user_panel_get_permission (CcPanel *panel)
 {
-        UmUserPanelPrivate *priv = UM_USER_PANEL (panel)->priv;
+        CcUserPanelPrivate *priv = UM_USER_PANEL (panel)->priv;
 
         return priv->permission;
 }
 
 static const char *
-um_user_panel_get_help_uri (CcPanel *panel)
+cc_user_panel_get_help_uri (CcPanel *panel)
 {
  if (!g_strcmp0(g_getenv("XDG_CURRENT_DESKTOP"), "Unity"))
    return "help:ubuntu-help/user-accounts";
@@ -1401,23 +1543,23 @@ um_user_panel_get_help_uri (CcPanel *panel)
 }
 
 static void
-um_user_panel_class_init (UmUserPanelClass *klass)
+cc_user_panel_class_init (CcUserPanelClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
         CcPanelClass *panel_class = CC_PANEL_CLASS (klass);
 
-        object_class->dispose = um_user_panel_dispose;
+        object_class->dispose = cc_user_panel_dispose;
 
-        panel_class->get_permission = um_user_panel_get_permission;
-        panel_class->get_help_uri = um_user_panel_get_help_uri;
+        panel_class->get_permission = cc_user_panel_get_permission;
+        panel_class->get_help_uri = cc_user_panel_get_help_uri;
 
-        g_type_class_add_private (klass, sizeof (UmUserPanelPrivate));
+        g_type_class_add_private (klass, sizeof (CcUserPanelPrivate));
 }
 
 void
-um_user_panel_register (GIOModule *module)
+cc_user_panel_register (GIOModule *module)
 {
-        um_user_panel_register_type (G_TYPE_MODULE (module));
+        cc_user_panel_register_type (G_TYPE_MODULE (module));
         g_io_extension_point_implement (CC_SHELL_PANEL_EXTENSION_POINT,
                                         UM_TYPE_USER_PANEL, "user-accounts", 0);
 }

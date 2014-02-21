@@ -1,13 +1,3 @@
-SUBDIRS = icons
-
-uidir = $(pkgdatadir)/ui/user-accounts
-ui_DATA = \
-	account-dialog.ui	\
-	password-dialog.ui	\
-	photo-dialog.ui		\
-	user-accounts-dialog.ui \
-	account-fingerprint.ui
-
 @INTLTOOL_DESKTOP_RULE@
 
 desktopdir = $(datadir)/applications
@@ -16,8 +6,7 @@ desktop_DATA = $(Desktop_in_files:.desktop.in=.desktop)
 
 EXTRA_DIST = 					\
 	unity-user-accounts-panel.desktop.in.in	\
-	org.freedesktop.realmd.xml		\
-	$(ui_DATA)
+	org.freedesktop.realmd.xml
 
 CLEANFILES =					\
 	unity-user-accounts-panel.desktop	\
