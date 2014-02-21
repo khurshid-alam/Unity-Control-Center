@@ -28,7 +28,6 @@ public class Main : Object
 	context.set_source_surface (logo, 0, 0);
 	context.paint();
 
-	//context.set_operator(Cairo.Operator.OVER);
 	context.set_source_rgba (0, 0, 0, 1);
 	context.translate (25, 117);
 	var font_description = new Pango.FontDescription();
