@@ -18,5 +18,6 @@ DEB_DH_MAKESHLIBS_ARGS_unity-control-center = --no-act
 
 binary-post-install/unity-control-center::
 	dh_migrations -p$(cdbs_curpkg)
+	./panels/info/logo-generator --logo panels/info/UbuntuLogoBlank.png --text "ubuntu 14.04 LTS" --output debian/unity-control-center/usr/share/unity-control-center/ui/UbuntuLogo.png
 
 common-binary-post-install-arch:: list-missing

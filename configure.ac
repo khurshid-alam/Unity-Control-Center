@@ -165,6 +165,8 @@ PKG_CHECK_MODULES(USER_ACCOUNTS_PANEL, $COMMON_MODULES
                   pwquality
                   $SYSTEMD)
 
+AM_PROG_VALAC([0.20.0])
+
 GDESKTOP_PREFIX=`$PKG_CONFIG --variable prefix gsettings-desktop-schemas`
 AC_SUBST(GDESKTOP_PREFIX)
 
