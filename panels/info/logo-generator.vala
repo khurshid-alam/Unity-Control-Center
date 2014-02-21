@@ -29,11 +29,13 @@ public class Main : Object
 	context.paint();
 
 	context.set_source_rgba (0, 0, 0, 1);
-	context.translate (25, 117);
+	context.translate (0, 117);
 	var font_description = new Pango.FontDescription();
 	font_description.set_family("Ubuntu");
 	font_description.set_size((int)(17.5 * Pango.SCALE));
 	var layout = Pango.cairo_create_layout (context);
+	layout.set_alignment(Pango.Alignment.CENTER);
+	layout.set_width(190*Pango.SCALE);
 	layout.set_font_description (font_description);
 	layout.set_text (text, -1);
 
