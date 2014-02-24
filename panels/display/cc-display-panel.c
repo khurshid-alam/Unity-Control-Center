@@ -619,13 +619,16 @@ rebuild_ui_scale (CcDisplayPanel *self)
 
   GVariant *dict;
 
-  const char *monitor_name = gnome_rr_output_info_get_name (self->priv->current_output);
-
   GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE(self->priv->ui_scale));
+  const char *monitor_name = gnome_rr_output_info_get_name (self->priv->current_output);
+  if (!monitor_name)
+  {
+    fprintf(stderr, "Failed to get monitor name.\n");
+    return;
+  }
 
   gtk_adjustment_set_upper (adj, UI_SCALE_MAX);
   gtk_adjustment_set_lower (adj, UI_SCALE_MIN);
-
   gtk_scale_set_digits (GTK_SCALE(self->priv->ui_scale), 0);
 
   g_settings_get (self->priv->desktop_settings, "scale-factor", "@a{si}", &dict);
