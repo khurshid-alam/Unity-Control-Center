@@ -2180,7 +2180,7 @@ gvc_mixer_dialog_init (GvcMixerDialog *dialog)
         dialog->priv = GVC_MIXER_DIALOG_GET_PRIVATE (dialog);
         dialog->priv->bars = g_hash_table_new (NULL, NULL);
         dialog->priv->size_group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
-        dialog->priv->indicator_settings = g_settings_new ("com.canonical.indicator.sound");
+        dialog->priv->indicator_settings = g_settings_new ("com.ubuntu.sound");
 }
 
 static void
