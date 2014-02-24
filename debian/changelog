@@ -1,3 +1,10 @@
+unity-control-center (14.04.3+14.04.20140224-0ubuntu1) trusty; urgency=low
+
+  [ Sebastien Bacher ]
+  * Use new sound key, avoid depending on indicator-sound
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 24 Feb 2014 14:36:20 +0000
+
 unity-control-center (14.04.3+14.04.20140221-0ubuntu1) trusty; urgency=low
 
   [ Sebastien Bacher ]
