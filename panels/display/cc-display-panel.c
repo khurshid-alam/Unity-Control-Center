@@ -1051,6 +1051,12 @@ on_ui_scale_button_release (GtkWidget *ui_scale, GdkEvent *ev, gpointer data)
     GVariant *dict;
 
     monitor_name = gnome_rr_output_info_get_name (self->priv->current_output);
+    if (!monitor_name)
+    {
+      fprintf(stderr, "Failed to get monitor name.\n");
+      return FALSE;
+    }
+
     g_settings_get (self->priv->desktop_settings, "scale-factor", "@a{si}", &dict);
     dict = add_dict_entry (dict, monitor_name, value);
     g_settings_set (self->priv->desktop_settings, "scale-factor", "@a{si}", dict);
