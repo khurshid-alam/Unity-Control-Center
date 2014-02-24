@@ -595,7 +595,7 @@ add_dict_entry (GVariant *dict, const char *key, int value)
     g_variant_get_child (tmp, 0, "s", &str);
     if (!str)
     {
-      fprintf (stderr, "Invalid dictionary entry\n");
+      g_warning ("Invalid dictionary entry.\n");
       break;
     }
 
@@ -623,7 +623,7 @@ rebuild_ui_scale (CcDisplayPanel *self)
   const char *monitor_name = gnome_rr_output_info_get_name (self->priv->current_output);
   if (!monitor_name)
   {
-    fprintf(stderr, "Failed to get monitor name.\n");
+    g_warning("Failed to get monitor name.\n");
     return;
   }
 
@@ -1053,7 +1053,7 @@ on_ui_scale_button_release (GtkWidget *ui_scale, GdkEvent *ev, gpointer data)
     monitor_name = gnome_rr_output_info_get_name (self->priv->current_output);
     if (!monitor_name)
     {
-      fprintf(stderr, "Failed to get monitor name.\n");
+      g_warning("Failed to get monitor name.\n");
       return FALSE;
     }
 
