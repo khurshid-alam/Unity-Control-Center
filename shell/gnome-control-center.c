@@ -329,6 +329,15 @@ gnome_control_center_set_overview_page (GnomeControlCenter *center)
   shell_show_overview_page (center);
 }
 
+void
+gnome_control_center_set_search_item (GnomeControlCenter *center,
+                                      const char         *search)
+{
+  shell_show_overview_page (center);
+  gtk_entry_set_text (GTK_ENTRY (center->priv->search_entry), search);
+  gtk_editable_set_position (GTK_EDITABLE (center->priv->search_entry), -1);
+}
+
 static void
 item_activated_cb (CcShellCategoryView *view,
                    gchar               *name,
@@ -399,9 +408,71 @@ get_item_views (GnomeControlCenter *shell)
 }
 
 static gboolean
-keynav_failed (GtkIconView        *current_view,
-               GtkDirectionType    direction,
-               GnomeControlCenter *shell)
+is_prev_direction (GtkWidget *widget,
+                   GtkDirectionType direction)
+{
+  if (gtk_widget_get_direction (widget) == GTK_TEXT_DIR_LTR &&
+      direction == GTK_DIR_LEFT)
+    return TRUE;
+  if (gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL &&
+      direction == GTK_DIR_RIGHT)
+    return TRUE;
+  return FALSE;
+}
+
+static gboolean
+is_next_direction (GtkWidget *widget,
+                   GtkDirectionType direction)
+{
+  if (gtk_widget_get_direction (widget) == GTK_TEXT_DIR_LTR &&
+      direction == GTK_DIR_RIGHT)
+    return TRUE;
+  if (gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL &&
+      direction == GTK_DIR_LEFT)
+    return TRUE;
+  return FALSE;
+}
+
+static GtkTreePath *
+get_first_path (GtkIconView *view)
+{
+  GtkTreeModel *model;
+  GtkTreeIter iter;
+
+  model = gtk_icon_view_get_model (view);
+  if (!gtk_tree_model_get_iter_first (model, &iter))
+    return NULL;
+  return gtk_tree_model_get_path (model, &iter);
+}
+
+static GtkTreePath *
+get_last_path (GtkIconView *view)
+{
+  GtkTreeModel *model;
+  GtkTreeIter iter;
+  GtkTreePath *path;
+  gboolean ret;
+
+  model = gtk_icon_view_get_model (view);
+  if (!gtk_tree_model_get_iter_first (model, &iter))
+    return NULL;
+
+  ret = TRUE;
+  path = NULL;
+
+  while (ret)
+    {
+      g_clear_pointer (&path, gtk_tree_path_free);
+      path = gtk_tree_model_get_path (model, &iter);
+      ret = gtk_tree_model_iter_next (model, &iter);
+    }
+  return path;
+}
+
+static gboolean
+categories_keynav_failed (GtkIconView        *current_view,
+                          GtkDirectionType    direction,
+                          GnomeControlCenter *shell)
 {
   GList *views, *v;
   GtkIconView *new_view;
@@ -421,6 +492,8 @@ keynav_failed (GtkIconView        *current_view,
       if (v->data == current_view)
         break;
     }
+
+  new_view = NULL;
 
   if (direction == GTK_DIR_DOWN && v != NULL && v->next != NULL)
     {
@@ -496,6 +569,70 @@ keynav_failed (GtkIconView        *current_view,
       res = TRUE;
     }
 
+  if (is_prev_direction (GTK_WIDGET (current_view), direction) && v != NULL)
+    {
+      if (gtk_icon_view_get_cursor (current_view, &path, NULL))
+        {
+          if (v->prev)
+            new_view = v->prev->data;
+
+          if (gtk_tree_path_prev (path))
+            {
+              new_view = current_view;
+            }
+          else if (new_view != NULL)
+            {
+              path = get_last_path (new_view);
+            }
+          else
+            {
+              goto out;
+            }
+
+          gtk_icon_view_set_cursor (new_view, path, NULL, FALSE);
+          gtk_icon_view_select_path (new_view, path);
+          gtk_tree_path_free (path);
+          gtk_widget_grab_focus (GTK_WIDGET (new_view));
+
+          res = TRUE;
+        }
+    }
+
+  if (is_next_direction (GTK_WIDGET (current_view), direction) && v != NULL)
+    {
+      if (gtk_icon_view_get_cursor (current_view, &path, NULL))
+        {
+          GtkTreeIter iter;
+
+          if (v->next)
+            new_view = v->next->data;
+
+          gtk_tree_path_next (path);
+          model = gtk_icon_view_get_model (current_view);
+
+          if (gtk_tree_model_get_iter (model, &iter, path))
+            {
+              new_view = current_view;
+            }
+          else if (new_view != NULL)
+            {
+              path = get_first_path (new_view);
+            }
+          else
+            {
+              goto out;
+            }
+
+          gtk_icon_view_set_cursor (new_view, path, NULL, FALSE);
+          gtk_icon_view_select_path (new_view, path);
+          gtk_tree_path_free (path);
+          gtk_widget_grab_focus (GTK_WIDGET (new_view));
+
+          res = TRUE;
+        }
+    }
+
+out:
   g_list_free (views);
 
   return res;
@@ -640,12 +777,17 @@ search_entry_key_press_event_cb (GtkEntry    *entry,
 }
 
 static void
-on_search_selection_changed (GtkTreeSelection   *selection,
-                             GnomeControlCenter *shell)
+on_search_row_activated (GtkTreeView       *treeview,
+                         GtkTreePath       *path,
+                         GtkTreeViewColumn *column,
+                         GnomeControlCenter *shell)
 {
+  GtkTreeSelection *selection;
   GtkTreeModel *model;
   GtkTreeIter   iter;
   char         *id = NULL;
+
+  selection = gtk_tree_view_get_selection (treeview);
 
   if (!gtk_tree_selection_get_selected (selection, &model, &iter))
     return;
@@ -660,6 +802,49 @@ on_search_selection_changed (GtkTreeSelection   *selection,
   gtk_tree_selection_unselect_all (selection);
 
   g_free (id);
+}
+
+static gboolean
+on_search_button_press_event (GtkTreeView        *treeview,
+                              GdkEventButton     *event,
+                              GnomeControlCenter *shell)
+{
+  if (event->type == GDK_BUTTON_PRESS && event->button == 1)
+    {
+      GtkTreePath *path = NULL;
+      GtkTreeSelection *selection;
+      GtkTreeModel *model;
+      GtkTreeIter iter;
+
+      /* We don't check for the position being blank,
+       * it could be the dead space between columns */
+      gtk_tree_view_is_blank_at_pos (treeview,
+                                     event->x, event->y,
+                                     &path,
+                                     NULL,
+                                     NULL,
+                                     NULL);
+      if (path == NULL)
+        return FALSE;
+
+      model = gtk_tree_view_get_model (treeview);
+      if (gtk_tree_model_get_iter (model, &iter, path) == FALSE)
+        {
+          gtk_tree_path_free (path);
+          return FALSE;
+        }
+
+      selection = gtk_tree_view_get_selection (treeview);
+      gtk_tree_selection_select_iter (selection, &iter);
+
+      on_search_row_activated (treeview, NULL, NULL, shell);
+
+      gtk_tree_path_free (path);
+
+      return TRUE;
+    }
+
+  return FALSE;
 }
 
 static void
@@ -689,7 +874,6 @@ setup_search (GnomeControlCenter *shell)
 
   renderer = gtk_cell_renderer_pixbuf_new ();
   g_object_set (renderer,
-                "follow-state", TRUE,
                 "xpad", 15,
                 "ypad", 10,
                 "stock-size", GTK_ICON_SIZE_DIALOG,
@@ -723,10 +907,10 @@ setup_search (GnomeControlCenter *shell)
   priv->search_scrolled = W (priv->builder, "search-scrolled-window");
   gtk_container_add (GTK_CONTAINER (priv->search_scrolled), search_view);
 
-  g_signal_connect (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->search_view)),
-                    "changed",
-                    G_CALLBACK (on_search_selection_changed),
-                    shell);
+  g_signal_connect (priv->search_view, "row-activated",
+                    G_CALLBACK (on_search_row_activated), shell);
+  g_signal_connect (priv->search_view, "button-press-event",
+                    G_CALLBACK (on_search_button_press_event), shell);
 
   /* setup the search entry widget */
   widget = (GtkWidget*) gtk_builder_get_object (priv->builder, "search-entry");
@@ -793,7 +977,7 @@ maybe_add_category_view (GnomeControlCenter *shell,
                     G_CALLBACK (category_focus_out), shell);
   g_signal_connect (cc_shell_category_view_get_item_view (CC_SHELL_CATEGORY_VIEW (categoryview)),
                     "keynav-failed",
-                    G_CALLBACK (keynav_failed), shell);
+                    G_CALLBACK (categories_keynav_failed), shell);
 
   g_hash_table_insert (shell->priv->category_views, g_strdup (name), categoryview);
 }
@@ -1001,8 +1185,6 @@ _shell_set_active_panel_from_id (CcShell      *shell,
       return TRUE;
     }
 
-  g_clear_pointer (&priv->current_panel_id, g_free);
-
   /* clear any custom widgets */
   _shell_remove_all_custom_widgets (priv);
 
@@ -1044,6 +1226,8 @@ _shell_set_active_panel_from_id (CcShell      *shell,
                                              &iter);
     }
 
+  old_panel = priv->current_panel_box;
+
   if (!name)
     {
       g_warning ("Could not find settings panel \"%s\"", start_id);
@@ -1060,7 +1244,12 @@ _shell_set_active_panel_from_id (CcShell      *shell,
     }
   else
     {
+      /* Successful activation */
+      g_free (priv->current_panel_id);
       priv->current_panel_id = g_strdup (start_id);
+
+      if (old_panel)
+        notebook_remove_page (priv->notebook, old_panel);
     }
 
   g_free (name);
@@ -1249,6 +1438,13 @@ window_key_press_event (GtkWidget          *win,
             retval = TRUE;
             break;
         }
+    }
+  else if ((state == GDK_MOD1_MASK && event->keyval == GDK_KEY_Up) ||
+           event->keyval == GDK_KEY_Back)
+    {
+      if (notebook_get_selected_page (self->priv->notebook) != self->priv->scrolled_window)
+        shell_show_overview_page (self);
+      retval = TRUE;
     }
   return retval;
 }
