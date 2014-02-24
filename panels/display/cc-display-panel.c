@@ -630,6 +630,7 @@ rebuild_ui_scale (CcDisplayPanel *self)
   gtk_adjustment_set_upper (adj, UI_SCALE_MAX);
   gtk_adjustment_set_lower (adj, UI_SCALE_MIN);
   gtk_scale_set_digits (GTK_SCALE(self->priv->ui_scale), 0);
+  gtk_scale_add_mark (GTK_SCALE(self->priv->ui_scale), 8, GTK_POS_TOP, NULL);
 
   g_settings_get (self->priv->desktop_settings, "scale-factor", "@a{si}", &dict);
   if (!g_variant_lookup (dict, monitor_name, "i", &value))
