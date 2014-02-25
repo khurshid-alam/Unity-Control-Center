@@ -595,7 +595,7 @@ add_dict_entry (GVariant *dict, const char *key, int value)
     g_variant_get_child (tmp, 0, "s", &str);
     if (!str)
     {
-      fprintf (stderr, "Invalid dictionary entry\n");
+      g_warning ("Invalid dictionary entry.\n");
       break;
     }
 
@@ -619,14 +619,18 @@ rebuild_ui_scale (CcDisplayPanel *self)
 
   GVariant *dict;
 
-  const char *monitor_name = gnome_rr_output_info_get_name (self->priv->current_output);
-
   GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE(self->priv->ui_scale));
+  const char *monitor_name = gnome_rr_output_info_get_name (self->priv->current_output);
+  if (!monitor_name)
+  {
+    g_warning("Failed to get monitor name.\n");
+    return;
+  }
 
   gtk_adjustment_set_upper (adj, UI_SCALE_MAX);
   gtk_adjustment_set_lower (adj, UI_SCALE_MIN);
-
   gtk_scale_set_digits (GTK_SCALE(self->priv->ui_scale), 0);
+  gtk_scale_add_mark (GTK_SCALE(self->priv->ui_scale), 8, GTK_POS_TOP, NULL);
 
   g_settings_get (self->priv->desktop_settings, "scale-factor", "@a{si}", &dict);
   if (!g_variant_lookup (dict, monitor_name, "i", &value))
@@ -1048,6 +1052,12 @@ on_ui_scale_button_release (GtkWidget *ui_scale, GdkEvent *ev, gpointer data)
     GVariant *dict;
 
     monitor_name = gnome_rr_output_info_get_name (self->priv->current_output);
+    if (!monitor_name)
+    {
+      g_warning("Failed to get monitor name.\n");
+      return FALSE;
+    }
+
     g_settings_get (self->priv->desktop_settings, "scale-factor", "@a{si}", &dict);
     dict = add_dict_entry (dict, monitor_name, value);
     g_settings_set (self->priv->desktop_settings, "scale-factor", "@a{si}", dict);
