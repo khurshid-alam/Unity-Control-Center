@@ -34,7 +34,7 @@ _unity_control_center()
 					command_list="connect-3g connect-8021x-wifi show-device connect-hidden-wifi create-wifi"
 					;;
 				sound)
-					command_list="applications effects hardware input outputs"
+					command_list="applications effects input outputs"
 					;;
 				*)
 					command_list=""
