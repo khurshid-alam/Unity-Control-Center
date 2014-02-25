@@ -1,3 +1,21 @@
+unity-control-center (14.04.3+14.04.20140225-0ubuntu1) trusty; urgency=low
+
+  [ Sebastien Bacher ]
+  * update to the GNOME 3.8 codebase, remove quite some custom code to
+    use libaccountsservice. The update also includes a view of the login
+    history informations and bugfixes.
+
+  [ Eleni Maria Stea ]
+  * fixed race condition when the monitor is not detected correctly (and
+    the monitor name is null) added a mark in 1.0 (default value) (LP:
+    #1283297)
+
+  [ Lars Uebernickel ]
+  * sound/gvc-{balance,channel}-bar: let scales use all the available
+    space
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 25 Feb 2014 09:34:37 +0000
+
 unity-control-center (14.04.3+14.04.20140224-0ubuntu1) trusty; urgency=low
 
   [ Sebastien Bacher ]
