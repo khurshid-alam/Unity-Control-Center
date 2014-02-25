@@ -11,8 +11,7 @@ include /usr/share/dpkg/buildflags.mk
 
 DEB_CONFIGURE_SCRIPT := ./autogen.sh
 DEB_CONFIGURE_EXTRA_FLAGS += --libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH) \
-                             --disable-update-mimedb \
-                             --enable-systemd
+                             --disable-update-mimedb
 
 DEB_DH_MAKESHLIBS_ARGS_unity-control-center = --no-act
 

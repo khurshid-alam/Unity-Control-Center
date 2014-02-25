@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
  *
- * Copyright 2009-2010  Red Hat, Inc,
+ * Copyright 2012  Red Hat, Inc,
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,33 +16,26 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * Written by: Matthias Clasen <mclasen@redhat.com>
+ * Written by: Ondrej Holy <oholy@redhat.com>
  */
 
-#include <config.h>
+#ifndef __UM_HISTORY_DIALOG_H__
+#define __UM_HISTORY_DIALOG_H__
 
-#include "um-user-panel.h"
+#include <gtk/gtk.h>
+#include <act/act-user.h>
 
-#include <glib/gi18n.h>
-#ifdef HAVE_CHEESE
-#include <cheese-gtk.h>
+G_BEGIN_DECLS
+
+typedef struct _UmHistoryDialog UmHistoryDialog;
+
+UmHistoryDialog *um_history_dialog_new      (void);
+void             um_history_dialog_free     (UmHistoryDialog *dialog);
+void             um_history_dialog_set_user (UmHistoryDialog *dialog,
+                                             ActUser         *user);
+void             um_history_dialog_show     (UmHistoryDialog *dialog,
+                                             GtkWindow       *parent);
+
+G_END_DECLS
+
 #endif
-
-void
-g_io_module_load (GIOModule *module)
-{
-  bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
-  bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-
-#ifdef HAVE_CHEESE
-  cheese_gtk_init (NULL, NULL);
-#endif
-
-  /* register the panel */
-  cc_user_panel_register (module);
-}
-
-void
-g_io_module_unload (GIOModule *module)
-{
-}

@@ -27,13 +27,13 @@ on_dialog_complete (GObject *object,
                     gpointer user_data)
 {
 	GMainLoop *loop = user_data;
-	UmUser *user;
+	ActUser *user;
 
 	user = um_account_dialog_finish (UM_ACCOUNT_DIALOG (object), result);
 	if (user == NULL) {
 		g_printerr ("No user created\n");
 	} else {
-		g_printerr ("User created: %s\n", um_user_get_user_name (user));
+		g_printerr ("User created: %s\n", act_user_get_user_name (user));
 		g_object_unref (user);
 	}
 
@@ -52,7 +52,7 @@ main (int argc,
 	dialog = um_account_dialog_new ();
 	loop = g_main_loop_new (NULL, FALSE);
 
-	um_account_dialog_show (dialog, NULL, on_dialog_complete, loop);
+	um_account_dialog_show (dialog, NULL, NULL, on_dialog_complete, loop);
 
 	g_main_loop_run (loop);
 	g_main_loop_unref (loop);
