@@ -566,49 +566,23 @@ rebuild_rotation_combo (CcDisplayPanel *self)
 static GVariant*
 add_dict_entry (GVariant *dict, const char *key, int value)
 {
-  GVariant *dict_entry;
-  GVariant **dict_entries;
-  GVariant *tmp;
-  GVariant *pair[2];
+  GVariantBuilder builder;
   GVariantIter iter;
-  unsigned long sz;
-  char str[512];
-  int i = 0;
 
-  pair[0] = g_variant_new_string (key);
-  pair[1] = g_variant_new_int32 (value);
-  dict_entry = g_variant_new_dict_entry (pair[0], pair[1]);
+  const gchar *k;
+  guint32 v;
 
-  if (!dict)
-  {
-    dict = g_variant_new_array (G_VARIANT_TYPE_DICT_ENTRY, &dict_entry, 1);
-    return dict;
-  }
-
-  sz = g_variant_n_children (dict);
-  dict_entries = malloc (sizeof(GVariant*) * (sz + 1));
-
+  g_variant_builder_init (&builder, G_VARIANT_TYPE ("a{si}"));
   g_variant_iter_init (&iter, dict);
-  while (tmp = g_variant_iter_next_value (&iter))
+
+  while (g_variant_iter_next (&iter, "{&si}", &k, &v))
   {
-    int val = 0; char *str;
-    g_variant_get_child (tmp, 0, "s", &str);
-    if (!str)
-    {
-      g_warning ("Invalid dictionary entry.\n");
-      break;
-    }
-
-    if (strcmp (str, key) != 0)
-    {
-      dict_entries[i++] = tmp;
-    }
-    g_free(str);
+    if (!g_str_equal (k, key))
+      g_variant_builder_add (&builder, "{si}", k, v);
   }
-  dict_entries[i++] = dict_entry;
-  dict = g_variant_new_array (NULL, dict_entries, i);
+  g_variant_builder_add (&builder, "{si}", key, value);
 
-  return dict;
+  return g_variant_builder_end (&builder);
 }
 
 static void
