@@ -572,6 +572,30 @@ add_dict_entry (GVariant *dict, const char *key, int value)
   const gchar *k;
   guint32 v;
 
+  if (!key || !value)
+  {
+    if (dict)
+    {
+      g_warning ("Cannot add dictionary entry. Invalid key or value.");
+      return dict;
+    }
+    g_warning ("Invalid dictionary entry. Creating empty dictionary.");
+    dict = g_variant_new_array (G_VARIANT_TYPE_DICT_ENTRY, NULL, 0);
+  }
+
+  if (!dict)
+  {
+    GVariant *pair[2];
+    GVariant *dict_entry;
+
+    pair[0] = g_variant_new_string (key);
+    pair[1] = g_variant_new_int32 (value);
+    dict_entry = g_variant_new_dict_entry (pair[0], pair[1]);
+    dict = g_variant_new_array (G_VARIANT_TYPE_DICT_ENTRY, &dict_entry, 1);
+
+    return dict;
+  }
+
   g_variant_builder_init (&builder, G_VARIANT_TYPE ("a{si}"));
   g_variant_iter_init (&iter, dict);
 
@@ -597,7 +621,7 @@ rebuild_ui_scale (CcDisplayPanel *self)
   const char *monitor_name = gnome_rr_output_info_get_name (self->priv->current_output);
   if (!monitor_name)
   {
-    g_warning("Failed to get monitor name.\n");
+    g_warning("Failed to get monitor name.");
     return;
   }
 
@@ -1028,7 +1052,7 @@ on_ui_scale_button_release (GtkWidget *ui_scale, GdkEvent *ev, gpointer data)
     monitor_name = gnome_rr_output_info_get_name (self->priv->current_output);
     if (!monitor_name)
     {
-      g_warning("Failed to get monitor name.\n");
+      g_warning("Failed to get monitor name.");
       return FALSE;
     }
 
