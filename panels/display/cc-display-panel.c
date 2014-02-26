@@ -566,49 +566,23 @@ rebuild_rotation_combo (CcDisplayPanel *self)
 static GVariant*
 add_dict_entry (GVariant *dict, const char *key, int value)
 {
-  GVariant *dict_entry;
-  GVariant **dict_entries;
-  GVariant *tmp;
-  GVariant *pair[2];
+  GVariantBuilder builder;
   GVariantIter iter;
-  unsigned long sz;
-  char str[512];
-  int i = 0;
 
-  pair[0] = g_variant_new_string (key);
-  pair[1] = g_variant_new_int32 (value);
-  dict_entry = g_variant_new_dict_entry (pair[0], pair[1]);
+  const gchar *k;
+  guint32 v;
 
-  if (!dict)
-  {
-    dict = g_variant_new_array (G_VARIANT_TYPE_DICT_ENTRY, &dict_entry, 1);
-    return dict;
-  }
-
-  sz = g_variant_n_children (dict);
-  dict_entries = malloc (sizeof(GVariant*) * (sz + 1));
-
+  g_variant_builder_init (&builder, G_VARIANT_TYPE ("a{si}"));
   g_variant_iter_init (&iter, dict);
-  while (tmp = g_variant_iter_next_value (&iter))
+
+  while (g_variant_iter_next (&iter, "{&si}", &k, &v))
   {
-    int val = 0; char *str;
-    g_variant_get_child (tmp, 0, "s", &str);
-    if (!str)
-    {
-      g_warning ("Invalid dictionary entry.\n");
-      break;
-    }
-
-    if (strcmp (str, key) != 0)
-    {
-      dict_entries[i++] = tmp;
-    }
-    g_free(str);
+    if (!g_str_equal (k, key))
+      g_variant_builder_add (&builder, "{si}", k, v);
   }
-  dict_entries[i++] = dict_entry;
-  dict = g_variant_new_array (NULL, dict_entries, i);
+  g_variant_builder_add (&builder, "{si}", key, value);
 
-  return dict;
+  return g_variant_builder_end (&builder);
 }
 
 static void
@@ -618,12 +592,13 @@ rebuild_ui_scale (CcDisplayPanel *self)
   float t;
 
   GVariant *dict;
+  GVariant *new_dict;
 
   GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE(self->priv->ui_scale));
   const char *monitor_name = gnome_rr_output_info_get_name (self->priv->current_output);
   if (!monitor_name)
   {
-    g_warning("Failed to get monitor name.\n");
+    g_warning("Failed to get monitor name.");
     return;
   }
 
@@ -632,15 +607,16 @@ rebuild_ui_scale (CcDisplayPanel *self)
   gtk_scale_set_digits (GTK_SCALE(self->priv->ui_scale), 0);
   gtk_scale_add_mark (GTK_SCALE(self->priv->ui_scale), 8, GTK_POS_TOP, NULL);
 
-  g_settings_get (self->priv->desktop_settings, "scale-factor", "@a{si}", &dict);
+  dict = g_settings_get_value (self->priv->desktop_settings, "scale-factor");
   if (!g_variant_lookup (dict, monitor_name, "i", &value))
   {
     value = 8;
     self->priv->ui_prev_scale = value;
   }
-  add_dict_entry (dict, monitor_name, value);
-  g_settings_set (self->priv->desktop_settings, "scale-factor", "@a{si}", dict);
+  new_dict = add_dict_entry (dict, monitor_name, value);
+  g_settings_set_value (self->priv->desktop_settings, "scale-factor", new_dict);
   gtk_adjustment_set_value (adj, value);
+  g_variant_unref (dict);
 }
 
 static int
@@ -1050,17 +1026,19 @@ on_ui_scale_button_release (GtkWidget *ui_scale, GdkEvent *ev, gpointer data)
   if (value != self->priv->ui_prev_scale)
   {
     GVariant *dict;
+    GVariant *new_dict;
 
     monitor_name = gnome_rr_output_info_get_name (self->priv->current_output);
     if (!monitor_name)
     {
-      g_warning("Failed to get monitor name.\n");
+      g_warning("Failed to get monitor name.");
       return FALSE;
     }
 
-    g_settings_get (self->priv->desktop_settings, "scale-factor", "@a{si}", &dict);
-    dict = add_dict_entry (dict, monitor_name, value);
-    g_settings_set (self->priv->desktop_settings, "scale-factor", "@a{si}", dict);
+    dict = g_settings_get_value (self->priv->desktop_settings, "scale-factor");
+    new_dict = add_dict_entry (dict, monitor_name, value);
+    g_settings_set_value (self->priv->desktop_settings, "scale-factor", new_dict);
+    g_variant_unref (dict);
   }
 
   return FALSE;  /* gtk should still process this event */
