@@ -572,30 +572,6 @@ add_dict_entry (GVariant *dict, const char *key, int value)
   const gchar *k;
   guint32 v;
 
-  if (!key || !value)
-  {
-    if (dict)
-    {
-      g_warning ("Cannot add dictionary entry. Invalid key or value.");
-      return dict;
-    }
-    g_warning ("Invalid dictionary entry. Creating empty dictionary.");
-    dict = g_variant_new_array (G_VARIANT_TYPE_DICT_ENTRY, NULL, 0);
-  }
-
-  if (!dict)
-  {
-    GVariant *pair[2];
-    GVariant *dict_entry;
-
-    pair[0] = g_variant_new_string (key);
-    pair[1] = g_variant_new_int32 (value);
-    dict_entry = g_variant_new_dict_entry (pair[0], pair[1]);
-    dict = g_variant_new_array (G_VARIANT_TYPE_DICT_ENTRY, &dict_entry, 1);
-
-    return dict;
-  }
-
   g_variant_builder_init (&builder, G_VARIANT_TYPE ("a{si}"));
   g_variant_iter_init (&iter, dict);
 
@@ -616,6 +592,7 @@ rebuild_ui_scale (CcDisplayPanel *self)
   float t;
 
   GVariant *dict;
+  GVariant *new_dict;
 
   GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE(self->priv->ui_scale));
   const char *monitor_name = gnome_rr_output_info_get_name (self->priv->current_output);
@@ -630,15 +607,16 @@ rebuild_ui_scale (CcDisplayPanel *self)
   gtk_scale_set_digits (GTK_SCALE(self->priv->ui_scale), 0);
   gtk_scale_add_mark (GTK_SCALE(self->priv->ui_scale), 8, GTK_POS_TOP, NULL);
 
-  g_settings_get (self->priv->desktop_settings, "scale-factor", "@a{si}", &dict);
+  dict = g_settings_get_value (self->priv->desktop_settings, "scale-factor");
   if (!g_variant_lookup (dict, monitor_name, "i", &value))
   {
     value = 8;
     self->priv->ui_prev_scale = value;
   }
-  add_dict_entry (dict, monitor_name, value);
-  g_settings_set (self->priv->desktop_settings, "scale-factor", "@a{si}", dict);
+  new_dict = add_dict_entry (dict, monitor_name, value);
+  g_settings_set_value (self->priv->desktop_settings, "scale-factor", new_dict);
   gtk_adjustment_set_value (adj, value);
+  g_variant_unref (dict);
 }
 
 static int
@@ -1048,6 +1026,7 @@ on_ui_scale_button_release (GtkWidget *ui_scale, GdkEvent *ev, gpointer data)
   if (value != self->priv->ui_prev_scale)
   {
     GVariant *dict;
+    GVariant *new_dict;
 
     monitor_name = gnome_rr_output_info_get_name (self->priv->current_output);
     if (!monitor_name)
@@ -1056,9 +1035,10 @@ on_ui_scale_button_release (GtkWidget *ui_scale, GdkEvent *ev, gpointer data)
       return FALSE;
     }
 
-    g_settings_get (self->priv->desktop_settings, "scale-factor", "@a{si}", &dict);
-    dict = add_dict_entry (dict, monitor_name, value);
-    g_settings_set (self->priv->desktop_settings, "scale-factor", "@a{si}", dict);
+    dict = g_settings_get_value (self->priv->desktop_settings, "scale-factor");
+    new_dict = add_dict_entry (dict, monitor_name, value);
+    g_settings_set_value (self->priv->desktop_settings, "scale-factor", new_dict);
+    g_variant_unref (dict);
   }
 
   return FALSE;  /* gtk should still process this event */
