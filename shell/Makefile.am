@@ -95,6 +95,12 @@ directory_in_files = unitycc.directory.in
 directory_DATA = $(directory_in_files:.directory.in=.directory)
 @INTLTOOL_DIRECTORY_RULE@
 
+completiondir = $(datadir)/bash-completion/completions
+completion_in_files = completions/unity-control-center.in
+completion_DATA = $(completion_in_files:.in=)
+completions/unity-control-center: completions/unity-control-center.in list-panel.sh
+	$(AM_V_GEN) mkdir -p `dirname $@` && cat $< | sed "s,@PANELS@,`$(srcdir)/list-panel.sh $(top_srcdir)`," > $@
+
 EXTRA_DIST =					\
 	$(ui_DATA)				\
 	unitycc.directory.in			\
