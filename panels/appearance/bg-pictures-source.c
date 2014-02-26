@@ -45,6 +45,14 @@ struct _BgPicturesSourcePrivate
   GHashTable *known_items;
 };
 
+const char * const content_types[] = {
+	"image/png",
+	"image/jpeg",
+	"image/bmp",
+	"image/svg+xml",
+	NULL
+};
+
 static char *bg_pictures_source_get_unique_filename (const char *uri);
 
 static void
@@ -127,31 +135,90 @@ bg_pictures_source_class_init (BgPicturesSourceClass *klass)
   object_class->finalize = bg_pictures_source_finalize;
 }
 
+static int
+sort_func (GtkTreeModel *model,
+           GtkTreeIter *a,
+           GtkTreeIter *b,
+           BgPicturesSource *bg_source)
+{
+  CcAppearanceItem *item_a;
+  CcAppearanceItem *item_b;
+  const char *name_a;
+  const char *name_b;
+  int retval;
+
+  gtk_tree_model_get (model, a,
+                      1, &item_a,
+                      -1);
+  gtk_tree_model_get (model, b,
+                      1, &item_b,
+                      -1);
+
+  name_a = cc_appearance_item_get_name (item_a);
+  name_b = cc_appearance_item_get_name (item_b);
+
+  retval = g_utf8_collate (name_a, name_b);
+
+  g_object_unref (item_a);
+  g_object_unref (item_b);
+
+  return retval;
+}
+
 static void
 picture_scaled (GObject *source_object,
                 GAsyncResult *res,
                 gpointer user_data)
 {
-  BgPicturesSource *bg_source = BG_PICTURES_SOURCE (user_data);
+  BgPicturesSource *bg_source;
   CcAppearanceItem *item;
   GError *error = NULL;
   GdkPixbuf *pixbuf;
   const char *source_url;
-
+  const char *software;
   GtkTreeIter iter;
   GtkListStore *store;
-
-  store = bg_source_get_liststore (BG_SOURCE (bg_source));
-  item = g_object_get_data (source_object, "item");
 
   pixbuf = gdk_pixbuf_new_from_stream_finish (res, &error);
   if (pixbuf == NULL)
     {
-      g_warning ("Failed to load image: %s", error->message);
+      if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+        g_warning ("Failed to load image: %s", error->message);
+
       g_error_free (error);
+      return;
+    }
+
+  /* since we were not cancelled, we can now cast user_data
+   * back to BgPicturesSource.
+   */
+  bg_source = BG_PICTURES_SOURCE (user_data);
+  store = bg_source_get_liststore (BG_SOURCE (bg_source));
+  item = g_object_get_data (source_object, "item");
+
+  gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE (store),
+                                   1,
+                                   (GtkTreeIterCompareFunc)sort_func,
+                                   bg_source,
+                                   NULL);
+
+  gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (store),
+                                        1,
+                                        GTK_SORT_ASCENDING);
+
+  /* Ignore screenshots */
+  software = gdk_pixbuf_get_option (pixbuf, "tEXt::Software");
+  if (software != NULL &&
+      g_str_equal (software, "gnome-screenshot"))
+    {
+      g_debug ("Ignored URL '%s' as it's a screenshot from gnome-screenshot",
+               cc_appearance_item_get_uri (item));
+      g_object_unref (pixbuf);
       g_object_unref (item);
       return;
     }
+
+  cc_appearance_item_load (item, NULL);
 
   /* insert the item into the liststore */
   gtk_list_store_insert_with_values (store, &iter, 0,
@@ -195,7 +262,7 @@ picture_opened_for_read (GObject *source_object,
                          GAsyncResult *res,
                          gpointer user_data)
 {
-  BgPicturesSource *bg_source = BG_PICTURES_SOURCE (user_data);
+  BgPicturesSource *bg_source;
   CcAppearanceItem *item;
   GFileInputStream *stream;
   GError *error = NULL;
@@ -204,24 +271,40 @@ picture_opened_for_read (GObject *source_object,
   stream = g_file_read_finish (G_FILE (source_object), res, &error);
   if (stream == NULL)
     {
-      char *filename;
+      if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+        {
+          char *filename = g_file_get_path (G_FILE (source_object));
+          g_warning ("Failed to load picture '%s': %s", filename, error->message);
+          g_free (filename);
+        }
 
-      filename = g_file_get_path (G_FILE (source_object));
-      g_warning ("Failed to load picture '%s': %s", filename, error->message);
-      g_free (filename);
       g_error_free (error);
       g_object_unref (item);
       return;
     }
 
-  g_object_set_data (G_OBJECT (stream), "item", item);
+  /* since we were not cancelled, we can now cast user_data
+   * back to BgPicturesSource.
+   */
+  bg_source = BG_PICTURES_SOURCE (user_data);
 
+  g_object_set_data (G_OBJECT (stream), "item", item);
   gdk_pixbuf_new_from_stream_at_scale_async (G_INPUT_STREAM (stream),
                                              THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT,
                                              TRUE,
-                                             NULL,
+                                             bg_source->priv->cancellable,
                                              picture_scaled, bg_source);
   g_object_unref (stream);
+}
+
+static gboolean
+in_content_types (const char *content_type)
+{
+	guint i;
+	for (i = 0; content_types[i]; i++)
+		if (g_str_equal (content_types[i], content_type))
+			return TRUE;
+	return FALSE;
 }
 
 static gboolean
@@ -231,39 +314,35 @@ add_single_file (BgPicturesSource *bg_source,
 		 const char       *source_uri)
 {
   const gchar *content_type;
+  CcAppearanceItem *item;
+  char *uri;
 
   /* find png and jpeg files */
   content_type = g_file_info_get_content_type (info);
 
   if (!content_type)
     return FALSE;
+  if (!in_content_types (content_type))
+    return FALSE;
 
-  if (g_str_equal ("image/png", content_type) ||
-      g_str_equal ("image/jpeg", content_type) ||
-      g_str_equal ("image/svg+xml", content_type))
-    {
-      CcAppearanceItem *item;
-      char *uri;
+  /* create a new CcAppearanceItem */
+  uri = g_file_get_uri (file);
+  item = cc_appearance_item_new (uri);
+  g_free (uri);
+  g_object_set (G_OBJECT (item),
+		"flags", CC_APPEARANCE_ITEM_HAS_URI | CC_APPEARANCE_ITEM_HAS_SHADING,
+		"shading", G_DESKTOP_BACKGROUND_SHADING_SOLID,
+		"placement", G_DESKTOP_BACKGROUND_STYLE_ZOOM,
+		NULL);
+  if (source_uri != NULL && !g_file_is_native (file))
+    g_object_set (G_OBJECT (item), "source-url", source_uri, NULL);
 
-      /* create a new CcAppearanceItem */
-      uri = g_file_get_uri (file);
-      item = cc_appearance_item_new (uri);
-      g_free (uri);
-      g_object_set (G_OBJECT (item),
-		    "flags", CC_APPEARANCE_ITEM_HAS_URI | CC_APPEARANCE_ITEM_HAS_SHADING,
-		    "shading", G_DESKTOP_BACKGROUND_SHADING_SOLID,
-		    "placement", G_DESKTOP_BACKGROUND_STYLE_ZOOM,
-		    NULL);
-      if (source_uri != NULL && !g_file_is_native (file))
-        g_object_set (G_OBJECT (item), "source-url", source_uri, NULL);
-
-      g_object_set_data (G_OBJECT (file), "item", item);
-      g_file_read_async (file, 0, NULL, picture_opened_for_read, bg_source);
-      g_object_unref (file);
-      return TRUE;
-    }
-
-  return FALSE;
+  g_object_set_data (G_OBJECT (file), "item", item);
+  g_file_read_async (file, G_PRIORITY_DEFAULT,
+                     bg_source->priv->cancellable,
+                     picture_opened_for_read, bg_source);
+  g_object_unref (file);
+  return TRUE;
 }
 
 gboolean
@@ -504,3 +583,8 @@ bg_pictures_source_new (void)
   return g_object_new (BG_TYPE_PICTURES_SOURCE, NULL);
 }
 
+const char * const *
+bg_pictures_get_support_content_types (void)
+{
+	return content_types;
+}
