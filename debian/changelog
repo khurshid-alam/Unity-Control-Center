@@ -1,3 +1,22 @@
+unity-control-center (14.04.3+14.04.20140226-0ubuntu1) trusty; urgency=low
+
+  [ Robert Ancell ]
+  * Compile with unity-settings-daemon instead of gnome-settings-daemon
+    (LP: #1277585)
+
+  [ Sebastien Bacher ]
+  * shell: backport fixes from gnome-3-8. Those include some tweaks to
+    the command line options, improvements to the keyboard navigation in
+    the icons grid, and support for bash completion
+  * shell: don't set a secondary icon, GtkSearchEntry already has one
+  * Backport some bugfixes and small improvements (LP: #1280742)
+
+  [ Eleni Maria Stea ]
+  * In display add_dict_entry: replaced the gvariant arrays with
+    gvariant builder to simplify the code
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 26 Feb 2014 20:01:37 +0000
+
 unity-control-center (14.04.3+14.04.20140225-0ubuntu1) trusty; urgency=low
 
   [ Sebastien Bacher ]
