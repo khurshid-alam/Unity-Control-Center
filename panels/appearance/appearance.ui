@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.16.1 -->
 <interface>
-  <!-- interface-requires gtk+ 3.0 -->
+  <requires lib="gtk+" version="3.0"/>
   <object class="GtkListStore" id="sources-liststore">
     <columns>
       <!-- column-name source-name -->
@@ -330,6 +331,7 @@
                           <object class="GtkIconView" id="backgrounds-iconview">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="margin">0</property>
                             <property name="row_spacing">0</property>
                             <property name="column_spacing">0</property>
                             <child>
@@ -456,6 +458,9 @@
                     <property name="xpad">6</property>
                     <property name="label" translatable="yes">&lt;b&gt;Theme&lt;/b&gt;</property>
                     <property name="use_markup">True</property>
+                    <accessibility>
+                      <relation type="label-for" target="theme-selector"/>
+                    </accessibility>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -520,6 +525,9 @@
                     <property name="xpad">6</property>
                     <property name="label" translatable="yes">&lt;b&gt;Launcher icon size&lt;/b&gt;</property>
                     <property name="use_markup">True</property>
+                    <accessibility>
+                      <relation type="label-for" target="unity-iconsize-scale"/>
+                    </accessibility>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -597,6 +605,9 @@
                             <property name="xalign">0</property>
                             <property name="label" translatable="yes">&lt;b&gt;Auto-hide the Launcher&lt;/b&gt;</property>
                             <property name="use_markup">True</property>
+                            <accessibility>
+                              <relation type="label-for" target="unity_launcher_autohide"/>
+                            </accessibility>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -631,6 +642,11 @@
                                 <property name="can_focus">False</property>
                                 <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Reveal location:</property>
+                                <accessibility>
+                                  <relation type="label-for" target="unity_reveal_spot_left"/>
+                                  <relation type="label-for" target="unity_reveal_spot_topleft"/>
+                                  <relation type="label-for" target="unity_reveal_spot_otheroption"/>
+                                </accessibility>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -704,6 +720,9 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Reveal sensitivity</property>
+                                <accessibility>
+                                  <relation type="label-for" target="unity-launcher-sensitivity"/>
+                                </accessibility>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -779,6 +798,9 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="active">True</property>
+                            <accessibility>
+                              <relation type="labelled-by" target="label4"/>
+                            </accessibility>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -848,10 +870,10 @@
                   <object class="GtkCheckButton" id="check_enable_workspaces">
                     <property name="label" translatable="yes">Enable workspaces</property>
                     <property name="visible">True</property>
-                    <property name="active">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="xalign">0</property>
+                    <property name="active">True</property>
                     <property name="draw_indicator">True</property>
                   </object>
                   <packing>
@@ -864,7 +886,7 @@
                   <object class="GtkCheckButton" id="check_showdesktop_in_launcher">
                     <property name="label" translatable="yes">Add show desktop icon to the launcher</property>
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="xalign">0</property>
                     <property name="draw_indicator">True</property>
@@ -909,6 +931,10 @@
                     <property name="xalign">0</property>
                     <property name="label" translatable="yes">&lt;b&gt;Application Menu&lt;/b&gt;</property>
                     <property name="use_markup">True</property>
+                    <accessibility>
+                      <relation type="label-for" target="unity_global_menus"/>
+                      <relation type="label-for" target="unity_local_menus"/>
+                    </accessibility>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -933,6 +959,9 @@
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
                         <property name="group">unity_local_menus</property>
+                        <accessibility>
+                          <relation type="labelled-by" target="label3"/>
+                        </accessibility>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -949,6 +978,9 @@
                         <property name="xalign">0</property>
                         <property name="draw_indicator">True</property>
                         <property name="group">unity_global_menus</property>
+                        <accessibility>
+                          <relation type="labelled-by" target="label3"/>
+                        </accessibility>
                       </object>
                       <packing>
                         <property name="expand">False</property>

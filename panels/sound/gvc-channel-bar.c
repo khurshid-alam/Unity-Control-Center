@@ -889,6 +889,8 @@ static void
 gvc_channel_bar_init (GvcChannelBar *bar)
 {
         GtkWidget *frame;
+        AtkObject *mute_check_atk;
+        AtkObject *label_atk;
 
         bar->priv = GVC_CHANNEL_BAR_GET_PRIVATE (bar);
 
@@ -927,6 +929,7 @@ gvc_channel_bar_init (GvcChannelBar *bar)
                           bar);
         bar->priv->mute_box = gtk_alignment_new (0.5, 0.5, 0, 0);
         gtk_container_add (GTK_CONTAINER (bar->priv->mute_box), bar->priv->mute_check);
+        mute_check_atk = gtk_widget_get_accessible (bar->priv->mute_check);
 
         bar->priv->low_image = gtk_image_new_from_icon_name ("audio-volume-low-symbolic",
                                                              GTK_ICON_SIZE_MENU);
@@ -941,6 +944,9 @@ gvc_channel_bar_init (GvcChannelBar *bar)
         bar->priv->label = gtk_label_new (NULL);
         gtk_misc_set_alignment (GTK_MISC (bar->priv->label), 0.0, 0.5);
         gtk_widget_set_no_show_all (bar->priv->label, TRUE);
+        label_atk = gtk_widget_get_accessible (bar->priv->label);
+
+        atk_object_add_relationship (mute_check_atk, ATK_RELATION_LABELLED_BY, label_atk);
 
         /* frame */
         frame = gtk_frame_new (NULL);
