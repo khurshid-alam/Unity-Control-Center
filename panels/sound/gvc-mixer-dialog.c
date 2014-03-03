@@ -87,7 +87,7 @@ struct GvcMixerDialogPrivate
         GtkWidget       *selected_output_label;
         GtkWidget       *selected_input_label;
         GtkWidget       *test_output_button;
-        GSettings       *indicator_settings;
+        GSettings       *sound_settings;
 
         gdouble          last_input_peak;
         guint            num_apps;
@@ -1771,7 +1771,7 @@ gvc_mixer_dialog_constructor (GType                  type,
         gtk_widget_set_sensitive (self->priv->output_bar, FALSE);
         gtk_widget_set_valign (self->priv->output_bar, GTK_ALIGN_END);
         gtk_widget_set_size_request (self->priv->output_bar, 400, -1);
-        g_settings_bind (self->priv->indicator_settings, "allow-amplified-volume",
+        g_settings_bind (self->priv->sound_settings, "allow-amplified-volume",
                          self->priv->output_bar, "is-amplified", G_SETTINGS_BIND_DEFAULT);
 
         label = gtk_label_new_with_mnemonic (_("_Output volume:"));
@@ -1790,7 +1790,7 @@ gvc_mixer_dialog_constructor (GType                  type,
         gtk_widget_set_hexpand (allow_amplify_check, TRUE);
         g_signal_connect (allow_amplify_check, "notify::active",
                           G_CALLBACK (allow_amplify_check_changed), NULL);
-        g_settings_bind (self->priv->indicator_settings, "allow-amplified-volume",
+        g_settings_bind (self->priv->sound_settings, "allow-amplified-volume",
                          allow_amplify_check, "active", G_SETTINGS_BIND_DEFAULT);
 
         self->priv->output_stream_box = gtk_grid_new ();
@@ -2112,7 +2112,7 @@ gvc_mixer_dialog_dispose (GObject *object)
 {
         GvcMixerDialog *dialog = GVC_MIXER_DIALOG (object);
 
-        g_clear_object (&dialog->priv->indicator_settings);
+        g_clear_object (&dialog->priv->sound_settings);
 
         if (dialog->priv->mixer_control != NULL) {
                 g_signal_handlers_disconnect_by_func (dialog->priv->mixer_control,
@@ -2180,7 +2180,7 @@ gvc_mixer_dialog_init (GvcMixerDialog *dialog)
         dialog->priv = GVC_MIXER_DIALOG_GET_PRIVATE (dialog);
         dialog->priv->bars = g_hash_table_new (NULL, NULL);
         dialog->priv->size_group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
-        dialog->priv->indicator_settings = g_settings_new ("com.ubuntu.sound");
+        dialog->priv->sound_settings = g_settings_new ("com.ubuntu.sound");
 }
 
 static void
