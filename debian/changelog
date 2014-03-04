@@ -1,3 +1,12 @@
+unity-control-center (14.04.3+14.04.20140303-0ubuntu1) trusty; urgency=low
+
+  [ Luke Yelavich ]
+  * Improve the accessibility of the appearance and sound panels by
+    adding atk relationships between widgets, and making widgets
+    focusable with the keyboard. (LP: #1266291)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 03 Mar 2014 10:33:31 +0000
+
 unity-control-center (14.04.3+14.04.20140226-0ubuntu1) trusty; urgency=low
 
   [ Robert Ancell ]

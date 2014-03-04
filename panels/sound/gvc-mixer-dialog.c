@@ -1756,6 +1756,9 @@ gvc_mixer_dialog_constructor (GType                  type,
         GtkWidget        *mute_check;
         GtkWidget        *allow_amplify_check;
         GtkWidget        *indicator_visible_check;
+        AtkObject        *output_bar_atk;
+        AtkObject        *output_bar_label_atk;
+        AtkObject        *output_bar_mute_atk;
 
         object = G_OBJECT_CLASS (gvc_mixer_dialog_parent_class)->constructor (type, n_construct_properties, construct_params);
 
@@ -1784,6 +1787,14 @@ gvc_mixer_dialog_constructor (GType                  type,
         gtk_widget_set_halign (mute_check, GTK_ALIGN_START);
         g_object_bind_property (mute_check, "active", self->priv->output_bar, "is-muted",
                                 G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+
+        output_bar_atk = gtk_widget_get_accessible (self->priv->output_bar);
+        output_bar_label_atk = gtk_widget_get_accessible (label);
+        output_bar_mute_atk = gtk_widget_get_accessible (mute_check);
+        atk_object_add_relationship (output_bar_label_atk, ATK_RELATION_LABEL_FOR,
+                                     output_bar_atk);
+        atk_object_add_relationship (output_bar_label_atk, ATK_RELATION_LABEL_FOR,
+                                     output_bar_mute_atk);
 
         /* TRANSLATORS: This label is used in a checkbox close to volume
          * slider. Please keep it brief. */
