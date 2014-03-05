@@ -1,3 +1,10 @@
+unity-control-center (14.04.3+14.04.20140305.1-0ubuntu1) trusty; urgency=low
+
+  [ Lars Uebernickel ]
+  * Add "Show sound volume in the menu bar" check box (LP: #829648)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 05 Mar 2014 12:48:43 +0000
+
 unity-control-center (14.04.3+14.04.20140303-0ubuntu1) trusty; urgency=low
 
   [ Luke Yelavich ]
