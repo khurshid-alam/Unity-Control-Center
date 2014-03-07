@@ -58,10 +58,10 @@
 #define KEY_GROUP_PER_WINDOW          "group-per-window"
 #define KEY_DEFAULT_GROUP             "default-group"
 
-#define IBUS_PANEL_SECTION       "panel"
-#define IBUS_ORIENTATION_KEY     "lookup_table_orientation"
-#define IBUS_USE_CUSTOM_FONT_KEY "use_custom_font"
-#define IBUS_CUSTOM_FONT_KEY     "custom_font"
+#define IBUS_PANEL_SCHEMA_ID     "org.freedesktop.ibus.panel"
+#define IBUS_ORIENTATION_KEY     "lookup-table-orientation"
+#define IBUS_USE_CUSTOM_FONT_KEY "use-custom-font"
+#define IBUS_CUSTOM_FONT_KEY     "custom-font"
 
 #define LEGACY_IBUS_XML_DIR   "/usr/share/ibus/component"
 #define LEGACY_IBUS_SETUP_DIR "/usr/lib/ibus"
@@ -78,6 +78,7 @@ enum {
 
 static GSettings *input_sources_settings = NULL;
 static GSettings *libgnomekbd_settings = NULL;
+static GSettings *ibus_panel_settings = NULL;
 static GSettings *media_key_settings = NULL;
 static GSettings *indicator_settings = NULL;
 static GnomeXkbInfo *xkb_info = NULL;
@@ -566,89 +567,6 @@ update_source_radios (GtkBuilder *builder)
 }
 
 static void
-update_orientation_combo (GtkBuilder *builder)
-{
-#ifdef HAVE_IBUS
-  if (ibus != NULL)
-    {
-      IBusConfig *config = ibus_bus_get_config (ibus);
-      GVariant *variant = ibus_config_get_value (config, IBUS_PANEL_SECTION, IBUS_ORIENTATION_KEY);
-
-      g_return_if_fail (variant != NULL);
-
-      if (g_variant_is_of_type (variant, G_VARIANT_TYPE_INT32))
-        {
-          GtkComboBox *orientation_combo = GTK_COMBO_BOX (WID ("orientation-combo"));
-          gint orientation = g_variant_get_int32 (variant);
-
-          if (gtk_combo_box_get_active (orientation_combo) != orientation)
-            gtk_combo_box_set_active (orientation_combo, orientation);
-        }
-      else
-        g_warning ("Orientation setting has type '%s', expected type 'i'",
-                   g_variant_get_type_string (variant));
-
-      g_variant_unref (variant);
-    }
-#endif
-}
-
-static void
-update_custom_font_buttons (GtkBuilder *builder)
-{
-#ifdef HAVE_IBUS
-  if (ibus != NULL)
-    {
-      IBusConfig *config = ibus_bus_get_config (ibus);
-      GVariant *variant = ibus_config_get_value (config, IBUS_PANEL_SECTION, IBUS_USE_CUSTOM_FONT_KEY);
-      GtkToggleButton *custom_font_check = GTK_TOGGLE_BUTTON (WID ("custom-font-check"));
-      GtkFontButton *custom_font_button = GTK_FONT_BUTTON (WID ("custom-font-button"));
-
-      if (variant != NULL)
-        {
-          if (g_variant_is_of_type (variant, G_VARIANT_TYPE_BOOLEAN))
-            {
-              gboolean use_custom_font = g_variant_get_boolean (variant);
-
-              if (gtk_toggle_button_get_active (custom_font_check) != use_custom_font)
-                gtk_toggle_button_set_active (custom_font_check, use_custom_font);
-            }
-          else
-            g_warning ("Use custom font setting has type '%s', expected type 'b'",
-                       g_variant_get_type_string (variant));
-
-          g_variant_unref (variant);
-        }
-      else
-        g_warning ("No use custom font setting '" IBUS_USE_CUSTOM_FONT_KEY "'");
-
-      variant = ibus_config_get_value (config, IBUS_PANEL_SECTION, IBUS_CUSTOM_FONT_KEY);
-
-      if (variant != NULL)
-        {
-          if (g_variant_is_of_type (variant, G_VARIANT_TYPE_STRING))
-            {
-              const gchar *custom_font = g_variant_get_string (variant, NULL);
-
-              if (g_strcmp0 (gtk_font_button_get_font_name (custom_font_button), custom_font))
-                gtk_font_button_set_font_name (custom_font_button, custom_font);
-            }
-          else
-            g_warning ("Custom font setting has type '%s', expected type 's'",
-                       g_variant_get_type_string (variant));
-
-          g_variant_unref (variant);
-        }
-      else
-        g_warning ("No custom font setting '" IBUS_CUSTOM_FONT_KEY "'");
-
-      gtk_widget_set_sensitive (GTK_WIDGET (custom_font_button),
-                                gtk_toggle_button_get_active (custom_font_check));
-    }
-#endif
-}
-
-static void
 source_radio_toggled (GtkToggleButton *widget,
                       gpointer         user_data)
 {
@@ -672,135 +590,15 @@ source_radio_toggled (GtkToggleButton *widget,
 }
 
 static void
-orientation_combo_changed (GtkComboBox *widget,
-                           gpointer     user_data)
-{
-#ifdef HAVE_IBUS
-  if (ibus != NULL)
-    {
-      GtkBuilder *builder = user_data;
-      GtkComboBox *orientation_combo = GTK_COMBO_BOX (WID ("orientation-combo"));
-      IBusConfig *config = ibus_bus_get_config (ibus);
-      gint orientation = -1;
-      GVariant *variant = ibus_config_get_value (config, IBUS_PANEL_SECTION, IBUS_ORIENTATION_KEY);
-
-      if (variant != NULL)
-        {
-          if (g_variant_is_of_type (variant, G_VARIANT_TYPE_INT32))
-            orientation = g_variant_get_int32 (variant);
-
-          g_variant_unref (variant);
-        }
-
-      if (gtk_combo_box_get_active (orientation_combo) != orientation)
-        {
-          orientation = gtk_combo_box_get_active (orientation_combo);
-          variant = g_variant_new_int32 (orientation);
-
-          ibus_config_set_value (config, IBUS_PANEL_SECTION, IBUS_ORIENTATION_KEY, variant);
-        }
-    }
-#endif
-}
-
-static void
-custom_font_changed (GtkWidget *widget,
-                     gpointer   user_data)
-{
-#ifdef HAVE_IBUS
-  if (ibus != NULL)
-    {
-      GtkBuilder *builder = user_data;
-      GtkToggleButton *custom_font_check = GTK_TOGGLE_BUTTON (WID ("custom-font-check"));
-      GtkFontButton *custom_font_button = GTK_FONT_BUTTON (WID ("custom-font-button"));
-      IBusConfig *config = ibus_bus_get_config (ibus);
-      gboolean update_setting = TRUE;
-      gboolean use_custom_font;
-      const gchar *custom_font;
-      GVariant *variant = ibus_config_get_value (config, IBUS_PANEL_SECTION, IBUS_USE_CUSTOM_FONT_KEY);
-
-      if (variant != NULL)
-        {
-          if (g_variant_is_of_type (variant, G_VARIANT_TYPE_BOOLEAN))
-            {
-              use_custom_font = g_variant_get_boolean (variant);
-              update_setting = gtk_toggle_button_get_active (custom_font_check) != use_custom_font;
-            }
-
-          g_variant_unref (variant);
-        }
-
-      if (update_setting)
-        {
-          use_custom_font = gtk_toggle_button_get_active (custom_font_check);
-          variant = g_variant_new_boolean (use_custom_font);
-
-          ibus_config_set_value (config, IBUS_PANEL_SECTION, IBUS_USE_CUSTOM_FONT_KEY, variant);
-        }
-
-      update_setting = TRUE;
-      variant = ibus_config_get_value (config, IBUS_PANEL_SECTION, IBUS_CUSTOM_FONT_KEY);
-
-      if (variant != NULL)
-        {
-          if (g_variant_is_of_type (variant, G_VARIANT_TYPE_STRING))
-            {
-              custom_font = g_variant_get_string (variant, NULL);
-              update_setting = g_strcmp0 (gtk_font_button_get_font_name (custom_font_button), custom_font);
-            }
-
-          g_variant_unref (variant);
-        }
-
-      if (update_setting)
-        {
-          custom_font = gtk_font_button_get_font_name (custom_font_button);
-          variant = g_variant_new_string (custom_font);
-
-          ibus_config_set_value (config, IBUS_PANEL_SECTION, IBUS_CUSTOM_FONT_KEY, variant);
-        }
-
-      gtk_widget_set_sensitive (GTK_WIDGET (custom_font_button),
-                                gtk_toggle_button_get_active (custom_font_check));
-    }
-#endif
-}
-
-static void
-ibus_config_value_changed (IBusConfig *config,
-                           gchar      *section,
-                           gchar      *name,
-                           GVariant   *value,
-                           gpointer    user_data)
-{
-  if (g_strcmp0 (section, IBUS_PANEL_SECTION) == 0)
-    {
-      if (g_strcmp0 (name, IBUS_ORIENTATION_KEY) == 0)
-        update_orientation_combo (builder);
-      else if (g_strcmp0 (name, IBUS_USE_CUSTOM_FONT_KEY) == 0 ||
-               g_strcmp0 (name, IBUS_CUSTOM_FONT_KEY) == 0)
-        update_custom_font_buttons (builder);
-    }
-}
-
-static void
 ibus_connected (IBusBus  *bus,
                 gpointer  user_data)
 {
   GtkBuilder *builder = user_data;
-  IBusConfig *config = ibus_bus_get_config (bus);
-
-  g_signal_connect (config, "value-changed",
-                    G_CALLBACK (ibus_config_value_changed), NULL);
 
   fetch_ibus_engines (builder);
 
   if (has_indicator_keyboard ())
-    {
-      update_source_radios (builder);
-      update_orientation_combo (builder);
-      update_custom_font_buttons (builder);
-    }
+    update_source_radios (builder);
 
   /* We've got everything we needed, don't want to be called again. */
   g_signal_handlers_disconnect_by_func (ibus, ibus_connected, builder);
@@ -1661,8 +1459,9 @@ builder_finalized (gpointer  data,
 
   g_clear_object (&input_sources_settings);
   g_clear_object (&libgnomekbd_settings);
-  g_clear_object (&indicator_settings);
+  g_clear_object (&ibus_panel_settings);
   g_clear_object (&media_key_settings);
+  g_clear_object (&indicator_settings);
   g_clear_object (&next_source_item);
   g_clear_object (&prev_source_item);
 
@@ -1801,18 +1600,37 @@ setup_input_tabs (GtkBuilder    *builder_,
   if (has_indicator_keyboard ())
     {
       libgnomekbd_settings = g_settings_new (LIBGNOMEKBD_DESKTOP_SCHEMA_ID);
-      indicator_settings = g_settings_new (INDICATOR_KEYBOARD_SCHEMA_ID);
+      ibus_panel_settings = g_settings_new (IBUS_PANEL_SCHEMA_ID);
       media_key_settings = g_settings_new (MEDIA_KEYS_SCHEMA_ID);
+      indicator_settings = g_settings_new (INDICATOR_KEYBOARD_SCHEMA_ID);
 
       update_source_radios (builder);
-      update_orientation_combo (builder);
-      update_custom_font_buttons (builder);
 
       g_settings_bind (indicator_settings,
                        KEY_VISIBLE,
                        WID ("show-indicator-check"),
                        "active",
                        G_SETTINGS_BIND_DEFAULT);
+      g_settings_bind (ibus_panel_settings,
+                       IBUS_ORIENTATION_KEY,
+                       WID ("orientation-combo"),
+                       "active",
+                       G_SETTINGS_BIND_DEFAULT);
+      g_settings_bind (ibus_panel_settings,
+                       IBUS_USE_CUSTOM_FONT_KEY,
+                       WID ("custom-font-check"),
+                       "active",
+                       G_SETTINGS_BIND_DEFAULT);
+      g_settings_bind (ibus_panel_settings,
+                       IBUS_USE_CUSTOM_FONT_KEY,
+                       WID ("custom-font-button"),
+                       "sensitive",
+                       G_SETTINGS_BIND_GET | G_SETTINGS_BIND_NO_SENSITIVITY);
+      g_settings_bind (ibus_panel_settings,
+                       IBUS_CUSTOM_FONT_KEY,
+                       WID ("custom-font-button"),
+                       "font-name",
+                       G_SETTINGS_BIND_DEFAULT | G_SETTINGS_BIND_NO_SENSITIVITY);
       g_settings_bind_with_mapping (media_key_settings,
                                     KEY_PREV_INPUT_SOURCE,
                                     WID ("prev-source-entry"),
@@ -1842,12 +1660,6 @@ setup_input_tabs (GtkBuilder    *builder_,
                         G_CALLBACK (source_radio_toggled), builder);
       g_signal_connect (WID ("current-source-radio"), "toggled",
                         G_CALLBACK (source_radio_toggled), builder);
-      g_signal_connect (WID ("orientation-combo"), "changed",
-                        G_CALLBACK (orientation_combo_changed), builder);
-      g_signal_connect (WID ("custom-font-check"), "toggled",
-                        G_CALLBACK (custom_font_changed), builder);
-      g_signal_connect (WID ("custom-font-button"), "font-set",
-                        G_CALLBACK (custom_font_changed), builder);
       g_signal_connect (libgnomekbd_settings,
                         "changed",
                         G_CALLBACK (libgnomekbd_settings_changed),
