@@ -1,3 +1,18 @@
+unity-control-center (14.04.3+14.04.20140310-0ubuntu1) trusty; urgency=low
+
+  [ Charles Kerr ]
+  * In the datetime panel's 'Time & Date' tab, update the time spinner
+    every second. (LP: #1086486)
+
+  [ Sebastien Bacher ]
+  * Tweak some strings to match the design recommendations (LP:
+    #1283150)
+
+  [ William Hua ]
+  * Write IBus settings directly to dconf. (LP: #1288717)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 10 Mar 2014 15:42:21 +0000
+
 unity-control-center (14.04.3+14.04.20140305.1-0ubuntu1) trusty; urgency=low
 
   [ Lars Uebernickel ]
