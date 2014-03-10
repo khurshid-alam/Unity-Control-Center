@@ -549,8 +549,7 @@ setup_time_spinners (IndicatorDatetimePanel * self, GtkWidget * time, GtkWidget 
   self->priv->time_spin = time;
   self->priv->date_spin = date;
 
-  /* 2 seconds is what the indicator itself uses */
-  guint time_id = g_timeout_add_seconds (2, (GSourceFunc)update_spinners, self);
+  guint time_id = g_timeout_add_seconds (1, (GSourceFunc)update_spinners, self);
   g_signal_connect_swapped (self->priv->time_spin, "destroy",
                             G_CALLBACK (g_source_remove), GINT_TO_POINTER (time_id));
   update_spinners (self);
