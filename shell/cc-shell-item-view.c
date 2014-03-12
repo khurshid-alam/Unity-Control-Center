@@ -199,6 +199,9 @@ cc_shell_item_view_init (CcShellItemView *self)
 {
   self->priv = SHELL_ITEM_VIEW_PRIVATE (self);
 
+  /* Style like a normal widget instead of like an icon view */
+  gtk_style_context_remove_class (gtk_widget_get_style_context (GTK_WIDGET (self)), "view");
+
   g_object_set (self, "margin", 0, NULL);
   g_signal_connect (self, "item-activated",
                     G_CALLBACK (iconview_item_activated_cb), self);
