@@ -904,7 +904,7 @@
                                             <property name="halign">end</property>
                                             <property name="hexpand">True</property>
                                             <property name="label" translatable="yes">Ctrl+Alt+Space</property>
-                                            <style><class name="dim-label"/></style>
+                                            <style><class name="dim-label-ucc"/></style>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -934,7 +934,7 @@
                                             <property name="halign">end</property>
                                             <property name="hexpand">True</property>
                                             <property name="label" translatable="yes">Ctrl+Alt+Shift+Space</property>
-                                            <style><class name="dim-label"/></style>
+                                            <style><class name="dim-label-ucc"/></style>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>

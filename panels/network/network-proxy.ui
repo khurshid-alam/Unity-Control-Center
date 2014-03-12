@@ -145,7 +145,7 @@
             <property name="use_underline">True</property>
             <property name="mnemonic_widget">combobox_proxy_mode</property>
             <style>
-              <class name="dim-label"/>
+              <class name="dim-label-ucc"/>
             </style>
           </object>
           <packing>
@@ -179,7 +179,7 @@
             <property name="use_underline">True</property>
             <property name="mnemonic_widget">entry_proxy_url</property>
             <style>
-              <class name="dim-label"/>
+              <class name="dim-label-ucc"/>
             </style>
           </object>
           <packing>
@@ -212,7 +212,7 @@
             <property name="use_underline">True</property>
             <property name="mnemonic_widget">entry_proxy_http</property>
             <style>
-              <class name="dim-label"/>
+              <class name="dim-label-ucc"/>
             </style>
           </object>
           <packing>
@@ -231,7 +231,7 @@
             <property name="use_underline">True</property>
             <property name="mnemonic_widget">entry_proxy_https</property>
             <style>
-              <class name="dim-label"/>
+              <class name="dim-label-ucc"/>
             </style>
           </object>
           <packing>
@@ -250,7 +250,7 @@
             <property name="use_underline">True</property>
             <property name="mnemonic_widget">entry_proxy_ftp</property>
             <style>
-              <class name="dim-label"/>
+              <class name="dim-label-ucc"/>
             </style>
           </object>
           <packing>
@@ -269,7 +269,7 @@
             <property name="use_underline">True</property>
             <property name="mnemonic_widget">entry_proxy_socks</property>
             <style>
-              <class name="dim-label"/>
+              <class name="dim-label-ucc"/>
             </style>
           </object>
           <packing>

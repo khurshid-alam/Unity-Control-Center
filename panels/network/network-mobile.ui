@@ -96,7 +96,7 @@
                 <property name="label" translatable="yes">IMEI</property>
                 <property name="mnemonic_widget">label_imei</property>
                 <style>
-                  <class name="dim-label"/>
+                  <class name="dim-label-ucc"/>
                 </style>
               </object>
               <packing>
@@ -114,7 +114,7 @@
                 <property name="label" translatable="yes">Provider</property>
                 <property name="mnemonic_widget">label_provider</property>
                 <style>
-                  <class name="dim-label"/>
+                  <class name="dim-label-ucc"/>
                 </style>
               </object>
               <packing>
@@ -242,7 +242,7 @@
                 <property name="xalign">1</property>
                 <property name="label" translatable="yes">IP Address</property>
                 <style>
-                  <class name="dim-label"/>
+                  <class name="dim-label-ucc"/>
                 </style>
               </object>
               <packing>
@@ -259,7 +259,7 @@
                 <property name="xalign">1</property>
                 <property name="label" translatable="yes">IPv6 Address</property>
                 <style>
-                  <class name="dim-label"/>
+                  <class name="dim-label-ucc"/>
                 </style>
               </object>
               <packing>
@@ -276,7 +276,7 @@
                 <property name="xalign">1</property>
                 <property name="label" translatable="yes">Default Route</property>
                 <style>
-                  <class name="dim-label"/>
+                  <class name="dim-label-ucc"/>
                 </style>
               </object>
               <packing>
@@ -294,7 +294,7 @@
                 <property name="yalign">0</property>
                 <property name="label" translatable="yes">DNS</property>
                 <style>
-                  <class name="dim-label"/>
+                  <class name="dim-label-ucc"/>
                 </style>
               </object>
               <packing>
@@ -311,7 +311,7 @@
                 <property name="xalign">1</property>
                 <property name="label" translatable="yes">Network</property>
                 <style>
-                  <class name="dim-label"/>
+                  <class name="dim-label-ucc"/>
                 </style>
               </object>
               <packing>

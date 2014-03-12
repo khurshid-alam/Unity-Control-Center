@@ -128,7 +128,7 @@
                     <property name="use_underline">True</property>
                     <property name="mnemonic_widget">local-username</property>
                     <style>
-                      <class name="dim-label"/>
+                      <class name="dim-label-ucc"/>
                     </style>
                   </object>
                   <packing>
@@ -156,7 +156,7 @@
                     <property name="use_underline">True</property>
                     <property name="mnemonic_widget">local-name</property>
                     <style>
-                      <class name="dim-label"/>
+                      <class name="dim-label-ucc"/>
                     </style>
                   </object>
                   <packing>
@@ -189,7 +189,7 @@
                     <property name="use_underline">True</property>
                     <property name="mnemonic_widget">local-account-type</property>
                     <style>
-                      <class name="dim-label"/>
+                      <class name="dim-label-ucc"/>
                     </style>
                   </object>
                   <packing>
@@ -221,7 +221,7 @@
                     <property name="use_underline">True</property>
                     <property name="mnemonic_widget">enterprise-domain</property>
                     <style>
-                      <class name="dim-label"/>
+                      <class name="dim-label-ucc"/>
                     </style>
                   </object>
                   <packing>
@@ -240,7 +240,7 @@
                     <property name="use_underline">True</property>
                     <property name="mnemonic_widget">enterprise-login</property>
                     <style>
-                      <class name="dim-label"/>
+                      <class name="dim-label-ucc"/>
                     </style>
                   </object>
                   <packing>
@@ -259,7 +259,7 @@
                     <property name="use_underline">True</property>
                     <property name="mnemonic_widget">enterprise-password</property>
                     <style>
-                      <class name="dim-label"/>
+                      <class name="dim-label-ucc"/>
                     </style>
                   </object>
                   <packing>
@@ -468,7 +468,7 @@ type their domain password here.</property>
                     <property name="use_underline">True</property>
                     <property name="mnemonic_widget">join-domain</property>
                     <style>
-                      <class name="dim-label"/>
+                      <class name="dim-label-ucc"/>
                     </style>
                   </object>
                   <packing>
@@ -502,7 +502,7 @@ type their domain password here.</property>
                     <property name="use_underline">True</property>
                     <property name="mnemonic_widget">join-name</property>
                     <style>
-                      <class name="dim-label"/>
+                      <class name="dim-label-ucc"/>
                     </style>
                   </object>
                   <packing>
@@ -536,7 +536,7 @@ type their domain password here.</property>
                     <property name="use_underline">True</property>
                     <property name="mnemonic_widget">join-password</property>
                     <style>
-                      <class name="dim-label"/>
+                      <class name="dim-label-ucc"/>
                     </style>
                   </object>
                   <packing>

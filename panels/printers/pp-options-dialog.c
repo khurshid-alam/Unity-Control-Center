@@ -350,7 +350,7 @@ ipp_option_add (IPPAttribute *attr_supported,
 
       label = gtk_label_new (option_display_name);
       context = gtk_widget_get_style_context (label);
-      gtk_style_context_add_class (context, "dim-label");
+      gtk_style_context_add_class (context, "dim-label-ucc");
       gtk_misc_set_alignment (GTK_MISC (label), 1.0, 0.5);
       gtk_widget_set_margin_left (label, 10);
       gtk_grid_attach (GTK_GRID (grid), label, 0, position, 1, 1);
@@ -381,7 +381,7 @@ ppd_option_add (ppd_option_t  option,
 
       label = gtk_label_new (ppd_option_name_translate (&option));
       context = gtk_widget_get_style_context (label);
-      gtk_style_context_add_class (context, "dim-label");
+      gtk_style_context_add_class (context, "dim-label-ucc");
       gtk_misc_set_alignment (GTK_MISC (label), 1.0, 0.5);
       gtk_widget_set_margin_left (label, 10);
       gtk_grid_attach (GTK_GRID (grid), label, 0, position, 1, 1);
