@@ -422,7 +422,7 @@
                     <property name="label" translatable="yes">Last used</property>
                     <property name="mnemonic_widget">label_last_used</property>
                     <style>
-                      <class name="dim-label"/>
+                      <class name="dim-label-ucc"/>
                     </style>
                   </object>
                   <packing>
@@ -455,7 +455,7 @@
                     <property name="label" translatable="yes">Hardware Address</property>
                     <property name="mnemonic_widget">label_mac</property>
                     <style>
-                      <class name="dim-label"/>
+                      <class name="dim-label-ucc"/>
                     </style>
                   </object>
                   <packing>
@@ -488,7 +488,7 @@
                     <property name="label" translatable="yes">Security</property>
                     <property name="mnemonic_widget">label_security</property>
                     <style>
-                      <class name="dim-label"/>
+                      <class name="dim-label-ucc"/>
                     </style>
                   </object>
                   <packing>
@@ -521,7 +521,7 @@
                     <property name="label" translatable="yes">Strength</property>
                     <property name="mnemonic_widget">label_strength</property>
                     <style>
-                      <class name="dim-label"/>
+                      <class name="dim-label-ucc"/>
                     </style>
                   </object>
                   <packing>
@@ -554,7 +554,7 @@
                     <property name="label" translatable="yes">Link speed</property>
                     <property name="mnemonic_widget">label_speed</property>
                     <style>
-                      <class name="dim-label"/>
+                      <class name="dim-label-ucc"/>
                     </style>
                   </object>
                   <packing>
@@ -587,7 +587,7 @@
                     <property name="label" translatable="yes">IPv4 Address</property>
                     <property name="mnemonic_widget">label_ipv4</property>
                     <style>
-                      <class name="dim-label"/>
+                      <class name="dim-label-ucc"/>
                     </style>
                   </object>
                   <packing>
@@ -620,7 +620,7 @@
                     <property name="label" translatable="yes">IPv6 Address</property>
                     <property name="mnemonic_widget">label_ipv6</property>
                     <style>
-                      <class name="dim-label"/>
+                      <class name="dim-label-ucc"/>
                     </style>
                   </object>
                   <packing>
@@ -653,7 +653,7 @@
                     <property name="label" translatable="yes">Default Route</property>
                     <property name="mnemonic_widget">label_route</property>
                     <style>
-                      <class name="dim-label"/>
+                      <class name="dim-label-ucc"/>
                     </style>
                   </object>
                   <packing>
@@ -687,7 +687,7 @@
                     <property name="label" translatable="yes">DNS</property>
                     <property name="mnemonic_widget">label_dns</property>
                     <style>
-                      <class name="dim-label"/>
+                      <class name="dim-label-ucc"/>
                     </style>
                   </object>
                   <packing>
@@ -934,7 +934,7 @@
                     <property name="label" translatable="yes">Network Name</property>
                     <property name="mnemonic_widget">label_hotspot_network_name</property>
                     <style>
-                      <class name="dim-label"/>
+                      <class name="dim-label-ucc"/>
                     </style>
                   </object>
                   <packing>
@@ -952,7 +952,7 @@
                     <property name="label" translatable="yes">Connected Devices</property>
                     <property name="mnemonic_widget">label_hotspot_connected</property>
                     <style>
-                      <class name="dim-label"/>
+                      <class name="dim-label-ucc"/>
                     </style>
                   </object>
                   <packing>
@@ -970,7 +970,7 @@
                     <property name="label" translatable="yes">Security type</property>
                     <property name="mnemonic_widget">label_hotspot_security</property>
                     <style>
-                      <class name="dim-label"/>
+                      <class name="dim-label-ucc"/>
                     </style>
                   </object>
                   <packing>
@@ -1033,7 +1033,7 @@
                     <property name="label" translatable="yes">Security key</property>
                     <property name="mnemonic_widget">label_hotspot_security_key</property>
                     <style>
-                      <class name="dim-label"/>
+                      <class name="dim-label-ucc"/>
                     </style>
                   </object>
                   <packing>

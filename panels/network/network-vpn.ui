@@ -102,7 +102,7 @@
                 <property name="label" translatable="yes">VPN Type</property>
                 <property name="mnemonic_widget">label_service_type</property>
                 <style>
-                  <class name="dim-label"/>
+                  <class name="dim-label-ucc"/>
                 </style>
               </object>
               <packing>
@@ -120,7 +120,7 @@
                 <property name="label" translatable="yes">Gateway</property>
                 <property name="mnemonic_widget">label_gateway</property>
                 <style>
-                  <class name="dim-label"/>
+                  <class name="dim-label-ucc"/>
                 </style>
               </object>
               <packing>
@@ -138,7 +138,7 @@
                 <property name="label" translatable="yes">Group Name</property>
                 <property name="mnemonic_widget">label_group_name</property>
                 <style>
-                  <class name="dim-label"/>
+                  <class name="dim-label-ucc"/>
                 </style>
               </object>
               <packing>
@@ -156,7 +156,7 @@
                 <property name="label" translatable="yes">Group Password</property>
                 <property name="mnemonic_widget">label_group_password</property>
                 <style>
-                  <class name="dim-label"/>
+                  <class name="dim-label-ucc"/>
                 </style>
               </object>
               <packing>
@@ -174,7 +174,7 @@
                 <property name="label" translatable="yes">Username</property>
                 <property name="mnemonic_widget">label_username</property>
                 <style>
-                  <class name="dim-label"/>
+                  <class name="dim-label-ucc"/>
                 </style>
               </object>
               <packing>

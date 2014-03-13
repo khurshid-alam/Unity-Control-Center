@@ -127,7 +127,7 @@
                             <property name="use_underline">True</property>
                             <property name="mnemonic_widget">resolution_combo</property>
                             <style>
-                              <class name="dim-label"/>
+                              <class name="dim-label-ucc"/>
                             </style>
                           </object>
                           <packing>
@@ -144,7 +144,7 @@
                             <property name="use_underline">True</property>
                             <property name="mnemonic_widget">rotation_combo</property>
                             <style>
-                              <class name="dim-label"/>
+                              <class name="dim-label-ucc"/>
                             </style>
                           </object>
                           <packing>
@@ -176,7 +176,7 @@
                             <property name="use_underline">True</property>
                             <property name="mnemonic_widget">launcher_placement_combo</property>
                             <style>
-                              <class name="dim-label"/>
+                              <class name="dim-label-ucc"/>
                             </style>
                           </object>
                           <packing>
@@ -195,7 +195,7 @@
                             <property name="use_underline">True</property>
                             <property name="mnemonic_widget">stickyedge_switch</property>
                             <style>
-                              <class name="dim-label"/>
+                              <class name="dim-label-ucc"/>
                             </style>
                           </object>
                           <packing>
@@ -300,7 +300,7 @@
                             <property name="ypad">3</property>
                             <property name="label" translatable="yes">UI scale</property>
                             <style>
-                              <class name="dim-label"/>
+                              <class name="dim-label-ucc"/>
                             </style>
                           </object>
                           <packing>

@@ -103,7 +103,7 @@
                         <property name="xalign">1</property>
                         <property name="label" translatable="yes" comments="Translators: By supply we mean ink, toner, staples, water, ...">Supply</property>
                         <style>
-                          <class name="dim-label"/>
+                          <class name="dim-label-ucc"/>
                         </style>
                       </object>
                       <packing>
@@ -119,7 +119,7 @@
                         <property name="xalign">1</property>
                         <property name="label" translatable="yes" comments="Translators: Location of the printer (e.g. Lab, 1st floor,...).">Location</property>
                         <style>
-                          <class name="dim-label"/>
+                          <class name="dim-label-ucc"/>
                         </style>
                       </object>
                       <packing>
@@ -212,7 +212,7 @@
                         <property name="xalign">1</property>
                         <property name="label" translatable="yes">Jobs</property>
                         <style>
-                          <class name="dim-label"/>
+                          <class name="dim-label-ucc"/>
                         </style>
                       </object>
                       <packing>
@@ -288,7 +288,7 @@
                         <property name="xalign">1</property>
                         <property name="label" translatable="yes">Model</property>
                         <style>
-                          <class name="dim-label"/>
+                          <class name="dim-label-ucc"/>
                         </style>
                       </object>
                       <packing>
@@ -304,7 +304,7 @@
                         <property name="xalign">1</property>
                         <property name="label" translatable="yes">IP Address</property>
                         <style>
-                          <class name="dim-label"/>
+                          <class name="dim-label-ucc"/>
                         </style>
                       </object>
                       <packing>

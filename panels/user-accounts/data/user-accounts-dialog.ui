@@ -193,7 +193,7 @@
                             <property name="use_underline">True</property>
                             <property name="mnemonic_widget">account-type-combo</property>
                             <style>
-                              <class name="dim-label"/>
+                              <class name="dim-label-ucc"/>
                             </style>
                           </object>
                           <packing>
@@ -254,7 +254,7 @@
                             <property name="use_underline">True</property>
                             <property name="mnemonic_widget">account-password-button</property>
                             <style>
-                              <class name="dim-label"/>
+                              <class name="dim-label-ucc"/>
                             </style>
                           </object>
                           <packing>
@@ -284,7 +284,7 @@
                             <property name="use_underline">True</property>
                             <property name="mnemonic_widget">autologin-switch</property>
                             <style>
-                              <class name="dim-label"/>
+                              <class name="dim-label-ucc"/>
                             </style>
                           </object>
                           <packing>
@@ -326,7 +326,7 @@
                             <property name="use_underline">True</property>
                             <property name="mnemonic_widget">account-fingerprint-button</property>
                             <style>
-                              <class name="dim-label"/>
+                              <class name="dim-label-ucc"/>
                             </style>
                           </object>
                           <packing>
@@ -414,7 +414,7 @@
                             <property name="use_underline">True</property>
                             <property name="mnemonic_widget">account-language-combo</property>
                             <style>
-                              <class name="dim-label"/>
+                              <class name="dim-label-ucc"/>
                             </style>
                           </object>
                           <packing>
@@ -446,7 +446,7 @@
                             <property name="use_underline">True</property>
                             <property name="mnemonic_widget">last-login-value-label</property>
                             <style>
-                              <class name="dim-label"/>
+                              <class name="dim-label-ucc"/>
                             </style>
                           </object>
                           <packing>

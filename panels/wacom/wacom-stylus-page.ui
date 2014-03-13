@@ -117,7 +117,7 @@
             <property name="label" translatable="yes">Eraser Pressure Feel</property>
             <property name="justify">right</property>
             <style>
-              <class name="dim-label"/>
+              <class name="dim-label-ucc"/>
             </style>
           </object>
           <packing>
@@ -194,7 +194,7 @@
             <property name="label" translatable="yes">Top Button</property>
             <property name="justify">right</property>
             <style>
-              <class name="dim-label"/>
+              <class name="dim-label-ucc"/>
             </style>
           </object>
           <packing>
@@ -227,7 +227,7 @@
             <property name="label" translatable="yes">Lower Button</property>
             <property name="justify">right</property>
             <style>
-              <class name="dim-label"/>
+              <class name="dim-label-ucc"/>
             </style>
           </object>
           <packing>
@@ -260,7 +260,7 @@
             <property name="label" translatable="yes">Tip Pressure Feel</property>
             <property name="justify">right</property>
             <style>
-              <class name="dim-label"/>
+              <class name="dim-label-ucc"/>
             </style>
           </object>
           <packing>

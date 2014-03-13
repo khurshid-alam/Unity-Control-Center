@@ -219,7 +219,7 @@ cc_wacom_nav_button_init (CcWacomNavButton *self)
 
 	/* Label */
 	priv->label = gtk_label_new (NULL);
-	gtk_style_context_add_class (gtk_widget_get_style_context (priv->label), "dim-label");
+	gtk_style_context_add_class (gtk_widget_get_style_context (priv->label), "dim-label-ucc");
 	gtk_box_pack_start (GTK_BOX (self), priv->label,
 			    FALSE, FALSE, 8);
 

@@ -88,7 +88,7 @@
                 <property name="label" translatable="yes">Hardware Address</property>
                 <property name="mnemonic_widget">label_mac</property>
                 <style>
-                  <class name="dim-label"/>
+                  <class name="dim-label-ucc"/>
                 </style>
               </object>
               <packing>
@@ -106,7 +106,7 @@
                 <property name="label" translatable="yes">IPv4 Address</property>
                 <property name="mnemonic_widget">label_ipv4</property>
                 <style>
-                  <class name="dim-label"/>
+                  <class name="dim-label-ucc"/>
                 </style>
               </object>
               <packing>
@@ -124,7 +124,7 @@
                 <property name="label" translatable="yes">IPv6 Address</property>
                 <property name="mnemonic_widget">label_ipv6</property>
                 <style>
-                  <class name="dim-label"/>
+                  <class name="dim-label-ucc"/>
                 </style>
               </object>
               <packing>
@@ -142,7 +142,7 @@
                 <property name="label" translatable="yes">Default Route</property>
                 <property name="mnemonic_widget">label_route</property>
                 <style>
-                  <class name="dim-label"/>
+                  <class name="dim-label-ucc"/>
                 </style>
               </object>
               <packing>
@@ -161,7 +161,7 @@
                 <property name="label" translatable="yes">DNS</property>
                 <property name="mnemonic_widget">label_dns</property>
                 <style>
-                  <class name="dim-label"/>
+                  <class name="dim-label-ucc"/>
                 </style>
               </object>
               <packing>

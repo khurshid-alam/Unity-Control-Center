@@ -295,7 +295,7 @@
                         <property name="valign">center</property>
                         <property name="label" translatable="yes">Tracking Mode</property>
                         <style>
-                          <class name="dim-label"/>
+                          <class name="dim-label-ucc"/>
                         </style>
                       </object>
                       <packing>
@@ -327,7 +327,7 @@
                         <property name="valign">center</property>
                         <property name="label" translatable="yes">Left-Handed Orientation</property>
                         <style>
-                          <class name="dim-label"/>
+                          <class name="dim-label-ucc"/>
                         </style>
                       </object>
                       <packing>

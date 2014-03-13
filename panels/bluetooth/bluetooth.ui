@@ -192,7 +192,7 @@
                                     <property name="xalign">1</property>
                                     <property name="label" translatable="yes">Connection</property>
                                     <style>
-                                      <class name="dim-label"/>
+                                      <class name="dim-label-ucc"/>
                                     </style>
                                   </object>
                                   <packing>
@@ -279,7 +279,7 @@
                                     <property name="xalign">1</property>
                                     <property name="label" translatable="yes">Paired</property>
                                     <style>
-                                      <class name="dim-label"/>
+                                      <class name="dim-label-ucc"/>
                                     </style>
                                   </object>
                                   <packing>
@@ -321,7 +321,7 @@
                                     <property name="xalign">1</property>
                                     <property name="label" translatable="yes">Type</property>
                                     <style>
-                                      <class name="dim-label"/>
+                                      <class name="dim-label-ucc"/>
                                     </style>
                                   </object>
                                   <packing>
@@ -363,7 +363,7 @@
                                     <property name="xalign">1</property>
                                     <property name="label" translatable="yes">Address</property>
                                     <style>
-                                      <class name="dim-label"/>
+                                      <class name="dim-label-ucc"/>
                                     </style>
                                   </object>
                                   <packing>

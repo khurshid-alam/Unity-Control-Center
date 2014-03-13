@@ -279,7 +279,7 @@
                                     <property name="label" translatable="yes">Device name</property>
                                     <property name="mnemonic_widget">name_entry</property>
                                     <style>
-                                      <class name="dim-label"/>
+                                      <class name="dim-label-ucc"/>
                                     </style>
                                   </object>
                                 </child>
@@ -291,7 +291,7 @@
                                     <property name="label" translatable="yes">Memory</property>
                                     <property name="mnemonic_widget">memory_label</property>
                                     <style>
-                                      <class name="dim-label"/>
+                                      <class name="dim-label-ucc"/>
                                     </style>
                                   </object>
                                   <packing>
@@ -307,7 +307,7 @@
                                     <property name="label" translatable="yes">Processor</property>
                                     <property name="mnemonic_widget">processor_label</property>
                                     <style>
-                                      <class name="dim-label"/>
+                                      <class name="dim-label-ucc"/>
                                     </style>
                                   </object>
                                   <packing>
@@ -323,7 +323,7 @@
                                     <property name="label" translatable="yes">OS type</property>
                                     <property name="mnemonic_widget">os_type_label</property>
                                     <style>
-                                      <class name="dim-label"/>
+                                      <class name="dim-label-ucc"/>
                                     </style>
                                   </object>
                                   <packing>
@@ -339,7 +339,7 @@
                                     <property name="label" translatable="yes">Disk</property>
                                     <property name="mnemonic_widget">disk_label</property>
                                     <style>
-                                      <class name="dim-label"/>
+                                      <class name="dim-label-ucc"/>
                                     </style>
                                   </object>
                                   <packing>
@@ -494,7 +494,7 @@
                                     <property name="xalign">1</property>
                                     <property name="label" translatable="yes">Graphics</property>
                                     <style>
-                                      <class name="dim-label"/>
+                                      <class name="dim-label-ucc"/>
                                     </style>
                                   </object>
                                   <packing>
@@ -606,7 +606,7 @@
                                 <property name="label" translatable="yes">_Web</property>
                                 <property name="use_underline">True</property>
                                 <style>
-                                  <class name="dim-label"/>
+                                  <class name="dim-label-ucc"/>
                                 </style>
                               </object>
                             </child>
@@ -618,7 +618,7 @@
                                 <property name="label" translatable="yes">_Mail</property>
                                 <property name="use_underline">True</property>
                                 <style>
-                                  <class name="dim-label"/>
+                                  <class name="dim-label-ucc"/>
                                 </style>
                               </object>
                               <packing>
@@ -634,7 +634,7 @@
                                 <property name="label" translatable="yes">_Calendar</property>
                                 <property name="use_underline">True</property>
                                 <style>
-                                  <class name="dim-label"/>
+                                  <class name="dim-label-ucc"/>
                                 </style>
                               </object>
                               <packing>
@@ -650,7 +650,7 @@
                                 <property name="label" translatable="yes">M_usic</property>
                                 <property name="use_underline">True</property>
                                 <style>
-                                  <class name="dim-label"/>
+                                  <class name="dim-label-ucc"/>
                                 </style>
                               </object>
                               <packing>
@@ -666,7 +666,7 @@
                                 <property name="label" translatable="yes">_Video</property>
                                 <property name="use_underline">True</property>
                                 <style>
-                                  <class name="dim-label"/>
+                                  <class name="dim-label-ucc"/>
                                 </style>
                               </object>
                               <packing>
@@ -737,7 +737,7 @@
                                 <property name="label" translatable="yes">_Photos</property>
                                 <property name="use_underline">True</property>
                                 <style>
-                                  <class name="dim-label"/>
+                                  <class name="dim-label-ucc"/>
                                 </style>
                               </object>
                               <packing>
@@ -871,7 +871,7 @@
                                                         <property name="use_underline">True</property>
                                                         <property name="mnemonic_widget">media_audio_cdda_combobox</property>
                                                         <style>
-                                                          <class name="dim-label"/>
+                                                          <class name="dim-label-ucc"/>
                                                         </style>
                                                       </object>
                                                       <packing>
@@ -888,7 +888,7 @@
                                                         <property name="use_underline">True</property>
                                                         <property name="mnemonic_widget">media_video_dvd_combobox</property>
                                                         <style>
-                                                          <class name="dim-label"/>
+                                                          <class name="dim-label-ucc"/>
                                                         </style>
                                                       </object>
                                                       <packing>
@@ -934,7 +934,7 @@
                                                         <property name="use_underline">True</property>
                                                         <property name="mnemonic_widget">media_music_player_combobox</property>
                                                         <style>
-                                                          <class name="dim-label"/>
+                                                          <class name="dim-label-ucc"/>
                                                         </style>
                                                       </object>
                                                       <packing>
@@ -968,7 +968,7 @@
                                                         <property name="use_underline">True</property>
                                                         <property name="mnemonic_widget">media_dcf_combobox</property>
                                                         <style>
-                                                          <class name="dim-label"/>
+                                                          <class name="dim-label-ucc"/>
                                                         </style>
                                                       </object>
                                                       <packing>
@@ -1002,7 +1002,7 @@
                                                         <property name="use_underline">True</property>
                                                         <property name="mnemonic_widget">media_software_combobox</property>
                                                         <style>
-                                                          <class name="dim-label"/>
+                                                          <class name="dim-label-ucc"/>
                                                         </style>
                                                       </object>
                                                       <packing>
