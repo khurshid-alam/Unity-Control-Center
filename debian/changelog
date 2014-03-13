@@ -1,3 +1,17 @@
+unity-control-center (14.04.3+14.04.20140313-0ubuntu1) trusty; urgency=low
+
+  [ Sebastien Bacher ]
+  * Don't dim labels, that creates the impression that those options
+    can't be changed by the user. We create a new class rather for those
+    which is not used yet, but that let the option to update the theme
+    later. (LP: #1289530)
+  * don't list pts sessions in the user login history
+
+  [ Lars Uebernickel ]
+  * Don't use .view style class for the item view
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 13 Mar 2014 10:13:40 +0000
+
 unity-control-center (14.04.3+14.04.20140310-0ubuntu1) trusty; urgency=low
 
   [ Charles Kerr ]
