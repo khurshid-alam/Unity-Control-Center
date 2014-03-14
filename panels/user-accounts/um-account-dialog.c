@@ -1192,6 +1192,8 @@ um_account_dialog_dispose (GObject *obj)
                 self->realm_manager = NULL;
         }
 
+        g_clear_pointer (&self->join_dialog, gtk_widget_destroy);
+
         G_OBJECT_CLASS (um_account_dialog_parent_class)->dispose (obj);
 }
 
