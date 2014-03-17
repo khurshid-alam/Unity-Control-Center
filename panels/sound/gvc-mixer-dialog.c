@@ -1431,6 +1431,7 @@ on_control_input_removed (GvcMixerControl *control,
 {
         GtkWidget    *bar;
         gboolean      found;
+        gboolean      is_last_device;
         GtkTreeIter   iter;
         GtkTreeModel *model;
 
@@ -1453,8 +1454,11 @@ on_control_input_removed (GvcMixerControl *control,
         if (found) {
                 gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
         }        
-	/* update input bar when input device removed */
-        active_input_update (dialog, in);
+        is_last_device = !gtk_tree_model_get_iter_first (model, &iter);
+
+        /* update input bar when input device removed */
+        if (is_last_device)
+                active_input_update (dialog, in);
 }
 
 static void
