@@ -1866,7 +1866,7 @@ setup_unity_settings (CcAppearancePanel *self)
     return;
 
   /* Icon size change - we halve the sizes so we can only get even values*/
-  iconsize_adj = gtk_adjustment_new (DEFAULT_ICONSIZE / 2, MIN_ICONSIZE / 2, MAX_ICONSIZE / 2, 1, 8, 0);
+  iconsize_adj = gtk_adjustment_new (DEFAULT_ICONSIZE / 2, MIN_ICONSIZE / 2, MAX_ICONSIZE / 2, 1, 4, 0);
   iconsize_scale = GTK_SCALE (WID ("unity-iconsize-scale"));
   gtk_range_set_adjustment (GTK_RANGE (iconsize_scale), iconsize_adj);
   gtk_scale_add_mark (iconsize_scale, DEFAULT_ICONSIZE / 2, GTK_POS_BOTTOM, NULL);
