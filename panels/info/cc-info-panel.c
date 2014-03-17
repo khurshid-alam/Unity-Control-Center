@@ -96,6 +96,7 @@ typedef struct
 struct _CcInfoPanelPrivate
 {
   GtkBuilder    *builder;
+  GtkWidget     *extra_options_dialog;
   char          *gnome_version;
   char          *gnome_distributor;
   char          *gnome_date;
@@ -464,29 +465,11 @@ cc_info_panel_dispose (GObject *object)
 {
   CcInfoPanelPrivate *priv = CC_INFO_PANEL (object)->priv;
 
-  if (priv->builder != NULL)
-    {
-      g_object_unref (priv->builder);
-      priv->builder = NULL;
-    }
-
-  if (priv->pk_proxy != NULL)
-    {
-      g_object_unref (priv->pk_proxy);
-      priv->pk_proxy = NULL;
-    }
-
-  if (priv->pk_transaction_proxy != NULL)
-    {
-      g_object_unref (priv->pk_transaction_proxy);
-      priv->pk_transaction_proxy = NULL;
-    }
-
-  if (priv->graphics_data != NULL)
-    {
-      graphics_data_free (priv->graphics_data);
-      priv->graphics_data = NULL;
-    }
+  g_clear_object (&priv->builder);
+  g_clear_object (&priv->pk_proxy);
+  g_clear_object (&priv->pk_transaction_proxy);
+  g_clear_pointer (&priv->graphics_data, graphics_data_free);
+  g_clear_pointer (&priv->extra_options_dialog, gtk_widget_destroy);
 
   G_OBJECT_CLASS (cc_info_panel_parent_class)->dispose (object);
 }
@@ -1209,7 +1192,7 @@ on_extra_options_button_clicked (GtkWidget    *button,
   GtkWidget *dialog;
   GtkWidget *combo_box;
 
-  dialog = GTK_WIDGET (gtk_builder_get_object (self->priv->builder, "extra_options_dialog"));
+  dialog = self->priv->extra_options_dialog;
   combo_box = GTK_WIDGET (gtk_builder_get_object (self->priv->builder, "media_other_type_combobox"));
   gtk_window_set_transient_for (GTK_WINDOW (dialog),
                                 GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (self))));
@@ -1715,8 +1698,7 @@ on_pk_transaction_signal (GDBusProxy *proxy,
     }
   else if (g_strcmp0 (signal_name, "Destroy") == 0)
     {
-      g_object_unref (self->priv->pk_transaction_proxy);
-      self->priv->pk_transaction_proxy = NULL;
+      g_clear_object (&self->priv->pk_transaction_proxy);
     }
 }
 
@@ -1939,6 +1921,8 @@ cc_info_panel_init (CcInfoPanel *self)
       g_error_free (error);
       return;
     }
+
+  self->priv->extra_options_dialog = WID ("extra_options_dialog");
 
   self->priv->graphics_data = get_graphics_data ();
 
