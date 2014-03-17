@@ -121,17 +121,10 @@ enum
 
 #define MIN_ICONSIZE 16.0
 #define MAX_ICONSIZE 64.0
+#define DEFAULT_ICONSIZE 48.0
 
 #define MIN_LAUNCHER_SENSIVITY 0.2
 #define MAX_LAUNCHER_SENSIVITY 8.0
-
-typedef struct
-{
-  gdouble min;
-  gdouble max;
-} MinMax;
-static MinMax iconsize_values;
-static MinMax launchersensitivity_values;
 
 #define WID(y) (GtkWidget *) gtk_builder_get_object (priv->builder, y)
 
@@ -1412,7 +1405,7 @@ static void
 iconsize_widget_refresh (GtkAdjustment *iconsize_adj, GSettings *unity_settings)
 {
   gint value = g_settings_get_int (unity_settings, UNITY_ICONSIZE_KEY);
-  gtk_adjustment_set_value (iconsize_adj, (gdouble)value);
+  gtk_adjustment_set_value (iconsize_adj, (gdouble)value / 2);
 }
 
 static void
@@ -1423,10 +1416,16 @@ ext_iconsize_changed_callback (GSettings* settings,
   iconsize_widget_refresh (GTK_ADJUSTMENT (user_data), settings);
 }
 
+static gchar *
+on_iconsize_format_value (GtkScale *scale, gdouble value)
+{
+  return g_strdup_printf ("%d", (int) value * 2);
+}
+
 static void
 on_iconsize_changed (GtkAdjustment *adj, GSettings *unity_settings)
 {
-  g_settings_set_int (unity_settings, UNITY_ICONSIZE_KEY, (gint)gtk_adjustment_get_value (adj));
+  g_settings_set_int (unity_settings, UNITY_ICONSIZE_KEY, (gint)gtk_adjustment_get_value (adj) * 2);
 }
 
 static void
@@ -1791,21 +1790,21 @@ on_restore_defaults_page2_clicked (GtkButton *button, gpointer user_data)
 /* Get scrolling in the right direction */
 static gboolean
 on_scale_scroll_event (GtkWidget      *widget,
-                       GdkEventScroll *event,
-                       gpointer *data)
+                       GdkEventScroll *event)
 {
   gdouble value;
   GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE (widget));
-  MinMax *iconsize_values = (MinMax *) data;
-  gdouble delta = iconsize_values->max - iconsize_values->min;
+  double min = gtk_adjustment_get_lower (adj);
+  double max = gtk_adjustment_get_upper (adj);
+  gdouble delta = max - min;
 
   value = gtk_adjustment_get_value (adj);
 
   if ((event->direction == GDK_SCROLL_UP) ||
      (event->direction == GDK_SCROLL_SMOOTH && event->delta_y < 0))
     {
-      if (value + delta/8 > iconsize_values->max)
-        value = iconsize_values->max;
+      if (value + delta/8 > max)
+        value = max;
       else
         value = value + delta/8;
       gtk_adjustment_set_value (adj, value);
@@ -1813,8 +1812,8 @@ on_scale_scroll_event (GtkWidget      *widget,
   else if ((event->direction == GDK_SCROLL_DOWN) ||
            (event->direction == GDK_SCROLL_SMOOTH && event->delta_y > 0))
     {
-      if (value - delta/8 < iconsize_values->min)
-        value = iconsize_values->min;
+      if (value - delta/8 < min)
+        value = min;
       else
         value = value - delta/8;
       gtk_adjustment_set_value (adj, value);
@@ -1866,20 +1865,20 @@ setup_unity_settings (CcAppearancePanel *self)
   if (!priv->unity_settings || !priv->compizcore_settings || !priv->unity_own_settings || !priv->unity_launcher_settings)
     return;
 
-  /* Icon size change */
-  iconsize_values.min = MIN_ICONSIZE;
-  iconsize_values.max = MAX_ICONSIZE;
-  iconsize_adj = gtk_adjustment_new (48, iconsize_values.min, iconsize_values.max, 1, 5, 0);
+  /* Icon size change - we halve the sizes so we can only get even values*/
+  iconsize_adj = gtk_adjustment_new (DEFAULT_ICONSIZE / 2, MIN_ICONSIZE / 2, MAX_ICONSIZE / 2, 1, 4, 0);
   iconsize_scale = GTK_SCALE (WID ("unity-iconsize-scale"));
   gtk_range_set_adjustment (GTK_RANGE (iconsize_scale), iconsize_adj);
-  gtk_scale_add_mark (iconsize_scale, 48, GTK_POS_BOTTOM, NULL);
+  gtk_scale_add_mark (iconsize_scale, DEFAULT_ICONSIZE / 2, GTK_POS_BOTTOM, NULL);
   g_signal_connect (priv->unity_settings, "changed::" UNITY_ICONSIZE_KEY,
                     G_CALLBACK (ext_iconsize_changed_callback), iconsize_adj);
 
+  g_signal_connect (G_OBJECT (iconsize_scale), "format-value",
+                    G_CALLBACK (on_iconsize_format_value), NULL);
   g_signal_connect (iconsize_adj, "value_changed",
                     G_CALLBACK (on_iconsize_changed), priv->unity_settings);
   g_signal_connect (G_OBJECT (iconsize_scale), "scroll-event",
-                    G_CALLBACK (on_scale_scroll_event), &iconsize_values);
+                    G_CALLBACK (on_scale_scroll_event), NULL);
   iconsize_widget_refresh (iconsize_adj, priv->unity_settings);
 
   /* Reveal spot setting */
@@ -1892,9 +1891,7 @@ setup_unity_settings (CcAppearancePanel *self)
   reveallauncher_widget_refresh (self);
 
   /* Launcher reveal */
-  launchersensitivity_values.min = MIN_LAUNCHER_SENSIVITY;
-  launchersensitivity_values.max = MAX_LAUNCHER_SENSIVITY;
-  launcher_sensitivity_adj = gtk_adjustment_new (2, launchersensitivity_values.min, launchersensitivity_values.max, 0.1, 1, 0);
+  launcher_sensitivity_adj = gtk_adjustment_new (2, MIN_LAUNCHER_SENSIVITY, MAX_LAUNCHER_SENSIVITY, 0.1, 1, 0);
   launcher_sensitivity_scale = GTK_SCALE (WID ("unity-launcher-sensitivity"));
   gtk_range_set_adjustment (GTK_RANGE (launcher_sensitivity_scale), launcher_sensitivity_adj);
   gtk_scale_add_mark (launcher_sensitivity_scale, 2, GTK_POS_BOTTOM, NULL);
@@ -1903,7 +1900,7 @@ setup_unity_settings (CcAppearancePanel *self)
   g_signal_connect (launcher_sensitivity_adj, "value_changed",
                     G_CALLBACK (on_launchersensitivity_changed), self);
   g_signal_connect (G_OBJECT (launcher_sensitivity_scale), "scroll-event",
-                    G_CALLBACK (on_scale_scroll_event), &launchersensitivity_values);
+                    G_CALLBACK (on_scale_scroll_event), NULL);
   launcher_sensitivity_widget_refresh (launcher_sensitivity_adj, priv->unity_settings);
 
   /* Autohide launcher setting */
