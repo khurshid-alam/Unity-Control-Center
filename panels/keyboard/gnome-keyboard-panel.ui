@@ -626,7 +626,7 @@
                     <property name="can_focus">False</property>
                     <child>
                       <object class="GtkLinkButton" id="linkbutton">
-                        <property name="label" translatable="yes">Layout Settings</property>
+                        <property name="label" translatable="yes">Text Entry</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
