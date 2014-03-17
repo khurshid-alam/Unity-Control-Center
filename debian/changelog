@@ -1,3 +1,18 @@
+unity-control-center (14.04.3+14.04.20140317-0ubuntu1) trusty; urgency=low
+
+  [ Robert Ancell ]
+  * Only allow icons sizes to be even numbers because odd sizes look
+    blurry. (LP: #991310)
+
+  [ Sebastien Bacher ]
+  * Backport some leak fixes from upstream, those were leading to
+    dialogs not closing when they should (e.g when exiting the panel
+    they belong to), hitting a segfault when used then. (LP: #1292038)
+  * Use the correct naming for the "Text Entry" settings
+  * handle pa_stream_peek returning null (LP: #1197029)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 17 Mar 2014 13:46:59 +0000
+
 unity-control-center (14.04.3+14.04.20140313-0ubuntu1) trusty; urgency=low
 
   [ Sebastien Bacher ]
