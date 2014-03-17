@@ -722,6 +722,10 @@ active_input_update (GvcMixerDialog *dialog,
         model = gtk_tree_view_get_model (GTK_TREE_VIEW (dialog->priv->input_treeview));
 
         if (gtk_tree_model_get_iter_first (model, &iter) == FALSE){
+                /* When there are no device we need disable the input bar and set the original name */
+                gtk_label_set_label (GTK_LABEL(dialog->priv->selected_input_label),
+                                     _("Settings for the selected device"));
+                gtk_widget_set_sensitive (dialog->priv->input_bar, FALSE);
                 g_warning ("The tree is empty => we have no devices so cannot set the active input");
                 return;        
         }
@@ -1449,6 +1453,8 @@ on_control_input_removed (GvcMixerControl *control,
         if (found) {
                 gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
         }        
+	/* update input bar when input device removed */
+        active_input_update (dialog, in);
 }
 
 static void
