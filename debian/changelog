@@ -1,6 +1,6 @@
 unity-control-center (14.04.3+14.04.20140317-0ubuntu2) trusty; urgency=low
 
-  * Disable the inputbar when no input device (LP: #1291862)
+  * Disable the input/output bar when no input/output devices (LP: #1291862)
 
  -- Bin Li <bin.li@canonical.com>  Mon, 18 Mar 2014 12:11:03 +0800
 
