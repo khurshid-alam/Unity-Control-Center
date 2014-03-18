@@ -731,7 +731,7 @@ active_input_update (GvcMixerDialog *dialog,
                 gtk_label_set_label (GTK_LABEL(dialog->priv->selected_input_label),
                                      _("Settings for the selected device"));
                 gtk_widget_set_sensitive (dialog->priv->input_bar, FALSE);
-                g_warning ("The tree is empty => we have no devices so cannot set the active input");
+                g_debug ("The tree is empty => we have no devices so cannot set the active input");
                 return;        
         }
         
@@ -858,7 +858,7 @@ active_output_update (GvcMixerDialog *dialog,
                 gtk_label_set_label (GTK_LABEL(dialog->priv->selected_output_label),
                                      _("Settings for the selected device"));
                 gtk_widget_set_sensitive (dialog->priv->output_bar, FALSE);
-                g_warning ("The tree is empty => we have no devices in the tree => cannot set the active output");
+                g_debug ("The tree is empty => we have no devices in the tree => cannot set the active output");
                 return;        
         }
         
