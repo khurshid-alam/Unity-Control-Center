@@ -854,6 +854,10 @@ active_output_update (GvcMixerDialog *dialog,
         model = gtk_tree_view_get_model (GTK_TREE_VIEW (dialog->priv->output_treeview));
 
         if (gtk_tree_model_get_iter_first (model, &iter) == FALSE){
+                /* When there are no device we need disable the output bar and set the original name */
+                gtk_label_set_label (GTK_LABEL(dialog->priv->selected_output_label),
+                                     _("Settings for the selected device"));
+                gtk_widget_set_sensitive (dialog->priv->output_bar, FALSE);
                 g_warning ("The tree is empty => we have no devices in the tree => cannot set the active output");
                 return;        
         }
@@ -1402,6 +1406,7 @@ on_control_output_removed (GvcMixerControl *control,
                            GvcMixerDialog  *dialog)
 {
         GtkWidget    *bar;
+        gboolean      is_last_device;
         gboolean      found;
         GtkTreeIter   iter;
         GtkTreeModel *model;
@@ -1425,6 +1430,11 @@ on_control_output_removed (GvcMixerControl *control,
         if (found) {
                 gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
         }
+
+        /* Disable output bar when all output devices removed */
+        is_last_device = !gtk_tree_model_get_iter_first (model, &iter);
+        if (is_last_device)
+                active_output_update (dialog, out);
 }     
 
 
@@ -1459,9 +1469,9 @@ on_control_input_removed (GvcMixerControl *control,
         if (found) {
                 gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
         }        
-        is_last_device = !gtk_tree_model_get_iter_first (model, &iter);
 
-        /* update input bar when input device removed */
+        /* Disable input bar when all input devices removed */
+        is_last_device = !gtk_tree_model_get_iter_first (model, &iter);
         if (is_last_device)
                 active_input_update (dialog, in);
 }
