@@ -790,7 +790,7 @@ is_using_ecryptfs (const gchar *name)
 
                 g_free (prog);
                 g_free (cmd);
-                g_free(nostdout);
+                g_free (nostdout);
         }
 
         return using_ecryptfs;
