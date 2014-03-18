@@ -300,7 +300,7 @@ update_sensitivity (UmPasswordDialog *um)
             old_password && *old_password == '\0') {
                 gtk_widget_set_sensitive (um->ok_button, FALSE);
                 return;
-        }
+            }
 
         strength_level = update_password_strength (um);
 
