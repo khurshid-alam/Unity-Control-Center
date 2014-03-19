@@ -297,8 +297,10 @@ update_sensitivity (UmPasswordDialog *um)
         /* Don't update the password strength if we didn't enter anything */
         if (password && *password == '\0' &&
             verify && *verify == '\0' &&
-            old_password && *old_password == '\0')
+            old_password && *old_password == '\0') {
+                gtk_widget_set_sensitive (um->ok_button, FALSE);
                 return;
+            }
 
         strength_level = update_password_strength (um);
 
