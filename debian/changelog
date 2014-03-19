@@ -1,3 +1,14 @@
+unity-control-center (14.04.3+14.04.20140319-0ubuntu1) trusty; urgency=low
+
+  [ Sebastien Bacher ]
+  * users: set the change password button to inactive by default (LP:
+    #1290808)
+  * users: don't make accountsservice calls when not needed (LP:
+    #1293705)
+  * users: don't display the ecryptfs-verify output on stdout
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 19 Mar 2014 14:43:40 +0000
+
 unity-control-center (14.04.3+14.04.20140317-0ubuntu2) trusty; urgency=low
 
   * Disable the input/output bar when no input/output devices (LP: #1291862)
