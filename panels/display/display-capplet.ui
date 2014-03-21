@@ -291,6 +291,19 @@
                           </packing>
                         </child>
                         <child>
+                          <object class="GtkSeparator" id="ui_scale_separator">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                          </object>
+                          <packing>
+                            <property name="right_attach">2</property>
+                            <property name="top_attach">5</property>
+                            <property name="bottom_attach">6</property>
+                            <property name="x_options">GTK_FILL</property>
+                            <property name="y_options"/>
+                          </packing>
+                        </child>
+                        <child>
                           <object class="GtkLabel" id="ui_label">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
@@ -304,8 +317,8 @@
                             </style>
                           </object>
                           <packing>
-                            <property name="top_attach">5</property>
-                            <property name="bottom_attach">6</property>
+                            <property name="top_attach">6</property>
+                            <property name="bottom_attach">7</property>
                           </packing>
                         </child>
                         <child>
@@ -322,8 +335,8 @@
                           <packing>
                             <property name="left_attach">1</property>
                             <property name="right_attach">2</property>
-                            <property name="top_attach">5</property>
-                            <property name="bottom_attach">6</property>
+                            <property name="top_attach">6</property>
+                            <property name="bottom_attach">7</property>
                           </packing>
                         </child>
                       </object>
