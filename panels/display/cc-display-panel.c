@@ -3011,7 +3011,6 @@ on_ui_scale_monitor_combo_changed (GtkComboBox *combo, CcDisplayPanel *self)
 
   if (active < 0)
     return;
-  gint value = 1;
 
   GnomeRROutputInfo **outputs = gnome_rr_config_get_outputs (self->priv->current_configuration);
 
