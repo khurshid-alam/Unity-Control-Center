@@ -3042,13 +3042,13 @@ on_ui_scale_monitor_combo_changed (GtkComboBox *combo, CcDisplayPanel *self)
           }
       }
 
-    gchar *current_setting = g_settings_get_string (self->priv->unity_ui_settings, UNITY_UI_SCALE_FACTOR_MONITOR);
+  gchar *current_setting = g_settings_get_string (self->priv->unity_ui_settings, UNITY_UI_SCALE_FACTOR_MONITOR);
 
-    if (g_strcmp0 (current_setting, scale_monitor) != 0)
-      g_settings_set_string (self->priv->unity_ui_settings, UNITY_UI_SCALE_FACTOR_MONITOR, scale_monitor);
+  if (g_strcmp0 (current_setting, scale_monitor) != 0)
+    g_settings_set_string (self->priv->unity_ui_settings, UNITY_UI_SCALE_FACTOR_MONITOR, scale_monitor);
 
-    g_free (current_setting);
-    g_free (scale_monitor);
+  g_free (current_setting);
+  g_free (scale_monitor);
 }
 
 static void
