@@ -315,7 +315,7 @@
                             <property name="digits">2</property>
                             <child internal-child="accessible">
                               <object class="AtkObject" id="ui_scale-atkobject">
-                                <property name="AtkObject::accessible-description" translatable="yes">Cursor blink speed</property>
+                                <property name="AtkObject::accessible-description" translatable="yes">User interface scale factor</property>
                               </object>
                             </child>
                           </object>
