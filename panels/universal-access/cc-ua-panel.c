@@ -37,7 +37,7 @@
 #define DPI_FACTOR_NORMAL 1.0
 
 #define HIGH_CONTRAST_THEME     "HighContrast"
-#define KEY_TEXT_SCALING_FACTOR "text-scaling-factor"
+#define KEY_TEXT_SCALE_FACTOR   "text-scale-factor"
 #define KEY_GTK_THEME           "gtk-theme"
 #define KEY_ICON_THEME          "icon-theme"
 #define KEY_WM_THEME            "theme"
@@ -52,6 +52,7 @@ struct _CcUaPanelPrivate
   GtkBuilder *builder;
   GSettings *wm_settings;
   GSettings *interface_settings;
+  GSettings *unity_interface_settings;
   GSettings *kb_settings;
   GSettings *mouse_settings;
   GSettings *application_settings;
@@ -115,6 +116,12 @@ cc_ua_panel_dispose (GObject *object)
     {
       g_object_unref (priv->interface_settings);
       priv->interface_settings = NULL;
+    }
+
+  if (priv->unity_interface_settings)
+    {
+      g_object_unref (priv->unity_interface_settings);
+      priv->unity_interface_settings = NULL;
     }
 
   if (priv->kb_settings)
@@ -356,7 +363,7 @@ set_large_text_mapping (const GValue       *value,
   if (large)
     ret = g_variant_new_double (DPI_FACTOR_LARGE);
   else
-    g_settings_reset (settings, KEY_TEXT_SCALING_FACTOR);
+    g_settings_reset (settings, KEY_TEXT_SCALE_FACTOR);
 
   return ret;
 }
@@ -417,12 +424,12 @@ cc_ua_panel_init_seeing (CcUaPanel *self)
                                 set_contrast_mapping,
                                 self,
                                 NULL);
-  g_settings_bind_with_mapping (priv->interface_settings, KEY_TEXT_SCALING_FACTOR,
+  g_settings_bind_with_mapping (priv->unity_interface_settings, KEY_TEXT_SCALE_FACTOR,
                                 WID (priv->builder, "seeing_large_text_switch"),
                                 "active", G_SETTINGS_BIND_DEFAULT,
                                 get_large_text_mapping,
                                 set_large_text_mapping,
-                                priv->interface_settings,
+                                priv->unity_interface_settings,
                                 NULL);
 
   g_settings_bind (priv->kb_settings, "togglekeys-enable",
@@ -684,6 +691,7 @@ cc_ua_panel_init (CcUaPanel *self)
     }
 
   priv->interface_settings = g_settings_new ("org.gnome.desktop.interface");
+  priv->unity_interface_settings = g_settings_new ("com.canonical.Unity.Interface");
   priv->wm_settings = g_settings_new ("org.gnome.desktop.wm.preferences");
   priv->kb_settings = g_settings_new ("org.gnome.desktop.a11y.keyboard");
   priv->mouse_settings = g_settings_new ("org.gnome.desktop.a11y.mouse");
