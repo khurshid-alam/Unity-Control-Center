@@ -9,6 +9,14 @@
       <column type="gchararray"/>
     </columns>
   </object>
+  <object class="GtkListStore" id="available_ui_scale_monitor_store">
+    <columns>
+      <!-- column-name MONITOR_PREVIEW -->
+      <column type="GdkPixbuf"/>
+      <!-- column-name LAUNCHER_PLACEMENT_NAME -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <!-- interface-naming-policy toplevel-contextual -->
   <object class="GtkWindow" id="window1">
     <property name="can_focus">False</property>
@@ -337,6 +345,52 @@
                             <property name="right_attach">2</property>
                             <property name="top_attach">6</property>
                             <property name="bottom_attach">7</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="ui_scale_monitor_label">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="xalign">1</property>
+                            <property name="label" translatable="yes">Application _Scale target</property>
+                            <property name="use_underline">True</property>
+                            <property name="mnemonic_widget">ui_scale_monitor_combo</property>
+                            <style>
+                              <class name="dim-label-ucc"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="top_attach">7</property>
+                            <property name="bottom_attach">8</property>
+                            <property name="x_options">GTK_FILL</property>
+                            <property name="y_options"/>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkComboBox" id="ui_scale_monitor_combo">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="model">available_ui_scale_monitor_store</property>
+                            <property name="id_column">1</property>
+                            <child>
+                              <object class="GtkCellRendererPixbuf" id="ui_scale_monitor_preview_renderer"/>
+                              <attributes>
+                                <attribute name="pixbuf">0</attribute>
+                              </attributes>
+                            </child>
+                            <child>
+                              <object class="GtkCellRendererText" id="ui_scale_name_renderer"/>
+                              <attributes>
+                                <attribute name="text">1</attribute>
+                              </attributes>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="right_attach">2</property>
+                            <property name="top_attach">7</property>
+                            <property name="bottom_attach">8</property>
+                            <property name="y_options"/>
                           </packing>
                         </child>
                       </object>
