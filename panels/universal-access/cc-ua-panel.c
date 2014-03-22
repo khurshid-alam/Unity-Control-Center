@@ -38,6 +38,7 @@
 
 #define HIGH_CONTRAST_THEME     "HighContrast"
 #define KEY_TEXT_SCALING_FACTOR "text-scaling-factor"
+#define KEY_UNITY_TEXT_SCALE_FACTOR "text-scale-factor"
 #define KEY_GTK_THEME           "gtk-theme"
 #define KEY_ICON_THEME          "icon-theme"
 #define KEY_WM_THEME            "theme"
@@ -52,6 +53,7 @@ struct _CcUaPanelPrivate
   GtkBuilder *builder;
   GSettings *wm_settings;
   GSettings *interface_settings;
+  GSettings *unity_interface_settings;
   GSettings *kb_settings;
   GSettings *mouse_settings;
   GSettings *application_settings;
@@ -88,6 +90,12 @@ cc_ua_panel_set_property (GObject      *object,
     }
 }
 
+static gboolean
+is_unity_session (void)
+{
+  return (g_strcmp0 (g_getenv("XDG_CURRENT_DESKTOP"), "Unity") == 0);
+}
+
 static void
 cc_ua_panel_dispose (GObject *object)
 {
@@ -115,6 +123,12 @@ cc_ua_panel_dispose (GObject *object)
     {
       g_object_unref (priv->interface_settings);
       priv->interface_settings = NULL;
+    }
+
+  if (priv->unity_interface_settings)
+    {
+      g_object_unref (priv->unity_interface_settings);
+      priv->unity_interface_settings = NULL;
     }
 
   if (priv->kb_settings)
@@ -354,9 +368,15 @@ set_large_text_mapping (const GValue       *value,
 
   large = g_value_get_boolean (value);
   if (large)
-    ret = g_variant_new_double (DPI_FACTOR_LARGE);
+    {
+      ret = g_variant_new_double (DPI_FACTOR_LARGE);
+    }
   else
-    g_settings_reset (settings, KEY_TEXT_SCALING_FACTOR);
+    {
+      const gchar *key = is_unity_session () ? KEY_UNITY_TEXT_SCALE_FACTOR :
+                                               KEY_TEXT_SCALING_FACTOR;
+      g_settings_reset (settings, key);
+    }
 
   return ret;
 }
@@ -417,13 +437,27 @@ cc_ua_panel_init_seeing (CcUaPanel *self)
                                 set_contrast_mapping,
                                 self,
                                 NULL);
-  g_settings_bind_with_mapping (priv->interface_settings, KEY_TEXT_SCALING_FACTOR,
-                                WID (priv->builder, "seeing_large_text_switch"),
-                                "active", G_SETTINGS_BIND_DEFAULT,
-                                get_large_text_mapping,
-                                set_large_text_mapping,
-                                priv->interface_settings,
-                                NULL);
+
+  if (priv->unity_interface_settings)
+    {
+      g_settings_bind_with_mapping (priv->unity_interface_settings, KEY_UNITY_TEXT_SCALE_FACTOR,
+                                    WID (priv->builder, "seeing_large_text_switch"),
+                                    "active", G_SETTINGS_BIND_DEFAULT,
+                                    get_large_text_mapping,
+                                    set_large_text_mapping,
+                                    priv->unity_interface_settings,
+                                    NULL);
+    }
+  else
+    {
+      g_settings_bind_with_mapping (priv->interface_settings, KEY_TEXT_SCALING_FACTOR,
+                                    WID (priv->builder, "seeing_large_text_switch"),
+                                    "active", G_SETTINGS_BIND_DEFAULT,
+                                    get_large_text_mapping,
+                                    set_large_text_mapping,
+                                    priv->interface_settings,
+                                    NULL);
+    }
 
   g_settings_bind (priv->kb_settings, "togglekeys-enable",
                    WID (priv->builder, "seeing_toggle_keys_switch"), "active",
@@ -689,6 +723,9 @@ cc_ua_panel_init (CcUaPanel *self)
   priv->mouse_settings = g_settings_new ("org.gnome.desktop.a11y.mouse");
   priv->application_settings = g_settings_new ("org.gnome.desktop.a11y.applications");
   priv->mediakeys_settings = g_settings_new ("org.gnome.settings-daemon.plugins.media-keys");
+
+  if (is_unity_session ())
+    priv->unity_interface_settings = g_settings_new ("com.canonical.Unity.Interface");
 
   cc_ua_panel_init_keyboard (self);
   cc_ua_panel_init_mouse (self);
