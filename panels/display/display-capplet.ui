@@ -409,14 +409,21 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkHScale" id="ui_scale">
+                          <object class="GtkAlignment" id="ui_scale_alignment">
                             <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="digits">2</property>
-                            <property name="value_pos">right</property>
-                            <child internal-child="accessible">
-                              <object class="AtkObject" id="ui_scale-atkobject">
-                                <property name="AtkObject::accessible-description" translatable="yes">User interface scale factor</property>
+                            <property name="width_request">150</property>
+                            <property name="xscale">0.75</property>
+                            <child>
+                              <object class="GtkHScale" id="ui_scale">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="digits">2</property>
+                                <property name="value_pos">right</property>
+                                <child internal-child="accessible">
+                                  <object class="AtkObject" id="ui_scale-atkobject">
+                                    <property name="AtkObject::accessible-description" translatable="yes">User interface scale factor</property>
+                                  </object>
+                                </child>
                               </object>
                             </child>
                           </object>
