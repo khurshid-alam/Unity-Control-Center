@@ -61,7 +61,6 @@
                         <property name="visible">True</property>
                         <property name="xalign">0.5</property>
                         <property name="draw_indicator">True</property>
-
                         <child>
                           <object class="GtkHBox" id="clone_checkbox_label_hbox">
                             <property name="visible">True</property>
@@ -120,7 +119,6 @@
                     </child>
                   </object>
                 </child>
-
                 <child>
                   <object class="GtkAlignment" id="alignment1">
                     <property name="visible">True</property>
@@ -183,7 +181,7 @@
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">False</property>
-                                <property name="pack_type">end</property>
+                                <property name="pack_type">start</property>
                                 <property name="position">1</property>
                               </packing>
                             </child>
@@ -325,22 +323,36 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkComboBox" id="launcher_placement_combo">
+                          <object class="GtkHBox" id="launcher_placement_hbox">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="model">available_launcher_placement_store</property>
-                            <property name="id_column">1</property>
+                            <property name="margin_bottom">1</property>
+                            <property name="spacing">12</property>
                             <child>
-                              <object class="GtkCellRendererPixbuf" id="monitor_preview_renderer"/>
-                              <attributes>
-                                <attribute name="pixbuf">0</attribute>
-                              </attributes>
-                            </child>
-                            <child>
-                              <object class="GtkCellRendererText" id="launcher_placement_name_renderer"/>
-                              <attributes>
-                                <attribute name="text">1</attribute>
-                              </attributes>
+                              <object class="GtkComboBox" id="launcher_placement_combo">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="model">available_launcher_placement_store</property>
+                                <property name="id_column">1</property>
+                                <child>
+                                  <object class="GtkCellRendererPixbuf" id="monitor_preview_renderer"/>
+                                  <attributes>
+                                    <attribute name="pixbuf">0</attribute>
+                                  </attributes>
+                                </child>
+                                <child>
+                                  <object class="GtkCellRendererText" id="launcher_placement_name_renderer"/>
+                                  <attributes>
+                                    <attribute name="text">1</attribute>
+                                  </attributes>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
+                                <property name="pack_type">start</property>
+                                <property name="position">1</property>
+                              </packing>
                             </child>
                           </object>
                           <packing>
@@ -352,7 +364,7 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkHBox" id="hbox4">
+                          <object class="GtkHBox" id="stickyedge_hbox">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="margin_bottom">1</property>
@@ -366,7 +378,7 @@
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">False</property>
-                                <property name="pack_type">end</property>
+                                <property name="pack_type">start</property>
                                 <property name="position">1</property>
                               </packing>
                             </child>
@@ -455,7 +467,7 @@
                             <property name="right_attach">5</property>
                             <property name="top_attach">4</property>
                             <property name="bottom_attach">5</property>
-                            <property name="x_options">GTK_FILL</property>
+                            <property name="x_options"/>
                           </packing>
                         </child>
                       </object>
