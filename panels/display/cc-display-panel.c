@@ -2887,7 +2887,7 @@ refresh_unity_monitor_scale (CcDisplayPanel *self)
   connected_outputs = list_connected_outputs (self, NULL, NULL);
   for (list = connected_outputs, i = 0; list != NULL; list = list->next)
     {
-      char *monitor_name;
+      gchar *monitor_name;
       GdkPixbuf *monitor_pixbuf;
       GnomeRROutputInfo *output = list->data;
 
@@ -2910,11 +2910,11 @@ refresh_unity_monitor_scale (CcDisplayPanel *self)
     }
 
    gtk_list_store_append (liststore, &iter);
-   gtk_list_store_set (liststore, &iter, 0, NULL, 1, _("Use maximum monitor scale"), -1);
+   gtk_list_store_set (liststore, &iter, 0, NULL, 1, _("Highest scale across displays"), -1);
    gint max_idx = i++;
 
    gtk_list_store_append (liststore, &iter);
-   gtk_list_store_set (liststore, &iter, 0, NULL, 1, _("Use minimum monitor scale"), -1);
+   gtk_list_store_set (liststore, &iter, 0, NULL, 1, _("Lowest scale across displays"), -1);
    gint min_idx = i++;
 
    if (target_monitor_idx < 0)
