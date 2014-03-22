@@ -1,3 +1,11 @@
+unity-control-center (14.04.3+14.04.20140322-0ubuntu1) trusty; urgency=low
+
+  [ Marco Trevisan (Treviño) ]
+  * UniversalAccess: use unity interface settings to define the text
+    scaling
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Sat, 22 Mar 2014 01:29:06 +0000
+
 unity-control-center (14.04.3+14.04.20140319-0ubuntu1) trusty; urgency=low
 
   [ Sebastien Bacher ]
