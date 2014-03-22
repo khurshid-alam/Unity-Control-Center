@@ -719,6 +719,7 @@ rebuild_mirror_screens (CcDisplayPanel *self)
   /* set inactive the launcher placement choice */
   gtk_widget_set_sensitive (WID ("launcher_placement_combo"), !mirror_is_active);
   gtk_widget_set_sensitive (WID ("stickyedge_switch"), !mirror_is_active);
+  gtk_widget_set_sensitive (WID ("ui_scale_monitor_combo"), !mirror_is_active);
 
   g_signal_handlers_unblock_by_func (self->priv->clone_checkbox, G_CALLBACK (on_clone_changed), self);
 }
