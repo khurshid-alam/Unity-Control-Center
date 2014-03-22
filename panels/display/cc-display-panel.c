@@ -739,30 +739,32 @@ mirror_monitor_name (void)
 static void
 rebuild_current_monitor_label (CcDisplayPanel *self)
 {
-  char *str, *tmp;
+  gchar *str;
   GdkRGBA color;
   gboolean use_color;
 
   if (self->priv->current_output)
     {
       if (gnome_rr_config_get_clone (self->priv->current_configuration))
-        tmp = mirror_monitor_name ();
+        {
+          gchar *str = mirror_monitor_name ();
+          gtk_label_set_text (GTK_LABEL (self->priv->current_monitor_label), str);
+          g_free (str);
+        }
       else
-        tmp = g_strdup (gnome_rr_output_info_get_display_name (self->priv->current_output));
+        {
+          str = gnome_rr_output_info_get_display_name (self->priv->current_output);
+          gtk_label_set_text (GTK_LABEL (self->priv->current_monitor_label), str);
+        }
 
-      str = g_strdup_printf ("<b>%s</b>", tmp);
       cc_rr_labeler_get_rgba_for_output (self->priv->labeler, self->priv->current_output, &color);
       use_color = TRUE;
-      g_free (tmp);
     }
   else
     {
-      str = g_strdup_printf ("<b>%s</b>", _("Monitor"));
+      gtk_label_set_text (GTK_LABEL (self->priv->current_monitor_label), _("Monitor"));
       use_color = FALSE;
     }
-
-  gtk_label_set_markup (GTK_LABEL (self->priv->current_monitor_label), str);
-  g_free (str);
 
   if (use_color)
     {
