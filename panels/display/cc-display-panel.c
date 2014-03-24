@@ -67,6 +67,8 @@ CC_PANEL_REGISTER (CcDisplayPanel, cc_display_panel)
 
 #define UI_SCALE_MIN 4.0
 #define UI_SCALE_MAX 32.0
+#define UI_SCALE_STEP 1.0
+#define UI_SCALE_DEFAULT 8.0
 
 enum {
   TEXT_COL,
@@ -602,15 +604,16 @@ rebuild_ui_scale (CcDisplayPanel *self)
     return;
   }
 
+  gtk_adjustment_set_step_increment (adj, UI_SCALE_STEP);
   gtk_adjustment_set_upper (adj, UI_SCALE_MAX);
   gtk_adjustment_set_lower (adj, UI_SCALE_MIN);
   gtk_scale_set_digits (GTK_SCALE(self->priv->ui_scale), 0);
-  gtk_scale_add_mark (GTK_SCALE(self->priv->ui_scale), 8, GTK_POS_TOP, NULL);
+  gtk_scale_add_mark (GTK_SCALE(self->priv->ui_scale), UI_SCALE_DEFAULT, GTK_POS_TOP, NULL);
 
   dict = g_settings_get_value (self->priv->desktop_settings, "scale-factor");
   if (!g_variant_lookup (dict, monitor_name, "i", &value))
   {
-    value = 8;
+    value = UI_SCALE_DEFAULT;
     self->priv->ui_prev_scale = value;
   }
   new_dict = add_dict_entry (dict, monitor_name, value);
