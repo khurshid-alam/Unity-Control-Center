@@ -1,3 +1,11 @@
+unity-control-center (14.04.3+14.04.20140324-0ubuntu1) trusty; urgency=low
+
+  [ Sebastien Bacher ]
+  * Recommends new gnome-control-center-shared-data for user icons (LP:
+    #1291608)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 24 Mar 2014 16:59:43 +0000
+
 unity-control-center (14.04.3+14.04.20140322-0ubuntu1) trusty; urgency=low
 
   [ Marco Trevisan (Treviño) ]
