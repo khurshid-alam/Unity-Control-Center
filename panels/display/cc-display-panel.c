@@ -2911,11 +2911,11 @@ refresh_unity_monitor_scale (CcDisplayPanel *self)
     }
 
    gtk_list_store_append (liststore, &iter);
-   gtk_list_store_set (liststore, &iter, 0, NULL, 1, _("Largest available size"), -1);
+   gtk_list_store_set (liststore, &iter, 0, NULL, 1, _("Display with largest controls"), -1);
    gint max_idx = i++;
 
    gtk_list_store_append (liststore, &iter);
-   gtk_list_store_set (liststore, &iter, 0, NULL, 1, _("Smallest available size"), -1);
+   gtk_list_store_set (liststore, &iter, 0, NULL, 1, _("Display with smallest controls"), -1);
    gint min_idx = i++;
 
    if (target_monitor_idx < 0)

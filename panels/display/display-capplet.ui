@@ -436,7 +436,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="xalign">0</property>
-                            <property name="label" translatable="yes">Scale for window _contents matches:</property>
+                            <property name="label" translatable="yes">Scale all window _contents to match:</property>
                             <property name="use_underline">True</property>
                             <property name="mnemonic_widget">ui_scale_monitor_combo</property>
                           </object>
