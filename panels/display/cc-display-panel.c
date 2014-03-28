@@ -60,6 +60,9 @@ CC_PANEL_REGISTER (CcDisplayPanel, cc_display_panel)
 #define UNITY_GSETTINGS_PATH "/org/compiz/profiles/unity/plugins/unityshell/"
 #define UNITY_LAUNCHER_ALL_MONITORS_KEY "num-launchers"
 #define UNITY_STICKY_EDGE_KEY "launcher-capture-mouse"
+#define UNITY_UI_GSETTINGS_SCHEMA "com.canonical.Unity.Interface"
+#define UNITY_UI_SCALE_FACTOR_MONITOR "app-scale-factor-monitor"
+#define UNITY_UI_SCALE_FALLBACK_TO_MAX "app-fallback-to-maximum-scale-factor"
 #define UNITY2D_GSETTINGS_MAIN "com.canonical.Unity2d"
 #define UNITY2D_GSETTINGS_LAUNCHER "com.canonical.Unity2d.Launcher"
 
@@ -89,6 +92,7 @@ struct _CcDisplayPanelPrivate
 
   GSettings      *clock_settings;
   GSettings      *unity_settings;
+  GSettings      *unity_ui_settings;
   GSettings      *unity2d_settings_main;
   GSettings      *unity2d_settings_launcher;
   GSettings      *desktop_settings;
@@ -142,6 +146,7 @@ static GObject *cc_display_panel_constructor (GType                  gtype,
 					      GObjectConstructParam *properties);
 static void on_screen_changed (GnomeRRScreen *scr, gpointer data);
 static void refresh_unity_launcher_placement (CcDisplayPanel *self);
+static void refresh_unity_monitor_scale (CcDisplayPanel *self);
 static gboolean unity_launcher_on_all_monitors (GSettings *settings);
 
 static void
@@ -198,6 +203,8 @@ cc_display_panel_finalize (GObject *object)
     g_object_unref (self->priv->unity2d_settings_launcher);
   if (self->priv->unity_settings != NULL)
     g_object_unref (self->priv->unity_settings);
+  if (self->priv->unity_ui_settings != NULL)
+    g_object_unref (self->priv->unity_ui_settings);
   if (self->priv->desktop_settings != NULL)
     g_object_unref (self->priv->desktop_settings);
 
@@ -314,7 +321,10 @@ on_screen_changed (GnomeRRScreen *scr,
   select_current_output_from_dialog_position (self);
 
   if (is_unity_session ())
-    refresh_unity_launcher_placement (self);
+    {
+      refresh_unity_launcher_placement (self);
+      refresh_unity_monitor_scale (self);
+    }
 }
 
 static void
@@ -712,6 +722,7 @@ rebuild_mirror_screens (CcDisplayPanel *self)
   /* set inactive the launcher placement choice */
   gtk_widget_set_sensitive (WID ("launcher_placement_combo"), !mirror_is_active);
   gtk_widget_set_sensitive (WID ("stickyedge_switch"), !mirror_is_active);
+  gtk_widget_set_sensitive (WID ("ui_scale_monitor_combo"), !mirror_is_active);
 
   g_signal_handlers_unblock_by_func (self->priv->clone_checkbox, G_CALLBACK (on_clone_changed), self);
 }
@@ -732,30 +743,32 @@ mirror_monitor_name (void)
 static void
 rebuild_current_monitor_label (CcDisplayPanel *self)
 {
-  char *str, *tmp;
+  gchar *str;
   GdkRGBA color;
   gboolean use_color;
 
   if (self->priv->current_output)
     {
       if (gnome_rr_config_get_clone (self->priv->current_configuration))
-        tmp = mirror_monitor_name ();
+        {
+          gchar *str = mirror_monitor_name ();
+          gtk_label_set_text (GTK_LABEL (self->priv->current_monitor_label), str);
+          g_free (str);
+        }
       else
-        tmp = g_strdup (gnome_rr_output_info_get_display_name (self->priv->current_output));
+        {
+          str = gnome_rr_output_info_get_display_name (self->priv->current_output);
+          gtk_label_set_text (GTK_LABEL (self->priv->current_monitor_label), str);
+        }
 
-      str = g_strdup_printf ("<b>%s</b>", tmp);
       cc_rr_labeler_get_rgba_for_output (self->priv->labeler, self->priv->current_output, &color);
       use_color = TRUE;
-      g_free (tmp);
     }
   else
     {
-      str = g_strdup_printf ("<b>%s</b>", _("Monitor"));
+      gtk_label_set_text (GTK_LABEL (self->priv->current_monitor_label), _("Monitor"));
       use_color = FALSE;
     }
-
-  gtk_label_set_markup (GTK_LABEL (self->priv->current_monitor_label), str);
-  g_free (str);
 
   if (use_color)
     {
@@ -956,6 +969,7 @@ rebuild_gui (CcDisplayPanel *self)
   rebuild_rotation_combo (self);
   rebuild_ui_scale (self);
   refresh_unity_launcher_placement (self);
+  refresh_unity_monitor_scale (self);
 
   self->priv->ignore_gui_changes = FALSE;
 }
@@ -2859,6 +2873,65 @@ refresh_unity_launcher_placement (CcDisplayPanel *self)
    gtk_combo_box_set_active (GTK_COMBO_BOX (launcher_placement_combo), index_of_primary_screen);
 }
 
+static void
+refresh_unity_monitor_scale (CcDisplayPanel *self)
+{
+  GtkWidget *ui_scale_monitor_combo = WID ("ui_scale_monitor_combo");
+  GtkListStore *liststore;
+  GtkTreeIter iter;
+  GList *connected_outputs = NULL;
+  GList *list;
+  gchar *target_monitor = g_settings_get_string (self->priv->unity_ui_settings, UNITY_UI_SCALE_FACTOR_MONITOR);
+  gint target_monitor_idx = -1;
+  gint i;
+
+  liststore = (GtkListStore *) gtk_builder_get_object (self->priv->builder, "available_ui_scale_monitor_store");
+  gtk_list_store_clear (liststore);
+
+  connected_outputs = list_connected_outputs (self, NULL, NULL);
+  for (list = connected_outputs, i = 0; list != NULL; list = list->next)
+    {
+      gchar *monitor_name;
+      GdkPixbuf *monitor_pixbuf;
+      GnomeRROutputInfo *output = list->data;
+
+      if (!gnome_rr_output_info_is_active (output))
+        continue;
+
+      gtk_list_store_append (liststore, &iter);
+      monitor_name = g_strdup (gnome_rr_output_info_get_display_name (output));
+      monitor_pixbuf = get_monitor_pixbuf (self, output);
+
+      gtk_list_store_set (liststore, &iter, 0, monitor_pixbuf, 1, monitor_name, -1);
+
+      /* select it if primary and only one launcher */
+      if (g_strcmp0 (gnome_rr_output_info_get_name (output), target_monitor) == 0)
+        target_monitor_idx = i;
+      i++;
+
+      g_object_unref (monitor_pixbuf);
+      g_free (monitor_name);
+    }
+
+   gtk_list_store_append (liststore, &iter);
+   gtk_list_store_set (liststore, &iter, 0, NULL, 1, _("Display with largest controls"), -1);
+   gint max_idx = i++;
+
+   gtk_list_store_append (liststore, &iter);
+   gtk_list_store_set (liststore, &iter, 0, NULL, 1, _("Display with smallest controls"), -1);
+   gint min_idx = i++;
+
+   if (target_monitor_idx < 0)
+    {
+      gboolean fallback_max_scale = g_settings_get_boolean (self->priv->unity_ui_settings, UNITY_UI_SCALE_FALLBACK_TO_MAX);
+      target_monitor_idx = fallback_max_scale ? max_idx : min_idx;
+    }
+
+   gtk_combo_box_set_active (GTK_COMBO_BOX (ui_scale_monitor_combo), target_monitor_idx);
+
+   g_free (target_monitor);
+}
+
 static gboolean
 switcher_set_to_launcher_on_all_monitors (CcDisplayPanel *self)
 {
@@ -2927,6 +3000,64 @@ on_launcher_placement_combo_changed (GtkComboBox *combo, CcDisplayPanel *self)
 }
 
 static void
+on_ui_scale_monitor_combo_setting_changed (GSettings* settings,
+                                           guint key,
+                                           CcDisplayPanel *self)
+{
+  refresh_unity_monitor_scale (self);
+}
+
+static void
+on_ui_scale_monitor_combo_changed (GtkComboBox *combo, CcDisplayPanel *self)
+{
+  gint active = gtk_combo_box_get_active (combo);
+  gint i;
+  gint index_on_combo = 0;
+  gchar *scale_monitor = NULL;
+
+  if (active < 0)
+    return;
+
+  GnomeRROutputInfo **outputs = gnome_rr_config_get_outputs (self->priv->current_configuration);
+
+  for (i = 0; outputs[i] != NULL; ++i)
+    {
+      GnomeRROutputInfo *output = outputs[i];
+      if (!gnome_rr_output_info_is_active (output))
+        continue;
+
+      if (active == index_on_combo)
+        {
+          scale_monitor = g_strdup (gnome_rr_output_info_get_name (output));
+          break;
+        }
+      index_on_combo++;
+    }
+
+    if (!scale_monitor)
+      {
+        scale_monitor = g_strdup("");
+
+        if (active >= index_on_combo)
+          {
+            gboolean use_max_scaled_monitor = (active == index_on_combo);
+            gboolean fallback_setting = g_settings_get_boolean (self->priv->unity_ui_settings, UNITY_UI_SCALE_FALLBACK_TO_MAX);
+
+            if (fallback_setting != use_max_scaled_monitor)
+              g_settings_set_boolean (self->priv->unity_ui_settings, UNITY_UI_SCALE_FALLBACK_TO_MAX, use_max_scaled_monitor);
+          }
+      }
+
+  gchar *current_setting = g_settings_get_string (self->priv->unity_ui_settings, UNITY_UI_SCALE_FACTOR_MONITOR);
+
+  if (g_strcmp0 (current_setting, scale_monitor) != 0)
+    g_settings_set_string (self->priv->unity_ui_settings, UNITY_UI_SCALE_FACTOR_MONITOR, scale_monitor);
+
+  g_free (current_setting);
+  g_free (scale_monitor);
+}
+
+static void
 setup_unity_settings (CcDisplayPanel *self)
 {
   GSettingsSchema *schema;
@@ -2946,7 +3077,14 @@ setup_unity_settings (CcDisplayPanel *self)
       g_settings_schema_unref (schema);
     }
 
-  if (!self->priv->unity_settings)
+  schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (), UNITY_UI_GSETTINGS_SCHEMA, TRUE);
+  if (schema)
+    {
+      self->priv->unity_ui_settings = g_settings_new (UNITY_UI_GSETTINGS_SCHEMA);
+      g_settings_schema_unref (schema);
+    }
+
+  if (!self->priv->unity_settings || !self->priv->unity_ui_settings)
     return;
 
   GtkWidget *sticky_edge_switch = WID ("stickyedge_switch");
@@ -2957,9 +3095,16 @@ setup_unity_settings (CcDisplayPanel *self)
   stickyedge_widget_refresh (GTK_SWITCH (sticky_edge_switch), self->priv->unity_settings);
 
   g_signal_connect (G_OBJECT (WID ("launcher_placement_combo")), "changed",
-              G_CALLBACK (on_launcher_placement_combo_changed), self);
+                    G_CALLBACK (on_launcher_placement_combo_changed), self);
   g_signal_connect (self->priv->unity_settings, "changed::" UNITY_LAUNCHER_ALL_MONITORS_KEY,
                     G_CALLBACK (ext_launcher_placement_changed_callback), self);
+
+  g_signal_connect (G_OBJECT (WID ("ui_scale_monitor_combo")), "changed",
+                    G_CALLBACK (on_ui_scale_monitor_combo_changed), self);
+  g_signal_connect (self->priv->unity_ui_settings, "changed::" UNITY_UI_SCALE_FACTOR_MONITOR,
+                    G_CALLBACK (on_ui_scale_monitor_combo_setting_changed), self);
+  g_signal_connect (self->priv->unity_ui_settings, "changed::" UNITY_UI_SCALE_FALLBACK_TO_MAX,
+                    G_CALLBACK (on_ui_scale_monitor_combo_setting_changed), self);
 }
 
 static void
@@ -2979,7 +3124,8 @@ cc_display_panel_constructor (GType                  gtype,
   CcDisplayPanel *self;
   CcShell *shell;
   GtkWidget *toplevel;
-  gchar *objects[] = {"display-panel", "available_launcher_placement_store", NULL};
+  gchar *objects[] = {"display-panel", "available_launcher_placement_store",
+                      "available_ui_scale_monitor_store", NULL};
 
   obj = G_OBJECT_CLASS (cc_display_panel_parent_class)->constructor (gtype, n_properties, properties);
   self = CC_DISPLAY_PANEL (obj);
@@ -3072,8 +3218,6 @@ cc_display_panel_constructor (GType                  gtype,
 
   gtk_container_add (GTK_CONTAINER (align), self->priv->area);
 
-  on_screen_changed (self->priv->screen, self);
-
   g_signal_connect_swapped (WID ("apply_button"),
                             "clicked", G_CALLBACK (apply), self);
 
@@ -3087,10 +3231,17 @@ cc_display_panel_constructor (GType                  gtype,
       gtk_widget_hide (WID ("sticky_edge_label"));
       gtk_widget_hide (WID ("launcher_placement_combo"));
       gtk_widget_hide (WID ("stickyedge_switch"));
+      gtk_widget_hide (WID ("ui_scale_separator"));
+      gtk_widget_hide (WID ("ui_scale_label"));
+      gtk_widget_hide (WID ("ui_scale"));
+      gtk_widget_hide (WID ("ui_scale_monitor_label"));
+      gtk_widget_hide (WID ("ui_scale_monitor_combo"));
     }
 
   gtk_widget_show (self->priv->panel);
   gtk_container_add (GTK_CONTAINER (self), self->priv->panel);
+
+  on_screen_changed (self->priv->screen, self);
 
   return obj;
 }
