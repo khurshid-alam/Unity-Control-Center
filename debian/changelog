@@ -1,3 +1,14 @@
+unity-control-center (14.04.3+14.04.20140328-0ubuntu1) trusty; urgency=low
+
+  [ Robert Ancell ]
+  * Allow the UI scale to be controlled by the keyboard (LP: #1296966)
+
+  [ Marco Trevisan (Treviño) ]
+  * Display: Use 2-columns style (Monitor/General options), add more UI
+    scaling options (LP: #1297053)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 28 Mar 2014 12:58:07 +0000
+
 unity-control-center (14.04.3+14.04.20140324-0ubuntu1) trusty; urgency=low
 
   [ Sebastien Bacher ]
