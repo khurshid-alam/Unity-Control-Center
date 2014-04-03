@@ -597,6 +597,46 @@ add_dict_entry (GVariant *dict, const char *key, int value)
   return g_variant_builder_end (&builder);
 }
 
+static int
+get_ui_scale_from_monitor (CcDisplayPanel *self, const char *monitor_name)
+{
+  int value;
+  GVariant *dict;
+
+  dict = g_settings_get_value (self->priv->desktop_settings, "scale-factor");
+  if (!g_variant_lookup (dict, monitor_name, "i", &value))
+    value = UI_SCALE_DEFAULT;
+
+  return value;
+}
+
+static int
+calculate_max_ui_scale (CcDisplayPanel *self)
+{
+  int win_width, win_height;
+  int output_width, output_height;
+  float max_width_scale, max_height_scale, max_scale;
+
+  GnomeRROutputInfo *output = self->priv->current_output;
+  const char *monitor_name = gnome_rr_output_info_get_name (output);
+  int current_ui_scale = get_ui_scale_from_monitor (self, monitor_name);
+  float current_scale_factor = (float)current_ui_scale / 8.0;
+
+  GtkWindow *win = GTK_WINDOW(gtk_widget_get_toplevel (self->priv->panel));
+
+  gtk_window_get_size (win, &win_width, &win_height);
+  get_geometry (output, &output_width, &output_height);
+
+  win_width = (float)win_width / current_scale_factor;
+  win_height = (float)win_height / current_scale_factor;
+
+  max_width_scale = (float)output_width / (float)win_width;
+  max_height_scale = (float)output_height / (float)win_height;
+  max_scale = MIN (max_width_scale, max_height_scale);
+
+  return (int)(max_scale * 8.0);
+}
+
 static void
 rebuild_ui_scale (CcDisplayPanel *self)
 {
@@ -615,7 +655,7 @@ rebuild_ui_scale (CcDisplayPanel *self)
   }
 
   gtk_adjustment_set_step_increment (adj, UI_SCALE_STEP);
-  gtk_adjustment_set_upper (adj, UI_SCALE_MAX);
+  gtk_adjustment_set_upper (adj, calculate_max_ui_scale(self));
   gtk_adjustment_set_lower (adj, UI_SCALE_MIN);
   gtk_scale_set_digits (GTK_SCALE(self->priv->ui_scale), 0);
   gtk_scale_add_mark (GTK_SCALE(self->priv->ui_scale), UI_SCALE_DEFAULT, GTK_POS_TOP, NULL);
@@ -627,6 +667,7 @@ rebuild_ui_scale (CcDisplayPanel *self)
     self->priv->ui_prev_scale = value;
   }
   new_dict = add_dict_entry (dict, monitor_name, value);
+
   g_settings_set_value (self->priv->desktop_settings, "scale-factor", new_dict);
   gtk_adjustment_set_value (adj, value);
   g_variant_unref (dict);
