@@ -20,6 +20,7 @@
  */
 
 #include <config.h>
+#include <math.h>
 #include <string.h>
 #include <stdlib.h>
 #include <sys/wait.h>
@@ -597,6 +598,42 @@ add_dict_entry (GVariant *dict, const char *key, int value)
   return g_variant_builder_end (&builder);
 }
 
+static int
+get_ui_scale_from_monitor (CcDisplayPanel *self, const char *monitor_name)
+{
+  int value;
+  GVariant *dict;
+
+  dict = g_settings_get_value (self->priv->desktop_settings, "scale-factor");
+  if (!g_variant_lookup (dict, monitor_name, "i", &value))
+    value = UI_SCALE_DEFAULT;
+
+  return value;
+}
+
+static int
+calculate_max_ui_scale (CcDisplayPanel *self)
+{
+  int win_max_dimension;
+  int output_width, output_height;
+  float max_scale;
+
+  GnomeRROutputInfo *output = self->priv->current_output;
+  const char *monitor_name = gnome_rr_output_info_get_name (output);
+  int current_ui_scale = get_ui_scale_from_monitor (self, monitor_name);
+  float current_scale_factor = (float)current_ui_scale / 8.0;
+  float win_scale_factor = current_scale_factor > 1 ? floor (current_scale_factor) : 1;
+
+  get_geometry (output, &output_width, &output_height);
+
+  /* only the integer part of the scale-factor contributes to the window size */
+
+  win_max_dimension = MINIMUM_HEIGHT / win_scale_factor;
+  max_scale = (float)output_height / (float)win_max_dimension;
+
+  return (int)(max_scale * 8.0);
+}
+
 static void
 rebuild_ui_scale (CcDisplayPanel *self)
 {
@@ -615,7 +652,7 @@ rebuild_ui_scale (CcDisplayPanel *self)
   }
 
   gtk_adjustment_set_step_increment (adj, UI_SCALE_STEP);
-  gtk_adjustment_set_upper (adj, UI_SCALE_MAX);
+  gtk_adjustment_set_upper (adj, calculate_max_ui_scale(self));
   gtk_adjustment_set_lower (adj, UI_SCALE_MIN);
   gtk_scale_set_digits (GTK_SCALE(self->priv->ui_scale), 0);
   gtk_scale_add_mark (GTK_SCALE(self->priv->ui_scale), UI_SCALE_DEFAULT, GTK_POS_TOP, NULL);
