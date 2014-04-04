@@ -1,3 +1,20 @@
+unity-control-center (14.04.3+14.04.20140404.2-0ubuntu1) trusty; urgency=low
+
+  [ Sebastien Bacher ]
+  * Conflicts/Replaces/Provides gnome-control-center-unity (LP:
+    #1301156)
+  * Depends on the indicators which are controlled by the settings,
+    since gsettings abort on missing schemas. Note that the depends
+    could be lowered to a recommends or suggest if somebody was to make
+    the code handling those cases. (LP: #1295557)
+
+  [ Eleni Maria Stea ]
+  * When the u-c-c starts the UI scale is clamped to a reasonable value
+    in order to make sure that the user can always see the slider. (LP:
+    #1296978)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 04 Apr 2014 12:37:52 +0000
+
 unity-control-center (14.04.3+14.04.20140328-0ubuntu1) trusty; urgency=low
 
   [ Robert Ancell ]
