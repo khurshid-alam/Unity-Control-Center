@@ -614,7 +614,7 @@ get_ui_scale_from_monitor (CcDisplayPanel *self, const char *monitor_name)
 static int
 calculate_max_ui_scale (CcDisplayPanel *self)
 {
-  int win_width, win_height;
+  int win_max_dimension;
   int output_width, output_height;
   float max_scale;
 
@@ -624,15 +624,12 @@ calculate_max_ui_scale (CcDisplayPanel *self)
   float current_scale_factor = (float)current_ui_scale / 8.0;
   float win_scale_factor = current_scale_factor > 1 ? floor (current_scale_factor) : 1;
 
-  GtkWindow *win = GTK_WINDOW(gtk_widget_get_toplevel (self->priv->panel));
-
-  gtk_window_get_size (win, &win_width, &win_height);
   get_geometry (output, &output_width, &output_height);
 
   /* only the integer part of the scale-factor contributes to the window size */
 
-  win_height = (float)win_height / win_scale_factor;
-  max_scale = (float)output_height / (float)win_height;
+  win_max_dimension = MINIMUM_HEIGHT / win_scale_factor;
+  max_scale = (float)output_height / (float)win_max_dimension;
 
   return (int)(max_scale * 8.0);
 }
