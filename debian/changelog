@@ -1,3 +1,14 @@
+unity-control-center (14.04.3+14.04.20140410-0ubuntu1) trusty; urgency=low
+
+  [ Sebastien Bacher ]
+  * shell: set XDG_CURRENT_DESKTOP to Unity so the correct list of
+    panels is included in the grid. The gnome-menus api respects
+    OnlyShowIn, without that we end up missing most of the panels in
+    other environment (e.g ubiquity). We can't change the .desktop keys
+    since that would lead to wrong behaviour in e.g the Unity dash
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 10 Apr 2014 14:27:11 +0000
+
 unity-control-center (14.04.3+14.04.20140407-0ubuntu1) trusty; urgency=low
 
   [ Sebastien Bacher ]
