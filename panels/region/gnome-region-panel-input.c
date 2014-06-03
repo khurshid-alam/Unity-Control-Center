@@ -34,6 +34,10 @@
 #include <ibus.h>
 #endif
 
+#ifdef HAVE_FCITX
+#include "fcitx.h"
+#endif /* HAVE_FCITX */
+
 #include "gdm-languages.h"
 #include "gnome-region-panel-input.h"
 #include "keyboard-shortcuts.h"
@@ -46,6 +50,7 @@
 #define KEY_INPUT_SOURCES               "sources"
 #define INPUT_SOURCE_TYPE_XKB           "xkb"
 #define INPUT_SOURCE_TYPE_IBUS          "ibus"
+#define INPUT_SOURCE_TYPE_FCITX         "fcitx"
 
 #define MEDIA_KEYS_SCHEMA_ID  "org.gnome.desktop.wm.keybindings"
 #define KEY_PREV_INPUT_SOURCE "switch-input-source-backward"
@@ -92,8 +97,11 @@ static IBusBus *ibus = NULL;
 static GHashTable *ibus_engines = NULL;
 static GCancellable *ibus_cancellable = NULL;
 static guint shell_name_watch_id = 0;
-
 #endif  /* HAVE_IBUS */
+
+#ifdef HAVE_FCITX
+static GCancellable *fcitx_cancellable;
+#endif /* HAVE_FCITX */
 
 static void       populate_model             (GtkListStore  *store,
                                               GtkListStore  *active_sources_store);
@@ -719,6 +727,27 @@ populate_model (GtkListStore *store,
     }
 #endif
 
+#ifdef HAVE_FCITX
+  gchar **input_method_ids = fcitx_get_input_method_ids ();
+
+  if (input_method_ids != NULL)
+    {
+      guint i;
+
+      for (i = 0; input_method_ids[i] != NULL; i++)
+        {
+          gtk_list_store_append (store, &iter);
+          gtk_list_store_set (store, &iter,
+                              TYPE_COLUMN, INPUT_SOURCE_TYPE_FCITX,
+                              ID_COLUMN, input_method_ids[i],
+                              NAME_COLUMN, fcitx_get_input_method_name (input_method_ids[i]),
+                              -1);
+        }
+    }
+
+  g_strfreev (input_method_ids);
+#endif /* HAVE_FCITX */
+
   g_hash_table_destroy (active_sources_table);
 }
 
@@ -772,6 +801,15 @@ populate_with_active_sources (GtkListStore *store)
           g_warning ("IBus input source type specified but IBus support was not compiled");
           continue;
 #endif
+        }
+      else if (g_str_equal (type, INPUT_SOURCE_TYPE_FCITX))
+        {
+#ifdef HAVE_FCITX
+          display_name = g_strdup (fcitx_get_input_method_name (id));
+#else
+          g_warning ("Fcitx input source type specified but Fcitx support was not compiled");
+          continue;
+#endif /* HAVE_FCITX */
         }
       else
         {
@@ -901,6 +939,7 @@ update_button_sensitivity (GtkBuilder *builder)
   gboolean settings_sensitive;
   GDesktopAppInfo *app_info;
   gchar *legacy_setup;
+  gchar *type;
 
   remove_button = WID("input_source_remove");
   show_button = WID("input_source_show");
@@ -915,6 +954,7 @@ update_button_sensitivity (GtkBuilder *builder)
     {
       index = idx_from_model_iter (model, &iter);
       gtk_tree_model_get (model, &iter,
+                          TYPE_COLUMN, &type,
                           SETUP_COLUMN, &app_info,
                           LEGACY_SETUP_COLUMN, &legacy_setup,
                           -1);
@@ -922,11 +962,16 @@ update_button_sensitivity (GtkBuilder *builder)
   else
     {
       index = -1;
+      type = NULL;
       app_info = NULL;
       legacy_setup = NULL;
     }
 
+#ifdef HAVE_FCITX
+  settings_sensitive = (index >= 0 && (app_info != NULL || legacy_setup != NULL || g_strcmp0 (type, INPUT_SOURCE_TYPE_FCITX) == 0));
+#else
   settings_sensitive = (index >= 0 && (app_info != NULL || legacy_setup != NULL));
+#endif /* HAVE_FCITX */
 
   if (app_info)
     g_object_unref (app_info);
@@ -1215,18 +1260,30 @@ show_selected_layout (GtkButton *button, gpointer data)
       goto exit;
 #endif
     }
+  else if (g_str_equal (type, INPUT_SOURCE_TYPE_FCITX))
+    {
+#ifdef HAVE_FCITX
+      xkb_layout = fcitx_get_input_method_layout (id);
+      xkb_variant = fcitx_get_input_method_variant (id);
+#else
+      g_warning ("Fcitx input source type specified but Fcitx support was not compiled");
+      goto exit;
+#endif /* HAVE_FCITX */
+    }
   else
     {
       g_warning ("Unknown input source type '%s'", type);
       goto exit;
     }
 
-  if (xkb_variant[0])
+  if (xkb_variant != NULL && xkb_variant[0])
     kbd_viewer_args = g_strdup_printf ("gkbd-keyboard-display -l \"%s\t%s\"",
                                        xkb_layout, xkb_variant);
-  else
+  else if (xkb_layout != NULL && xkb_layout[0])
     kbd_viewer_args = g_strdup_printf ("gkbd-keyboard-display -l %s",
                                        xkb_layout);
+  else
+    kbd_viewer_args = g_strdup ("gkbd-keyboard-display -g 1");
 
   g_spawn_command_line_async (kbd_viewer_args, NULL);
 
@@ -1245,6 +1302,7 @@ show_selected_settings (GtkButton *button, gpointer data)
   GdkAppLaunchContext *ctx;
   GDesktopAppInfo *app_info;
   gchar *legacy_setup;
+  gchar *type;
   gchar *id;
   GError *error = NULL;
 
@@ -1253,18 +1311,21 @@ show_selected_settings (GtkButton *button, gpointer data)
   if (!get_selected_iter (builder, &model, &iter))
     return;
 
-  gtk_tree_model_get (model, &iter, SETUP_COLUMN, &app_info, LEGACY_SETUP_COLUMN, &legacy_setup, -1);
+  gtk_tree_model_get (model, &iter,
+                      ID_COLUMN, &id,
+                      TYPE_COLUMN, &type,
+                      SETUP_COLUMN, &app_info,
+                      LEGACY_SETUP_COLUMN, &legacy_setup,
+                      -1);
 
   if (app_info)
     {
       ctx = gdk_display_get_app_launch_context (gdk_display_get_default ());
       gdk_app_launch_context_set_timestamp (ctx, gtk_get_current_event_time ());
 
-      gtk_tree_model_get (model, &iter, ID_COLUMN, &id, -1);
       g_app_launch_context_setenv (G_APP_LAUNCH_CONTEXT (ctx),
                                    "IBUS_ENGINE_NAME",
                                    id);
-      g_free (id);
 
       if (!g_app_info_launch (G_APP_INFO (app_info), NULL, G_APP_LAUNCH_CONTEXT (ctx), &error))
         {
@@ -1283,6 +1344,10 @@ show_selected_settings (GtkButton *button, gpointer data)
           g_error_free (error);
         }
     }
+#ifdef HAVE_FCITX
+  else if (g_strcmp0 (type, INPUT_SOURCE_TYPE_FCITX) == 0)
+    fcitx_configure_input_method (id);
+#endif /* HAVE_FCITX */
 
   g_free (legacy_setup);
 }
@@ -1465,6 +1530,10 @@ builder_finalized (gpointer  data,
   g_clear_object (&next_source_item);
   g_clear_object (&prev_source_item);
 
+#ifdef HAVE_FCITX
+  fcitx_stop ();
+#endif /* HAVE_FCITX */
+
 #ifdef HAVE_IBUS
   clear_ibus ();
 #endif
@@ -1502,6 +1571,16 @@ set_key_setting (const GValue   *value,
     return ret;
 }
 
+#ifdef HAVE_FCITX
+static void
+on_fcitx_loaded (GObject      *source_object,
+                 GAsyncResult *result,
+                 gpointer      user_data)
+{
+  g_clear_object (&fcitx_cancellable);
+  input_sources_changed (input_sources_settings, KEY_INPUT_SOURCES, user_data);
+}
+#endif /* HAVE_FCITX */
 
 void
 setup_input_tabs (GtkBuilder    *builder_,
@@ -1559,6 +1638,11 @@ setup_input_tabs (GtkBuilder    *builder_,
                                           builder,
                                           NULL);
 #endif
+
+#ifdef HAVE_FCITX
+  fcitx_cancellable = g_cancellable_new ();
+  fcitx_start_async (fcitx_cancellable, on_fcitx_loaded, builder);
+#endif /* HAVE_FCITX */
 
   populate_with_active_sources (store);
 

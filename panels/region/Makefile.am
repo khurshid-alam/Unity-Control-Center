@@ -13,6 +13,12 @@ INCLUDES =						\
 ccpanelsdir = $(PANELS_DIR)
 ccpanels_LTLIBRARIES = libregion.la
 
+BUILT_SOURCES = \
+	fcitx-inputmethod.c \
+	fcitx-inputmethod.h \
+	fcitx-keyboard.c \
+	fcitx-keyboard.h
+
 libregion_la_SOURCES =	\
 	region-module.c \
 	cc-region-panel.c \
@@ -33,6 +39,9 @@ libregion_la_SOURCES =	\
 	gtkentryaccel.h \
 	wm-common.c \
 	wm-common.h \
+	fcitx.c \
+	fcitx.h \
+	$(BUILT_SOURCES) \
 	$(NULL)
 
 libregion_la_LIBADD = $(PANEL_LIBS) $(REGION_PANEL_LIBS) $(builddir)/../common/liblanguage.la
@@ -56,5 +65,16 @@ desktop_DATA = $(Desktop_in_files:.desktop.in=.desktop)
 CLEANFILES = $(Desktop_in_files) $(desktop_DATA)
 EXTRA_DIST = $(ui_DATA)
 
+fcitx-inputmethod.h: fcitx-inputmethod.c
+fcitx-inputmethod.c: $(srcdir)/org.fcitx.Fcitx.InputMethod.xml
+	$(AM_V_GEN) gdbus-codegen --interface-prefix org.fcitx.Fcitx \
+	                          --generate-c-code fcitx-inputmethod \
+	                          --c-namespace Fcitx $<
+
+fcitx-keyboard.h: fcitx-keyboard.c
+fcitx-keyboard.c: $(srcdir)/org.fcitx.Fcitx.Keyboard.xml
+	$(AM_V_GEN) gdbus-codegen --interface-prefix org.fcitx.Fcitx \
+	                          --generate-c-code fcitx-keyboard \
+	                          --c-namespace Fcitx $<
 
 -include $(top_srcdir)/git.mk
