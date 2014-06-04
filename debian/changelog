@@ -1,3 +1,14 @@
+unity-control-center (14.10.0+14.10.20140604-0ubuntu1) utopic; urgency=low
+
+  [ Robert Ancell ]
+  * Build depend on libkrb5-dev - fixes FTBFS (LP: #1324538)
+
+  [ Eric Chaskes ]
+  * Updated um-password-dialog.c to removed users to change password
+    mode to regular when locking the account (LP: #1314886)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 04 Jun 2014 14:25:58 +0000
+
 unity-control-center (14.10.0+14.10.20140424-0ubuntu1) utopic; urgency=medium
 
   * Update system information logo for Utopic Unicorn.
