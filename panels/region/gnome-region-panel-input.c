@@ -447,19 +447,22 @@ update_ibus_active_sources (GtkBuilder *builder)
           GDesktopAppInfo *app_info = NULL;
           gchar *legacy_setup = NULL;
           gchar *display_name = NULL;
+          gchar *name = NULL;
 
           engine_desc = g_hash_table_lookup (ibus_engines, id);
           if (engine_desc)
             {
               display_name = engine_get_display_name (engine_desc);
+              name = g_strdup_printf ("%s (IBus)", display_name);
               app_info = setup_app_info_for_id (id);
               legacy_setup = legacy_setup_for_id (id);
 
               gtk_list_store_set (GTK_LIST_STORE (model), &iter,
-                                  NAME_COLUMN, display_name,
+                                  NAME_COLUMN, name,
                                   SETUP_COLUMN, app_info,
                                   LEGACY_SETUP_COLUMN, legacy_setup,
                                   -1);
+              g_free (name);
               g_free (display_name);
               g_free (legacy_setup);
               if (app_info)
@@ -699,6 +702,7 @@ populate_model (GtkListStore *store,
   if (ibus_engines)
     {
       gchar *display_name;
+      gchar *name;
 
       sources = g_hash_table_get_keys (ibus_engines);
 
@@ -712,13 +716,15 @@ populate_model (GtkListStore *store,
             continue;
 
           display_name = engine_get_display_name (g_hash_table_lookup (ibus_engines, tmp->data));
+          name = g_strdup_printf ("%s (IBus)", display_name);
 
           gtk_list_store_append (store, &iter);
           gtk_list_store_set (store, &iter,
-                              NAME_COLUMN, display_name,
+                              NAME_COLUMN, name,
                               TYPE_COLUMN, INPUT_SOURCE_TYPE_IBUS,
                               ID_COLUMN, tmp->data,
                               -1);
+          g_free (name);
           g_free (display_name);
         }
       g_free (source_id);
@@ -732,18 +738,23 @@ populate_model (GtkListStore *store,
 
   if (input_method_ids != NULL)
     {
+      gchar *name;
       guint i;
 
       for (i = 0; input_method_ids[i] != NULL; i++)
         {
           if (!g_str_has_prefix (input_method_ids[i], "fcitx-keyboard-"))
             {
+              name = g_strdup_printf ("%s (Fcitx)", fcitx_get_input_method_name (input_method_ids[i]));
+
               gtk_list_store_append (store, &iter);
               gtk_list_store_set (store, &iter,
                                   TYPE_COLUMN, INPUT_SOURCE_TYPE_FCITX,
                                   ID_COLUMN, input_method_ids[i],
-                                  NAME_COLUMN, fcitx_get_input_method_name (input_method_ids[i]),
+                                  NAME_COLUMN, name,
                                   -1);
+
+              g_free (name);
             }
         }
     }
@@ -796,9 +807,11 @@ populate_with_active_sources (GtkListStore *store)
 
           if (engine_desc)
             {
-              display_name = engine_get_display_name (engine_desc);
+              gchar *engine_name = engine_get_display_name (engine_desc);
+              display_name = g_strdup_printf ("%s (IBus)", engine_name);
               app_info = setup_app_info_for_id (id);
               legacy_setup = legacy_setup_for_id (id);
+              g_free (engine_name);
             }
 #else
           g_warning ("IBus input source type specified but IBus support was not compiled");
@@ -808,7 +821,7 @@ populate_with_active_sources (GtkListStore *store)
       else if (g_str_equal (type, INPUT_SOURCE_TYPE_FCITX))
         {
 #ifdef HAVE_FCITX
-          display_name = g_strdup (fcitx_get_input_method_name (id));
+          display_name = g_strdup_printf ("%s (Fcitx)", fcitx_get_input_method_name (id));
 #else
           g_warning ("Fcitx input source type specified but Fcitx support was not compiled");
           continue;
