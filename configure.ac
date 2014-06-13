@@ -102,6 +102,8 @@ else
         FCITX_MODULE=
 fi
 
+AM_CONDITIONAL(HAVE_FCITX, test "x$enable_fcitx" == "xyes")
+
 dnl ==============================================
 dnl Check that we meet the  dependencies
 dnl ==============================================
