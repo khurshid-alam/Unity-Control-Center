@@ -736,12 +736,15 @@ populate_model (GtkListStore *store,
 
       for (i = 0; input_method_ids[i] != NULL; i++)
         {
-          gtk_list_store_append (store, &iter);
-          gtk_list_store_set (store, &iter,
-                              TYPE_COLUMN, INPUT_SOURCE_TYPE_FCITX,
-                              ID_COLUMN, input_method_ids[i],
-                              NAME_COLUMN, fcitx_get_input_method_name (input_method_ids[i]),
-                              -1);
+          if (!g_str_has_prefix (input_method_ids[i], "fcitx-keyboard-"))
+            {
+              gtk_list_store_append (store, &iter);
+              gtk_list_store_set (store, &iter,
+                                  TYPE_COLUMN, INPUT_SOURCE_TYPE_FCITX,
+                                  ID_COLUMN, input_method_ids[i],
+                                  NAME_COLUMN, fcitx_get_input_method_name (input_method_ids[i]),
+                                  -1);
+            }
         }
     }
 
