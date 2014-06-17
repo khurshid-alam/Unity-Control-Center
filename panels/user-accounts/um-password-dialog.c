@@ -268,6 +268,10 @@ accept_password_dialog (GtkButton        *button,
                 case UM_PASSWORD_DIALOG_MODE_LOCK_ACCOUNT:
                         act_user_set_locked (um->user, TRUE);
                         act_user_set_automatic_login (um->user, FALSE);
+
+                        /*Set the password mode to regular in case the user is currently in the nopasswdlogin group.
+                        Otherwise, the user will still be able to login even though the account is disabled. */
+                        act_user_set_password_mode (um->user, ACT_USER_PASSWORD_MODE_REGULAR);
                         break;
 
                 case UM_PASSWORD_DIALOG_MODE_UNLOCK_ACCOUNT:
