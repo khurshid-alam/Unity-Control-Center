@@ -1308,9 +1308,6 @@ theme_selection_changed (GtkComboBox *combo, CcAppearancePanel *self)
 
   g_settings_delay (self->priv->interface_settings);
 
-  if (self->priv->canonical_interface_settings != NULL)
-    g_settings_delay (self->priv->canonical_interface_settings);
-
   g_settings_set_string (self->priv->interface_settings, "gtk-theme", gtk_theme);
   g_settings_set_string (self->priv->interface_settings, "icon-theme", icon_theme);
   g_settings_set_string (self->priv->interface_settings, "cursor-theme", cursor_theme);
@@ -1324,7 +1321,6 @@ theme_selection_changed (GtkComboBox *combo, CcAppearancePanel *self)
         g_settings_set_string (self->priv->canonical_interface_settings, "scrollbar-mode", "normal");
       else
         g_settings_reset (self->priv->canonical_interface_settings, "scrollbar-mode");
-      g_settings_apply (self->priv->canonical_interface_settings);
     }
 
   g_settings_apply (self->priv->interface_settings);
