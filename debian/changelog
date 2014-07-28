@@ -1,3 +1,23 @@
+unity-control-center (14.10.0+14.10.20140702.2-0ubuntu1ppa1) utopic; urgency=medium
+
+  * Basic Fcitx support.
+
+ -- William Hua <william.hua@canonical.com>  Tue, 17 Jun 2014 00:01:36 -0400
+
+unity-control-center (14.10.0+14.10.20140702.1-0ubuntu1) utopic; urgency=low
+
+  [ Robert Ancell ]
+  * Add symbols that were added in revision 12731
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Iain Lane ]
+  * [appearance] Fix a g_object_unref on a GSettingsSchema to be
+    g_settings_schema_unref (LP: #1335438)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 02 Jul 2014 12:28:57 +0000
+
 unity-control-center (14.10.0+14.10.20140604-0ubuntu1) utopic; urgency=low
 
   [ Robert Ancell ]

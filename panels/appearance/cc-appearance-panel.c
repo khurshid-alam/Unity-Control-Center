@@ -1847,7 +1847,7 @@ setup_unity_settings (CcAppearancePanel *self)
   if (schema)
     {
       priv->unity_launcher_settings = g_settings_new (UNITY_LAUNCHER_GSETTINGS_SCHEMA);
-      g_object_unref (schema);
+      g_settings_schema_unref (schema);
     }
   schema = g_settings_schema_source_lookup (source, UNITY_GSETTINGS_SCHEMA, TRUE);
   if (schema)
