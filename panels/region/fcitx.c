@@ -85,22 +85,26 @@ update_input_methods (void)
   if (input_method_proxy != NULL)
     {
       GVariant *variant = fcitx_input_method_get_imlist (input_method_proxy);
-      GVariantIter iter;
-      const gchar *id;
-      const gchar *name;
-      guint i;
 
-      input_method_ids = g_new (gchar *, g_variant_n_children (variant) + 1);
-      input_methods = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, input_method_free);
-
-      g_variant_iter_init (&iter, variant);
-      for (i = 0; g_variant_iter_next (&iter, "(&s&s&sb)", &name, &id, NULL, NULL); i++)
+      if (variant != NULL)
         {
-          input_method_ids[i] = g_strdup (id);
-          g_hash_table_insert (input_methods, g_strdup (id), input_method_new (id, name, NULL, NULL));
-        }
+          GVariantIter iter;
+          const gchar *id;
+          const gchar *name;
+          guint i;
 
-      input_method_ids[i] = NULL;
+          input_method_ids = g_new (gchar *, g_variant_n_children (variant) + 1);
+          input_methods = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, input_method_free);
+
+          g_variant_iter_init (&iter, variant);
+          for (i = 0; g_variant_iter_next (&iter, "(&s&s&sb)", &name, &id, NULL, NULL); i++)
+            {
+              input_method_ids[i] = g_strdup (id);
+              g_hash_table_insert (input_methods, g_strdup (id), input_method_new (id, name, NULL, NULL));
+            }
+
+          input_method_ids[i] = NULL;
+        }
     }
 }
 
