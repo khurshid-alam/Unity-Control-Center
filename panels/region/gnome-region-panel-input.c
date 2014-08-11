@@ -91,7 +91,6 @@ static CcRegionKeyboardItem *next_source_item = NULL;
 static IBusBus *ibus = NULL;
 static GHashTable *ibus_engines = NULL;
 static GCancellable *ibus_cancellable = NULL;
-static guint shell_name_watch_id = 0;
 
 #endif  /* HAVE_IBUS */
 
@@ -143,11 +142,6 @@ strv_contains (const gchar * const *strv,
 static void
 clear_ibus (void)
 {
-  if (shell_name_watch_id > 0)
-    {
-      g_bus_unwatch_name (shell_name_watch_id);
-      shell_name_watch_id = 0;
-    }
   g_cancellable_cancel (ibus_cancellable);
   g_clear_object (&ibus_cancellable);
   g_clear_pointer (&ibus_engines, g_hash_table_destroy);
@@ -602,25 +596,6 @@ ibus_connected (IBusBus  *bus,
 
   /* We've got everything we needed, don't want to be called again. */
   g_signal_handlers_disconnect_by_func (ibus, ibus_connected, builder);
-}
-
-static void
-on_shell_appeared (GDBusConnection *connection,
-                   const gchar     *name,
-                   const gchar     *name_owner,
-                   gpointer         data)
-{
-  GtkBuilder *builder = data;
-
-  if (!ibus)
-    {
-      ibus = ibus_bus_new_async ();
-      if (ibus_bus_is_connected (ibus))
-        ibus_connected (ibus, builder);
-      else
-        g_signal_connect (ibus, "connected", G_CALLBACK (ibus_connected), builder);
-    }
-  maybe_start_ibus ();
 }
 #endif  /* HAVE_IBUS */
 
@@ -1551,13 +1526,15 @@ setup_input_tabs (GtkBuilder    *builder_,
 
 #ifdef HAVE_IBUS
   ibus_init ();
-  shell_name_watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
-                                          "org.gnome.Shell",
-                                          G_BUS_NAME_WATCHER_FLAGS_NONE,
-                                          on_shell_appeared,
-                                          NULL,
-                                          builder,
-                                          NULL);
+  if (!ibus)
+    {
+      ibus = ibus_bus_new_async ();
+      if (ibus_bus_is_connected (ibus))
+        ibus_connected (ibus, builder);
+      else
+        g_signal_connect (ibus, "connected", G_CALLBACK (ibus_connected), builder);
+    }
+  maybe_start_ibus ();
 #endif
 
   populate_with_active_sources (store);
