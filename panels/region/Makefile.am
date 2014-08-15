@@ -13,33 +13,6 @@ INCLUDES =						\
 ccpanelsdir = $(PANELS_DIR)
 ccpanels_LTLIBRARIES = libregion.la
 
-FCITX_SOURCES =
-BUILT_SOURCES =
-
-if HAVE_FCITX
-FCITX_SOURCES += \
-	fcitx.c \
-	fcitx.h
-
-BUILT_SOURCES += \
-	fcitx-keyboard.c \
-	fcitx-keyboard.h \
-	fcitx-inputmethod.c \
-	fcitx-inputmethod.h
-
-fcitx-keyboard.h: fcitx-keyboard.c
-fcitx-keyboard.c: $(srcdir)/org.fcitx.Fcitx.Keyboard.xml
-	$(AM_V_GEN) gdbus-codegen --interface-prefix org.fcitx.Fcitx \
-	                          --generate-c-code fcitx-keyboard \
-	                          --c-namespace Fcitx $<
-
-fcitx-inputmethod.h: fcitx-inputmethod.c
-fcitx-inputmethod.c: $(srcdir)/org.fcitx.Fcitx.InputMethod.xml
-	$(AM_V_GEN) gdbus-codegen --interface-prefix org.fcitx.Fcitx \
-	                          --generate-c-code fcitx-inputmethod \
-	                          --c-namespace Fcitx $<
-endif
-
 libregion_la_SOURCES =	\
 	region-module.c \
 	cc-region-panel.c \
@@ -60,8 +33,6 @@ libregion_la_SOURCES =	\
 	gtkentryaccel.h \
 	wm-common.c \
 	wm-common.h \
-	$(FCITX_SOURCES) \
-	$(BUILT_SOURCES) \
 	$(NULL)
 
 libregion_la_LIBADD = $(PANEL_LIBS) $(REGION_PANEL_LIBS) $(builddir)/../common/liblanguage.la
@@ -84,5 +55,6 @@ desktop_DATA = $(Desktop_in_files:.desktop.in=.desktop)
 
 CLEANFILES = $(Desktop_in_files) $(desktop_DATA)
 EXTRA_DIST = $(ui_DATA)
+
 
 -include $(top_srcdir)/git.mk

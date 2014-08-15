@@ -35,8 +35,9 @@
 #endif
 
 #ifdef HAVE_FCITX
-#include "fcitx.h"
-#endif /* HAVE_FCITX */
+#include <fcitx-gclient/fcitxinputmethod.h>
+#include <fcitx-gclient/fcitxkbd.h>
+#endif
 
 #include "gdm-languages.h"
 #include "gnome-region-panel-input.h"
@@ -100,7 +101,10 @@ static guint shell_name_watch_id = 0;
 #endif  /* HAVE_IBUS */
 
 #ifdef HAVE_FCITX
-static GCancellable *fcitx_cancellable;
+static FcitxInputMethod *fcitx = NULL;
+static FcitxKbd *fcitx_keyboard = NULL;
+static GHashTable *fcitx_engines = NULL;
+static GCancellable *fcitx_cancellable = NULL;
 #endif /* HAVE_FCITX */
 
 static void       populate_model             (GtkListStore  *store,
@@ -734,33 +738,41 @@ populate_model (GtkListStore *store,
 #endif
 
 #ifdef HAVE_FCITX
-  gchar **input_method_ids = fcitx_get_input_method_ids ();
-
-  if (input_method_ids != NULL)
+  if (fcitx_engines)
     {
-      gchar *name;
-      guint i;
+      GHashTableIter engines_iter;
+      gpointer key;
+      gpointer value;
 
-      for (i = 0; input_method_ids[i] != NULL; i++)
+      g_hash_table_iter_init (&engines_iter, fcitx_engines);
+      while (g_hash_table_iter_next (&engines_iter, &key, &value))
         {
-          if (!g_str_has_prefix (input_method_ids[i], "fcitx-keyboard-"))
+          const gchar *id = key;
+          const FcitxIMItem *engine = value;
+
+          if (g_str_has_prefix (id, "fcitx-keyboard-"))
+            continue;
+
+          source_id = g_strconcat (INPUT_SOURCE_TYPE_FCITX, id, NULL);
+
+          if (!g_hash_table_contains (active_sources_table, source_id))
             {
-              name = g_strdup_printf ("%s (Fcitx)", fcitx_get_input_method_name (input_method_ids[i]));
+              gchar *name = g_strdup_printf ("%s (Fcitx)", engine->name);
 
               gtk_list_store_append (store, &iter);
               gtk_list_store_set (store, &iter,
                                   TYPE_COLUMN, INPUT_SOURCE_TYPE_FCITX,
-                                  ID_COLUMN, input_method_ids[i],
+                                  ID_COLUMN, id,
                                   NAME_COLUMN, name,
                                   -1);
 
               g_free (name);
             }
+
+          g_free (source_id);
         }
     }
-
-  g_strfreev (input_method_ids);
-#endif /* HAVE_FCITX */
+#endif
 
   g_hash_table_destroy (active_sources_table);
 }
@@ -821,11 +833,17 @@ populate_with_active_sources (GtkListStore *store)
       else if (g_str_equal (type, INPUT_SOURCE_TYPE_FCITX))
         {
 #ifdef HAVE_FCITX
-          display_name = g_strdup_printf ("%s (Fcitx)", fcitx_get_input_method_name (id));
+          if (fcitx_engines)
+            {
+              const FcitxIMItem *engine = g_hash_table_lookup (fcitx_engines, id);
+
+              if (engine)
+                display_name = g_strdup_printf ("%s (Fcitx)", engine->name);
+            }
 #else
           g_warning ("Fcitx input source type specified but Fcitx support was not compiled");
           continue;
-#endif /* HAVE_FCITX */
+#endif
         }
       else
         {
@@ -987,7 +1005,7 @@ update_button_sensitivity (GtkBuilder *builder)
   settings_sensitive = (index >= 0 && (app_info != NULL || legacy_setup != NULL || g_strcmp0 (type, INPUT_SOURCE_TYPE_FCITX) == 0));
 #else
   settings_sensitive = (index >= 0 && (app_info != NULL || legacy_setup != NULL));
-#endif /* HAVE_FCITX */
+#endif
 
   if (app_info)
     g_object_unref (app_info);
@@ -1232,6 +1250,8 @@ show_selected_layout (GtkButton *button, gpointer data)
   gchar *kbd_viewer_args;
   const gchar *xkb_layout;
   const gchar *xkb_variant;
+  gchar *layout = NULL;
+  gchar *variant = NULL;
 
   g_debug ("show selected layout");
 
@@ -1279,12 +1299,16 @@ show_selected_layout (GtkButton *button, gpointer data)
   else if (g_str_equal (type, INPUT_SOURCE_TYPE_FCITX))
     {
 #ifdef HAVE_FCITX
-      xkb_layout = fcitx_get_input_method_layout (id);
-      xkb_variant = fcitx_get_input_method_variant (id);
+      if (fcitx_keyboard)
+        {
+          fcitx_kbd_get_layout_for_im (fcitx_keyboard, id, &layout, &variant);
+          xkb_layout = layout;
+          xkb_variant = variant;
+        }
 #else
       g_warning ("Fcitx input source type specified but Fcitx support was not compiled");
       goto exit;
-#endif /* HAVE_FCITX */
+#endif
     }
   else
     {
@@ -1304,6 +1328,8 @@ show_selected_layout (GtkButton *button, gpointer data)
   g_spawn_command_line_async (kbd_viewer_args, NULL);
 
   g_free (kbd_viewer_args);
+  g_free (variant);
+  g_free (layout);
  exit:
   g_free (type);
   g_free (id);
@@ -1361,9 +1387,9 @@ show_selected_settings (GtkButton *button, gpointer data)
         }
     }
 #ifdef HAVE_FCITX
-  else if (g_strcmp0 (type, INPUT_SOURCE_TYPE_FCITX) == 0)
-    fcitx_configure_input_method (id);
-#endif /* HAVE_FCITX */
+  else if (g_strcmp0 (type, INPUT_SOURCE_TYPE_FCITX) == 0 && fcitx)
+    fcitx_input_method_configure_im (fcitx, id);
+#endif
 
   g_free (legacy_setup);
 }
@@ -1532,6 +1558,20 @@ shortcut_key_pressed (GtkEntryAccel   *entry,
   return edited ? GTK_ENTRY_ACCEL_UPDATE : GTK_ENTRY_ACCEL_IGNORE;
 }
 
+#ifdef HAVE_FCITX
+static void
+clear_fcitx (void)
+{
+  if (fcitx_cancellable)
+    g_cancellable_cancel (fcitx_cancellable);
+
+  g_clear_pointer (&fcitx_engines, g_hash_table_unref);
+  g_clear_object (&fcitx_cancellable);
+  g_clear_object (&fcitx_keyboard);
+  g_clear_object (&fcitx);
+}
+#endif
+
 static void
 builder_finalized (gpointer  data,
                    GObject  *where_the_object_was)
@@ -1547,8 +1587,8 @@ builder_finalized (gpointer  data,
   g_clear_object (&prev_source_item);
 
 #ifdef HAVE_FCITX
-  fcitx_stop ();
-#endif /* HAVE_FCITX */
+  clear_fcitx ();
+#endif
 
 #ifdef HAVE_IBUS
   clear_ibus ();
@@ -1589,14 +1629,58 @@ set_key_setting (const GValue   *value,
 
 #ifdef HAVE_FCITX
 static void
-on_fcitx_loaded (GObject      *source_object,
-                 GAsyncResult *result,
-                 gpointer      user_data)
+fcitx_init (void)
 {
+  GError *error = NULL;
+
+  fcitx_cancellable = g_cancellable_new ();
+  fcitx = fcitx_input_method_new (G_BUS_TYPE_SESSION,
+                                  G_DBUS_PROXY_FLAGS_NONE,
+                                  0,
+                                  fcitx_cancellable,
+                                  &error);
   g_clear_object (&fcitx_cancellable);
-  input_sources_changed (input_sources_settings, KEY_INPUT_SOURCES, user_data);
+
+  if (fcitx)
+    {
+      GPtrArray *engines = fcitx_input_method_get_imlist_nofree (fcitx);
+
+      if (engines)
+        {
+          guint i;
+
+          fcitx_engines = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, (GDestroyNotify) fcitx_im_item_free);
+
+          for (i = 0; i < engines->len; i++)
+            {
+              FcitxIMItem *engine = g_ptr_array_index (engines, i);
+              g_hash_table_insert (fcitx_engines, engine->unique_name, engine);
+            }
+
+          g_ptr_array_unref (engines);
+        }
+    }
+  else
+    {
+      g_warning ("Fcitx input method framework unavailable: %s", error->message);
+      g_clear_error (&error);
+    }
+
+  fcitx_cancellable = g_cancellable_new ();
+  fcitx_keyboard = fcitx_kbd_new (G_BUS_TYPE_SESSION,
+                                  G_DBUS_PROXY_FLAGS_NONE,
+                                  0,
+                                  fcitx_cancellable,
+                                  &error);
+  g_clear_object (&fcitx_cancellable);
+
+  if (!fcitx_keyboard)
+    {
+      g_warning ("Fcitx keyboard module unavailable: %s", error->message);
+      g_clear_error (&error);
+    }
 }
-#endif /* HAVE_FCITX */
+#endif
 
 void
 setup_input_tabs (GtkBuilder    *builder_,
@@ -1656,9 +1740,8 @@ setup_input_tabs (GtkBuilder    *builder_,
 #endif
 
 #ifdef HAVE_FCITX
-  fcitx_cancellable = g_cancellable_new ();
-  fcitx_start_async (fcitx_cancellable, on_fcitx_loaded, builder);
-#endif /* HAVE_FCITX */
+  fcitx_init ();
+#endif
 
   populate_with_active_sources (store);
 

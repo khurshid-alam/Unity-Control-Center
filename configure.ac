@@ -87,7 +87,6 @@ else
 fi
 
 # Fcitx support
-FCITX_REQUIRED_VERSION=4.2.8.3
 
 AC_ARG_ENABLE(fcitx,
         AS_HELP_STRING([--disable-fcitx],
@@ -96,7 +95,7 @@ AC_ARG_ENABLE(fcitx,
         enable_fcitx=yes)
 
 if test "x$enable_fcitx" = "xyes" ; then
-        FCITX_MODULE="fcitx >= $FCITX_REQUIRED_VERSION"
+        FCITX_MODULE="fcitx-gclient"
         AC_DEFINE(HAVE_FCITX, 1, [Defined if Fcitx support is enabled])
 else
         FCITX_MODULE=
