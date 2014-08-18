@@ -52,6 +52,7 @@
 #define INPUT_SOURCE_TYPE_XKB           "xkb"
 #define INPUT_SOURCE_TYPE_IBUS          "ibus"
 #define INPUT_SOURCE_TYPE_FCITX         "fcitx"
+#define FCITX_XKB_PREFIX                "fcitx-keyboard-"
 
 #define MEDIA_KEYS_SCHEMA_ID  "org.gnome.desktop.wm.keybindings"
 #define KEY_PREV_INPUT_SOURCE "switch-input-source-backward"
@@ -750,7 +751,7 @@ populate_model (GtkListStore *store,
           const gchar *id = key;
           const FcitxIMItem *engine = value;
 
-          if (g_str_has_prefix (id, "fcitx-keyboard-"))
+          if (g_str_has_prefix (id, FCITX_XKB_PREFIX))
             continue;
 
           source_id = g_strconcat (INPUT_SOURCE_TYPE_FCITX, id, NULL);
