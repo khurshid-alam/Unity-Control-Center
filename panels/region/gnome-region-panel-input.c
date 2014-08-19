@@ -473,6 +473,7 @@ update_ibus_active_sources (GtkBuilder *builder)
 
               gtk_list_store_set (GTK_LIST_STORE (model), &iter,
                                   NAME_COLUMN, name,
+                                  COLOUR_COLUMN, is_ibus_active ? &active_colour : &inactive_colour,
                                   SETUP_COLUMN, app_info,
                                   LEGACY_SETUP_COLUMN, legacy_setup,
                                   -1);
