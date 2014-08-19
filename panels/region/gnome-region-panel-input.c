@@ -54,6 +54,10 @@
 #define INPUT_SOURCE_TYPE_FCITX         "fcitx"
 #define FCITX_XKB_PREFIX                "fcitx-keyboard-"
 
+#define ENV_GTK_IM_MODULE   "GTK_IM_MODULE"
+#define GTK_IM_MODULE_IBUS  "ibus"
+#define GTK_IM_MODULE_FCITX "fcitx"
+
 #define MEDIA_KEYS_SCHEMA_ID  "org.gnome.desktop.wm.keybindings"
 #define KEY_PREV_INPUT_SOURCE "switch-input-source-backward"
 #define KEY_NEXT_INPUT_SOURCE "switch-input-source"
@@ -78,6 +82,7 @@ enum {
   NAME_COLUMN,
   TYPE_COLUMN,
   ID_COLUMN,
+  COLOUR_COLUMN,
   SETUP_COLUMN,
   LEGACY_SETUP_COLUMN,
   N_COLUMNS
@@ -93,12 +98,15 @@ static GtkBuilder *builder = NULL; /* weak pointer */
 static GtkWidget *input_chooser = NULL; /* weak pointer */
 static CcRegionKeyboardItem *prev_source_item = NULL;
 static CcRegionKeyboardItem *next_source_item = NULL;
+static GdkRGBA active_colour;
+static GdkRGBA inactive_colour;
 
 #ifdef HAVE_IBUS
 static IBusBus *ibus = NULL;
 static GHashTable *ibus_engines = NULL;
 static GCancellable *ibus_cancellable = NULL;
 static guint shell_name_watch_id = 0;
+static gboolean is_ibus_active = FALSE;
 #endif  /* HAVE_IBUS */
 
 #ifdef HAVE_FCITX
@@ -106,6 +114,7 @@ static FcitxInputMethod *fcitx = NULL;
 static FcitxKbd *fcitx_keyboard = NULL;
 static GHashTable *fcitx_engines = NULL;
 static GCancellable *fcitx_cancellable = NULL;
+static gboolean is_fcitx_active = FALSE;
 #endif /* HAVE_FCITX */
 
 static void       populate_model             (GtkListStore  *store,
@@ -697,6 +706,7 @@ populate_model (GtkListStore *store,
                           NAME_COLUMN, name,
                           TYPE_COLUMN, INPUT_SOURCE_TYPE_XKB,
                           ID_COLUMN, tmp->data,
+                          COLOUR_COLUMN, &active_colour,
                           -1);
     }
   g_free (source_id);
@@ -728,6 +738,7 @@ populate_model (GtkListStore *store,
                               NAME_COLUMN, name,
                               TYPE_COLUMN, INPUT_SOURCE_TYPE_IBUS,
                               ID_COLUMN, tmp->data,
+                              COLOUR_COLUMN, is_ibus_active ? &active_colour : &inactive_colour,
                               -1);
           g_free (name);
           g_free (display_name);
@@ -765,6 +776,7 @@ populate_model (GtkListStore *store,
                                   TYPE_COLUMN, INPUT_SOURCE_TYPE_FCITX,
                                   ID_COLUMN, id,
                                   NAME_COLUMN, name,
+                                  COLOUR_COLUMN, is_fcitx_active ? &active_colour : &inactive_colour,
                                   -1);
 
               g_free (name);
@@ -790,6 +802,7 @@ populate_with_active_sources (GtkListStore *store)
   GDesktopAppInfo *app_info;
   gchar *legacy_setup;
   GtkTreeIter tree_iter;
+  gboolean active;
 
   sources = g_settings_get_value (input_sources_settings, KEY_INPUT_SOURCES);
 
@@ -799,6 +812,7 @@ populate_with_active_sources (GtkListStore *store)
       display_name = NULL;
       app_info = NULL;
       legacy_setup = NULL;
+      active = FALSE;
 
       if (g_str_equal (type, INPUT_SOURCE_TYPE_XKB))
         {
@@ -809,6 +823,7 @@ populate_with_active_sources (GtkListStore *store)
               continue;
             }
           display_name = g_strdup (name);
+          active = TRUE;
         }
       else if (g_str_equal (type, INPUT_SOURCE_TYPE_IBUS))
         {
@@ -824,6 +839,7 @@ populate_with_active_sources (GtkListStore *store)
               display_name = g_strdup_printf ("%s (IBus)", engine_name);
               app_info = setup_app_info_for_id (id);
               legacy_setup = legacy_setup_for_id (id);
+              active = is_ibus_active;
               g_free (engine_name);
             }
 #else
@@ -839,7 +855,10 @@ populate_with_active_sources (GtkListStore *store)
               const FcitxIMItem *engine = g_hash_table_lookup (fcitx_engines, id);
 
               if (engine)
-                display_name = g_strdup_printf ("%s (Fcitx)", engine->name);
+                {
+                  display_name = g_strdup_printf ("%s (Fcitx)", engine->name);
+                  active = is_fcitx_active;
+                }
             }
 #else
           g_warning ("Fcitx input source type specified but Fcitx support was not compiled");
@@ -857,6 +876,7 @@ populate_with_active_sources (GtkListStore *store)
                           NAME_COLUMN, display_name,
                           TYPE_COLUMN, type,
                           ID_COLUMN, id,
+                          COLOUR_COLUMN, active ? &active_colour : &inactive_colour,
                           SETUP_COLUMN, app_info,
                           LEGACY_SETUP_COLUMN, legacy_setup,
                           -1);
@@ -1693,6 +1713,8 @@ setup_input_tabs (GtkBuilder    *builder_,
   GtkListStore *store;
   GtkTreeModel *filtered_store;
   GtkTreeSelection *selection;
+  GtkStyleContext *context;
+  const gchar *module;
 
   builder = builder_;
 
@@ -1711,12 +1733,14 @@ setup_input_tabs (GtkBuilder    *builder_,
   cell = gtk_cell_renderer_text_new ();
   gtk_tree_view_column_pack_start (column, cell, TRUE);
   gtk_tree_view_column_add_attribute (column, cell, "text", NAME_COLUMN);
+  gtk_tree_view_column_add_attribute (column, cell, "foreground-rgba", COLOUR_COLUMN);
   gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
 
   store = gtk_list_store_new (N_COLUMNS,
                               G_TYPE_STRING,
                               G_TYPE_STRING,
                               G_TYPE_STRING,
+                              GDK_TYPE_RGBA,
                               G_TYPE_DESKTOP_APP_INFO,
                               G_TYPE_STRING);
 
@@ -1729,8 +1753,15 @@ setup_input_tabs (GtkBuilder    *builder_,
   if (!xkb_info)
     xkb_info = gnome_xkb_info_new ();
 
+  context = gtk_widget_get_style_context (treeview);
+  gtk_style_context_get_color (context, GTK_STATE_FLAG_NORMAL, &active_colour);
+  gtk_style_context_get_color (context, GTK_STATE_FLAG_INSENSITIVE, &inactive_colour);
+
+  module = g_getenv (ENV_GTK_IM_MODULE);
+
 #ifdef HAVE_IBUS
   ibus_init ();
+  is_ibus_active = g_str_equal (module, GTK_IM_MODULE_IBUS);
   shell_name_watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
                                           "org.gnome.Shell",
                                           G_BUS_NAME_WATCHER_FLAGS_NONE,
@@ -1742,6 +1773,7 @@ setup_input_tabs (GtkBuilder    *builder_,
 
 #ifdef HAVE_FCITX
   fcitx_init ();
+  is_fcitx_active = g_str_equal (module, GTK_IM_MODULE_FCITX);
 #endif
 
   populate_with_active_sources (store);
@@ -2032,6 +2064,7 @@ input_chooser_new (GtkWindow    *main_window,
     gtk_tree_view_column_new_with_attributes ("Input Sources",
                                               gtk_cell_renderer_text_new (),
                                               "text", NAME_COLUMN,
+                                              "foreground-rgba", COLOUR_COLUMN,
                                               NULL);
 
   gtk_window_set_transient_for (GTK_WINDOW (chooser), main_window);
