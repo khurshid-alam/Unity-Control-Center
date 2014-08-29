@@ -1,3 +1,15 @@
+unity-control-center (14.10.0+14.10.20140702.1-0ubuntu3) utopic; urgency=medium
+
+  * Actually do a no change rebuild against new libgtop
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Wed, 20 Aug 2014 15:31:05 +1200
+
+unity-control-center (14.10.0+14.10.20140702.1-0ubuntu2) utopic; urgency=medium
+
+  * No change rebuild against new libgtop
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Tue, 19 Aug 2014 14:01:28 +1200
+
 unity-control-center (14.10.0+14.10.20140702.1-0ubuntu1) utopic; urgency=low
 
   [ Robert Ancell ]
