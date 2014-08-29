@@ -1775,6 +1775,9 @@ setup_input_tabs (GtkBuilder    *builder_,
 #ifdef HAVE_FCITX
   fcitx_init ();
   is_fcitx_active = g_str_equal (module, GTK_IM_MODULE_FCITX);
+
+  if (is_fcitx_active)
+    gtk_widget_set_visible (WID("ibus-grid"), FALSE);
 #endif
 
   populate_with_active_sources (store);
