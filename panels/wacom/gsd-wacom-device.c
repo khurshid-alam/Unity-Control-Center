@@ -27,7 +27,7 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <X11/Xatom.h>
-#include <unity-settings-daemon/gsd-rr.h>
+#include <libunity-settings-daemon/gsd-rr.h>
 
 #include <libwacom/libwacom.h>
 #include <X11/extensions/XInput.h>

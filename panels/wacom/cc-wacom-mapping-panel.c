@@ -23,8 +23,8 @@
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
-#include <unity-settings-daemon/gsd-rr.h>
-#include <unity-settings-daemon/gsd-rr-config.h>
+#include <libunity-settings-daemon/gsd-rr.h>
+#include <libunity-settings-daemon/gsd-rr-config.h>
 
 #include <string.h>
 

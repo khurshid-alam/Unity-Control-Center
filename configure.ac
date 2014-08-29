@@ -121,7 +121,7 @@ PKG_CHECK_MODULES(APPEARANCE_PANEL, $COMMON_MODULES libxml-2.0 gnome-desktop-3.0
                   gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED_VERSION)
 PKG_CHECK_MODULES(DATETIME_PANEL, $COMMON_MODULES timezonemap
                   polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION)
-PKG_CHECK_MODULES(DISPLAY_PANEL, $COMMON_MODULES unity-settings-daemon x11)
+PKG_CHECK_MODULES(DISPLAY_PANEL, $COMMON_MODULES libunity-settings-daemon x11)
 PKG_CHECK_MODULES(INFO_PANEL, $COMMON_MODULES libgtop-2.0 gl x11
 		  polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION webkitgtk-3.0)
 PKG_CHECK_MODULES(KEYBOARD_PANEL, $COMMON_MODULES
@@ -236,7 +236,7 @@ case $host_os in
       PKG_CHECK_MODULES(WACOM_PANEL, $COMMON_MODULES
                         unity-settings-daemon
                         xi >= 1.2 x11 libwacom >= $LIBWACOM_REQUIRED_VERSION
-                        unity-settings-daemon)
+                        libunity-settings-daemon)
       AC_DEFINE(BUILD_WACOM, 1, [Define to 1 to build the Wacom panel])
       have_wacom=yes
     fi

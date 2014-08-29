@@ -30,8 +30,8 @@
 #include <gtk/gtk.h>
 #include <glib.h>
 #include "scrollarea.h"
-#include <unity-settings-daemon/gsd-rr.h>
-#include <unity-settings-daemon/gsd-rr-config.h>
+#include <libunity-settings-daemon/gsd-rr.h>
+#include <libunity-settings-daemon/gsd-rr-config.h>
 #include <gdk/gdkx.h>
 #include <X11/Xlib.h>
 #include <glib/gi18n.h>

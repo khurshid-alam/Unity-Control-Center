@@ -26,7 +26,7 @@
 #ifndef CC_RR_LABELER_H
 #define CC_RR_LABELER_H
 
-#include <unity-settings-daemon/gsd-rr-config.h>
+#include <libunity-settings-daemon/gsd-rr-config.h>
 
 #define GNOME_TYPE_RR_LABELER            (cc_rr_labeler_get_type ())
 #define CC_RR_LABELER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GNOME_TYPE_RR_LABELER, CcRRLabeler))
