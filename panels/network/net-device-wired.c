@@ -175,7 +175,7 @@ device_off_toggled (GtkSwitch *sw,
                                                nm_device,
                                                NULL, NULL, NULL);
         } else {
-                nm_device_deactivate (nm_device, NULL, NULL);
+                nm_device_disconnect (nm_device, NULL, NULL);
         }
 }
 
