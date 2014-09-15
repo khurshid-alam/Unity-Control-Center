@@ -623,7 +623,7 @@ ibus_connected (IBusBus  *bus,
 
   fetch_ibus_engines (builder);
 
-  if (has_indicator_keyboard ())
+  if (has_indicator_keyboard () && !is_fcitx_active)
     update_source_radios (builder);
 
   /* We've got everything we needed, don't want to be called again. */
@@ -1515,7 +1515,7 @@ libgnomekbd_settings_changed (GSettings *settings,
                               gchar     *key,
                               gpointer   user_data)
 {
-  if (g_strcmp0 (key, KEY_GROUP_PER_WINDOW) == 0 || g_strcmp0 (key, KEY_DEFAULT_GROUP) == 0)
+  if (!is_fcitx_active && (g_strcmp0 (key, KEY_GROUP_PER_WINDOW) == 0 || g_strcmp0 (key, KEY_DEFAULT_GROUP) == 0))
     update_source_radios (user_data);
 }
 
@@ -1821,33 +1821,47 @@ setup_input_tabs (GtkBuilder    *builder_,
       media_key_settings = g_settings_new (MEDIA_KEYS_SCHEMA_ID);
       indicator_settings = g_settings_new (INDICATOR_KEYBOARD_SCHEMA_ID);
 
-      update_source_radios (builder);
-
       g_settings_bind (indicator_settings,
                        KEY_VISIBLE,
                        WID ("show-indicator-check"),
                        "active",
                        G_SETTINGS_BIND_DEFAULT);
-      g_settings_bind (ibus_panel_settings,
-                       IBUS_ORIENTATION_KEY,
-                       WID ("orientation-combo"),
-                       "active",
-                       G_SETTINGS_BIND_DEFAULT);
-      g_settings_bind (ibus_panel_settings,
-                       IBUS_USE_CUSTOM_FONT_KEY,
-                       WID ("custom-font-check"),
-                       "active",
-                       G_SETTINGS_BIND_DEFAULT);
-      g_settings_bind (ibus_panel_settings,
-                       IBUS_USE_CUSTOM_FONT_KEY,
-                       WID ("custom-font-button"),
-                       "sensitive",
-                       G_SETTINGS_BIND_GET | G_SETTINGS_BIND_NO_SENSITIVITY);
-      g_settings_bind (ibus_panel_settings,
-                       IBUS_CUSTOM_FONT_KEY,
-                       WID ("custom-font-button"),
-                       "font-name",
-                       G_SETTINGS_BIND_DEFAULT | G_SETTINGS_BIND_NO_SENSITIVITY);
+
+      if (!is_fcitx_active)
+        {
+          update_source_radios (builder);
+
+          g_settings_bind (ibus_panel_settings,
+                           IBUS_ORIENTATION_KEY,
+                           WID ("orientation-combo"),
+                           "active",
+                           G_SETTINGS_BIND_DEFAULT);
+          g_settings_bind (ibus_panel_settings,
+                           IBUS_USE_CUSTOM_FONT_KEY,
+                           WID ("custom-font-check"),
+                           "active",
+                           G_SETTINGS_BIND_DEFAULT);
+          g_settings_bind (ibus_panel_settings,
+                           IBUS_USE_CUSTOM_FONT_KEY,
+                           WID ("custom-font-button"),
+                           "sensitive",
+                           G_SETTINGS_BIND_GET | G_SETTINGS_BIND_NO_SENSITIVITY);
+          g_settings_bind (ibus_panel_settings,
+                           IBUS_CUSTOM_FONT_KEY,
+                           WID ("custom-font-button"),
+                           "font-name",
+                           G_SETTINGS_BIND_DEFAULT | G_SETTINGS_BIND_NO_SENSITIVITY);
+
+          g_signal_connect (WID ("same-source-radio"), "toggled",
+                            G_CALLBACK (source_radio_toggled), builder);
+          g_signal_connect (WID ("different-source-radio"), "toggled",
+                            G_CALLBACK (source_radio_toggled), builder);
+          g_signal_connect (WID ("default-source-radio"), "toggled",
+                            G_CALLBACK (source_radio_toggled), builder);
+          g_signal_connect (WID ("current-source-radio"), "toggled",
+                            G_CALLBACK (source_radio_toggled), builder);
+        }
+
       g_settings_bind_with_mapping (media_key_settings,
                                     KEY_PREV_INPUT_SOURCE,
                                     WID ("prev-source-entry"),
@@ -1869,14 +1883,6 @@ setup_input_tabs (GtkBuilder    *builder_,
                         G_CALLBACK (shortcut_key_pressed), builder);
       g_signal_connect (WID ("next-source-entry"), "key-pressed",
                         G_CALLBACK (shortcut_key_pressed), builder);
-      g_signal_connect (WID ("same-source-radio"), "toggled",
-                        G_CALLBACK (source_radio_toggled), builder);
-      g_signal_connect (WID ("different-source-radio"), "toggled",
-                        G_CALLBACK (source_radio_toggled), builder);
-      g_signal_connect (WID ("default-source-radio"), "toggled",
-                        G_CALLBACK (source_radio_toggled), builder);
-      g_signal_connect (WID ("current-source-radio"), "toggled",
-                        G_CALLBACK (source_radio_toggled), builder);
       g_signal_connect (libgnomekbd_settings,
                         "changed",
                         G_CALLBACK (libgnomekbd_settings_changed),
