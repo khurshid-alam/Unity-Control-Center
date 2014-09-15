@@ -423,7 +423,7 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkBox" id="box3">
+                          <object class="GtkBox" id="per-window-box">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="orientation">vertical</property>
@@ -505,7 +505,7 @@
                         </child>
                         <child>
                           <object class="GtkGrid" id="ibus-grid">
-                            <property name="visible">True</property>
+                            <property name="visible">False</property>
                             <property name="can_focus">False</property>
                             <child>
                               <object class="GtkLabel" id="label25">

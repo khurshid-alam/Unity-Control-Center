@@ -57,6 +57,12 @@ is_unity (void)
 }
 
 static gboolean
+is_fcitx_active (void)
+{
+	return g_strcmp0 (g_getenv ("GTK_IM_MODULE"), "fcitx") == 0;
+}
+
+static gboolean
 has_indicator_keyboard (void)
 {
 	GSettingsSchema *schema;
@@ -168,10 +174,17 @@ cc_region_panel_init (CcRegionPanel * self)
 
 	priv->builder = gtk_builder_new ();
 
-	if (has_indicator_keyboard ())
-		gtk_builder_add_from_file (priv->builder,
-					   GNOMECC_UI_DIR "/unity-region-panel.ui",
-					   &error);
+	if (has_indicator_keyboard ()) {
+		if (is_fcitx_active ()) {
+			gtk_builder_add_from_file (priv->builder,
+						   GNOMECC_UI_DIR "/unity-region-panel-fcitx.ui",
+						   &error);
+		} else {
+			gtk_builder_add_from_file (priv->builder,
+						   GNOMECC_UI_DIR "/unity-region-panel-ibus.ui",
+						   &error);
+		}
+	}
 	else
 		gtk_builder_add_from_file (priv->builder,
 					   GNOMECC_UI_DIR "/gnome-region-panel.ui",

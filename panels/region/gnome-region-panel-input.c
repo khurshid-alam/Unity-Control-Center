@@ -1762,7 +1762,7 @@ setup_input_tabs (GtkBuilder    *builder_,
 
 #ifdef HAVE_IBUS
   ibus_init ();
-  is_ibus_active = g_str_equal (module, GTK_IM_MODULE_IBUS);
+  is_ibus_active = g_strcmp0 (module, GTK_IM_MODULE_IBUS) == 0;
   shell_name_watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
                                           "org.gnome.Shell",
                                           G_BUS_NAME_WATCHER_FLAGS_NONE,
@@ -1774,10 +1774,7 @@ setup_input_tabs (GtkBuilder    *builder_,
 
 #ifdef HAVE_FCITX
   fcitx_init ();
-  is_fcitx_active = g_str_equal (module, GTK_IM_MODULE_FCITX);
-
-  if (is_fcitx_active)
-    gtk_widget_set_visible (WID("ibus-grid"), FALSE);
+  is_fcitx_active = g_strcmp0 (module, GTK_IM_MODULE_FCITX) == 0;
 #endif
 
   populate_with_active_sources (store);
