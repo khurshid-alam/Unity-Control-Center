@@ -413,7 +413,7 @@ stop_monitor_stream_for_source (GvcMixerDialog *dialog)
                 return;
         }
         g_object_set_data (G_OBJECT (stream), "has-monitor", GINT_TO_POINTER (FALSE));
-        g_debug ("Stopping monitor for %u", pa_stream_get_index (s));
+        g_debug ("Stopping monitor");
         g_object_set_data (G_OBJECT (dialog->priv->input_level_bar), "stream", NULL);
 }
 
