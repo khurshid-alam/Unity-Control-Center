@@ -397,8 +397,13 @@ stop_monitor_stream_for_source (GvcMixerDialog *dialog)
                 res = pa_stream_disconnect (s);
                 if (res == 0) {
                         g_debug("stream has been disconnected");
-                        pa_stream_unref (s);
                 }
+                else {
+                        g_warning ("pa_stream_disconnect failed, res = %d", res);
+                        /* If disconnect failed, at least make sure we don't show the data */       
+                        pa_stream_set_read_callback (s, NULL, NULL);
+                }
+                pa_stream_unref (s);
                 g_object_set_data (G_OBJECT (dialog->priv->input_level_bar), "pa_stream", NULL);        
         }
                 
@@ -407,9 +412,7 @@ stop_monitor_stream_for_source (GvcMixerDialog *dialog)
         if (pa_context_get_server_protocol_version (context) < 13) {
                 return;
         }
-        if (res == 0) {
-                g_object_set_data (G_OBJECT (stream), "has-monitor", GINT_TO_POINTER (FALSE));
-        }
+        g_object_set_data (G_OBJECT (stream), "has-monitor", GINT_TO_POINTER (FALSE));
         g_debug ("Stopping monitor for %u", pa_stream_get_index (s));
         g_object_set_data (G_OBJECT (dialog->priv->input_level_bar), "stream", NULL);
 }
