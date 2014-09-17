@@ -95,7 +95,7 @@ AC_ARG_ENABLE(fcitx,
         enable_fcitx=yes)
 
 if test "x$enable_fcitx" = "xyes" ; then
-        FCITX_MODULE="fcitx-gclient"
+        FCITX_MODULE="fcitx-config fcitx-gclient"
         AC_DEFINE(HAVE_FCITX, 1, [Defined if Fcitx support is enabled])
 else
         FCITX_MODULE=

@@ -35,6 +35,7 @@
 #endif
 
 #ifdef HAVE_FCITX
+#include <fcitx-config/fcitx-config.h>
 #include <fcitx-gclient/fcitxinputmethod.h>
 #include <fcitx-gclient/fcitxkbd.h>
 #endif
@@ -115,6 +116,22 @@ static FcitxKbd *fcitx_keyboard = NULL;
 static GHashTable *fcitx_engines = NULL;
 static GCancellable *fcitx_cancellable = NULL;
 static gboolean is_fcitx_active = FALSE;
+
+struct _FcitxShareStateConfig
+{
+  FcitxGenericConfig config;
+  gint share_state;
+};
+
+typedef struct _FcitxShareStateConfig FcitxShareStateConfig;
+
+static CONFIG_BINDING_BEGIN (FcitxShareStateConfig)
+CONFIG_BINDING_REGISTER ("Program", "ShareStateAmongWindow", share_state)
+CONFIG_BINDING_END ()
+
+static CONFIG_DESC_DEFINE (get_fcitx_config_desc, "config.desc")
+
+static FcitxShareStateConfig fcitx_config;
 #endif /* HAVE_FCITX */
 
 static void       populate_model             (GtkListStore  *store,
@@ -1584,6 +1601,8 @@ shortcut_key_pressed (GtkEntryAccel   *entry,
 static void
 clear_fcitx (void)
 {
+  FcitxConfigFree (&fcitx_config.config);
+
   if (fcitx_cancellable)
     g_cancellable_cancel (fcitx_cancellable);
 
@@ -1701,6 +1720,59 @@ fcitx_init (void)
       g_warning ("Fcitx keyboard module unavailable: %s", error->message);
       g_clear_error (&error);
     }
+}
+
+static void
+save_fcitx_config (void)
+{
+  FILE *file = FcitxXDGGetFileUserWithPrefix (NULL, "config", "w", NULL);
+  FcitxConfigSaveConfigFileFp (file, &fcitx_config.config, get_fcitx_config_desc ());
+
+  if (file)
+    fclose (file);
+
+  fcitx_input_method_reload_config (fcitx);
+}
+
+static void
+load_fcitx_config (void)
+{
+  static gboolean loaded = FALSE;
+
+  if (loaded)
+    return;
+
+  FILE *file = FcitxXDGGetFileUserWithPrefix (NULL, "config", "r", NULL);
+  FcitxConfigFile *config_file = FcitxConfigParseConfigFileFp (file, get_fcitx_config_desc ());
+  FcitxShareStateConfigConfigBind (&fcitx_config, config_file, get_fcitx_config_desc ());
+  FcitxConfigBindSync (&fcitx_config.config);
+
+  if (file)
+    fclose (file);
+
+  loaded = TRUE;
+}
+
+static void
+set_share_state (gint share_state)
+{
+  if (share_state != fcitx_config.share_state)
+    {
+      fcitx_config.share_state = share_state;
+      save_fcitx_config ();
+    }
+}
+
+static void
+share_state_radio_toggled (GtkToggleButton *widget,
+                           gpointer         user_data)
+{
+  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (WID ("share-state-no-radio"))))
+    set_share_state (0);
+  else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (WID ("share-state-all-radio"))))
+    set_share_state (1);
+  else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (WID ("share-state-per-program-radio"))))
+    set_share_state (2);
 }
 #endif
 
@@ -1827,7 +1899,33 @@ setup_input_tabs (GtkBuilder    *builder_,
                        "active",
                        G_SETTINGS_BIND_DEFAULT);
 
-      if (!is_fcitx_active)
+#ifdef HAVE_FCITX
+      if (is_fcitx_active)
+        {
+          load_fcitx_config ();
+
+          switch (fcitx_config.share_state)
+            {
+              case 0:
+                gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (WID ("share-state-no-radio")), TRUE);
+                break;
+              case 1:
+                gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (WID ("share-state-all-radio")), TRUE);
+                break;
+              case 2:
+                gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (WID ("share-state-per-program-radio")), TRUE);
+                break;
+            }
+
+          g_signal_connect (WID ("share-state-all-radio"), "toggled",
+                            G_CALLBACK (share_state_radio_toggled), builder);
+          g_signal_connect (WID ("share-state-no-radio"), "toggled",
+                            G_CALLBACK (share_state_radio_toggled), builder);
+          g_signal_connect (WID ("share-state-per-program-radio"), "toggled",
+                            G_CALLBACK (share_state_radio_toggled), builder);
+        }
+      else
+#endif /* HAVE_FCITX */
         {
           update_source_radios (builder);
 
