@@ -640,7 +640,11 @@ ibus_connected (IBusBus  *bus,
 
   fetch_ibus_engines (builder);
 
+#ifdef HAVE_FCITX
   if (has_indicator_keyboard () && !is_fcitx_active)
+#else
+  if (has_indicator_keyboard ())
+#endif
     update_source_radios (builder);
 
   /* We've got everything we needed, don't want to be called again. */
@@ -1532,7 +1536,11 @@ libgnomekbd_settings_changed (GSettings *settings,
                               gchar     *key,
                               gpointer   user_data)
 {
+#ifdef HAVE_FCITX
   if (!is_fcitx_active && (g_strcmp0 (key, KEY_GROUP_PER_WINDOW) == 0 || g_strcmp0 (key, KEY_DEFAULT_GROUP) == 0))
+#else
+  if (g_strcmp0 (key, KEY_GROUP_PER_WINDOW) == 0 || g_strcmp0 (key, KEY_DEFAULT_GROUP) == 0)
+#endif
     update_source_radios (user_data);
 }
 
