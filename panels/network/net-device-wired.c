@@ -157,34 +157,25 @@ device_off_toggled (GtkSwitch *sw,
         NMActiveConnection *a;
         NMConnection *connection;
         NMClient *client;
+        NMDevice *nm_device;
 
         if (device_wired->priv->updating_device)
                 return;
 
+        client = net_object_get_client (NET_OBJECT (device_wired));
+        nm_device = net_device_get_nm_device (NET_DEVICE (device_wired));
+
         active = gtk_switch_get_active (sw);
         if (active) {
-                client = net_object_get_client (NET_OBJECT (device_wired));
                 connection = net_device_get_find_connection (NET_DEVICE (device_wired));
                 if (connection == NULL)
                         return;
                 nm_client_activate_connection (client,
                                                connection,
-                                               net_device_get_nm_device (NET_DEVICE (device_wired)),
+                                               nm_device,
                                                NULL, NULL, NULL);
         } else {
-                connection = net_device_get_find_connection (NET_DEVICE (device_wired));
-                if (connection == NULL)
-                        return;
-                path = nm_connection_get_path (connection);
-                client = net_object_get_client (NET_OBJECT (device_wired));
-                acs = nm_client_get_active_connections (client);
-                for (i = 0; i < acs->len; i++) {
-                        a = (NMActiveConnection*)acs->pdata[i];
-                        if (strcmp (nm_active_connection_get_connection (a), path) == 0) {
-                                nm_client_deactivate_connection (client, a);
-                                break;
-                        }
-                }
+                nm_device_disconnect (nm_device, NULL, NULL);
         }
 }
 
