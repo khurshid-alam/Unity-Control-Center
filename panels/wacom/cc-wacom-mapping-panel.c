@@ -23,9 +23,8 @@
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
-#define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libgnome-desktop/gnome-rr.h>
-#include <libgnome-desktop/gnome-rr-config.h>
+#include <libunity-settings-daemon/gsd-rr.h>
+#include <libunity-settings-daemon/gsd-rr-config.h>
 
 #include <string.h>
 
@@ -57,17 +56,17 @@ static void combobox_changed_cb (GtkWidget *widget, CcWacomMappingPanel *self);
 static void checkbutton_toggled_cb (GtkWidget *widget, CcWacomMappingPanel *self);
 static void aspectswitch_toggled_cb (GtkWidget *widget, GParamSpec *pspec, CcWacomMappingPanel *self);
 
-static GnomeRROutputInfo**
+static GsdRROutputInfo**
 get_rr_outputs (void)
 {
 	GError *error = NULL;
-	GnomeRRScreen *rr_screen;
-	GnomeRRConfig *rr_config;
+	GsdRRScreen *rr_screen;
+	GsdRRConfig *rr_config;
 
 	/* TODO: Check the value of 'error' */
-	rr_screen = gnome_rr_screen_new (gdk_screen_get_default (), &error);
-	rr_config = gnome_rr_config_new_current (rr_screen, &error);
-	return gnome_rr_config_get_outputs (rr_config);
+	rr_screen = gsd_rr_screen_new (gdk_screen_get_default (), &error);
+	rr_config = gsd_rr_config_new_current (rr_screen, &error);
+	return gsd_rr_config_get_outputs (rr_config);
 }
 
 static void
@@ -91,7 +90,7 @@ static void
 update_monitor_chooser (CcWacomMappingPanel *self)
 {
 	GtkListStore *store;
-	GnomeRROutputInfo **outputs;
+	GsdRROutputInfo **outputs;
 	GdkRectangle geom;
 	GSettings *settings;
 	gint monitor;
@@ -130,19 +129,19 @@ update_monitor_chooser (CcWacomMappingPanel *self)
 		goto bail;
 
 	for (i = 0; outputs[i] != NULL; i++) {
-		GnomeRROutputInfo *output = outputs[i];
+		GsdRROutputInfo *output = outputs[i];
 
-		if (gnome_rr_output_info_is_active (output)) {
+		if (gsd_rr_output_info_is_active (output)) {
 			GtkTreeIter iter;
 			gchar *name, *disp_name, *text;
 			int x, y, w, h;
 			int mon_at_point;
 
-			name = gnome_rr_output_info_get_name (output);
-			disp_name = gnome_rr_output_info_get_display_name (output);
+			name = gsd_rr_output_info_get_name (output);
+			disp_name = gsd_rr_output_info_get_display_name (output);
 			text = g_strdup_printf ("%s (%s)", name, disp_name);
 
-			gnome_rr_output_info_get_geometry (output, &x, &y, &w, &h);
+			gsd_rr_output_info_get_geometry (output, &x, &y, &w, &h);
 			mon_at_point = gdk_screen_get_monitor_at_point (gdk_screen_get_default (), x, y);
 			gtk_list_store_append (store, &iter);
 			gtk_list_store_set (store, &iter, MONITOR_NAME_COLUMN, text, MONITOR_NUM_COLUMN, mon_at_point, -1);
