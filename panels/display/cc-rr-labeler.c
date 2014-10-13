@@ -38,7 +38,7 @@
 #include "cc-rr-labeler.h"
 
 struct _CcRRLabelerPrivate {
-	GnomeRRConfig *config;
+	GsdRRConfig *config;
 
 	int num_outputs;
 
@@ -106,7 +106,7 @@ cc_rr_labeler_set_property (GObject *gobject, guint property_id, const GValue *v
 
 	switch (property_id) {
 	case PROP_CONFIG:
-		self->priv->config = GNOME_RR_CONFIG (g_value_dup_object (value));
+		self->priv->config = GSD_RR_CONFIG (g_value_dup_object (value));
 		return;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (gobject, property_id, param_spec);
@@ -139,7 +139,7 @@ cc_rr_labeler_class_init (CcRRLabelerClass *klass)
 	g_object_class_install_property (object_class, PROP_CONFIG, g_param_spec_object ("config",
 											 "Configuration",
 											 "RandR configuration to label",
-											 GNOME_TYPE_RR_CONFIG,
+											 GSD_TYPE_RR_CONFIG,
 											 G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY |
 											 G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB));
 }
@@ -170,10 +170,10 @@ cc_rr_labeler_finalize (GObject *object)
 }
 
 static int
-count_outputs (GnomeRRConfig *config)
+count_outputs (GsdRRConfig *config)
 {
 	int i;
-	GnomeRROutputInfo **outputs = gnome_rr_config_get_outputs (config);
+	GsdRROutputInfo **outputs = gsd_rr_config_get_outputs (config);
 
 	for (i = 0; outputs[i] != NULL; i++)
 		;
@@ -402,7 +402,7 @@ label_window_composited_changed_cb (GtkWidget *widget, CcRRLabeler *labeler)
 }
 
 static GtkWidget *
-create_label_window (CcRRLabeler *labeler, GnomeRROutputInfo *output, GdkRGBA *rgba)
+create_label_window (CcRRLabeler *labeler, GsdRROutputInfo *output, GdkRGBA *rgba)
 {
 	GtkWidget *window;
 	GtkWidget *widget;
@@ -438,7 +438,7 @@ create_label_window (CcRRLabeler *labeler, GnomeRROutputInfo *output, GdkRGBA *r
 	g_signal_connect (window, "composited-changed",
 			  G_CALLBACK (label_window_composited_changed_cb), labeler);
 
-	if (gnome_rr_config_get_clone (labeler->priv->config)) {
+	if (gsd_rr_config_get_clone (labeler->priv->config)) {
 		/* Keep this string in sync with gnome-control-center/capplets/display/xrandr-capplet.c:get_display_name() */
 
 		/* Translators:  this is the feature where what you see on your
@@ -448,7 +448,7 @@ create_label_window (CcRRLabeler *labeler, GnomeRROutputInfo *output, GdkRGBA *r
 		 */
 		display_name = _("Mirrored Displays");
 	} else
-		display_name = gnome_rr_output_info_get_display_name (output);
+		display_name = gsd_rr_output_info_get_display_name (output);
 
 	str = g_strdup_printf ("<b>%s</b>", display_name);
 	widget = gtk_label_new (NULL);
@@ -466,7 +466,7 @@ create_label_window (CcRRLabeler *labeler, GnomeRROutputInfo *output, GdkRGBA *r
 	gtk_container_add (GTK_CONTAINER (window), widget);
 
 	/* Should we center this at the top edge of the monitor, instead of using the upper-left corner? */
-	gnome_rr_output_info_get_geometry (output, &x, &y, NULL, NULL);
+	gsd_rr_output_info_get_geometry (output, &x, &y, NULL, NULL);
 	position_window (labeler, window, x, y);
 
 	gtk_widget_show_all (window);
@@ -496,9 +496,9 @@ setup_from_config (CcRRLabeler *labeler)
  * Returns: A new #CcRRLabeler
  */
 CcRRLabeler *
-cc_rr_labeler_new (GnomeRRConfig *config)
+cc_rr_labeler_new (GsdRRConfig *config)
 {
-	g_return_val_if_fail (GNOME_IS_RR_CONFIG (config), NULL);
+	g_return_val_if_fail (GSD_IS_RR_CONFIG (config), NULL);
 
 	return g_object_new (GNOME_TYPE_RR_LABELER, "config", config, NULL);
 }
@@ -514,7 +514,7 @@ cc_rr_labeler_show (CcRRLabeler *labeler)
 {
 	int i;
 	gboolean created_window_for_clone;
-	GnomeRROutputInfo **outputs;
+	GsdRROutputInfo **outputs;
 
 	g_return_if_fail (GNOME_IS_RR_LABELER (labeler));
 
@@ -525,13 +525,13 @@ cc_rr_labeler_show (CcRRLabeler *labeler)
 
 	created_window_for_clone = FALSE;
 
-	outputs = gnome_rr_config_get_outputs (labeler->priv->config);
+	outputs = gsd_rr_config_get_outputs (labeler->priv->config);
 
 	for (i = 0; i < labeler->priv->num_outputs; i++) {
-		if (!created_window_for_clone && gnome_rr_output_info_is_active (outputs[i])) {
+		if (!created_window_for_clone && gsd_rr_output_info_is_active (outputs[i])) {
 			labeler->priv->windows[i] = create_label_window (labeler, outputs[i], labeler->priv->palette + i);
 
-			if (gnome_rr_config_get_clone (labeler->priv->config))
+			if (gsd_rr_config_get_clone (labeler->priv->config))
 				created_window_for_clone = TRUE;
 		} else
 			labeler->priv->windows[i] = NULL;
@@ -575,16 +575,16 @@ cc_rr_labeler_hide (CcRRLabeler *labeler)
  * Get the color used for the label on a given output (monitor).
  */
 void
-cc_rr_labeler_get_rgba_for_output (CcRRLabeler *labeler, GnomeRROutputInfo *output, GdkRGBA *rgba_out)
+cc_rr_labeler_get_rgba_for_output (CcRRLabeler *labeler, GsdRROutputInfo *output, GdkRGBA *rgba_out)
 {
 	int i;
-	GnomeRROutputInfo **outputs;
+	GsdRROutputInfo **outputs;
 
 	g_return_if_fail (GNOME_IS_RR_LABELER (labeler));
-	g_return_if_fail (GNOME_IS_RR_OUTPUT_INFO (output));
+	g_return_if_fail (GSD_IS_RR_OUTPUT_INFO (output));
 	g_return_if_fail (rgba_out != NULL);
 
-	outputs = gnome_rr_config_get_outputs (labeler->priv->config);
+	outputs = gsd_rr_config_get_outputs (labeler->priv->config);
 
 	for (i = 0; i < labeler->priv->num_outputs; i++)
 		if (outputs[i] == output) {

@@ -26,8 +26,7 @@
 #ifndef CC_RR_LABELER_H
 #define CC_RR_LABELER_H
 
-#define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libgnome-desktop/gnome-rr-config.h>
+#include <libunity-settings-daemon/gsd-rr-config.h>
 
 #define GNOME_TYPE_RR_LABELER            (cc_rr_labeler_get_type ())
 #define CC_RR_LABELER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GNOME_TYPE_RR_LABELER, CcRRLabeler))
@@ -53,12 +52,12 @@ struct _CcRRLabelerClass {
 
 GType cc_rr_labeler_get_type (void);
 
-CcRRLabeler *cc_rr_labeler_new (GnomeRRConfig *config);
+CcRRLabeler *cc_rr_labeler_new (GsdRRConfig *config);
 
 void cc_rr_labeler_show (CcRRLabeler *labeler);
 
 void cc_rr_labeler_hide (CcRRLabeler *labeler);
 
-void cc_rr_labeler_get_rgba_for_output (CcRRLabeler *labeler, GnomeRROutputInfo *output, GdkRGBA *rgba_out);
+void cc_rr_labeler_get_rgba_for_output (CcRRLabeler *labeler, GsdRROutputInfo *output, GdkRGBA *rgba_out);
 
 #endif
