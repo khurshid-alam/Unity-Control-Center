@@ -1518,6 +1518,7 @@ setup_input_tabs (GtkBuilder    *builder_,
   gtk_tree_view_set_model (GTK_TREE_VIEW (treeview), GTK_TREE_MODEL (store));
 
   input_sources_settings = g_settings_new (GNOME_DESKTOP_INPUT_SOURCES_DIR);
+  libgnomekbd_settings = g_settings_new (LIBGNOMEKBD_DESKTOP_SCHEMA_ID);
 
   g_settings_delay (input_sources_settings);
 
@@ -1576,7 +1577,6 @@ setup_input_tabs (GtkBuilder    *builder_,
 
   if (has_indicator_keyboard ())
     {
-      libgnomekbd_settings = g_settings_new (LIBGNOMEKBD_DESKTOP_SCHEMA_ID);
       ibus_panel_settings = g_settings_new (IBUS_PANEL_SCHEMA_ID);
       media_key_settings = g_settings_new (MEDIA_KEYS_SCHEMA_ID);
       indicator_settings = g_settings_new (INDICATOR_KEYBOARD_SCHEMA_ID);
