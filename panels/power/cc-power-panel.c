@@ -80,6 +80,44 @@ cc_power_panel_set_property (GObject      *object,
     }
 }
 
+static gboolean
+cc_power_login1 (const gchar *method)
+{
+        GVariant *result;
+        GDBusConnection *connection;
+        gboolean value;
+        gchar *s;
+
+        value=0;
+
+        connection = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, NULL);
+        result = g_dbus_connection_call_sync (connection,
+                                              "org.freedesktop.login1",
+                                              "/org/freedesktop/login1",
+                                              "org.freedesktop.login1.Manager",
+                                              method,
+                                              NULL,
+                                              NULL,
+                                              G_DBUS_CALL_FLAGS_NONE,
+                                             -1,
+                                             NULL,
+                                             NULL);
+        g_object_unref (connection);
+
+        if (result)
+        {
+                g_variant_get(result, "(s)", &s);
+
+                if (g_strcmp0 (s, "yes") == 0)
+                    value = 1;
+                g_variant_unref(result);
+                g_free (s);
+        }
+
+
+        return value;
+}
+
 static void
 cc_power_panel_dispose (GObject *object)
 {
@@ -895,10 +933,10 @@ disable_unavailable_combo_items (CcPowerPanel *self,
                           -1);
       switch (value_tmp) {
       case GSD_POWER_ACTION_SUSPEND:
-        enabled = up_client_get_can_suspend (self->priv->up_client);
+        enabled = cc_power_login1("CanSuspend");
         break;
       case GSD_POWER_ACTION_HIBERNATE:
-        enabled = up_client_get_can_hibernate (self->priv->up_client);
+        enabled = cc_power_login1("CanHibernate");
         break;
       default:
         enabled = TRUE;
@@ -942,22 +980,11 @@ set_ac_battery_ui_mode (CcPowerPanel *self)
 {
   gboolean has_batteries = FALSE;
   gboolean has_lid = FALSE;
-  gboolean ret;
-  GError *error = NULL;
   GPtrArray *devices;
   guint i;
   UpDevice *device;
   UpDeviceKind kind;
   CcPowerPanelPrivate *priv = self->priv;
-
-  /* this is sync, but it's cached in the daemon and so quick */
-  ret = up_client_enumerate_devices_sync (self->priv->up_client, NULL, &error);
-  if (!ret)
-    {
-      g_warning ("failed to get device list: %s", error->message);
-      g_error_free (error);
-      goto out;
-    }
 
   devices = up_client_get_devices (self->priv->up_client);
   for (i=0; i<devices->len; i++)
@@ -977,7 +1004,6 @@ set_ac_battery_ui_mode (CcPowerPanel *self)
 
   has_lid = up_client_get_lid_is_present (self->priv->up_client);
 
-out:
   gtk_widget_set_visible (WID (priv->builder, "combobox_lid_ac"), has_lid);
   gtk_widget_set_visible (WID (priv->builder, "label_lid_action"), has_lid);
   gtk_widget_set_visible (WID (priv->builder, "combobox_lid_battery"), has_batteries && has_lid);
