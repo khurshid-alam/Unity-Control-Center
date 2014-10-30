@@ -1,8 +1,8 @@
-unity-control-center (15.04.0+15.04.20141030-0ubuntu1) UNRELEASED; urgency=medium
+unity-control-center (15.04.0+15.04.20141030-0ubuntu1) vivid; urgency=medium
 
   * Port to upower 0.99 (LP: #1330037)
 
- -- Tim Lunn <tim@feathertop.org>  Fri, 12 Sep 2014 09:55:37 +1000
+ -- Tim Lunn <tim@feathertop.org>  Thu, 30 Oct 2014 17:27:40 +0100
 
 unity-control-center (14.10.0+14.10.20140922-0ubuntu2) utopic; urgency=medium
 
