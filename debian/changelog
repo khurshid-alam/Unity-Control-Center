@@ -1,3 +1,10 @@
+unity-control-center (15.04.0+15.04.20141105-0ubuntu1) vivid; urgency=low
+
+  [ Sebastien Bacher ]
+  * Update version number
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 05 Nov 2014 08:32:29 +0000
+
 unity-control-center (15.04.0+15.04.20141030-0ubuntu1) vivid; urgency=medium
 
   * Port to upower 0.99 (LP: #1330037)
