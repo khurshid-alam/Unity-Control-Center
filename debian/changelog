@@ -1,3 +1,13 @@
+unity-control-center (15.04.0+15.04.20141217-0ubuntu1) vivid; urgency=low
+
+  [ Lars Uebernickel ]
+  * appearance: don't set overlay-scrollbar setting overlay-scrollbars
+    now does this itself based on a key in index.theme.
+  * shell.ui: set .primary-toolbar instead of .menubar on the primary
+    toolbar
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 17 Dec 2014 17:13:35 +0000
+
 unity-control-center (15.04.0+15.04.20141212-0ubuntu1) vivid; urgency=low
 
   [ David Henningsson ]
