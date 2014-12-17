@@ -69,7 +69,6 @@ struct _CcAppearancePanelPrivate
 
   GSettings *settings;
   GSettings *interface_settings;
-  GSettings *canonical_interface_settings;
   GSettings *wm_theme_settings;
   GSettings *unity_settings;
   GSettings *compizcore_settings;
@@ -203,12 +202,6 @@ cc_appearance_panel_dispose (GObject *object)
     {
       g_object_unref (priv->interface_settings);
       priv->interface_settings = NULL;
-    }
-
-  if (priv->canonical_interface_settings)
-    {
-      g_object_unref (priv->canonical_interface_settings);
-      priv->canonical_interface_settings = NULL;
     }
 
   if (priv->wm_theme_settings)
@@ -1308,24 +1301,10 @@ theme_selection_changed (GtkComboBox *combo, CcAppearancePanel *self)
 
   g_settings_delay (self->priv->interface_settings);
 
-  if (self->priv->canonical_interface_settings != NULL)
-    g_settings_delay (self->priv->canonical_interface_settings);
-
   g_settings_set_string (self->priv->interface_settings, "gtk-theme", gtk_theme);
   g_settings_set_string (self->priv->interface_settings, "icon-theme", icon_theme);
   g_settings_set_string (self->priv->interface_settings, "cursor-theme", cursor_theme);
   g_settings_set_string (self->priv->wm_theme_settings, "theme", window_theme);
-
-
-  /* disable overlay scrollbars for a11y if installed*/
-  if (self->priv->canonical_interface_settings)
-    {
-      if (g_strcmp0 (gtk_theme, "HighContrast") == 0 )
-        g_settings_set_string (self->priv->canonical_interface_settings, "scrollbar-mode", "normal");
-      else
-        g_settings_reset (self->priv->canonical_interface_settings, "scrollbar-mode");
-      g_settings_apply (self->priv->canonical_interface_settings);
-    }
 
   g_settings_apply (self->priv->interface_settings);
 
@@ -1350,8 +1329,6 @@ setup_theme_selector (CcAppearancePanel *self)
   priv->interface_settings = g_settings_new ("org.gnome.desktop.interface");
 
   source = g_settings_schema_source_get_default ();
-  if (source != NULL && g_settings_schema_source_lookup (source, CANONICAL_DESKTOP_INTERFACE, TRUE) != NULL)
-    priv->canonical_interface_settings = g_settings_new (CANONICAL_DESKTOP_INTERFACE);
 
   priv->wm_theme_settings = g_settings_new ("org.gnome.desktop.wm.preferences");
   current_gtk_theme = g_settings_get_string (priv->interface_settings, "gtk-theme");
@@ -1839,7 +1816,6 @@ setup_unity_settings (CcAppearancePanel *self)
   GSettingsSchemaSource* source;
 
   source = g_settings_schema_source_get_default ();
-
   schema = g_settings_schema_source_lookup (source, UNITY_OWN_GSETTINGS_SCHEMA, TRUE);
   if (schema)
     {
