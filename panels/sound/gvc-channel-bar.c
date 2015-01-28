@@ -551,7 +551,6 @@ update_mute (GvcChannelBar *bar)
                  * and tell the front-end that the value changed */
                 gtk_range_set_adjustment (GTK_RANGE (bar->priv->scale),
                                           bar->priv->adjustment);
-                gtk_adjustment_value_changed (bar->priv->adjustment);
         }
 }
 
