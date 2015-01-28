@@ -98,8 +98,6 @@ struct GvcMixerControlPrivate
         guint            profile_swapping_device_id;
 
         GvcMixerControlState state;
-
-        pa_operation     *o_get_sink_info;
 };
 
 enum {
@@ -2169,11 +2167,6 @@ _pa_context_get_sink_info_cb (pa_context         *context,
 {
         GvcMixerControl *control = GVC_MIXER_CONTROL (userdata);
 
-        if (control->priv->o_get_sink_info != NULL) {
-                pa_operation_unref (control->priv->o_get_sink_info);
-                control->priv->o_get_sink_info = NULL;
-        }
-
         if (eol < 0) {
                 if (pa_context_errno (context) == PA_ERR_NOENTITY) {
                         return;
@@ -2509,28 +2502,24 @@ static void
 req_update_sink_info (GvcMixerControl *control,
                       int              index)
 {
-        if (control->priv->o_get_sink_info != NULL) {
-                g_debug ("Previous get_sink_info request is still in progress, cancel it");
-                pa_operation_cancel (control->priv->o_get_sink_info);
-                pa_operation_unref (control->priv->o_get_sink_info);
-                control->priv->o_get_sink_info = NULL;
-        }
+        pa_operation *o;
 
         if (index < 0) {
-                control->priv->o_get_sink_info = pa_context_get_sink_info_list (control->priv->pa_context,
+                o = pa_context_get_sink_info_list (control->priv->pa_context,
                                                    _pa_context_get_sink_info_cb,
                                                    control);
         } else {
-                control->priv->o_get_sink_info = pa_context_get_sink_info_by_index (control->priv->pa_context,
+                o = pa_context_get_sink_info_by_index (control->priv->pa_context,
                                                        index,
                                                        _pa_context_get_sink_info_cb,
                                                        control);
         }
 
-        if (control->priv->o_get_sink_info == NULL) {
+        if (o == NULL) {
                 g_warning ("pa_context_get_sink_info_list() failed");
                 return;
         }
+        pa_operation_unref (o);
 }
 
 static void
