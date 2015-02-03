@@ -1,3 +1,18 @@
+unity-control-center (15.04.0+15.04.20150203.2-0ubuntu1) vivid; urgency=medium
+
+  [ Sebastien Bacher ]
+  * shell: don't use deprecated properties, avoid runtime warnings
+
+  [ Jian-Ding Chen (timchen119) ]
+  * Set higher priority of glxinfo's result then Xorg's log for
+    "Details" -> "Overview" -> "Graphics" info in control center. (LP:
+    #1417034) (LP: #1417034)
+
+  [ Dan Winship ]
+  * network: update for nma-wifi-dialog renaming
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 03 Feb 2015 12:26:36 +0000
+
 unity-control-center (15.04.0+15.04.20141217-0ubuntu2) vivid; urgency=medium
 
   * Switch gnome-icon-theme to adwaita-icon-theme, which is its
