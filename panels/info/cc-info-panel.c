@@ -450,10 +450,10 @@ get_graphics_data (void)
   result->glx_renderer = get_graphics_data_glx_renderer ();
   result->xorg_vesa_hardware = get_graphics_data_xorg_vesa_hardware ();
 
-  if (result->xorg_vesa_hardware != NULL)
-    result->hardware_string = result->xorg_vesa_hardware;
-  else if (result->glx_renderer != NULL)
+  if (result->glx_renderer != NULL)
     result->hardware_string = result->glx_renderer;
+  else if (result->xorg_vesa_hardware != NULL)
+    result->hardware_string = result->xorg_vesa_hardware;
   else
     result->hardware_string = _("Unknown");
 
