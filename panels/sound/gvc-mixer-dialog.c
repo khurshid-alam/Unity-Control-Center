@@ -397,8 +397,13 @@ stop_monitor_stream_for_source (GvcMixerDialog *dialog)
                 res = pa_stream_disconnect (s);
                 if (res == 0) {
                         g_debug("stream has been disconnected");
-                        pa_stream_unref (s);
                 }
+                else {
+                        g_warning ("pa_stream_disconnect failed, res = %d", res);
+                        /* If disconnect failed, at least make sure we don't show the data */       
+                        pa_stream_set_read_callback (s, NULL, NULL);
+                }
+                pa_stream_unref (s);
                 g_object_set_data (G_OBJECT (dialog->priv->input_level_bar), "pa_stream", NULL);        
         }
                 
@@ -407,10 +412,8 @@ stop_monitor_stream_for_source (GvcMixerDialog *dialog)
         if (pa_context_get_server_protocol_version (context) < 13) {
                 return;
         }
-        if (res == 0) {
-                g_object_set_data (G_OBJECT (stream), "has-monitor", GINT_TO_POINTER (FALSE));
-        }
-        g_debug ("Stopping monitor for %u", pa_stream_get_index (s));
+        g_object_set_data (G_OBJECT (stream), "has-monitor", GINT_TO_POINTER (FALSE));
+        g_debug ("Stopping monitor");
         g_object_set_data (G_OBJECT (dialog->priv->input_level_bar), "stream", NULL);
 }
 
@@ -1503,7 +1506,7 @@ on_input_selection_changed (GtkTreeSelection *selection,
 {
         GtkTreeModel *model;
         GtkTreeIter   iter;
-        gboolean      toggled;
+        gboolean      active;
         guint         id;
 
         if (gtk_tree_selection_get_selected (selection, &model, &iter) == FALSE) {
@@ -1513,10 +1516,13 @@ on_input_selection_changed (GtkTreeSelection *selection,
 
         gtk_tree_model_get (model, &iter,
                             ID_COLUMN, &id,
-                            ACTIVE_COLUMN, &toggled,
+                            ACTIVE_COLUMN, &active,
                             -1);
 
-        toggled ^= 1;
+        g_debug ("\n\n on_input_selection_changed - active %i \n\n", active); 
+        if (active)
+                return;
+
         GvcMixerUIDevice *input;
         //g_debug ("on_input_selection_changed - try swap to input with id %u", id); 
         input = gvc_mixer_control_lookup_input_id (dialog->priv->mixer_control, id);

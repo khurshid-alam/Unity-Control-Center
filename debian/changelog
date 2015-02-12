@@ -1,3 +1,97 @@
+unity-control-center (15.04.0+15.04.20150203.2-0ubuntu1) vivid; urgency=medium
+
+  [ Sebastien Bacher ]
+  * shell: don't use deprecated properties, avoid runtime warnings
+
+  [ Jian-Ding Chen (timchen119) ]
+  * Set higher priority of glxinfo's result then Xorg's log for
+    "Details" -> "Overview" -> "Graphics" info in control center. (LP:
+    #1417034) (LP: #1417034)
+
+  [ Dan Winship ]
+  * network: update for nma-wifi-dialog renaming
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 03 Feb 2015 12:26:36 +0000
+
+unity-control-center (15.04.0+15.04.20141217-0ubuntu2) vivid; urgency=medium
+
+  * Switch gnome-icon-theme to adwaita-icon-theme, which is its
+    successor. (LP: #1414613)
+
+ -- Iain Lane <iain@orangesquash.org.uk>  Mon, 26 Jan 2015 17:41:14 +0000
+
+unity-control-center (15.04.0+15.04.20141217-0ubuntu1) vivid; urgency=low
+
+  [ Lars Uebernickel ]
+  * appearance: don't set overlay-scrollbar setting overlay-scrollbars
+    now does this itself based on a key in index.theme.
+  * shell.ui: set .primary-toolbar instead of .menubar on the primary
+    toolbar
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 17 Dec 2014 17:13:35 +0000
+
+unity-control-center (15.04.0+15.04.20141212-0ubuntu1) vivid; urgency=low
+
+  [ David Henningsson ]
+  * When the treeview is programmatically updated, the treeview fires a
+    signal that the active item has changed. To distinguish this from a
+    user click, we check the active flag. This was done for output but
+    not for input. (LP: #1376776) (LP: #1376776)
+
+  [ Huan Peng ]
+  * show desktop could not restore to default (LP: #1372868)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 12 Dec 2014 15:33:22 +0000
+
+unity-control-center (15.04.0+15.04.20141105-0ubuntu1) vivid; urgency=low
+
+  [ Sebastien Bacher ]
+  * Update version number
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 05 Nov 2014 08:32:29 +0000
+
+unity-control-center (15.04.0+15.04.20141030-0ubuntu1) vivid; urgency=medium
+
+  * Port to upower 0.99 (LP: #1330037)
+
+ -- Tim Lunn <tim@feathertop.org>  Thu, 30 Oct 2014 17:27:40 +0100
+
+unity-control-center (14.10.0+14.10.20140922-0ubuntu2) utopic; urgency=medium
+
+  * No change rebuild for gnome-desktop 3.12
+
+ -- Tim Lunn <tim@feathertop.org>  Mon, 29 Sep 2014 22:14:24 +1000
+
+unity-control-center (14.10.0+14.10.20140922-0ubuntu1) utopic; urgency=low
+
+  [ Robert Ancell ]
+  * Fix Vcs-Bzr link that was pointing to gnome-control-center packaging
+  *  Use libunity-settings-daemon to replace functionality that is being
+    changed/removed in libgnome-desktop (LP: #1372240)
+
+  [ David Henningsson ]
+  * Make sure selecting a bluetooth input works even when the headset is
+    in A2DP mode, and make sure the correct levels are shown in the
+    level bar (Bug 1367693) (LP: #1367693)
+
+  [ Mathieu Trudel-Lapierre ]
+  * Deactivate the wired device when wired is switched off. (LP:
+    #1354987)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 22 Sep 2014 11:36:24 +0000
+
+unity-control-center (14.10.0+14.10.20140702.1-0ubuntu3) utopic; urgency=medium
+
+  * Actually do a no change rebuild against new libgtop
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Wed, 20 Aug 2014 15:31:05 +1200
+
+unity-control-center (14.10.0+14.10.20140702.1-0ubuntu2) utopic; urgency=medium
+
+  * No change rebuild against new libgtop
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Tue, 19 Aug 2014 14:01:28 +1200
+
 unity-control-center (14.10.0+14.10.20140702.1-0ubuntu1) utopic; urgency=low
 
   [ Robert Ancell ]
