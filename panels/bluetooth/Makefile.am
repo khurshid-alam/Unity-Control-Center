@@ -1,3 +1,5 @@
+SUBDIRS = gnome-bluetooth
+
 # This is used in PANEL_CFLAGS
 cappletname = bluetooth
 
@@ -6,7 +8,8 @@ ccpanels_LTLIBRARIES = libbluetooth.la
 
 INCLUDES = 						\
 	$(PANEL_CFLAGS)					\
-	$(BLUETOOTH_CFLAGS)				\
+	$(BLUETOOTH_PANEL_CFLAGS)				\
+	-I$(srcdir)/gnome-bluetooth/lib			\
 	-DGNOMELOCALEDIR="\"$(datadir)/locale\""	\
 	$(NULL)
 
@@ -17,9 +20,18 @@ BUILT_SOURCES =				\
 libbluetooth_la_SOURCES =			\
 	$(BUILT_SOURCES)			\
 	cc-bluetooth-panel.c			\
-	cc-bluetooth-panel.h
+	cc-bluetooth-panel.h			\
+	bluetooth-killswitch.c			\
+	bluetooth-killswitch.h			\
+	rfkill.h				\
+	rfkill-glib.c				\
+	rfkill-glib.h
 
-libbluetooth_la_LIBADD = $(PANEL_LIBS) $(BLUETOOTH_LIBS)
+libbluetooth_la_LIBADD = \
+	$(PANEL_LIBS) \
+	$(BLUETOOTH_PANEL_LIBS) \
+	$(builddir)/gnome-bluetooth/lib/libgnome-bluetooth.la
+
 libbluetooth_la_LDFLAGS = $(PANEL_LDFLAGS)
 
 resource_files = $(shell glib-compile-resources --sourcedir=$(srcdir) --generate-dependencies $(srcdir)/bluetooth.gresource.xml)
