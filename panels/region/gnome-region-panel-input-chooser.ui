@@ -9,6 +9,8 @@
       <column type="gchararray"/>
       <!-- type specific identifier -->
       <column type="gchararray"/>
+      <!-- text colour -->
+      <column type="GdkRGBA"/>
     </columns>
   </object>
   <object class="GtkTreeModelFilter" id="filtered_input_source_model">
