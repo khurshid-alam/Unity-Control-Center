@@ -120,6 +120,7 @@ static gboolean is_fcitx_active = FALSE;
 struct _FcitxShareStateConfig
 {
   FcitxGenericConfig config;
+  gboolean config_valid;
   gint share_state;
 };
 
@@ -1733,6 +1734,9 @@ fcitx_init (void)
 static void
 save_fcitx_config (void)
 {
+  if (!fcitx_config.config_valid)
+    return;
+
   FILE *file = FcitxXDGGetFileUserWithPrefix (NULL, "config", "w", NULL);
   FcitxConfigSaveConfigFileFp (file, &fcitx_config.config, get_fcitx_config_desc ());
 
@@ -1745,20 +1749,24 @@ save_fcitx_config (void)
 static void
 load_fcitx_config (void)
 {
-  static gboolean loaded = FALSE;
+  static gboolean attempted = FALSE;
 
-  if (loaded)
+  if (attempted)
     return;
 
   FILE *file = FcitxXDGGetFileUserWithPrefix (NULL, "config", "r", NULL);
-  FcitxConfigFile *config_file = FcitxConfigParseConfigFileFp (file, get_fcitx_config_desc ());
-  FcitxShareStateConfigConfigBind (&fcitx_config, config_file, get_fcitx_config_desc ());
-  FcitxConfigBindSync (&fcitx_config.config);
+  FcitxConfigFileDesc *config_file_desc = get_fcitx_config_desc ();
 
-  if (file)
-    fclose (file);
+  if (config_file_desc)
+    {
+      FcitxConfigFile *config_file = FcitxConfigParseConfigFileFp (file, get_fcitx_config_desc ());
+      FcitxShareStateConfigConfigBind (&fcitx_config, config_file, get_fcitx_config_desc ());
+      FcitxConfigBindSync (&fcitx_config.config);
+      fcitx_config.config_valid = TRUE;
+      fclose (file);
+    }
 
-  loaded = TRUE;
+  attempted = TRUE;
 }
 
 static void
