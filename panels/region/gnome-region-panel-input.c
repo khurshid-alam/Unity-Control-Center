@@ -1754,13 +1754,14 @@ load_fcitx_config (void)
   if (attempted)
     return;
 
-  FILE *file = FcitxXDGGetFileUserWithPrefix (NULL, "config", "r", NULL);
   FcitxConfigFileDesc *config_file_desc = get_fcitx_config_desc ();
 
   if (config_file_desc)
     {
-      FcitxConfigFile *config_file = FcitxConfigParseConfigFileFp (file, get_fcitx_config_desc ());
-      FcitxShareStateConfigConfigBind (&fcitx_config, config_file, get_fcitx_config_desc ());
+      FILE *file = FcitxXDGGetFileUserWithPrefix (NULL, "config", "r", NULL);
+
+      FcitxConfigFile *config_file = FcitxConfigParseConfigFileFp (file, config_file_desc);
+      FcitxShareStateConfigConfigBind (&fcitx_config, config_file, config_file_desc);
       FcitxConfigBindSync (&fcitx_config.config);
       fcitx_config.config_valid = TRUE;
 
