@@ -109,7 +109,6 @@ Suggests: gnome-screensaver | xscreensaver,
           gstreamer0.10-pulseaudio,
           libcanberra-gtk-module,
           x11-xserver-utils,
-          fcitx-data,
 Provides: unity-control-center-datetime,
           gnome-control-center-unity,
 Description: utilities to configure the GNOME desktop
