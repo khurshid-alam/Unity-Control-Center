@@ -1763,7 +1763,9 @@ load_fcitx_config (void)
       FcitxShareStateConfigConfigBind (&fcitx_config, config_file, get_fcitx_config_desc ());
       FcitxConfigBindSync (&fcitx_config.config);
       fcitx_config.config_valid = TRUE;
-      fclose (file);
+
+      if (file)
+        fclose (file);
     }
 
   attempted = TRUE;
