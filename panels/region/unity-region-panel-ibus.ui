@@ -115,7 +115,7 @@
                       <object class="GtkVBox" id="vbox6">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="margin_right">5</property>
+                        <property name="margin_end">5</property>
                         <child>
                           <object class="GtkLabel" id="label2">
                             <property name="visible">True</property>
@@ -433,7 +433,6 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="receives_default">False</property>
-                                <property name="xalign">0</property>
                                 <property name="active">True</property>
                                 <property name="draw_indicator">True</property>
                               </object>
@@ -449,7 +448,6 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="receives_default">False</property>
-                                <property name="xalign">0</property>
                                 <property name="active">True</property>
                                 <property name="draw_indicator">True</property>
                                 <property name="group">same-source-radio</property>
@@ -466,8 +464,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="receives_default">False</property>
-                                <property name="margin_left">25</property>
-                                <property name="xalign">0</property>
+                                <property name="margin_start">25</property>
                                 <property name="active">True</property>
                                 <property name="draw_indicator">True</property>
                               </object>
@@ -483,9 +480,8 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="receives_default">False</property>
-                                <property name="margin_left">25</property>
+                                <property name="margin_start">25</property>
                                 <property name="margin_bottom">15</property>
-                                <property name="xalign">0</property>
                                 <property name="active">True</property>
                                 <property name="draw_indicator">True</property>
                                 <property name="group">default-source-radio</property>
@@ -512,7 +508,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="halign">end</property>
-                                <property name="margin_right">10</property>
+                                <property name="margin_end">10</property>
                                 <property name="margin_bottom">10</property>
                                 <property name="hexpand">True</property>
                                 <property name="label" translatable="yes">Show input candidates:</property>
@@ -566,9 +562,8 @@
                                 <property name="can_focus">False</property>
                                 <property name="receives_default">False</property>
                                 <property name="halign">end</property>
-                                <property name="margin_right">10</property>
+                                <property name="margin_end">10</property>
                                 <property name="hexpand">True</property>
-                                <property name="xalign">0</property>
                                 <property name="draw_indicator">True</property>
                               </object>
                               <packing>
@@ -611,7 +606,6 @@
                         <property name="can_focus">False</property>
                         <property name="receives_default">False</property>
                         <property name="hexpand">True</property>
-                        <property name="xalign">0</property>
                         <property name="draw_indicator">True</property>
                       </object>
                       <packing>
