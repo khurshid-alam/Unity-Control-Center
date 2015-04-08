@@ -115,7 +115,7 @@
                       <object class="GtkVBox" id="vbox6">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="margin_right">5</property>
+                        <property name="margin_end">5</property>
                         <child>
                           <object class="GtkLabel" id="label2">
                             <property name="visible">True</property>
@@ -433,7 +433,6 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="receives_default">False</property>
-                                <property name="xalign">0</property>
                                 <property name="active">False</property>
                                 <property name="draw_indicator">True</property>
                               </object>
@@ -449,7 +448,6 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="receives_default">False</property>
-                                <property name="xalign">0</property>
                                 <property name="active">True</property>
                                 <property name="draw_indicator">True</property>
                                 <property name="group">share-state-all-radio</property>
@@ -466,7 +464,6 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="receives_default">False</property>
-                                <property name="xalign">0</property>
                                 <property name="active">False</property>
                                 <property name="draw_indicator">True</property>
                                 <property name="group">share-state-all-radio</property>
@@ -510,7 +507,6 @@
                         <property name="can_focus">False</property>
                         <property name="receives_default">False</property>
                         <property name="hexpand">True</property>
-                        <property name="xalign">0</property>
                         <property name="draw_indicator">True</property>
                       </object>
                       <packing>
