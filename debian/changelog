@@ -1,3 +1,15 @@
+unity-control-center (15.04.0+15.04.20150408-0ubuntu1) vivid; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ William Hua ]
+  * Don't free the Fcitx config proxy if we haven't ever initialized it.
+    (LP: #1431811)
+  * Fix deprecation warnings in region panel.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 08 Apr 2015 15:13:52 +0000
+
 unity-control-center (15.04.0+15.04.20150313-0ubuntu1) vivid; urgency=medium
 
   [ William Hua ]
