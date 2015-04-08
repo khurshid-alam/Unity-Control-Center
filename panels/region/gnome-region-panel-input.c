@@ -1610,7 +1610,8 @@ shortcut_key_pressed (GtkEntryAccel   *entry,
 static void
 clear_fcitx (void)
 {
-  FcitxConfigFree (&fcitx_config.config);
+  if (fcitx_config.config_valid)
+    FcitxConfigFree (&fcitx_config.config);
 
   if (fcitx_cancellable)
     g_cancellable_cancel (fcitx_cancellable);
@@ -1864,8 +1865,10 @@ setup_input_tabs (GtkBuilder    *builder_,
 #endif
 
 #ifdef HAVE_FCITX
-  fcitx_init ();
   is_fcitx_active = g_strcmp0 (module, GTK_IM_MODULE_FCITX) == 0;
+
+  if (is_fcitx_active)
+    fcitx_init ();
 #endif
 
   populate_with_active_sources (store);
