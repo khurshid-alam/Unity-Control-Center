@@ -58,6 +58,8 @@ struct CcBluetoothPanelPrivate {
 	GHashTable          *connecting_devices;
 	GCancellable        *cancellable;
 	GSettings           *indicator_settings;
+
+	gulong               power_callback_handler_id;
 };
 
 static void cc_bluetooth_panel_finalize (GObject *object);
@@ -420,8 +422,12 @@ power_callback (GObject          *object,
 
 	state = gtk_switch_get_active (GTK_SWITCH (WID ("switch_bluetooth")));
 	g_debug ("Power switched to %s", state ? "on" : "off");
+	g_signal_handler_block (G_OBJECT (WID ("switch_bluetooth")),
+				self->priv->power_callback_handler_id);
 	bluetooth_killswitch_set_state (self->priv->killswitch,
 					state ? BLUETOOTH_KILLSWITCH_STATE_UNBLOCKED : BLUETOOTH_KILLSWITCH_STATE_SOFT_BLOCKED);
+	g_signal_handler_unblock (G_OBJECT (WID ("switch_bluetooth")),
+				  self->priv->power_callback_handler_id);
 }
 
 static void
@@ -776,7 +782,11 @@ default_adapter_power_changed (BluetoothClient  *client,
 			       CcBluetoothPanel *self)
 {
 	g_debug ("Default adapter power changed");
+	g_signal_handler_block (G_OBJECT (WID ("switch_bluetooth")),
+				self->priv->power_callback_handler_id);
 	cc_bluetooth_panel_update_powered_state (self);
+	g_signal_handler_unblock (G_OBJECT (WID ("switch_bluetooth")),
+				  self->priv->power_callback_handler_id);
 }
 
 static void
@@ -785,9 +795,13 @@ default_adapter_changed (BluetoothClient  *client,
 			 CcBluetoothPanel *self)
 {
 	g_debug ("Default adapter changed");
+	g_signal_handler_block (G_OBJECT (WID ("switch_bluetooth")),
+				self->priv->power_callback_handler_id);
 	cc_bluetooth_panel_update_state (self);
 	cc_bluetooth_panel_update_power (self);
 	cc_bluetooth_panel_update_powered_state (self);
+	g_signal_handler_unblock (G_OBJECT (WID ("switch_bluetooth")),
+				  self->priv->power_callback_handler_id);
 }
 
 static void
@@ -796,8 +810,12 @@ killswitch_changed (BluetoothKillswitch      *killswitch,
 		    CcBluetoothPanel         *self)
 {
 	g_debug ("Killswitch changed to state '%s' (%d)", bluetooth_killswitch_state_to_string (state) , state);
+	g_signal_handler_block (G_OBJECT (WID ("switch_bluetooth")),
+				self->priv->power_callback_handler_id);
 	cc_bluetooth_panel_update_state (self);
 	cc_bluetooth_panel_update_power (self);
+	g_signal_handler_unblock (G_OBJECT (WID ("switch_bluetooth")),
+				  self->priv->power_callback_handler_id);
 }
 
 static void
@@ -904,6 +922,7 @@ cc_bluetooth_panel_init (CcBluetoothPanel *self)
 			  G_CALLBACK (switch_connected_active_changed), self);
 
 	/* Set the initial state of power */
+	self->priv->power_callback_handler_id =
 	g_signal_connect (G_OBJECT (WID ("switch_bluetooth")), "notify::active",
 			  G_CALLBACK (power_callback), self);
 	g_signal_connect (G_OBJECT (self->priv->killswitch), "state-changed",
