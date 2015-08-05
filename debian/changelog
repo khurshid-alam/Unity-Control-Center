@@ -1,3 +1,14 @@
+unity-control-center (15.04.0+15.10.20150805-0ubuntu1) wily; urgency=medium
+
+  [ Robert Ancell ]
+  * Update system information logo for Wily Werewolf (LP: #1470840)
+
+  [ Yu Ning ]
+  * Trigger the "value-changed" signal outside set_is_muted() when
+    necessary. (LP: #1396464)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 05 Aug 2015 09:44:44 +0000
+
 unity-control-center (15.04.0+15.04.20150410-0ubuntu1) vivid; urgency=medium
 
   [ Yu Ning ]
