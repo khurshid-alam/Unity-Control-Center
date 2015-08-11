@@ -9,6 +9,11 @@ panels/appearance/unity-appearance-panel.desktop.in.in
 panels/bluetooth/unity-bluetooth-panel.desktop.in.in
 [type: gettext/glade]panels/bluetooth/bluetooth.ui
 panels/bluetooth/cc-bluetooth-panel.c
+panels/bluetooth/gnome-bluetooth/lib/bluetooth-chooser.c
+panels/bluetooth/gnome-bluetooth/lib/bluetooth-filter-widget.c
+panels/bluetooth/gnome-bluetooth/lib/bluetooth-utils.c
+panels/bluetooth/gnome-bluetooth/wizard/main.c
+panels/bluetooth/gnome-bluetooth/wizard/wizard.ui
 panels/color/cc-color-panel.c
 [type: gettext/glade]panels/color/color.ui
 panels/color/unity-color-panel.desktop.in.in
