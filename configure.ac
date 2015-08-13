@@ -171,6 +171,7 @@ PKG_CHECK_MODULES(USER_ACCOUNTS_PANEL, $COMMON_MODULES
                   gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED_VERSION
                   pwquality
                   accountsservice >= $ACCOUNTSSERVICE_REQUIRED_VERSION)
+PKG_CHECK_MODULES(BLUETOOTH_PANEL, $COMMON_MODULES)
 
 AM_PROG_VALAC([0.20.0])
 
@@ -187,11 +188,6 @@ if test "x$have_networkmanager" = xno ; then
         AC_MSG_WARN(*** Network panel will not be built (NetworkManager ~0.9 or newer not found) ***)
 fi
 AM_CONDITIONAL(BUILD_NETWORK, [test x$have_networkmanager = xyes])
-
-# Check for gnome-bluetooth
-PKG_CHECK_MODULES(BLUETOOTH, $COMMON_MODULES gnome-bluetooth-1.0 >= 3.5.5,
-		  [have_bluetooth=yes], have_bluetooth=no)
-AM_CONDITIONAL(BUILD_BLUETOOTH, [test x$have_bluetooth = xyes])
 
 # Check for CUPS 1.4 or newer
 AC_ARG_ENABLE([cups],
@@ -419,6 +415,9 @@ panels/common/Makefile
 panels/appearance/Makefile
 panels/appearance/unity-appearance-panel.desktop.in
 panels/bluetooth/Makefile
+panels/bluetooth/gnome-bluetooth/Makefile
+panels/bluetooth/gnome-bluetooth/lib/Makefile
+panels/bluetooth/gnome-bluetooth/wizard/Makefile
 panels/bluetooth/unity-bluetooth-panel.desktop.in
 panels/datetime/Makefile
 panels/datetime/unity-datetime-panel.desktop.in
@@ -501,11 +500,6 @@ if test "x$have_networkmanager" = "xyes"; then
 	AC_MSG_NOTICE([** NetworkManager (Network panel)])
 else
 	AC_MSG_NOTICE([   Network panel disabled])
-fi
-if test "x$have_bluetooth" = "xyes"; then
-	AC_MSG_NOTICE([** gnome-bluetooth (Bluetooth panel)])
-else
-	AC_MSG_NOTICE([   Bluetooth panel disabled])
 fi
 if test "x$enable_cups" = "xyes"; then
 	AC_MSG_NOTICE([** CUPS (Printers panel)])
