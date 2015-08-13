@@ -1,3 +1,16 @@
+unity-control-center (15.04.0+15.10.20150813-0ubuntu1) wily; urgency=medium
+
+  [ Lars Uebernickel ]
+  * Some tweaks for the new bluez changes include libgnome-bluetooth lib
+    in the deb refresh translatable sources list updated build-depends
+  * bluetooth: make compatible with bluez5
+
+  [ Sebastien Bacher ]
+  * Some tweaks for the new bluez changes include libgnome-bluetooth lib
+    in the deb refresh translatable sources list updated build-depends
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 13 Aug 2015 15:43:59 +0000
+
 unity-control-center (15.04.0+15.10.20150805-0ubuntu1) wily; urgency=medium
 
   [ Robert Ancell ]
