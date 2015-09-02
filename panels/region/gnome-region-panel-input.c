@@ -106,7 +106,6 @@ static GdkRGBA inactive_colour;
 static IBusBus *ibus = NULL;
 static GHashTable *ibus_engines = NULL;
 static GCancellable *ibus_cancellable = NULL;
-static guint shell_name_watch_id = 0;
 static gboolean is_ibus_active = FALSE;
 #endif  /* HAVE_IBUS */
 
@@ -183,11 +182,6 @@ strv_contains (const gchar * const *strv,
 static void
 clear_ibus (void)
 {
-  if (shell_name_watch_id > 0)
-    {
-      g_bus_unwatch_name (shell_name_watch_id);
-      shell_name_watch_id = 0;
-    }
   g_cancellable_cancel (ibus_cancellable);
   g_clear_object (&ibus_cancellable);
   g_clear_pointer (&ibus_engines, g_hash_table_destroy);
@@ -650,25 +644,6 @@ ibus_connected (IBusBus  *bus,
 
   /* We've got everything we needed, don't want to be called again. */
   g_signal_handlers_disconnect_by_func (ibus, ibus_connected, builder);
-}
-
-static void
-on_shell_appeared (GDBusConnection *connection,
-                   const gchar     *name,
-                   const gchar     *name_owner,
-                   gpointer         data)
-{
-  GtkBuilder *builder = data;
-
-  if (!ibus)
-    {
-      ibus = ibus_bus_new_async ();
-      if (ibus_bus_is_connected (ibus))
-        ibus_connected (ibus, builder);
-      else
-        g_signal_connect (ibus, "connected", G_CALLBACK (ibus_connected), builder);
-    }
-  maybe_start_ibus ();
 }
 #endif  /* HAVE_IBUS */
 
@@ -1840,6 +1815,7 @@ setup_input_tabs (GtkBuilder    *builder_,
   gtk_tree_view_set_model (GTK_TREE_VIEW (treeview), GTK_TREE_MODEL (store));
 
   input_sources_settings = g_settings_new (GNOME_DESKTOP_INPUT_SOURCES_DIR);
+  libgnomekbd_settings = g_settings_new (LIBGNOMEKBD_DESKTOP_SCHEMA_ID);
 
   g_settings_delay (input_sources_settings);
 
@@ -1853,15 +1829,21 @@ setup_input_tabs (GtkBuilder    *builder_,
   module = g_getenv (ENV_GTK_IM_MODULE);
 
 #ifdef HAVE_IBUS
-  ibus_init ();
   is_ibus_active = g_strcmp0 (module, GTK_IM_MODULE_IBUS) == 0;
-  shell_name_watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
-                                          "org.gnome.Shell",
-                                          G_BUS_NAME_WATCHER_FLAGS_NONE,
-                                          on_shell_appeared,
-                                          NULL,
-                                          builder,
-                                          NULL);
+
+  if (is_ibus_active)
+    {
+      ibus_init ();
+      if (!ibus)
+        {
+          ibus = ibus_bus_new_async ();
+          if (ibus_bus_is_connected (ibus))
+            ibus_connected (ibus, builder);
+          else
+            g_signal_connect (ibus, "connected", G_CALLBACK (ibus_connected), builder);
+        }
+      maybe_start_ibus ();
+    }
 #endif
 
 #ifdef HAVE_FCITX
@@ -1910,7 +1892,6 @@ setup_input_tabs (GtkBuilder    *builder_,
 
   if (has_indicator_keyboard ())
     {
-      libgnomekbd_settings = g_settings_new (LIBGNOMEKBD_DESKTOP_SCHEMA_ID);
       ibus_panel_settings = g_settings_new (IBUS_PANEL_SCHEMA_ID);
       media_key_settings = g_settings_new (MEDIA_KEYS_SCHEMA_ID);
       indicator_settings = g_settings_new (INDICATOR_KEYBOARD_SCHEMA_ID);
