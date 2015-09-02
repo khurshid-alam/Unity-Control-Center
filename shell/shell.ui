@@ -15,7 +15,7 @@
           <object class="GtkToolbar" id="toolbar1">
             <property name="visible">True</property>
             <style>
-              <class name="menubar"/>
+              <class name="primary-toolbar"/>
             </style>
             <child>
               <object class="GtkToolItem" id="toolbutton1">
@@ -26,22 +26,21 @@
                 <child>
                   <object class="GtkAlignment" id="alignment1">
                     <property name="visible">True</property>
-                    <property name="top_padding">5</property>
-                    <property name="bottom_padding">5</property>
-                    <property name="left_padding">10</property>
-                    <property name="right_padding">5</property>
                     <child>
                       <object class="GtkHBox" id="hbox1">
                         <property name="visible">True</property>
+                        <property name="margin-top">5</property>
+                        <property name="margin-bottom">5</property>
+                        <property name="margin-start">10</property>
+                        <property name="margin-end">5</property>
                         <child>
                           <object class="GtkAlignment" id="entry-alignment">
                             <property name="visible">True</property>
-                            <property name="xalign">1</property>
-                            <property name="xscale">0</property>
                             <child>
                               <object class="GtkBox" id="topright">
                                 <property name="visible">True</property>
                                 <property name="orientation">horizontal</property>
+                                <property name="halign">GTK_ALIGN_END</property>
                                 <child>
                                   <object class="GtkSearchEntry" id="search-entry">
                                     <property name="width_request">210</property>
@@ -94,7 +93,6 @@
                 <child>
                   <object class="GtkViewport" id="viewport">
                     <property name="visible">True</property>
-                    <property name="resize_mode">queue</property>
                     <property name="shadow_type">none</property>
                     <child>
                       <object class="GtkVBox" id="main-vbox">

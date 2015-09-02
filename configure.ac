@@ -86,6 +86,23 @@ else
         IBUS_MODULE=
 fi
 
+# Fcitx support
+
+AC_ARG_ENABLE(fcitx,
+        AS_HELP_STRING([--disable-fcitx],
+                       [Disable Fcitx support]),
+        enable_fcitx=$enableval,
+        enable_fcitx=yes)
+
+if test "x$enable_fcitx" = "xyes" ; then
+        FCITX_MODULE="fcitx-config fcitx-gclient"
+        AC_DEFINE(HAVE_FCITX, 1, [Defined if Fcitx support is enabled])
+else
+        FCITX_MODULE=
+fi
+
+AM_CONDITIONAL(HAVE_FCITX, test "x$enable_fcitx" == "xyes")
+
 dnl ==============================================
 dnl Check that we meet the  dependencies
 dnl ==============================================
@@ -99,7 +116,7 @@ POLKIT_REQUIRED_VERSION=0.103
 NETWORK_MANAGER_REQUIRED_VERSION=0.8.992
 LIBNOTIFY_REQUIRED_VERSION=0.7.3
 GNOME_DESKTOP_REQUIRED_VERSION=3.5.91
-SCHEMAS_REQUIRED_VERSION=3.7.2.2
+SCHEMAS_REQUIRED_VERSION=3.15.4
 LIBWACOM_REQUIRED_VERSION=0.7
 CLUTTER_REQUIRED_VERSION=1.11.3
 GOA_REQUIRED_VERSION=3.5.90
@@ -140,6 +157,7 @@ PKG_CHECK_MODULES(REGION_PANEL, $COMMON_MODULES
                   polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION
                   gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION
                   $IBUS_MODULE
+                  $FCITX_MODULE
                   x11)
 PKG_CHECK_MODULES(SCREEN_PANEL, $COMMON_MODULES)
 PKG_CHECK_MODULES(SOUND_PANEL, $COMMON_MODULES libxml-2.0
@@ -153,6 +171,7 @@ PKG_CHECK_MODULES(USER_ACCOUNTS_PANEL, $COMMON_MODULES
                   gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED_VERSION
                   pwquality
                   accountsservice >= $ACCOUNTSSERVICE_REQUIRED_VERSION)
+PKG_CHECK_MODULES(BLUETOOTH_PANEL, $COMMON_MODULES)
 
 AM_PROG_VALAC([0.20.0])
 
@@ -169,11 +188,6 @@ if test "x$have_networkmanager" = xno ; then
         AC_MSG_WARN(*** Network panel will not be built (NetworkManager ~0.9 or newer not found) ***)
 fi
 AM_CONDITIONAL(BUILD_NETWORK, [test x$have_networkmanager = xyes])
-
-# Check for gnome-bluetooth
-PKG_CHECK_MODULES(BLUETOOTH, $COMMON_MODULES gnome-bluetooth-1.0 >= 3.5.5,
-		  [have_bluetooth=yes], have_bluetooth=no)
-AM_CONDITIONAL(BUILD_BLUETOOTH, [test x$have_bluetooth = xyes])
 
 # Check for CUPS 1.4 or newer
 AC_ARG_ENABLE([cups],
@@ -401,6 +415,9 @@ panels/common/Makefile
 panels/appearance/Makefile
 panels/appearance/unity-appearance-panel.desktop.in
 panels/bluetooth/Makefile
+panels/bluetooth/gnome-bluetooth/Makefile
+panels/bluetooth/gnome-bluetooth/lib/Makefile
+panels/bluetooth/gnome-bluetooth/wizard/Makefile
 panels/bluetooth/unity-bluetooth-panel.desktop.in
 panels/datetime/Makefile
 panels/datetime/unity-datetime-panel.desktop.in
@@ -484,11 +501,6 @@ if test "x$have_networkmanager" = "xyes"; then
 else
 	AC_MSG_NOTICE([   Network panel disabled])
 fi
-if test "x$have_bluetooth" = "xyes"; then
-	AC_MSG_NOTICE([** gnome-bluetooth (Bluetooth panel)])
-else
-	AC_MSG_NOTICE([   Bluetooth panel disabled])
-fi
 if test "x$enable_cups" = "xyes"; then
 	AC_MSG_NOTICE([** CUPS (Printers panel)])
 else
@@ -513,5 +525,10 @@ if test "x$enable_ibus" == "xyes"; then
 	AC_MSG_NOTICE([** IBus (Region panel IBus support)])
 else
 	AC_MSG_NOTICE([   Region panel IBus support disabled])
+fi
+if test "x$enable_fcitx" == "xyes"; then
+	AC_MSG_NOTICE([** Fcitx (Region panel Fcitx support)])
+else
+	AC_MSG_NOTICE([   Region panel Fcitx support disabled])
 fi
 AC_MSG_NOTICE([End options])

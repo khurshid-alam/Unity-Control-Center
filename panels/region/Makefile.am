@@ -44,7 +44,8 @@ libregion_la_LDFLAGS = $(PANEL_LDFLAGS)
 uidir   = $(pkgdatadir)/ui
 ui_DATA = \
 	gnome-region-panel.ui \
-	unity-region-panel.ui \
+	unity-region-panel-ibus.ui \
+	unity-region-panel-fcitx.ui \
 	gnome-region-panel-input-chooser.ui \
 	$(NULL)
 

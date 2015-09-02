@@ -32,6 +32,8 @@
 #include <unity-settings-daemon/gsd-enums.h>
 #include <math.h>
 
+#include <gdesktop-enums.h>
+
 #include "gnome-mouse-properties.h"
 #include "gsd-input-helper.h"
 
@@ -45,6 +47,7 @@
 #define WID(x) (GtkWidget*) gtk_builder_get_object (dialog, x)
 
 static GSettings *mouse_settings = NULL;
+static GSettings *gsd_mouse_settings = NULL;
 static GSettings *touchpad_settings = NULL;
 static GdkDeviceManager *device_manager = NULL;
 static guint device_added_id = 0;
@@ -134,23 +137,38 @@ synaptics_check_capabilities (GtkBuilder *dialog)
 	XFreeDeviceList (devicelist);
 }
 
-static void
-pointer_speed_scale_event (GtkRange *scale, GtkBuilder *dialog)
+static gboolean
+get_touchpad_enabled (GSettings *settings)
+ {
+        GDesktopDeviceSendEvents send_events;
+
+        send_events = g_settings_get_enum (settings, "send-events");
+
+        return send_events == G_DESKTOP_DEVICE_SEND_EVENTS_ENABLED;
+}
+
+static gboolean
+touchpad_enabled_get_mapping (GValue    *value,
+                              GVariant  *variant,
+                              gpointer   user_data)
 {
-	gdouble value;
-	GSettings *settings;
-	GtkAdjustment *adjustment;
+        gboolean enabled;
 
-	if (GTK_WIDGET (scale) == WID ("pointer_speed_scale"))
-		settings = mouse_settings;
-	else
-		settings = touchpad_settings;
+        enabled = g_strcmp0 (g_variant_get_string (variant, NULL), "enabled") == 0;
+        g_value_set_boolean (value, enabled);
+        return TRUE;
+}
 
-	g_settings_set_double (settings, "motion-acceleration", gtk_range_get_value (scale));
+static GVariant *
+touchpad_enabled_set_mapping (const GValue              *value,
+                              const GVariantType        *type,
+                              gpointer                   user_data)
+{
+        gboolean enabled;
 
-	adjustment = gtk_range_get_adjustment (scale);
-	value = gtk_adjustment_get_upper (adjustment) - gtk_range_get_value (scale) + 1;
-	g_settings_set_int (settings, "motion-threshold", value);
+        enabled = g_value_get_boolean (value);
+
+        return g_variant_new_string (enabled ? "enabled" : "disabled");
 }
 
 /* Set up the property editors in the dialog. */
@@ -171,7 +189,7 @@ setup_dialog (GtkBuilder *dialog)
 		G_CALLBACK (orientation_radio_button_release_event), NULL);
 
 	/* Double-click time */
-	g_settings_bind (mouse_settings, "double-click",
+	g_settings_bind (gsd_mouse_settings, "double-click",
 			 gtk_range_get_adjustment (GTK_RANGE (WID ("double_click_scale"))), "value",
 			 G_SETTINGS_BIND_DEFAULT);
 
@@ -179,9 +197,9 @@ setup_dialog (GtkBuilder *dialog)
 	mouse_present = mouse_is_present ();
 	gtk_widget_set_visible (WID ("mouse_vbox"), mouse_present);
 
-	g_signal_connect (WID ("pointer_speed_scale"), "value-changed",
-			  G_CALLBACK (pointer_speed_scale_event), dialog);
-	g_settings_bind (mouse_settings, "motion-acceleration",
+	gtk_scale_add_mark (GTK_SCALE (WID ("pointer_speed_scale")), 0,
+			    GTK_POS_TOP, NULL);
+	g_settings_bind (mouse_settings, "speed",
 			 gtk_range_get_adjustment (GTK_RANGE (WID ("pointer_speed_scale"))), "value",
 			 G_SETTINGS_BIND_DEFAULT);
 
@@ -189,28 +207,30 @@ setup_dialog (GtkBuilder *dialog)
 	touchpad_present = touchpad_is_present ();
 	gtk_widget_set_visible (WID ("touchpad_vbox"), touchpad_present);
 
-	g_settings_bind (touchpad_settings, "touchpad-enabled",
-			 WID ("touchpad_enabled_switch"), "active",
-			 G_SETTINGS_BIND_DEFAULT);
-	g_settings_bind (touchpad_settings, "touchpad-enabled",
-			 WID ("touchpad_options_box"), "sensitive",
-			 G_SETTINGS_BIND_GET);
+	g_settings_bind_with_mapping (touchpad_settings, "send-events",
+				      WID ("touchpad_enabled_switch"), "active",
+				      G_SETTINGS_BIND_DEFAULT,
+				      touchpad_enabled_get_mapping,
+				      touchpad_enabled_set_mapping,
+				      NULL, NULL);
+	g_settings_bind_with_mapping (touchpad_settings, "send-events",
+				      WID ("touchpad_options_box"), "sensitive",
+				      G_SETTINGS_BIND_GET,
+				      touchpad_enabled_get_mapping,
+				      touchpad_enabled_set_mapping,
+				      NULL, NULL);
 
-	g_settings_bind (touchpad_settings, "disable-while-typing",
-			 WID ("disable_w_typing_toggle"), "active",
-			 G_SETTINGS_BIND_DEFAULT);
 	g_settings_bind (touchpad_settings, "tap-to-click",
 			 WID ("tap_to_click_toggle"), "active",
 			 G_SETTINGS_BIND_DEFAULT);
 	g_settings_bind (touchpad_settings, "natural-scroll",
 			 WID ("natural_scroll_toggle"), "active",
 			 G_SETTINGS_BIND_DEFAULT);
-	g_settings_bind (touchpad_settings, "motion-acceleration",
+	gtk_scale_add_mark (GTK_SCALE (WID ("touchpad_pointer_speed_scale")), 0,
+			    GTK_POS_TOP, NULL);
+	g_settings_bind (touchpad_settings, "speed",
 			 gtk_range_get_adjustment (GTK_RANGE (WID ("touchpad_pointer_speed_scale"))), "value",
 			 G_SETTINGS_BIND_DEFAULT);
-
-	g_signal_connect (WID ("touchpad_pointer_speed_scale"), "value-changed",
-			  G_CALLBACK (pointer_speed_scale_event), dialog);
 
 	if (touchpad_present) {
 		synaptics_check_capabilities (dialog);
@@ -273,8 +293,10 @@ device_changed (GdkDeviceManager *device_manager,
 GtkWidget *
 gnome_mouse_properties_init (GtkBuilder *dialog)
 {
-	mouse_settings = g_settings_new ("org.gnome.settings-daemon.peripherals.mouse");
-	touchpad_settings = g_settings_new ("org.gnome.settings-daemon.peripherals.touchpad");
+
+	mouse_settings = g_settings_new ("org.gnome.desktop.peripherals.mouse");
+	gsd_mouse_settings = g_settings_new ("org.gnome.settings-daemon.peripherals.mouse");
+	touchpad_settings = g_settings_new ("org.gnome.desktop.peripherals.touchpad");
 
 	device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
 	device_added_id = g_signal_connect (device_manager, "device-added",
@@ -293,6 +315,10 @@ gnome_mouse_properties_dispose (GtkWidget *widget)
 {
 	if (mouse_settings != NULL) {
 		g_object_unref (mouse_settings);
+		mouse_settings = NULL;
+	}
+	if (gsd_mouse_settings != NULL) {
+		g_object_unref (gsd_mouse_settings);
 		mouse_settings = NULL;
 	}
 	if (touchpad_settings != NULL) {

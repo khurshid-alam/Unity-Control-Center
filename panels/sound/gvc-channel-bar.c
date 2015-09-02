@@ -551,7 +551,6 @@ update_mute (GvcChannelBar *bar)
                  * and tell the front-end that the value changed */
                 gtk_range_set_adjustment (GTK_RANGE (bar->priv->scale),
                                           bar->priv->adjustment);
-                gtk_adjustment_value_changed (bar->priv->adjustment);
         }
 }
 
@@ -883,6 +882,7 @@ on_mute_check_toggled (GObject    *object,
 
   is_muted = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (object));
   gvc_channel_bar_set_is_muted (bar, is_muted);
+  gtk_adjustment_value_changed (bar->priv->adjustment);
 }
 
 static void

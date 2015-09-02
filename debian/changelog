@@ -1,3 +1,142 @@
+unity-control-center (15.04.0+15.10.20150818-0ubuntu1) wily; urgency=medium
+
+  [ Rui Matos ]
+  * Cherry-pick upstream changes for relocated peripheral settings (LP:
+    #1475949)
+
+  [ Tim Lunn ]
+  * Cherry-pick upstream changes for relocated peripheral settings (LP:
+    #1475949)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Tue, 18 Aug 2015 12:10:59 +0000
+
+unity-control-center (15.04.0+15.10.20150814-0ubuntu1) wily; urgency=medium
+
+  [ Dmitry Shachnev ]
+  * Bump gnome-bluetooth Breaks/Replaces to 3.11.3, to resolve file
+    conflict. (LP: #1484658)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Fri, 14 Aug 2015 09:38:24 +0000
+
+unity-control-center (15.04.0+15.10.20150813-0ubuntu1) wily; urgency=medium
+
+  [ Lars Uebernickel ]
+  * Some tweaks for the new bluez changes include libgnome-bluetooth lib
+    in the deb refresh translatable sources list updated build-depends
+  * bluetooth: make compatible with bluez5
+
+  [ Sebastien Bacher ]
+  * Some tweaks for the new bluez changes include libgnome-bluetooth lib
+    in the deb refresh translatable sources list updated build-depends
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 13 Aug 2015 15:43:59 +0000
+
+unity-control-center (15.04.0+15.10.20150805-0ubuntu1) wily; urgency=medium
+
+  [ Robert Ancell ]
+  * Update system information logo for Wily Werewolf (LP: #1470840)
+
+  [ Yu Ning ]
+  * Trigger the "value-changed" signal outside set_is_muted() when
+    necessary. (LP: #1396464)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 05 Aug 2015 09:44:44 +0000
+
+unity-control-center (15.04.0+15.04.20150410-0ubuntu1) vivid; urgency=medium
+
+  [ Yu Ning ]
+  * Block power callback unless it's triggered by the user. (LP:
+    #1248720)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Fri, 10 Apr 2015 14:09:49 +0000
+
+unity-control-center (15.04.0+15.04.20150408-0ubuntu1) vivid; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ William Hua ]
+  * Don't free the Fcitx config proxy if we haven't ever initialized it.
+    (LP: #1431811)
+  * Fix deprecation warnings in region panel.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 08 Apr 2015 15:13:52 +0000
+
+unity-control-center (15.04.0+15.04.20150313-0ubuntu1) vivid; urgency=medium
+
+  [ William Hua ]
+  * Remove fcitx-data from Recommends and check if the required file,
+    config.desc, is available at runtime. Trying to dist-upgrade
+    currently pulls in the fcitx-bin which is higher priority than ibus.
+    (LP: #1430971)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Fri, 13 Mar 2015 12:53:31 +0000
+
+unity-control-center (15.04.0+15.04.20150310-0ubuntu1) vivid; urgency=medium
+
+  [ William Hua ]
+  * Basic Fcitx support. (LP: #1363150)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Tue, 10 Mar 2015 17:22:20 +0000
+
+unity-control-center (15.04.0+15.04.20150203.2-0ubuntu1) vivid; urgency=medium
+
+  [ Sebastien Bacher ]
+  * shell: don't use deprecated properties, avoid runtime warnings
+
+  [ Jian-Ding Chen (timchen119) ]
+  * Set higher priority of glxinfo's result then Xorg's log for
+    "Details" -> "Overview" -> "Graphics" info in control center. (LP:
+    #1417034) (LP: #1417034)
+
+  [ Dan Winship ]
+  * network: update for nma-wifi-dialog renaming
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 03 Feb 2015 12:26:36 +0000
+
+unity-control-center (15.04.0+15.04.20141217-0ubuntu2) vivid; urgency=medium
+
+  * Switch gnome-icon-theme to adwaita-icon-theme, which is its
+    successor. (LP: #1414613)
+
+ -- Iain Lane <iain@orangesquash.org.uk>  Mon, 26 Jan 2015 17:41:14 +0000
+
+unity-control-center (15.04.0+15.04.20141217-0ubuntu1) vivid; urgency=low
+
+  [ Lars Uebernickel ]
+  * appearance: don't set overlay-scrollbar setting overlay-scrollbars
+    now does this itself based on a key in index.theme.
+  * shell.ui: set .primary-toolbar instead of .menubar on the primary
+    toolbar
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 17 Dec 2014 17:13:35 +0000
+
+unity-control-center (15.04.0+15.04.20141212-0ubuntu1) vivid; urgency=low
+
+  [ David Henningsson ]
+  * When the treeview is programmatically updated, the treeview fires a
+    signal that the active item has changed. To distinguish this from a
+    user click, we check the active flag. This was done for output but
+    not for input. (LP: #1376776) (LP: #1376776)
+
+  [ Huan Peng ]
+  * show desktop could not restore to default (LP: #1372868)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 12 Dec 2014 15:33:22 +0000
+
+unity-control-center (15.04.0+15.04.20141105-0ubuntu1) vivid; urgency=low
+
+  [ Sebastien Bacher ]
+  * Update version number
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 05 Nov 2014 08:32:29 +0000
+
+unity-control-center (15.04.0+15.04.20141030-0ubuntu1) vivid; urgency=medium
+
+  * Port to upower 0.99 (LP: #1330037)
+
+ -- Tim Lunn <tim@feathertop.org>  Thu, 30 Oct 2014 17:27:40 +0100
+
 unity-control-center (14.10.0+14.10.20140922-0ubuntu2) utopic; urgency=medium
 
   * No change rebuild for gnome-desktop 3.12

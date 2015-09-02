@@ -34,6 +34,12 @@
 #include <ibus.h>
 #endif
 
+#ifdef HAVE_FCITX
+#include <fcitx-config/fcitx-config.h>
+#include <fcitx-gclient/fcitxinputmethod.h>
+#include <fcitx-gclient/fcitxkbd.h>
+#endif
+
 #include "gdm-languages.h"
 #include "gnome-region-panel-input.h"
 #include "keyboard-shortcuts.h"
@@ -46,6 +52,12 @@
 #define KEY_INPUT_SOURCES               "sources"
 #define INPUT_SOURCE_TYPE_XKB           "xkb"
 #define INPUT_SOURCE_TYPE_IBUS          "ibus"
+#define INPUT_SOURCE_TYPE_FCITX         "fcitx"
+#define FCITX_XKB_PREFIX                "fcitx-keyboard-"
+
+#define ENV_GTK_IM_MODULE   "GTK_IM_MODULE"
+#define GTK_IM_MODULE_IBUS  "ibus"
+#define GTK_IM_MODULE_FCITX "fcitx"
 
 #define MEDIA_KEYS_SCHEMA_ID  "org.gnome.desktop.wm.keybindings"
 #define KEY_PREV_INPUT_SOURCE "switch-input-source-backward"
@@ -71,6 +83,7 @@ enum {
   NAME_COLUMN,
   TYPE_COLUMN,
   ID_COLUMN,
+  COLOUR_COLUMN,
   SETUP_COLUMN,
   LEGACY_SETUP_COLUMN,
   N_COLUMNS
@@ -86,13 +99,40 @@ static GtkBuilder *builder = NULL; /* weak pointer */
 static GtkWidget *input_chooser = NULL; /* weak pointer */
 static CcRegionKeyboardItem *prev_source_item = NULL;
 static CcRegionKeyboardItem *next_source_item = NULL;
+static GdkRGBA active_colour;
+static GdkRGBA inactive_colour;
 
 #ifdef HAVE_IBUS
 static IBusBus *ibus = NULL;
 static GHashTable *ibus_engines = NULL;
 static GCancellable *ibus_cancellable = NULL;
-
+static gboolean is_ibus_active = FALSE;
 #endif  /* HAVE_IBUS */
+
+#ifdef HAVE_FCITX
+static FcitxInputMethod *fcitx = NULL;
+static FcitxKbd *fcitx_keyboard = NULL;
+static GHashTable *fcitx_engines = NULL;
+static GCancellable *fcitx_cancellable = NULL;
+static gboolean is_fcitx_active = FALSE;
+
+struct _FcitxShareStateConfig
+{
+  FcitxGenericConfig config;
+  gboolean config_valid;
+  gint share_state;
+};
+
+typedef struct _FcitxShareStateConfig FcitxShareStateConfig;
+
+static CONFIG_BINDING_BEGIN (FcitxShareStateConfig)
+CONFIG_BINDING_REGISTER ("Program", "ShareStateAmongWindow", share_state)
+CONFIG_BINDING_END ()
+
+static CONFIG_DESC_DEFINE (get_fcitx_config_desc, "config.desc")
+
+static FcitxShareStateConfig fcitx_config;
+#endif /* HAVE_FCITX */
 
 static void       populate_model             (GtkListStore  *store,
                                               GtkListStore  *active_sources_store);
@@ -433,19 +473,23 @@ update_ibus_active_sources (GtkBuilder *builder)
           GDesktopAppInfo *app_info = NULL;
           gchar *legacy_setup = NULL;
           gchar *display_name = NULL;
+          gchar *name = NULL;
 
           engine_desc = g_hash_table_lookup (ibus_engines, id);
           if (engine_desc)
             {
               display_name = engine_get_display_name (engine_desc);
+              name = g_strdup_printf ("%s (IBus)", display_name);
               app_info = setup_app_info_for_id (id);
               legacy_setup = legacy_setup_for_id (id);
 
               gtk_list_store_set (GTK_LIST_STORE (model), &iter,
-                                  NAME_COLUMN, display_name,
+                                  NAME_COLUMN, name,
+                                  COLOUR_COLUMN, is_ibus_active ? &active_colour : &inactive_colour,
                                   SETUP_COLUMN, app_info,
                                   LEGACY_SETUP_COLUMN, legacy_setup,
                                   -1);
+              g_free (name);
               g_free (display_name);
               g_free (legacy_setup);
               if (app_info)
@@ -591,7 +635,11 @@ ibus_connected (IBusBus  *bus,
 
   fetch_ibus_engines (builder);
 
+#ifdef HAVE_FCITX
+  if (has_indicator_keyboard () && !is_fcitx_active)
+#else
   if (has_indicator_keyboard ())
+#endif
     update_source_radios (builder);
 
   /* We've got everything we needed, don't want to be called again. */
@@ -656,6 +704,7 @@ populate_model (GtkListStore *store,
                           NAME_COLUMN, name,
                           TYPE_COLUMN, INPUT_SOURCE_TYPE_XKB,
                           ID_COLUMN, tmp->data,
+                          COLOUR_COLUMN, &active_colour,
                           -1);
     }
   g_free (source_id);
@@ -666,6 +715,7 @@ populate_model (GtkListStore *store,
   if (ibus_engines)
     {
       gchar *display_name;
+      gchar *name;
 
       sources = g_hash_table_get_keys (ibus_engines);
 
@@ -679,18 +729,59 @@ populate_model (GtkListStore *store,
             continue;
 
           display_name = engine_get_display_name (g_hash_table_lookup (ibus_engines, tmp->data));
+          name = g_strdup_printf ("%s (IBus)", display_name);
 
           gtk_list_store_append (store, &iter);
           gtk_list_store_set (store, &iter,
-                              NAME_COLUMN, display_name,
+                              NAME_COLUMN, name,
                               TYPE_COLUMN, INPUT_SOURCE_TYPE_IBUS,
                               ID_COLUMN, tmp->data,
+                              COLOUR_COLUMN, is_ibus_active ? &active_colour : &inactive_colour,
                               -1);
+          g_free (name);
           g_free (display_name);
         }
       g_free (source_id);
 
       g_list_free (sources);
+    }
+#endif
+
+#ifdef HAVE_FCITX
+  if (fcitx_engines)
+    {
+      GHashTableIter engines_iter;
+      gpointer key;
+      gpointer value;
+
+      g_hash_table_iter_init (&engines_iter, fcitx_engines);
+      while (g_hash_table_iter_next (&engines_iter, &key, &value))
+        {
+          const gchar *id = key;
+          const FcitxIMItem *engine = value;
+
+          if (g_str_has_prefix (id, FCITX_XKB_PREFIX))
+            continue;
+
+          source_id = g_strconcat (INPUT_SOURCE_TYPE_FCITX, id, NULL);
+
+          if (!g_hash_table_contains (active_sources_table, source_id))
+            {
+              gchar *name = g_strdup_printf ("%s (Fcitx)", engine->name);
+
+              gtk_list_store_append (store, &iter);
+              gtk_list_store_set (store, &iter,
+                                  TYPE_COLUMN, INPUT_SOURCE_TYPE_FCITX,
+                                  ID_COLUMN, id,
+                                  NAME_COLUMN, name,
+                                  COLOUR_COLUMN, is_fcitx_active ? &active_colour : &inactive_colour,
+                                  -1);
+
+              g_free (name);
+            }
+
+          g_free (source_id);
+        }
     }
 #endif
 
@@ -709,6 +800,7 @@ populate_with_active_sources (GtkListStore *store)
   GDesktopAppInfo *app_info;
   gchar *legacy_setup;
   GtkTreeIter tree_iter;
+  gboolean active;
 
   sources = g_settings_get_value (input_sources_settings, KEY_INPUT_SOURCES);
 
@@ -718,6 +810,7 @@ populate_with_active_sources (GtkListStore *store)
       display_name = NULL;
       app_info = NULL;
       legacy_setup = NULL;
+      active = FALSE;
 
       if (g_str_equal (type, INPUT_SOURCE_TYPE_XKB))
         {
@@ -728,6 +821,7 @@ populate_with_active_sources (GtkListStore *store)
               continue;
             }
           display_name = g_strdup (name);
+          active = TRUE;
         }
       else if (g_str_equal (type, INPUT_SOURCE_TYPE_IBUS))
         {
@@ -739,12 +833,33 @@ populate_with_active_sources (GtkListStore *store)
 
           if (engine_desc)
             {
-              display_name = engine_get_display_name (engine_desc);
+              gchar *engine_name = engine_get_display_name (engine_desc);
+              display_name = g_strdup_printf ("%s (IBus)", engine_name);
               app_info = setup_app_info_for_id (id);
               legacy_setup = legacy_setup_for_id (id);
+              active = is_ibus_active;
+              g_free (engine_name);
             }
 #else
           g_warning ("IBus input source type specified but IBus support was not compiled");
+          continue;
+#endif
+        }
+      else if (g_str_equal (type, INPUT_SOURCE_TYPE_FCITX))
+        {
+#ifdef HAVE_FCITX
+          if (fcitx_engines)
+            {
+              const FcitxIMItem *engine = g_hash_table_lookup (fcitx_engines, id);
+
+              if (engine)
+                {
+                  display_name = g_strdup_printf ("%s (Fcitx)", engine->name);
+                  active = is_fcitx_active;
+                }
+            }
+#else
+          g_warning ("Fcitx input source type specified but Fcitx support was not compiled");
           continue;
 #endif
         }
@@ -759,6 +874,7 @@ populate_with_active_sources (GtkListStore *store)
                           NAME_COLUMN, display_name,
                           TYPE_COLUMN, type,
                           ID_COLUMN, id,
+                          COLOUR_COLUMN, active ? &active_colour : &inactive_colour,
                           SETUP_COLUMN, app_info,
                           LEGACY_SETUP_COLUMN, legacy_setup,
                           -1);
@@ -876,6 +992,7 @@ update_button_sensitivity (GtkBuilder *builder)
   gboolean settings_sensitive;
   GDesktopAppInfo *app_info;
   gchar *legacy_setup;
+  gchar *type;
 
   remove_button = WID("input_source_remove");
   show_button = WID("input_source_show");
@@ -890,6 +1007,7 @@ update_button_sensitivity (GtkBuilder *builder)
     {
       index = idx_from_model_iter (model, &iter);
       gtk_tree_model_get (model, &iter,
+                          TYPE_COLUMN, &type,
                           SETUP_COLUMN, &app_info,
                           LEGACY_SETUP_COLUMN, &legacy_setup,
                           -1);
@@ -897,11 +1015,16 @@ update_button_sensitivity (GtkBuilder *builder)
   else
     {
       index = -1;
+      type = NULL;
       app_info = NULL;
       legacy_setup = NULL;
     }
 
+#ifdef HAVE_FCITX
+  settings_sensitive = (index >= 0 && (app_info != NULL || legacy_setup != NULL || g_strcmp0 (type, INPUT_SOURCE_TYPE_FCITX) == 0));
+#else
   settings_sensitive = (index >= 0 && (app_info != NULL || legacy_setup != NULL));
+#endif
 
   if (app_info)
     g_object_unref (app_info);
@@ -1146,6 +1269,8 @@ show_selected_layout (GtkButton *button, gpointer data)
   gchar *kbd_viewer_args;
   const gchar *xkb_layout;
   const gchar *xkb_variant;
+  gchar *layout = NULL;
+  gchar *variant = NULL;
 
   g_debug ("show selected layout");
 
@@ -1190,22 +1315,40 @@ show_selected_layout (GtkButton *button, gpointer data)
       goto exit;
 #endif
     }
+  else if (g_str_equal (type, INPUT_SOURCE_TYPE_FCITX))
+    {
+#ifdef HAVE_FCITX
+      if (fcitx_keyboard)
+        {
+          fcitx_kbd_get_layout_for_im (fcitx_keyboard, id, &layout, &variant);
+          xkb_layout = layout;
+          xkb_variant = variant;
+        }
+#else
+      g_warning ("Fcitx input source type specified but Fcitx support was not compiled");
+      goto exit;
+#endif
+    }
   else
     {
       g_warning ("Unknown input source type '%s'", type);
       goto exit;
     }
 
-  if (xkb_variant[0])
+  if (xkb_variant != NULL && xkb_variant[0])
     kbd_viewer_args = g_strdup_printf ("gkbd-keyboard-display -l \"%s\t%s\"",
                                        xkb_layout, xkb_variant);
-  else
+  else if (xkb_layout != NULL && xkb_layout[0])
     kbd_viewer_args = g_strdup_printf ("gkbd-keyboard-display -l %s",
                                        xkb_layout);
+  else
+    kbd_viewer_args = g_strdup ("gkbd-keyboard-display -g 1");
 
   g_spawn_command_line_async (kbd_viewer_args, NULL);
 
   g_free (kbd_viewer_args);
+  g_free (variant);
+  g_free (layout);
  exit:
   g_free (type);
   g_free (id);
@@ -1220,6 +1363,7 @@ show_selected_settings (GtkButton *button, gpointer data)
   GdkAppLaunchContext *ctx;
   GDesktopAppInfo *app_info;
   gchar *legacy_setup;
+  gchar *type;
   gchar *id;
   GError *error = NULL;
 
@@ -1228,18 +1372,21 @@ show_selected_settings (GtkButton *button, gpointer data)
   if (!get_selected_iter (builder, &model, &iter))
     return;
 
-  gtk_tree_model_get (model, &iter, SETUP_COLUMN, &app_info, LEGACY_SETUP_COLUMN, &legacy_setup, -1);
+  gtk_tree_model_get (model, &iter,
+                      ID_COLUMN, &id,
+                      TYPE_COLUMN, &type,
+                      SETUP_COLUMN, &app_info,
+                      LEGACY_SETUP_COLUMN, &legacy_setup,
+                      -1);
 
   if (app_info)
     {
       ctx = gdk_display_get_app_launch_context (gdk_display_get_default ());
       gdk_app_launch_context_set_timestamp (ctx, gtk_get_current_event_time ());
 
-      gtk_tree_model_get (model, &iter, ID_COLUMN, &id, -1);
       g_app_launch_context_setenv (G_APP_LAUNCH_CONTEXT (ctx),
                                    "IBUS_ENGINE_NAME",
                                    id);
-      g_free (id);
 
       if (!g_app_info_launch (G_APP_INFO (app_info), NULL, G_APP_LAUNCH_CONTEXT (ctx), &error))
         {
@@ -1258,6 +1405,10 @@ show_selected_settings (GtkButton *button, gpointer data)
           g_error_free (error);
         }
     }
+#ifdef HAVE_FCITX
+  else if (g_strcmp0 (type, INPUT_SOURCE_TYPE_FCITX) == 0 && fcitx)
+    fcitx_input_method_configure_im (fcitx, id);
+#endif
 
   g_free (legacy_setup);
 }
@@ -1361,7 +1512,11 @@ libgnomekbd_settings_changed (GSettings *settings,
                               gchar     *key,
                               gpointer   user_data)
 {
+#ifdef HAVE_FCITX
+  if (!is_fcitx_active && (g_strcmp0 (key, KEY_GROUP_PER_WINDOW) == 0 || g_strcmp0 (key, KEY_DEFAULT_GROUP) == 0))
+#else
   if (g_strcmp0 (key, KEY_GROUP_PER_WINDOW) == 0 || g_strcmp0 (key, KEY_DEFAULT_GROUP) == 0)
+#endif
     update_source_radios (user_data);
 }
 
@@ -1426,6 +1581,23 @@ shortcut_key_pressed (GtkEntryAccel   *entry,
   return edited ? GTK_ENTRY_ACCEL_UPDATE : GTK_ENTRY_ACCEL_IGNORE;
 }
 
+#ifdef HAVE_FCITX
+static void
+clear_fcitx (void)
+{
+  if (fcitx_config.config_valid)
+    FcitxConfigFree (&fcitx_config.config);
+
+  if (fcitx_cancellable)
+    g_cancellable_cancel (fcitx_cancellable);
+
+  g_clear_pointer (&fcitx_engines, g_hash_table_unref);
+  g_clear_object (&fcitx_cancellable);
+  g_clear_object (&fcitx_keyboard);
+  g_clear_object (&fcitx);
+}
+#endif
+
 static void
 builder_finalized (gpointer  data,
                    GObject  *where_the_object_was)
@@ -1439,6 +1611,10 @@ builder_finalized (gpointer  data,
   g_clear_object (&indicator_settings);
   g_clear_object (&next_source_item);
   g_clear_object (&prev_source_item);
+
+#ifdef HAVE_FCITX
+  clear_fcitx ();
+#endif
 
 #ifdef HAVE_IBUS
   clear_ibus ();
@@ -1477,6 +1653,123 @@ set_key_setting (const GValue   *value,
     return ret;
 }
 
+#ifdef HAVE_FCITX
+static void
+fcitx_init (void)
+{
+  GError *error = NULL;
+
+  fcitx_cancellable = g_cancellable_new ();
+  fcitx = fcitx_input_method_new (G_BUS_TYPE_SESSION,
+                                  G_DBUS_PROXY_FLAGS_NONE,
+                                  0,
+                                  fcitx_cancellable,
+                                  &error);
+  g_clear_object (&fcitx_cancellable);
+
+  if (fcitx)
+    {
+      GPtrArray *engines = fcitx_input_method_get_imlist_nofree (fcitx);
+
+      if (engines)
+        {
+          guint i;
+
+          fcitx_engines = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, (GDestroyNotify) fcitx_im_item_free);
+
+          for (i = 0; i < engines->len; i++)
+            {
+              FcitxIMItem *engine = g_ptr_array_index (engines, i);
+              g_hash_table_insert (fcitx_engines, engine->unique_name, engine);
+            }
+
+          g_ptr_array_unref (engines);
+        }
+    }
+  else
+    {
+      g_warning ("Fcitx input method framework unavailable: %s", error->message);
+      g_clear_error (&error);
+    }
+
+  fcitx_cancellable = g_cancellable_new ();
+  fcitx_keyboard = fcitx_kbd_new (G_BUS_TYPE_SESSION,
+                                  G_DBUS_PROXY_FLAGS_NONE,
+                                  0,
+                                  fcitx_cancellable,
+                                  &error);
+  g_clear_object (&fcitx_cancellable);
+
+  if (!fcitx_keyboard)
+    {
+      g_warning ("Fcitx keyboard module unavailable: %s", error->message);
+      g_clear_error (&error);
+    }
+}
+
+static void
+save_fcitx_config (void)
+{
+  if (!fcitx_config.config_valid)
+    return;
+
+  FILE *file = FcitxXDGGetFileUserWithPrefix (NULL, "config", "w", NULL);
+  FcitxConfigSaveConfigFileFp (file, &fcitx_config.config, get_fcitx_config_desc ());
+
+  if (file)
+    fclose (file);
+
+  fcitx_input_method_reload_config (fcitx);
+}
+
+static void
+load_fcitx_config (void)
+{
+  static gboolean attempted = FALSE;
+
+  if (attempted)
+    return;
+
+  FcitxConfigFileDesc *config_file_desc = get_fcitx_config_desc ();
+
+  if (config_file_desc)
+    {
+      FILE *file = FcitxXDGGetFileUserWithPrefix (NULL, "config", "r", NULL);
+
+      FcitxConfigFile *config_file = FcitxConfigParseConfigFileFp (file, config_file_desc);
+      FcitxShareStateConfigConfigBind (&fcitx_config, config_file, config_file_desc);
+      FcitxConfigBindSync (&fcitx_config.config);
+      fcitx_config.config_valid = TRUE;
+
+      if (file)
+        fclose (file);
+    }
+
+  attempted = TRUE;
+}
+
+static void
+set_share_state (gint share_state)
+{
+  if (share_state != fcitx_config.share_state)
+    {
+      fcitx_config.share_state = share_state;
+      save_fcitx_config ();
+    }
+}
+
+static void
+share_state_radio_toggled (GtkToggleButton *widget,
+                           gpointer         user_data)
+{
+  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (WID ("share-state-no-radio"))))
+    set_share_state (0);
+  else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (WID ("share-state-all-radio"))))
+    set_share_state (1);
+  else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (WID ("share-state-per-program-radio"))))
+    set_share_state (2);
+}
+#endif
 
 void
 setup_input_tabs (GtkBuilder    *builder_,
@@ -1488,6 +1781,8 @@ setup_input_tabs (GtkBuilder    *builder_,
   GtkListStore *store;
   GtkTreeModel *filtered_store;
   GtkTreeSelection *selection;
+  GtkStyleContext *context;
+  const gchar *module;
 
   builder = builder_;
 
@@ -1506,12 +1801,14 @@ setup_input_tabs (GtkBuilder    *builder_,
   cell = gtk_cell_renderer_text_new ();
   gtk_tree_view_column_pack_start (column, cell, TRUE);
   gtk_tree_view_column_add_attribute (column, cell, "text", NAME_COLUMN);
+  gtk_tree_view_column_add_attribute (column, cell, "foreground-rgba", COLOUR_COLUMN);
   gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
 
   store = gtk_list_store_new (N_COLUMNS,
                               G_TYPE_STRING,
                               G_TYPE_STRING,
                               G_TYPE_STRING,
+                              GDK_TYPE_RGBA,
                               G_TYPE_DESKTOP_APP_INFO,
                               G_TYPE_STRING);
 
@@ -1525,17 +1822,35 @@ setup_input_tabs (GtkBuilder    *builder_,
   if (!xkb_info)
     xkb_info = gnome_xkb_info_new ();
 
+  context = gtk_widget_get_style_context (treeview);
+  gtk_style_context_get_color (context, GTK_STATE_FLAG_NORMAL, &active_colour);
+  gtk_style_context_get_color (context, GTK_STATE_FLAG_INSENSITIVE, &inactive_colour);
+
+  module = g_getenv (ENV_GTK_IM_MODULE);
+
 #ifdef HAVE_IBUS
-  ibus_init ();
-  if (!ibus)
+  is_ibus_active = g_strcmp0 (module, GTK_IM_MODULE_IBUS) == 0;
+
+  if (is_ibus_active)
     {
-      ibus = ibus_bus_new_async ();
-      if (ibus_bus_is_connected (ibus))
-        ibus_connected (ibus, builder);
-      else
-        g_signal_connect (ibus, "connected", G_CALLBACK (ibus_connected), builder);
+      ibus_init ();
+      if (!ibus)
+        {
+          ibus = ibus_bus_new_async ();
+          if (ibus_bus_is_connected (ibus))
+            ibus_connected (ibus, builder);
+          else
+            g_signal_connect (ibus, "connected", G_CALLBACK (ibus_connected), builder);
+        }
+      maybe_start_ibus ();
     }
-  maybe_start_ibus ();
+#endif
+
+#ifdef HAVE_FCITX
+  is_fcitx_active = g_strcmp0 (module, GTK_IM_MODULE_FCITX) == 0;
+
+  if (is_fcitx_active)
+    fcitx_init ();
 #endif
 
   populate_with_active_sources (store);
@@ -1581,33 +1896,73 @@ setup_input_tabs (GtkBuilder    *builder_,
       media_key_settings = g_settings_new (MEDIA_KEYS_SCHEMA_ID);
       indicator_settings = g_settings_new (INDICATOR_KEYBOARD_SCHEMA_ID);
 
-      update_source_radios (builder);
-
       g_settings_bind (indicator_settings,
                        KEY_VISIBLE,
                        WID ("show-indicator-check"),
                        "active",
                        G_SETTINGS_BIND_DEFAULT);
-      g_settings_bind (ibus_panel_settings,
-                       IBUS_ORIENTATION_KEY,
-                       WID ("orientation-combo"),
-                       "active",
-                       G_SETTINGS_BIND_DEFAULT);
-      g_settings_bind (ibus_panel_settings,
-                       IBUS_USE_CUSTOM_FONT_KEY,
-                       WID ("custom-font-check"),
-                       "active",
-                       G_SETTINGS_BIND_DEFAULT);
-      g_settings_bind (ibus_panel_settings,
-                       IBUS_USE_CUSTOM_FONT_KEY,
-                       WID ("custom-font-button"),
-                       "sensitive",
-                       G_SETTINGS_BIND_GET | G_SETTINGS_BIND_NO_SENSITIVITY);
-      g_settings_bind (ibus_panel_settings,
-                       IBUS_CUSTOM_FONT_KEY,
-                       WID ("custom-font-button"),
-                       "font-name",
-                       G_SETTINGS_BIND_DEFAULT | G_SETTINGS_BIND_NO_SENSITIVITY);
+
+#ifdef HAVE_FCITX
+      if (is_fcitx_active)
+        {
+          load_fcitx_config ();
+
+          switch (fcitx_config.share_state)
+            {
+              case 0:
+                gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (WID ("share-state-no-radio")), TRUE);
+                break;
+              case 1:
+                gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (WID ("share-state-all-radio")), TRUE);
+                break;
+              case 2:
+                gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (WID ("share-state-per-program-radio")), TRUE);
+                break;
+            }
+
+          g_signal_connect (WID ("share-state-all-radio"), "toggled",
+                            G_CALLBACK (share_state_radio_toggled), builder);
+          g_signal_connect (WID ("share-state-no-radio"), "toggled",
+                            G_CALLBACK (share_state_radio_toggled), builder);
+          g_signal_connect (WID ("share-state-per-program-radio"), "toggled",
+                            G_CALLBACK (share_state_radio_toggled), builder);
+        }
+      else
+#endif /* HAVE_FCITX */
+        {
+          update_source_radios (builder);
+
+          g_settings_bind (ibus_panel_settings,
+                           IBUS_ORIENTATION_KEY,
+                           WID ("orientation-combo"),
+                           "active",
+                           G_SETTINGS_BIND_DEFAULT);
+          g_settings_bind (ibus_panel_settings,
+                           IBUS_USE_CUSTOM_FONT_KEY,
+                           WID ("custom-font-check"),
+                           "active",
+                           G_SETTINGS_BIND_DEFAULT);
+          g_settings_bind (ibus_panel_settings,
+                           IBUS_USE_CUSTOM_FONT_KEY,
+                           WID ("custom-font-button"),
+                           "sensitive",
+                           G_SETTINGS_BIND_GET | G_SETTINGS_BIND_NO_SENSITIVITY);
+          g_settings_bind (ibus_panel_settings,
+                           IBUS_CUSTOM_FONT_KEY,
+                           WID ("custom-font-button"),
+                           "font-name",
+                           G_SETTINGS_BIND_DEFAULT | G_SETTINGS_BIND_NO_SENSITIVITY);
+
+          g_signal_connect (WID ("same-source-radio"), "toggled",
+                            G_CALLBACK (source_radio_toggled), builder);
+          g_signal_connect (WID ("different-source-radio"), "toggled",
+                            G_CALLBACK (source_radio_toggled), builder);
+          g_signal_connect (WID ("default-source-radio"), "toggled",
+                            G_CALLBACK (source_radio_toggled), builder);
+          g_signal_connect (WID ("current-source-radio"), "toggled",
+                            G_CALLBACK (source_radio_toggled), builder);
+        }
+
       g_settings_bind_with_mapping (media_key_settings,
                                     KEY_PREV_INPUT_SOURCE,
                                     WID ("prev-source-entry"),
@@ -1629,14 +1984,6 @@ setup_input_tabs (GtkBuilder    *builder_,
                         G_CALLBACK (shortcut_key_pressed), builder);
       g_signal_connect (WID ("next-source-entry"), "key-pressed",
                         G_CALLBACK (shortcut_key_pressed), builder);
-      g_signal_connect (WID ("same-source-radio"), "toggled",
-                        G_CALLBACK (source_radio_toggled), builder);
-      g_signal_connect (WID ("different-source-radio"), "toggled",
-                        G_CALLBACK (source_radio_toggled), builder);
-      g_signal_connect (WID ("default-source-radio"), "toggled",
-                        G_CALLBACK (source_radio_toggled), builder);
-      g_signal_connect (WID ("current-source-radio"), "toggled",
-                        G_CALLBACK (source_radio_toggled), builder);
       g_signal_connect (libgnomekbd_settings,
                         "changed",
                         G_CALLBACK (libgnomekbd_settings_changed),
@@ -1825,6 +2172,7 @@ input_chooser_new (GtkWindow    *main_window,
     gtk_tree_view_column_new_with_attributes ("Input Sources",
                                               gtk_cell_renderer_text_new (),
                                               "text", NAME_COLUMN,
+                                              "foreground-rgba", COLOUR_COLUMN,
                                               NULL);
 
   gtk_window_set_transient_for (GTK_WINDOW (chooser), main_window);

@@ -1506,7 +1506,7 @@ on_input_selection_changed (GtkTreeSelection *selection,
 {
         GtkTreeModel *model;
         GtkTreeIter   iter;
-        gboolean      toggled;
+        gboolean      active;
         guint         id;
 
         if (gtk_tree_selection_get_selected (selection, &model, &iter) == FALSE) {
@@ -1516,10 +1516,13 @@ on_input_selection_changed (GtkTreeSelection *selection,
 
         gtk_tree_model_get (model, &iter,
                             ID_COLUMN, &id,
-                            ACTIVE_COLUMN, &toggled,
+                            ACTIVE_COLUMN, &active,
                             -1);
 
-        toggled ^= 1;
+        g_debug ("\n\n on_input_selection_changed - active %i \n\n", active); 
+        if (active)
+                return;
+
         GvcMixerUIDevice *input;
         //g_debug ("on_input_selection_changed - try swap to input with id %u", id); 
         input = gvc_mixer_control_lookup_input_id (dialog->priv->mixer_control, id);

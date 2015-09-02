@@ -9,6 +9,11 @@ panels/appearance/unity-appearance-panel.desktop.in.in
 panels/bluetooth/unity-bluetooth-panel.desktop.in.in
 [type: gettext/glade]panels/bluetooth/bluetooth.ui
 panels/bluetooth/cc-bluetooth-panel.c
+panels/bluetooth/gnome-bluetooth/lib/bluetooth-chooser.c
+panels/bluetooth/gnome-bluetooth/lib/bluetooth-filter-widget.c
+panels/bluetooth/gnome-bluetooth/lib/bluetooth-utils.c
+panels/bluetooth/gnome-bluetooth/wizard/main.c
+[type: gettext/glade]panels/bluetooth/gnome-bluetooth/wizard/wizard.ui
 panels/color/cc-color-panel.c
 [type: gettext/glade]panels/color/color.ui
 panels/color/unity-color-panel.desktop.in.in
@@ -75,7 +80,8 @@ panels/printers/pp-ppd-option-widget.c
 panels/printers/pp-ppd-selection-dialog.c
 [type: gettext/glade]panels/printers/printers.ui
 panels/region/unity-region-panel.desktop.in.in
-[type: gettext/glade]panels/region/unity-region-panel.ui
+[type: gettext/glade]panels/region/unity-region-panel-fcitx.ui
+[type: gettext/glade]panels/region/unity-region-panel-ibus.ui
 panels/region/gnome-region-panel-formats.c
 [type: gettext/glade]panels/region/gnome-region-panel-input-chooser.ui
 panels/region/gnome-region-panel-system.c
