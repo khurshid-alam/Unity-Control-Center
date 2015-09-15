@@ -1,3 +1,13 @@
+unity-control-center (15.04.0+15.10.20150915-0ubuntu1) wily; urgency=medium
+
+  [ Bastien Nocera ]
+  * network: Also work with NM 1.0 Remove the NetworkManager version
+    checking altogether. The code was made to check for now very old
+    versions of NetworkManager, and anything newer than ancient should
+    degrade gracefully if we support newer features. (LP: #1496028)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 15 Sep 2015 17:17:13 +0000
+
 unity-control-center (15.04.0+15.10.20150902-0ubuntu1) wily; urgency=medium
 
   [ Bastien Nocera ]
