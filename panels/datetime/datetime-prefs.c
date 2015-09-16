@@ -41,6 +41,7 @@ with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DATETIME_DIALOG_UI_FILE PKGDATADIR "/ui/datetime/datetime-dialog.ui"
 
+GType indicator_datetime_panel_get_type (void);
 #define INDICATOR_DATETIME_TYPE_PANEL indicator_datetime_panel_get_type()
 
 typedef struct _IndicatorDatetimePanel IndicatorDatetimePanel;
