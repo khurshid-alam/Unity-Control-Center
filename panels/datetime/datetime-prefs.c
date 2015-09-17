@@ -33,7 +33,7 @@ with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <polkit/polkit.h>
 #include <shell/cc-panel.h>
 #include <timezonemap/cc-timezone-map.h>
-#include <timezonemap/timezone-completion.h>
+#include <geonames.h>
 
 #include "settings-shared.h"
 #include "utils.h"
@@ -69,12 +69,22 @@ struct _IndicatorDatetimePanelPrivate
   gboolean             changing_time;
   GtkWidget *          loc_dlg;
   GSettings *          settings;
-  CcTimezoneCompletion * completion;
+  GtkListStore *       cities_model;
+  guint                typing_timeout;
+  GCancellable *       cancellable;
 };
 
 struct _IndicatorDatetimePanelClass
 {
   CcPanelClass parent_class;
+};
+
+enum
+{
+  COL_NAME,
+  COL_ADMIN1,
+  COL_COUNTRY,
+  COL_ZONE
 };
 
 G_DEFINE_DYNAMIC_TYPE (IndicatorDatetimePanel, indicator_datetime_panel, CC_TYPE_PANEL)
@@ -581,29 +591,9 @@ timezone_selected (GtkEntryCompletion * widget G_GNUC_UNUSED,
   const gchar * name, * zone;
 
   gtk_tree_model_get (model, iter,
-                      CC_TIMEZONE_COMPLETION_NAME, &name,
-                      CC_TIMEZONE_COMPLETION_ZONE, &zone,
+                      COL_NAME, &name,
+                      COL_ZONE, &zone,
                       -1);
-
-  if (zone == NULL || zone[0] == 0) {
-    const gchar * strlon, * strlat;
-    gdouble lon = 0.0, lat = 0.0;
-
-    gtk_tree_model_get (model, iter,
-                        CC_TIMEZONE_COMPLETION_LONGITUDE, &strlon,
-                        CC_TIMEZONE_COMPLETION_LATITUDE, &strlat,
-                        -1);
-
-    if (strlon != NULL && strlon[0] != 0) {
-      lon = g_ascii_strtod(strlon, NULL);
-    }
-
-    if (strlat != NULL && strlat[0] != 0) {
-      lat = g_ascii_strtod(strlat, NULL);
-    }
-
-    zone = cc_timezone_map_get_timezone_at_coords (self->priv->tzmap, lon, lat);
-  }
 
   gchar * tz_name = g_strdup_printf ("%s %s", zone, name);
   g_settings_set_string (self->priv->settings, SETTINGS_TIMEZONE_NAME_S, tz_name);
@@ -612,6 +602,48 @@ timezone_selected (GtkEntryCompletion * widget G_GNUC_UNUSED,
   cc_timezone_map_set_timezone (self->priv->tzmap, zone);
 
   return FALSE; // Do normal action too
+}
+
+static gboolean
+match_city_func (GtkEntryCompletion *completion,
+                 const gchar        *key,
+                 GtkTreeIter        *iter,
+                 gpointer            user_data)
+{
+  /* the model only ever contains cities that already match the text in
+   * the location entry, so it's safe to always accept matches */
+  return TRUE;
+}
+
+static void
+cell_data_func (GtkCellLayout   *cell_layout,
+                GtkCellRenderer *cell,
+                GtkTreeModel    *tree_model,
+                GtkTreeIter     *iter,
+                gpointer         user_data)
+{
+  gchar *name;
+  gchar *admin1;
+  gchar *country;
+  gchar *text;
+
+  gtk_tree_model_get (tree_model, iter,
+                      COL_NAME, &name,
+                      COL_ADMIN1, &admin1,
+                      COL_COUNTRY, &country,
+                      -1);
+
+  if (admin1[0] != '\0')
+    text = g_strdup_printf ("%s <small>(%s, %s)</small>", name, admin1, country);
+  else
+    text = g_strdup_printf ("%s <small>(%s)</small>", name, country);
+
+  g_object_set (cell, "markup", text, NULL);
+
+  g_free (name);
+  g_free (admin1);
+  g_free (country);
+  g_free (text);
 }
 
 static gboolean
@@ -643,10 +675,85 @@ entry_focus_out (GtkEntry * entry,
 }
 
 static void
+query_cities_callback (GObject      *source_object,
+                       GAsyncResult *result,
+                       gpointer      user_data)
+{
+  IndicatorDatetimePanel *self = user_data;
+  guint *indices;
+  guint len;
+  guint i;
+  GtkEntryCompletion *completion;
+
+  gtk_list_store_clear (self->priv->cities_model);
+
+  if (!geonames_query_cities_finish (result, &indices, &len, NULL))
+    return;
+
+  for (i = 0; i < len; i++)
+    {
+      GeonamesCity *city;
+      GtkTreeIter iter;
+
+      city = geonames_get_city (indices[i]);
+
+      gtk_list_store_append (self->priv->cities_model, &iter);
+      gtk_list_store_set (self->priv->cities_model, &iter,
+                          COL_NAME, geonames_city_get_name (city),
+                          COL_ADMIN1, geonames_city_get_state (city),
+                          COL_COUNTRY, geonames_city_get_country (city),
+                          COL_ZONE, geonames_city_get_timezone (city),
+                          -1);
+
+      geonames_city_free (city);
+    }
+
+  completion = gtk_entry_get_completion (GTK_ENTRY (self->priv->tz_entry));
+  gtk_entry_completion_complete (completion);
+
+  g_free (indices);
+}
+
+static gboolean
+typing_timeout (gpointer user_data)
+{
+  IndicatorDatetimePanel *self = user_data;
+  const gchar *query;
+
+  if (self->priv->cancellable)
+    {
+      g_cancellable_cancel (self->priv->cancellable);
+      g_object_unref (self->priv->cancellable);
+    }
+
+  self->priv->cancellable = g_cancellable_new ();
+  query = gtk_entry_get_text (GTK_ENTRY (self->priv->tz_entry));
+
+  geonames_query_cities (query, GEONAMES_QUERY_DEFAULT, self->priv->cancellable, query_cities_callback, self);
+
+  self->priv->typing_timeout = 0;
+  return G_SOURCE_REMOVE;
+}
+
+static void
+entry_changed (GtkEntry *entry,
+               gpointer  user_data)
+{
+  IndicatorDatetimePanel *self = user_data;
+
+  if (self->priv->typing_timeout > 0)
+    g_source_remove (self->priv->typing_timeout);
+
+  self->priv->typing_timeout = g_timeout_add (100, typing_timeout, self);
+}
+
+static void
 indicator_datetime_panel_init (IndicatorDatetimePanel * self)
 {
   GError * error;
   GSettings * conf;
+  GtkEntryCompletion *completion;
+  GtkCellRenderer *renderer;
 
   self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self,
                                             INDICATOR_DATETIME_TYPE_PANEL,
@@ -686,9 +793,21 @@ indicator_datetime_panel_init (IndicatorDatetimePanel * self)
   cc_timezone_map_set_watermark (self->priv->tzmap, "Geonames.org");
 
   /* And completion entry */
-  self->priv->completion = cc_timezone_completion_new ();
-  cc_timezone_completion_watch_entry (self->priv->completion, GTK_ENTRY (WIG ("timezoneEntry")));
-  g_signal_connect (self->priv->completion, "match-selected", G_CALLBACK (timezone_selected), self);
+  self->priv->cities_model = gtk_list_store_new (4, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
+
+  completion = gtk_entry_completion_new ();
+  gtk_entry_completion_set_model (completion, GTK_TREE_MODEL (self->priv->cities_model));
+  gtk_entry_completion_set_minimum_key_length (completion, 2);
+  g_object_set (G_OBJECT (completion), "text-column", COL_NAME,  NULL); /* use this, because the setter adds a renderer */
+  gtk_entry_completion_set_match_func (completion, match_city_func, NULL, NULL);
+  g_signal_connect (completion, "match-selected", G_CALLBACK (timezone_selected), self);
+
+  renderer = gtk_cell_renderer_text_new ();
+  gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (completion), renderer, TRUE);
+  gtk_cell_layout_set_cell_data_func (GTK_CELL_LAYOUT (completion), renderer, cell_data_func, NULL, NULL);
+
+  gtk_entry_set_completion (GTK_ENTRY (WIG ("timezoneEntry")), completion);
+  g_signal_connect (WIG ("timezoneEntry"), "changed", G_CALLBACK (entry_changed), self);
   g_signal_connect (WIG ("timezoneEntry"), "focus-out-event", G_CALLBACK (entry_focus_out), self);
 
   /* Set up settings bindings */
@@ -768,6 +887,8 @@ indicator_datetime_panel_init (IndicatorDatetimePanel * self)
 
   gtk_widget_show_all (panel);
   gtk_container_add (GTK_CONTAINER (self), panel);
+
+  g_object_unref (completion);
 }
 
 static void
@@ -795,11 +916,6 @@ indicator_datetime_panel_dispose (GObject * object)
     priv->save_time_id = 0;
   }
 
-  if (priv->completion) {
-    cc_timezone_completion_watch_entry (priv->completion, NULL);
-    g_clear_object (&priv->completion);
-  }
-
   if (priv->tz_entry) {
     gtk_widget_destroy (priv->tz_entry);
     priv->tz_entry = NULL;
@@ -814,6 +930,19 @@ indicator_datetime_panel_dispose (GObject * object)
     gtk_widget_destroy (priv->date_spin);
     priv->date_spin = NULL;
   }
+
+  g_clear_object (&priv->cities_model);
+
+  if (priv->typing_timeout) {
+    g_source_remove (priv->typing_timeout);
+    priv->typing_timeout = 0;
+  }
+
+  if (self->priv->cancellable)
+    {
+      g_cancellable_cancel (self->priv->cancellable);
+      g_clear_object (&self->priv->cancellable);
+    }
 
   G_OBJECT_CLASS (indicator_datetime_panel_parent_class)->dispose (object);
 }
