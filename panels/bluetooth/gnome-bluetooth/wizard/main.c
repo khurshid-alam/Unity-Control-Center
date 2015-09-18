@@ -442,7 +442,7 @@ display_callback (GDBusMethodInvocation *invocation,
 		  guint entered,
 		  gpointer user_data)
 {
-	gchar *text, *done, *code;
+	gchar *text, *done, *code, *label;
 
 	display_called = TRUE;
 	gtk_assistant_set_current_page (window_assistant, PAGE_SSP_SETUP);
@@ -469,18 +469,27 @@ display_callback (GDBusMethodInvocation *invocation,
 
 		done = g_string_free (str, FALSE);
 	} else {
-		done = g_strdup ("");
+		done = g_strdup_printf("%s", code);
 	}
 
-	gtk_widget_show (label_pin_help);
+	gtk_widget_show (label_ssp_pin);
 
-	gtk_label_set_markup(GTK_LABEL(label_ssp_pin_help), _("Please enter the following PIN:"));
-	text = g_strdup_printf("%s%s", done, code + entered);
+	if (target_ui_behaviour == PAIRING_UI_KEYBOARD) {
+		label = g_strdup_printf (_("Please enter the following PIN on '%s' and press “Enter” on the keyboard:"), target_name);
+		text = g_strdup_printf("%s⏎", done);
+	}
+	else {
+		label = g_strdup_printf (_("Please enter the following PIN on '%s':"), target_name);
+		text = g_strdup_printf("%s", done);
+	}
+
+	gtk_label_set_markup(GTK_LABEL(label_ssp_pin_help), label);
 	set_large_label (GTK_LABEL (label_ssp_pin), text);
 	g_free(text);
 
 	g_free(done);
 	g_free(code);
+	g_free(label);
 
 	g_dbus_method_invocation_return_value (invocation, NULL);
 }
