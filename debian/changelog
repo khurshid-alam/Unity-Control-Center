@@ -1,3 +1,11 @@
+unity-control-center (15.04.0+15.10.20150923-0ubuntu1) wily; urgency=medium
+
+  * [bluetooth] restore the ssp pairing signature fix which was applied
+    to our gnome-bluetooth package but got discarded by error when
+    updating ucc to the new bluez version (LP: #1492443)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 23 Sep 2015 06:52:32 +0000
+
 unity-control-center (15.04.0+15.10.20150915-0ubuntu1) wily; urgency=medium
 
   [ Bastien Nocera ]
