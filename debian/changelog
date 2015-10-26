@@ -1,3 +1,10 @@
+unity-control-center (15.04.0+16.04.20151026-0ubuntu1) xenial; urgency=medium
+
+  * backport upstream change from gnome-bluetooth
+  * backport upstream gnome-bluetooth commit to fix build warnings
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Mon, 26 Oct 2015 16:03:05 +0000
+
 unity-control-center (15.04.0+15.10.20150923-0ubuntu1) wily; urgency=medium
 
   * [bluetooth] restore the ssp pairing signature fix which was applied
