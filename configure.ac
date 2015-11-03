@@ -486,6 +486,7 @@ panels/universal-access/unity-universal-access-panel.desktop.in
 panels/user-accounts/Makefile
 panels/user-accounts/data/Makefile
 panels/user-accounts/data/unity-user-accounts-panel.desktop.in
+panels/user-accounts/data/faces/Makefile
 panels/wacom/Makefile
 panels/wacom/calibrator/Makefile
 panels/wacom/unity-wacom-panel.desktop.in
