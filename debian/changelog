@@ -1,3 +1,15 @@
+unity-control-center (15.04.0+16.04.20151112-0ubuntu1) xenial; urgency=medium
+
+  [ Robert Ancell ]
+  * Update system information logo for Xenial Xerus
+
+  [ Sebastien Bacher ]
+  * Import user-accounts faces image and ship in a new binary, that way
+    unity-control-center doesn't have to depends on gnome-control-center
+    which means that one can be moved to universe (LP: #1512435)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 12 Nov 2015 09:05:27 +0000
+
 unity-control-center (15.04.0+16.04.20151026-0ubuntu2) xenial; urgency=medium
 
   * No-change rebuild against new gnome libraries
