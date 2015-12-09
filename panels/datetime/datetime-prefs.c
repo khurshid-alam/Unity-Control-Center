@@ -680,14 +680,15 @@ query_cities_callback (GObject      *source_object,
                        gpointer      user_data)
 {
   IndicatorDatetimePanel *self = user_data;
-  guint *indices;
+  gint *indices;
   guint len;
   guint i;
   GtkEntryCompletion *completion;
 
   gtk_list_store_clear (self->priv->cities_model);
 
-  if (!geonames_query_cities_finish (result, &indices, &len, NULL))
+  indices = geonames_query_cities_finish (result, &len, NULL);
+  if (indices == NULL)
     return;
 
   for (i = 0; i < len; i++)
