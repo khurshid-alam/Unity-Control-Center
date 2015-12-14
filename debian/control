@@ -92,7 +92,7 @@ Recommends: cups-pk-helper,
             policykit-1-gnome,
             libcanberra-pulse,
             system-config-printer-gnome,
-            gnome-control-center-shared-data
+            unity-control-center-faces,
 Conflicts: gnome-control-center (<< 1:3.6.3-0ubuntu50),
            gnome-control-center-unity,
            unity-control-center-datetime
