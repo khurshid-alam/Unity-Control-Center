@@ -1,3 +1,17 @@
+unity-control-center (15.04.0+16.04.20151214-0ubuntu1) xenial; urgency=medium
+
+  [ Lars Uebernickel ]
+  * datetime: use libgeonames for city completion
+
+  [ Sebastien Bacher ]
+  * really stop using gnome-control-center binaries
+
+  [ William Hua ]
+  * Fix FTBFS due to non-deterministic compilation of non-static inline
+    functions.
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Mon, 14 Dec 2015 10:09:39 +0000
+
 unity-control-center (15.04.0+16.04.20151112-0ubuntu1) xenial; urgency=medium
 
   [ Robert Ancell ]
