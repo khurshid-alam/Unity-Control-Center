@@ -63,9 +63,9 @@ static gchar *contrast_keys[] = {
   NULL
 };
 
-inline void set_active (GtkWidget* toggle, gboolean sense);
-inline gboolean get_active (GtkWidget* toggle);
-inline void set_sensitive (GtkWidget *widget, gboolean sense);
+static void set_active (GtkWidget* toggle, gboolean sense);
+static gboolean get_active (GtkWidget* toggle);
+static void set_sensitive (GtkWidget *widget, gboolean sense);
 
 static void set_enable_screen_part_ui (GtkWidget *widget, ZoomOptionsPrivate *priv);
 static void mouse_tracking_notify_cb (GSettings *settings, const gchar *key, ZoomOptionsPrivate *priv);
@@ -79,19 +79,19 @@ static void effects_slider_changed (GtkRange *slider, ZoomOptionsPrivate *priv);
 
 /* Utilties to save on line length */
 
-inline void
+static void
 set_active (GtkWidget* toggle, gboolean sense)
 {
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toggle), sense);
 }
 
-inline gboolean
+static gboolean
 get_active (GtkWidget* toggle)
 {
     return gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (toggle));
 }
 
-inline void
+static void
 set_sensitive (GtkWidget *widget, gboolean sense)
 {
     gtk_widget_set_sensitive (widget, sense);
