@@ -777,7 +777,7 @@ info_panel_setup_notice (CcInfoPanel  *self)
                     G_CALLBACK (on_decide_policy), NULL);
 
   gtk_notebook_append_page (GTK_NOTEBOOK (WID ("notebook")), GTK_WIDGET (webView), NULL);
-  gtk_widget_show_all(GTK_WIDGET (webView));
+  gtk_widget_show_all (GTK_WIDGET (webView));
 }
 
 static void
