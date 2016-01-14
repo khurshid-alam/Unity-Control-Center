@@ -759,7 +759,7 @@ on_decide_policy (WebKitWebView             *web_view,
 
                 webkit_policy_decision_ignore (decision);
 
-                gtk_show_uri (gtk_widget_get_screen (user_data),
+                gtk_show_uri (gtk_widget_get_screen (GTK_WIDGET (web_view)),
                               uri, GDK_CURRENT_TIME, NULL);
                 return TRUE;
             }
@@ -771,12 +771,10 @@ on_decide_policy (WebKitWebView             *web_view,
 static void
 info_panel_setup_notice (CcInfoPanel  *self)
 {
-  GtkWidget *sw;
-
   WebKitWebView *webView = WEBKIT_WEB_VIEW (webkit_web_view_new());
   webkit_web_view_load_uri(webView, "file:///usr/share/unity-control-center/searchingthedashlegalnotice.html");
   g_signal_connect (G_OBJECT (webView), "decide-policy",
-                    G_CALLBACK (on_decide_policy), sw);
+                    G_CALLBACK (on_decide_policy), NULL);
 
   gtk_notebook_append_page (GTK_NOTEBOOK (WID ("notebook")), GTK_WIDGET (webView), NULL);
   gtk_widget_show_all(GTK_WIDGET (webView));
