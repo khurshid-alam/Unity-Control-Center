@@ -140,7 +140,7 @@ PKG_CHECK_MODULES(DATETIME_PANEL, $COMMON_MODULES timezonemap geonames
                   polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION)
 PKG_CHECK_MODULES(DISPLAY_PANEL, $COMMON_MODULES libunity-settings-daemon x11)
 PKG_CHECK_MODULES(INFO_PANEL, $COMMON_MODULES libgtop-2.0 gl x11
-		  polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION webkitgtk-3.0)
+		  polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION webkit2gtk-4.0)
 PKG_CHECK_MODULES(KEYBOARD_PANEL, $COMMON_MODULES
                   gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION
                   x11)
