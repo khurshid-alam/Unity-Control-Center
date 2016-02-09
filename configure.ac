@@ -455,6 +455,8 @@ panels/sound/data/icons/32x32/status/Makefile
 panels/sound/data/icons/48x48/Makefile
 panels/sound/data/icons/48x48/apps/Makefile
 panels/sound/data/icons/48x48/devices/Makefile
+panels/sound/data/icons/256x256/Makefile
+panels/sound/data/icons/256x256/apps/Makefile
 panels/sound/data/icons/scalable/Makefile
 panels/sound/data/icons/scalable/devices/Makefile
 panels/screen/Makefile
