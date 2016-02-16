@@ -57,7 +57,7 @@ Build-Depends: autotools-dev,
                network-manager-dev (>= 0.9.6.4) [linux-any],
                shared-mime-info,
                ttf-ubuntu-font-family,
-               libwebkitgtk-3.0-dev,
+               libwebkit2gtk-4.0-dev,
                libgl1-mesa-dev,
                valac (>= 0.20.0),
 Vcs-Bzr: https://code.launchpad.net/~unity-control-center-team/unity-control-center/trunk
