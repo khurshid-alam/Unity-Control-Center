@@ -627,7 +627,7 @@ um_password_dialog_new (void)
                                   old_label);
         else
             label = g_strdup_printf ("<a href=\"%s\">%s</a>",
-                                  "help:gnome-help/user-goodpassword",
+                                  "help:ubuntu-help/user-goodpassword",
                                   old_label);
         gtk_label_set_markup (GTK_LABEL (widget), label);
         g_free (label);
