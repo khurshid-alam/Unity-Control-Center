@@ -180,10 +180,7 @@ cc_ua_panel_finalize (GObject *object)
 static const char *
 cc_ua_panel_get_help_uri (CcPanel *panel)
 {
-  if (!g_strcmp0(g_getenv("XDG_CURRENT_DESKTOP"), "Unity"))
-    return "help:ubuntu-help/a11y";
-  else
-    return "help:gnome-help/a11y";
+  return "help:ubuntu-help/a11y";
 }
 
 static void

@@ -181,14 +181,9 @@ help_activated (GSimpleAction *action,
 
   if (panel)
     uri = cc_panel_get_help_uri (panel);
-    if (!g_strcmp0(g_getenv("XDG_CURRENT_DESKTOP"), "Unity"))
-      gtk_show_uri (gtk_widget_get_screen (window),
-                uri ? uri : "help:ubuntu-help/prefs",
-                GDK_CURRENT_TIME, NULL);
-    else
-      gtk_show_uri (gtk_widget_get_screen (window),
-                uri ? uri : "help:gnome-help/prefs",
-                GDK_CURRENT_TIME, NULL);
+    gtk_show_uri (gtk_widget_get_screen (window),
+                  uri ? uri : "help:ubuntu-help/prefs",
+                  GDK_CURRENT_TIME, NULL);
 }
 
 static void
@@ -199,14 +194,9 @@ contents_activated (GSimpleAction *action,
   GnomeControlCenter *shell = user_data;
   GtkWidget *window = cc_shell_get_toplevel (CC_SHELL (shell));
   
-  if (!g_strcmp0(g_getenv("XDG_CURRENT_DESKTOP"), "Unity"))
-    gtk_show_uri (gtk_widget_get_screen (window),
-                  "help:ubuntu-help/prefs",
-                  GDK_CURRENT_TIME, NULL);
-  else
-    gtk_show_uri (gtk_widget_get_screen (window),
-                  "help:gnome-help/prefs",
-                  GDK_CURRENT_TIME, NULL);
+  gtk_show_uri (gtk_widget_get_screen (window),
+                "help:ubuntu-help/prefs",
+                GDK_CURRENT_TIME, NULL);
 }
 
 static void
