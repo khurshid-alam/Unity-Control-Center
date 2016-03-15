@@ -58,6 +58,7 @@ struct _CcUaPanelPrivate
   GSettings *mouse_settings;
   GSettings *application_settings;
   GSettings *mediakeys_settings;
+  GSettings *a11y_profile_settings;
 
   ZoomOptions *zoom_options;
   guint shell_watch_id;
@@ -153,6 +154,12 @@ cc_ua_panel_dispose (GObject *object)
     {
       g_object_unref (priv->mediakeys_settings);
       priv->mediakeys_settings = NULL;
+    }
+
+  if (priv->a11y_profile_settings)
+    {
+      g_object_unref (priv->a11y_profile_settings);
+      priv->a11y_profile_settings = NULL;
     }
 
   if (priv->zoom_options)
@@ -496,6 +503,16 @@ cc_ua_panel_init_seeing (CcUaPanel *self)
   cc_ua_panel_set_shortcut_label (self, "seeing_reader_enable_keybinding_label", "screenreader");
 }
 
+static void
+cc_ua_panel_init_profiles (CcUaPanel *self)
+{
+  CcUaPanelPrivate *priv = self->priv;
+
+  settings_on_off_editor_new (priv, priv->a11y_profile_settings,
+                              "always-show-universal-access-status",
+                              WID (priv->builder, "profiles_indicator_switch"),
+                              NULL);
+}
 
 /* hearing/sound section */
 static void
@@ -723,6 +740,7 @@ cc_ua_panel_init (CcUaPanel *self)
   priv->mouse_settings = g_settings_new ("org.gnome.desktop.a11y.mouse");
   priv->application_settings = g_settings_new ("org.gnome.desktop.a11y.applications");
   priv->mediakeys_settings = g_settings_new ("org.gnome.settings-daemon.plugins.media-keys");
+  priv->a11y_profile_settings = g_settings_new ("org.gnome.desktop.a11y");
 
   if (is_unity_session ())
     priv->unity_interface_settings = g_settings_new ("com.canonical.Unity.Interface");
@@ -731,6 +749,7 @@ cc_ua_panel_init (CcUaPanel *self)
   cc_ua_panel_init_mouse (self);
   cc_ua_panel_init_hearing (self);
   cc_ua_panel_init_seeing (self);
+  cc_ua_panel_init_profiles (self);
 
   widget = (GtkWidget*) gtk_builder_get_object (priv->builder,
                                                 "universal_access_box");
