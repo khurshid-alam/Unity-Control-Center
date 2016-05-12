@@ -1,3 +1,13 @@
+unity-control-center (15.04.0+16.10.20160512-0ubuntu1) yakkety; urgency=medium
+
+  * bluetooh: remove leftover "browse" button, the backend used was
+    removed during the bluez5 update and the panel callbacks were
+    cleaned out, the button is doing nothing else than confusing users
+    (LP: #1562822)
+  * update Ubuntu version for the new 16.10 serie
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 12 May 2016 14:12:08 +0000
+
 unity-control-center (15.04.0+16.04.20160413-0ubuntu1) xenial; urgency=medium
 
   * remove the migration script, it was only needed for trusty updates
