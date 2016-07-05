@@ -1,3 +1,15 @@
+unity-control-center (15.04.0+16.10.20160705.1-0ubuntu1) yakkety; urgency=medium
+
+  [ Marco Trevisan (Treviño) ]
+  * CcAppearancePanel: read COMPIZ_CONFIG_PROFILE value to choose the
+    right settings path (LP: #1598770)
+
+  [ Trent Lloyd ]
+  * This patch fixes a crash when changing the default browser handler
+    (LP: #1304388)
+
+ -- Marco Trevisan (Treviño) <mail@3v1n0.net>  Tue, 05 Jul 2016 23:40:29 +0000
+
 unity-control-center (15.04.0+16.10.20160525.1-0ubuntu1) yakkety; urgency=medium
 
   [ Kai-Heng Feng ]
