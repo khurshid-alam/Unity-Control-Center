@@ -1007,8 +1007,6 @@ set_ac_battery_ui_mode (CcPowerPanel *self)
   gtk_widget_set_visible (WID (priv->builder, "label_header_battery"), has_batteries);
   gtk_widget_set_visible (WID (priv->builder, "label_header_ac"), has_batteries);
   gtk_widget_set_visible (WID (priv->builder, "combobox_sleep_battery"), has_batteries);
-  gtk_widget_set_visible (WID (priv->builder, "label_critical"), has_batteries);
-  gtk_widget_set_visible (WID (priv->builder, "combobox_critical"), has_batteries);
 }
 
 static gboolean
@@ -1093,17 +1091,6 @@ cc_power_panel_init (CcPowerPanel *self)
   g_object_set_data (G_OBJECT(widget), "_gsettings_key", "sleep-inactive-battery-timeout");
   g_signal_connect (widget, "changed",
                     G_CALLBACK (combo_time_changed_cb),
-                    self);
-
-  /* actions */
-  value = g_settings_get_enum (self->priv->gsd_settings, "critical-battery-action");
-  widget = GTK_WIDGET (gtk_builder_get_object (self->priv->builder,
-                                               "combobox_critical"));
-  disable_unavailable_combo_items (self, GTK_COMBO_BOX (widget));
-  set_value_for_combo (GTK_COMBO_BOX (widget), value);
-  g_object_set_data (G_OBJECT(widget), "_gsettings_key", "critical-battery-action");
-  g_signal_connect (widget, "changed",
-                    G_CALLBACK (combo_enum_changed_cb),
                     self);
 
   /* set screen link */
