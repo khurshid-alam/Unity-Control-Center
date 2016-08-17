@@ -249,8 +249,10 @@ show_week (UmHistoryDialog *um)
                         break;
                 }
 
-                /* Display only x-session records */
-                if (!g_str_has_prefix (history.type, ":")) {
+                /* Display only x-session and tty records */
+                if (!g_str_has_prefix (history.type, ":") &&
+                    !g_str_has_prefix (history.type, "tty")&&
+                    !g_str_has_prefix (history.type, "pts")) {
                         continue;
                 }
 
