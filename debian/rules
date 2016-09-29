@@ -6,6 +6,7 @@ include /usr/share/cdbs/1/class/gnome.mk
 include /usr/share/gnome-pkg-tools/1/rules/gnome-version.mk
 include /usr/share/gnome-pkg-tools/1/rules/clean-la.mk
 
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 export DEB_LDFLAGS_MAINT_APPEND = -Wl,-z,defs -Wl,-O1 -Wl,--as-needed
 include /usr/share/dpkg/buildflags.mk
 

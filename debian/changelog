@@ -1,3 +1,9 @@
+unity-control-center (15.04.0+16.10.20160705.1-0ubuntu2) yakkety; urgency=medium
+
+  * Build using dpkg-dev's hardening support. LP: #1620313.
+
+ -- Matthias Klose <doko@ubuntu.com>  Thu, 29 Sep 2016 21:25:53 +0200
+
 unity-control-center (15.04.0+16.10.20160705.1-0ubuntu1) yakkety; urgency=medium
 
   [ Marco Trevisan (Treviño) ]
