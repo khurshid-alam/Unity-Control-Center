@@ -91,12 +91,6 @@ cc_ua_panel_set_property (GObject      *object,
     }
 }
 
-static gboolean
-is_unity_session (void)
-{
-  return (g_strcmp0 (g_getenv("XDG_CURRENT_DESKTOP"), "Unity") == 0);
-}
-
 static void
 cc_ua_panel_dispose (GObject *object)
 {
@@ -377,9 +371,7 @@ set_large_text_mapping (const GValue       *value,
     }
   else
     {
-      const gchar *key = is_unity_session () ? KEY_UNITY_TEXT_SCALE_FACTOR :
-                                               KEY_TEXT_SCALING_FACTOR;
-      g_settings_reset (settings, key);
+      g_settings_reset (settings, KEY_UNITY_TEXT_SCALE_FACTOR);
     }
 
   return ret;
@@ -467,20 +459,8 @@ cc_ua_panel_init_seeing (CcUaPanel *self)
                    WID (priv->builder, "seeing_toggle_keys_switch"), "active",
                    G_SETTINGS_BIND_DEFAULT);
 
-  if (g_strcmp0 (g_getenv ("XDG_CURRENT_DESKTOP"), "Unity")) 
-  {
-    priv->shell_watch_id = g_bus_watch_name (G_BUS_TYPE_SESSION,
-					   "org.gnome.Shell",
-					   G_BUS_NAME_WATCHER_FLAGS_NONE,
-					   (GBusNameAppearedCallback) shell_appeared_cb,
-					   (GBusNameVanishedCallback) shell_vanished_cb,
-					   self,
-					   NULL);
-  } else
-  {
-    gtk_widget_hide (WID (priv->builder, "zoom_label_box"));
-    gtk_widget_hide (WID (priv->builder, "zoom_value_box"));
-  }
+  gtk_widget_hide (WID (priv->builder, "zoom_label_box"));
+  gtk_widget_hide (WID (priv->builder, "zoom_value_box"));
 
   g_signal_connect (WID (priv->builder, "seeing_zoom_preferences_button"),
                     "clicked",
@@ -738,9 +718,7 @@ cc_ua_panel_init (CcUaPanel *self)
   priv->application_settings = g_settings_new ("org.gnome.desktop.a11y.applications");
   priv->mediakeys_settings = g_settings_new ("org.gnome.settings-daemon.plugins.media-keys");
   priv->a11y_profile_settings = g_settings_new ("org.gnome.desktop.a11y");
-
-  if (is_unity_session ())
-    priv->unity_interface_settings = g_settings_new ("com.canonical.Unity.Interface");
+  priv->unity_interface_settings = g_settings_new ("com.canonical.Unity.Interface");
 
   cc_ua_panel_init_keyboard (self);
   cc_ua_panel_init_mouse (self);
