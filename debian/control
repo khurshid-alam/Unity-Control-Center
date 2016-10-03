@@ -57,6 +57,7 @@ Build-Depends: autotools-dev,
                libwebkit2gtk-4.0-dev,
                libgl1-mesa-dev,
                valac (>= 0.20.0),
+               indicator-datetime
 Vcs-Bzr: https://code.launchpad.net/~unity-control-center-team/unity-control-center/trunk
 
 Package: unity-control-center

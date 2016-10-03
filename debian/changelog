@@ -1,3 +1,10 @@
+unity-control-center (15.04.0+16.10.20160705.1-0ubuntu3) yakkety; urgency=medium
+
+  * Build-depend on indicator-datetime, so that we don't build uninstallable
+    packages on arches where this is absent.
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Sat, 01 Oct 2016 02:40:22 -0700
+
 unity-control-center (15.04.0+16.10.20160705.1-0ubuntu2) yakkety; urgency=medium
 
   * Build using dpkg-dev's hardening support. LP: #1620313.
