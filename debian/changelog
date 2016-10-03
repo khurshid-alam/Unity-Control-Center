@@ -1,3 +1,22 @@
+unity-control-center (15.04.0+16.10.20161003.1-0ubuntu1) yakkety; urgency=medium
+
+  [ Robert Ancell ]
+  * Don't check if we're running under Unity - we only support Unity
+    (LP: #1554878, #1629668)
+  * Ubuntu only supports usernames with lowercase letters. (LP:
+    #1600638)
+
+  [ Sebastien Bacher ]
+  * Revert the change from r12750 to include only graphical sessions.
+    (LP: #1380364)
+
+  [ will@whizzy.org ]
+  * Removed "when battery is critical" functionality from the power
+    panel as this is now handled by Upower and these settings now do
+    nothing.  Fixes LP: #1599264 (LP: #1599264)
+
+ -- iain@orangesquash.org.uk <iain@orangesquash.org.uk>  Mon, 03 Oct 2016 11:19:09 +0000
+
 unity-control-center (15.04.0+16.10.20160705.1-0ubuntu3) yakkety; urgency=medium
 
   * Build-depend on indicator-datetime, so that we don't build uninstallable
