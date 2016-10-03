@@ -144,18 +144,9 @@ static gboolean   input_chooser_get_selected (GtkWidget     *chooser,
 static GtkTreeModel *tree_view_get_actual_model (GtkTreeView *tv);
 
 static gboolean
-is_unity (void)
-{
-  return g_strcmp0 (g_getenv ("XDG_CURRENT_DESKTOP"), "Unity") == 0;
-}
-
-static gboolean
 has_indicator_keyboard (void)
 {
 	GSettingsSchema *schema;
-
-	if (!is_unity ())
-		return FALSE;
 
 	schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (), INDICATOR_KEYBOARD_SCHEMA_ID, TRUE);
 	if (schema) {

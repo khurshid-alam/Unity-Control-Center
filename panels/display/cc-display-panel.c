@@ -271,12 +271,6 @@ error_message (CcDisplayPanel *self, const char *primary_text, const char *secon
 }
 
 static gboolean
-is_unity_session (void)
-{
-  return (g_strcmp0 (g_getenv("XDG_CURRENT_DESKTOP"), "Unity") == 0);
-}
-
-static gboolean
 should_show_resolution (gint output_width,
                         gint output_height,
                         gint width,
@@ -317,11 +311,8 @@ on_screen_changed (GsdRRScreen *scr,
 
   select_current_output_from_dialog_position (self);
 
-  if (is_unity_session ())
-    {
-      refresh_unity_launcher_placement (self);
-      refresh_unity_monitor_scale (self);
-    }
+  refresh_unity_launcher_placement (self);
+  refresh_unity_monitor_scale (self);
 }
 
 static void
@@ -2286,80 +2277,23 @@ paint_output (CcDisplayPanel *self, cairo_t *cr, int i)
   cairo_restore (cr);
 
   /* Only display a launcher on all or primary monitor */
-  if (is_unity_session ())
+  if (gsd_rr_output_info_is_active (output) && (unity_launcher_on_all_monitors (self->priv->unity_settings) || gsd_rr_output_info_get_primary (output)))
     {
-      if (gsd_rr_output_info_is_active (output) && (unity_launcher_on_all_monitors (self->priv->unity_settings) || gsd_rr_output_info_get_primary (output)))
-        {
-          cairo_rectangle (cr, x, y, 10, h * scale + 0.5);
-          cairo_set_source_rgb (cr, 0, 0, 0);
-          foo_scroll_area_add_input_from_fill (FOO_SCROLL_AREA (self->priv->area),
-                                               cr,
-                                               (FooScrollAreaEventFunc) on_top_bar_event,
-                                               self);
-          cairo_fill (cr);
-
-          cairo_set_source_rgb (cr, 0.25, 0.25, 0.25);
-          cairo_rectangle (cr, x + 1, y + 6, 8, 8);
-          cairo_rectangle (cr, x + 1, y + 16, 8, 8);
-          cairo_rectangle (cr, x + 1, y + 26, 8, 8);
-          cairo_rectangle (cr, x + 1, y + 36, 8, 8);
-          cairo_rectangle (cr, x + 1, y + h * scale + 0.5 - 10, 8, 8);
-          cairo_fill (cr);
-        }
-    }
-
-  if (gsd_rr_output_info_get_primary (output) && !is_unity_session ())
-    {
-      const char *clock_format;
-      char *text;
-      gboolean use_24;
-      GDateTime *dt;
-      GDesktopClockFormat value;
-
-      /* top bar */
-      cairo_rectangle (cr, x, y, w * scale + 0.5, TOP_BAR_HEIGHT);
+      cairo_rectangle (cr, x, y, 10, h * scale + 0.5);
       cairo_set_source_rgb (cr, 0, 0, 0);
       foo_scroll_area_add_input_from_fill (FOO_SCROLL_AREA (self->priv->area),
                                            cr,
                                            (FooScrollAreaEventFunc) on_top_bar_event,
                                            self);
-
       cairo_fill (cr);
 
-      /* clock */
-      value = g_settings_get_enum (self->priv->clock_settings, CLOCK_FORMAT_KEY);
-      use_24 = value == G_DESKTOP_CLOCK_FORMAT_24H;
-      if (use_24)
-        clock_format = _("%a %R");
-      else
-        clock_format = _("%a %l:%M %p");
-
-      dt = g_date_time_new_now_local ();
-      text = g_date_time_format (dt, clock_format);
-      g_date_time_unref (dt);
-
-      layout = gtk_widget_create_pango_layout (GTK_WIDGET (self->priv->area), text);
-      g_free (text);
-      pango_layout_set_alignment (layout, PANGO_ALIGN_CENTER);
-
-      layout_set_font (layout, "Sans 4");
-      pango_layout_get_pixel_extents (layout, &ink_extent, &log_extent);
-
-      if (available_w < ink_extent.width)
-        factor = available_w / ink_extent.width;
-      else
-        factor = 1.0;
-
-      cairo_move_to (cr,
-                     x + ((w * scale + 0.5) - factor * log_extent.width) / 2,
-                     y + (TOP_BAR_HEIGHT - factor * log_extent.height) / 2);
-
-      cairo_scale (cr, factor, factor);
-
-      cairo_set_source_rgb (cr, 1.0, 1.0, 1.0);
-
-      pango_cairo_show_layout (cr, layout);
-      g_object_unref (layout);
+      cairo_set_source_rgb (cr, 0.25, 0.25, 0.25);
+      cairo_rectangle (cr, x + 1, y + 6, 8, 8);
+      cairo_rectangle (cr, x + 1, y + 16, 8, 8);
+      cairo_rectangle (cr, x + 1, y + 26, 8, 8);
+      cairo_rectangle (cr, x + 1, y + 36, 8, 8);
+      cairo_rectangle (cr, x + 1, y + h * scale + 0.5 - 10, 8, 8);
+      cairo_fill (cr);
     }
 
   cairo_restore (cr);
@@ -3255,21 +3189,7 @@ cc_display_panel_constructor (GType                  gtype,
                             "clicked", G_CALLBACK (apply), self);
 
   /* Unity settings */
-  if (is_unity_session ())
-    setup_unity_settings (self);
-  else
-    {
-      gtk_widget_hide (WID ("unity_launcher_placement_sep"));
-      gtk_widget_hide (WID ("launcher_placement_label"));
-      gtk_widget_hide (WID ("sticky_edge_label"));
-      gtk_widget_hide (WID ("launcher_placement_combo"));
-      gtk_widget_hide (WID ("stickyedge_switch"));
-      gtk_widget_hide (WID ("ui_scale_separator"));
-      gtk_widget_hide (WID ("ui_scale_label"));
-      gtk_widget_hide (WID ("ui_scale"));
-      gtk_widget_hide (WID ("ui_scale_monitor_label"));
-      gtk_widget_hide (WID ("ui_scale_monitor_combo"));
-    }
+  setup_unity_settings (self);
 
   gtk_widget_show (self->priv->panel);
   gtk_container_add (GTK_CONTAINER (self), self->priv->panel);

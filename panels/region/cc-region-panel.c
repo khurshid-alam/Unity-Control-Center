@@ -51,12 +51,6 @@ enum {
 #define INDICATOR_KEYBOARD_SCHEMA_ID "com.canonical.indicator.keyboard"
 
 static gboolean
-is_unity (void)
-{
-	return g_strcmp0 (g_getenv ("XDG_CURRENT_DESKTOP"), "Unity") == 0;
-}
-
-static gboolean
 is_fcitx_active (void)
 {
 	return g_strcmp0 (g_getenv ("GTK_IM_MODULE"), "fcitx") == 0;
@@ -66,9 +60,6 @@ static gboolean
 has_indicator_keyboard (void)
 {
 	GSettingsSchema *schema;
-
-	if (!is_unity ())
-		return FALSE;
 
 	schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (), INDICATOR_KEYBOARD_SCHEMA_ID, TRUE);
 	if (schema) {
@@ -196,24 +187,14 @@ cc_region_panel_init (CcRegionPanel * self)
 		return;
 	}
 
-	if (!is_unity ())
-		prefs_widget = (GtkWidget *) gtk_builder_get_object (priv->builder,
-								     "region_notebook");
-	else
-		prefs_widget = (GtkWidget *) gtk_builder_get_object (priv->builder,
-								     "vbox5");
+	prefs_widget = (GtkWidget *) gtk_builder_get_object (priv->builder,
+							     "vbox5");
 
 	gtk_widget_set_size_request (GTK_WIDGET (prefs_widget), -1, 400);
 
 	gtk_widget_reparent (prefs_widget, GTK_WIDGET (self));
 
         setup_input_tabs (priv->builder, self);
-
-	if (!is_unity ()) {
-		setup_language (priv->builder);
-		setup_formats (priv->builder);
-		setup_system (priv->builder);
-	}
 }
 
 void

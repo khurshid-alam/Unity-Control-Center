@@ -303,7 +303,6 @@ main (int argc, char **argv)
   gtk_icon_size_register ("cc-sidebar-list", 24, 24);
 
   notify_init ("gnome-control-center");
-  g_setenv ("XDG_CURRENT_DESKTOP", "Unity", FALSE);
 
   shell = gnome_control_center_new ();
 
