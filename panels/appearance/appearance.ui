@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.1 -->
+<!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.0"/>
+  <object class="GtkSizeGroup" id="sizegroup">
+    <property name="mode">vertical</property>
+  </object>
   <object class="GtkListStore" id="sources-liststore">
     <columns>
       <!-- column-name source-name -->
@@ -84,9 +87,9 @@
                       <object class="GtkLabel" id="label1">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
                         <property name="label" translatable="yes">&lt;b&gt;Background&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -175,10 +178,11 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkLabel" id="strut">
+                              <object class="GtkLabel" id="slide-label">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="label"> </property>
+                                <property name="label" translatable="yes" comments="This refers to a slideshow background">Changes throughout the day</property>
+                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -187,11 +191,10 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkLabel" id="slide-label">
+                              <object class="GtkLabel" id="strut">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
-                                <property name="label" translatable="yes" comments="This refers to a slideshow background">Changes throughout the day</property>
+                                <property name="label"> </property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -454,10 +457,10 @@
                   <object class="GtkLabel" id="theme-label">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="xalign">0</property>
                     <property name="xpad">6</property>
                     <property name="label" translatable="yes">&lt;b&gt;Theme&lt;/b&gt;</property>
                     <property name="use_markup">True</property>
+                    <property name="xalign">0</property>
                     <accessibility>
                       <relation type="label-for" target="theme-selector"/>
                     </accessibility>
@@ -521,10 +524,10 @@
                   <object class="GtkLabel" id="unity-iconsize-label">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="xalign">0</property>
                     <property name="xpad">6</property>
                     <property name="label" translatable="yes">&lt;b&gt;Launcher icon size&lt;/b&gt;</property>
                     <property name="use_markup">True</property>
+                    <property name="xalign">0</property>
                     <accessibility>
                       <relation type="label-for" target="unity-iconsize-scale"/>
                     </accessibility>
@@ -602,9 +605,9 @@
                           <object class="GtkLabel" id="label4">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="xalign">0</property>
                             <property name="label" translatable="yes">&lt;b&gt;Auto-hide the Launcher&lt;/b&gt;</property>
                             <property name="use_markup">True</property>
+                            <property name="xalign">0</property>
                             <accessibility>
                               <relation type="label-for" target="unity_launcher_autohide"/>
                             </accessibility>
@@ -619,9 +622,9 @@
                           <object class="GtkLabel" id="label2">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="xalign">0</property>
                             <property name="label" translatable="yes">&lt;span size="small"&gt;The launcher will reveal when moving the pointer to the defined hot spot.&lt;/span&gt;</property>
                             <property name="use_markup">True</property>
+                            <property name="xalign">0</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -640,8 +643,8 @@
                               <object class="GtkLabel" id="unity_reveal_label">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Reveal location:</property>
+                                <property name="xalign">0</property>
                                 <accessibility>
                                   <relation type="label-for" target="unity_reveal_spot_left"/>
                                   <relation type="label-for" target="unity_reveal_spot_topleft"/>
@@ -829,10 +832,10 @@
                 <child>
                   <object class="GtkLabel" id="unity-label-external-tool">
                     <property name="can_focus">False</property>
-                    <property name="xalign">0</property>
                     <property name="xpad">12</property>
                     <property name="label" translatable="yes">Some settings have been overriden by an external program, press "Restore Default Behaviors"  to reset the behavior and return control to this panel.</property>
                     <property name="wrap">True</property>
+                    <property name="xalign">0</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -936,9 +939,9 @@
                           <object class="GtkLabel" id="label3">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="xalign">0</property>
                             <property name="label" translatable="yes">&lt;b&gt;Show the menus for a window&lt;/b&gt;</property>
                             <property name="use_markup">True</property>
+                            <property name="xalign">0</property>
                             <accessibility>
                               <relation type="label-for" target="unity_global_menus"/>
                               <relation type="label-for" target="unity_local_menus"/>
@@ -1012,9 +1015,9 @@
                           <object class="GtkLabel" id="label5">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="xalign">0</property>
                             <property name="label" translatable="yes">&lt;b&gt;Menus visibility&lt;/b&gt;</property>
                             <property name="use_markup">True</property>
+                            <property name="xalign">0</property>
                             <accessibility>
                               <relation type="label-for" target="unity_global_menus"/>
                               <relation type="label-for" target="unity_local_menus"/>
@@ -1106,6 +1109,65 @@
               </packing>
             </child>
             <child>
+              <object class="GtkBox" id="low_gfx_box">
+                <property name="height_request">36</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_left">12</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">12</property>
+                <child>
+                  <object class="GtkLabel" id="label7">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">&lt;b&gt;Low Graphics Mode&lt;/b&gt;</property>
+                    <property name="use_markup">True</property>
+                    <property name="xalign">0</property>
+                    <accessibility>
+                      <relation type="label-for" target="unity_global_menus"/>
+                      <relation type="label-for" target="unity_local_menus"/>
+                    </accessibility>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkCheckButton" id="check_enable_low_graphics_mode">
+                    <property name="label" translatable="yes">Switch to the low graphics mode</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="xalign">0</property>
+                    <property name="draw_indicator">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">5</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparator" id="separator5">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">6</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkBox" id="box5">
                 <property name="height_request">36</property>
                 <property name="visible">True</property>
@@ -1133,7 +1195,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">7</property>
+                <property name="position">8</property>
               </packing>
             </child>
           </object>
@@ -1154,14 +1216,5 @@
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkSizeGroup" id="sizegroup">
-    <property name="mode">vertical</property>
-    <widgets>
-      <widget name="sources-combobox"/>
-      <widget name="heading-hbox"/>
-      <widget name="slide-label"/>
-      <widget name="strut"/>
-    </widgets>
   </object>
 </interface>
