@@ -1,3 +1,20 @@
+unity-control-center (15.04.0+16.10.20161003.1-0ubuntu3) zesty; urgency=medium
+
+  * Restore the string change dropped in the previous upload since
+    Ubuntu 17.04 is not in string freeze
+  * Recommend system-config-printer instead of system-config-printer-gnome
+    (LP: #1643129)
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Thu, 24 Nov 2016 19:21:53 -0500
+
+unity-control-center (15.04.0+16.10.20161003.1-0ubuntu2) yakkety; urgency=medium
+
+  * panels/user-accounts/um-utils.c: Revert a string freeze break. The old
+    string isn't as precise as the new one, but it still works. This can be
+    reverted after 16.10.
+
+ -- Iain Lane <iain.lane@canonical.com>  Wed, 05 Oct 2016 10:14:56 +0100
+
 unity-control-center (15.04.0+16.10.20161003.1-0ubuntu1) yakkety; urgency=medium
 
   [ Robert Ancell ]
