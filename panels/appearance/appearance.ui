@@ -1135,8 +1135,8 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkCheckButton" id="check_enable_low_graphics_mode">
-                    <property name="label" translatable="yes">Switch to the low graphics mode</property>
+                  <object class="GtkCheckButton" id="unity_lowgfx_mode">
+                    <property name="label" translatable="yes">Switch to low graphics mode</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>

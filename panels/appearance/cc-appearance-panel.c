@@ -118,6 +118,7 @@ enum
 #define UNITY_INTEGRATED_MENUS_KEY "integrated-menus"
 #define UNITY_ALWAYS_SHOW_MENUS_KEY "always-show-menus"
 #define SHOW_DESKTOP_UNITY_FAVORITE_STR "unity://desktop-icon"
+#define UNITY_LOWGFX "lowgfx"
 
 #define MIN_ICONSIZE 16.0
 #define MAX_ICONSIZE 64.0
@@ -1787,6 +1788,35 @@ on_menuvisibility_changed (GtkToggleButton *button, gpointer user_data)
 }
 
 static void
+lowgfx_widget_refresh (CcAppearancePanel *self)
+{
+    CcAppearancePanelPrivate *priv = self->priv;
+    gboolean has_setting = unity_own_setting_exists(self, UNITY_LOWGFX);
+    gboolean profile_exists = g_file_test ("/etc/compizconfig/unity-lowgfx.ini", G_FILE_TEST_EXISTS);
+
+    gtk_widget_set_sensitive (WID ("unity_lowgfx_mode"), has_setting && profile_exists);
+}
+
+static void
+on_lowgfx_changed (GtkToggleButton *button,
+                   gpointer user_data)
+{
+    CcAppearancePanel *self = CC_APPEARANCE_PANEL (user_data);
+    CcAppearancePanelPrivate *priv = self->priv;
+    gboolean enabled = gtk_toggle_button_get_active (button);
+
+    g_settings_set_boolean (priv->unity_own_settings, UNITY_LOWGFX, enabled);
+}
+
+static void
+ext_lowgfx_changed_callback (GSettings* settings,
+                             guint key,
+                             gpointer user_data)
+{
+    lowgfx_widget_refresh (CC_APPEARANCE_PANEL (user_data));
+}
+
+static void
 on_restore_defaults_page2_clicked (GtkButton *button, gpointer user_data)
 {
   CcAppearancePanel *self = CC_APPEARANCE_PANEL (user_data);
@@ -1804,6 +1834,9 @@ on_restore_defaults_page2_clicked (GtkButton *button, gpointer user_data)
 
   if (unity_own_setting_exists (self, UNITY_ALWAYS_SHOW_MENUS_KEY))
     g_settings_reset (priv->unity_own_settings, UNITY_ALWAYS_SHOW_MENUS_KEY);
+
+  if (unity_own_setting_exists (self, UNITY_LOWGFX))
+    g_settings_reset (priv->unity_own_settings, UNITY_LOWGFX);
 
   GtkToggleButton *showdesktop = GTK_TOGGLE_BUTTON (WID ("check_showdesktop_in_launcher"));
   gtk_toggle_button_set_active(showdesktop, TRUE);
@@ -1985,9 +2018,17 @@ setup_unity_settings (CcAppearancePanel *self)
                      G_CALLBACK (on_menuvisibility_changed), self);
   menuvisibility_widget_refresh (self);
 
+
+  /* Low gfx */
+  g_signal_connect (priv->unity_own_settings, "changed::" UNITY_OWN_GSETTINGS_SCHEMA, G_CALLBACK (ext_lowgfx_changed_callback), self);
+  g_signal_connect (WID ("unity_lowgfx_mode"), "toggled",
+                    G_CALLBACK (on_lowgfx_changed), self);
+  lowgfx_widget_refresh (self);
+
   /* Restore defaut on second page */
   g_signal_connect (WID ("button-restore-unitybehavior"), "clicked",
                     G_CALLBACK (on_restore_defaults_page2_clicked), self);
+
 }
 
 static void
