@@ -5,23 +5,26 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  * Author: Thomas Wood <thomas.wood@intel.com>
  *
  */
 
 #include <config.h>
 
+#include <errno.h>
 #include <string.h>
 #include <glib/gi18n-lib.h>
+#include <glib/gprintf.h>
+#include <glib/gstdio.h>
 #include <gdesktop-enums.h>
 
 #include "cc-appearance-panel.h"
@@ -128,6 +131,97 @@ enum
 #define MAX_LAUNCHER_SENSIVITY 8.0
 
 #define WID(y) (GtkWidget *) gtk_builder_get_object (priv->builder, y)
+
+static gboolean copy_file_to (gchar *f1, gchar *f2)
+{
+    FILE *fp1, *fp2;
+    char buf[4096];
+    int sz;
+    gboolean res = TRUE;
+
+    if (!(fp1 = fopen (f1, "r")))
+    {
+	fprintf (stderr, "Failed to open %s for reading: %s.\n", f1, strerror (errno));
+	return FALSE;
+    }
+
+    if (!(fp2 = fopen (f2, "w")))
+    {
+	fprintf (stderr, "Failed to open %s for writing: %s.\n", f2, strerror (errno));
+	fclose (fp1);
+	return FALSE;
+    }
+
+    while ((sz = fread (buf, 1, sizeof buf, fp1)) > 0)
+    {
+	if (fwrite (buf, 1, sz, fp2) != sz)
+	{
+	    res = FALSE;
+	    break;
+	}
+    }
+
+    fclose (fp1);
+    fclose (fp2);
+
+    return res;
+}
+
+static gboolean toggle_lowgfx_profile (gboolean enable_lowgfx)
+{
+    const gchar *path_system_lowgfx = "/etc/compizconfig/unity-lowgfx.ini";
+    gchar *home_dir = g_get_home_dir ();
+
+    gchar *path_default = g_strconcat (home_dir, "/.config/compiz-1/compizconfig/Default.ini", NULL);
+    gchar *path_default_backup = g_strconcat (home_dir, "/.config/compiz-1/compizconfig/Default.ini.bk", NULL);
+    gchar *path_lowgfx = g_strconcat (home_dir, "/.config/compiz-1/compizconfig/unity-lowgfx.ini", NULL);
+
+    if (!g_file_test (path_default, G_FILE_TEST_EXISTS))
+	g_file_set_contents (path_default, "", 0, NULL);
+
+    if (enable_lowgfx == TRUE)
+    {
+	gchar *file_lowgfx = g_file_test (path_lowgfx, G_FILE_TEST_EXISTS) ? g_strdup (path_lowgfx) : g_strdup (path_system_lowgfx);
+	if (!copy_file_to (path_default, path_default_backup))
+	{
+	    fprintf (stderr, "Failed to backup %s to %s.\n", path_default, path_default_backup);
+	}
+
+	if (!copy_file_to (file_lowgfx, path_default))
+	{
+	    g_free (file_lowgfx);
+	    g_free (path_default_backup);
+	    g_free (path_default);
+	    g_free (path_lowgfx);
+	    return FALSE;
+	}
+    }
+    else {
+	if (!g_file_test (path_default_backup, G_FILE_TEST_EXISTS))
+	{
+	    fprintf (stderr, "Couldn't detect file %s. Leaving system in previous state.\n", path_default_backup);
+	    g_free (path_default_backup);
+	    g_free (path_default);
+	    g_free (path_lowgfx);
+	    return FALSE;
+	}
+	else {
+	    if (!copy_file_to (path_default_backup, path_default))
+	    {
+		g_free (path_default_backup);
+		g_free (path_default);
+		g_free (path_lowgfx);
+		return FALSE;
+	    }
+	}
+    }
+
+    g_free (path_default_backup);
+    g_free (path_default);
+    g_free (path_lowgfx);
+
+    return TRUE;
+}
 
 static void
 cc_appearance_panel_get_property (GObject    *object,
@@ -1795,6 +1889,12 @@ lowgfx_widget_refresh (CcAppearancePanel *self)
     gboolean profile_exists = g_file_test ("/etc/compizconfig/unity-lowgfx.ini", G_FILE_TEST_EXISTS);
 
     gtk_widget_set_sensitive (WID ("unity_lowgfx_mode"), has_setting && profile_exists);
+
+    gboolean enable_lowgfx = g_settings_get_boolean (priv->unity_own_settings, UNITY_LOWGFX);
+    if (!toggle_lowgfx_profile (enable_lowgfx)) {
+	gtk_widget_set_sensitive (WID ("unity_lowgfx_mode"), FALSE);
+    }
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (WID ("unity_lowgfx_mode")), enable_lowgfx);
 }
 
 static void
@@ -1806,6 +1906,11 @@ on_lowgfx_changed (GtkToggleButton *button,
     gboolean enabled = gtk_toggle_button_get_active (button);
 
     g_settings_set_boolean (priv->unity_own_settings, UNITY_LOWGFX, enabled);
+
+    if (!toggle_lowgfx_profile (enabled)) {
+	gtk_widget_set_sensitive (WID ("unity_lowgfx_mode"), FALSE);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (WID ("unity_lowgfx_mode")), FALSE);
+    }
 }
 
 static void
