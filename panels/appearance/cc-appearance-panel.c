@@ -132,7 +132,7 @@ enum
 
 #define WID(y) (GtkWidget *) gtk_builder_get_object (priv->builder, y)
 
-static gboolean copy_file_to (gchar *f1, gchar *f2)
+static gboolean copy_file_to (const gchar *f1, const gchar *f2)
 {
     FILE *fp1, *fp2;
     char buf[4096];
@@ -169,58 +169,34 @@ static gboolean copy_file_to (gchar *f1, gchar *f2)
 
 static gboolean toggle_lowgfx_profile (gboolean enable_lowgfx)
 {
-    const gchar *path_system_lowgfx = "/etc/compizconfig/unity-lowgfx.ini";
     gchar *home_dir = g_get_home_dir ();
 
-    gchar *path_default = g_strconcat (home_dir, "/.config/compiz-1/compizconfig/Default.ini", NULL);
-    gchar *path_default_backup = g_strconcat (home_dir, "/.config/compiz-1/compizconfig/Default.ini.bk", NULL);
-    gchar *path_lowgfx = g_strconcat (home_dir, "/.config/compiz-1/compizconfig/unity-lowgfx.ini", NULL);
+    gchar *default_ini = g_strconcat (home_dir, "/.config/compiz-1/compizconfig/Default.ini", NULL);
+    gchar *system_lowgfx_ini = strdup ("/etc/compizconfig/unity-lowgfx.ini");
+    gchar *system_unity_ini = strdup ("/etc/compizconfig/unity.ini");
 
-    if (!g_file_test (path_default, G_FILE_TEST_EXISTS))
-	g_file_set_contents (path_default, "", 0, NULL);
+    g_assert (g_file_test (default_ini, G_FILE_TEST_EXISTS));
+    g_assert (g_file_test (system_lowgfx_ini, G_FILE_TEST_EXISTS));
+    g_assert (g_file_test (system_unity_ini, G_FILE_TEST_EXISTS));
 
-    if (enable_lowgfx == TRUE)
+    if (enable_lowgfx)
     {
-	gchar *file_lowgfx = g_file_test (path_lowgfx, G_FILE_TEST_EXISTS) ? g_strdup (path_lowgfx) : g_strdup (path_system_lowgfx);
-	if (!copy_file_to (path_default, path_default_backup))
-	{
-	    fprintf (stderr, "Failed to backup %s to %s.\n", path_default, path_default_backup);
-	}
-
-	if (!copy_file_to (file_lowgfx, path_default))
-	{
-	    g_free (file_lowgfx);
-	    g_free (path_default_backup);
-	    g_free (path_default);
-	    g_free (path_lowgfx);
-	    return FALSE;
-	}
+	if (!copy_file_to (system_lowgfx_ini, default_ini))
+	    goto clean;
+	return TRUE;
     }
-    else {
-	if (!g_file_test (path_default_backup, G_FILE_TEST_EXISTS))
-	{
-	    fprintf (stderr, "Couldn't detect file %s. Leaving system in previous state.\n", path_default_backup);
-	    g_free (path_default_backup);
-	    g_free (path_default);
-	    g_free (path_lowgfx);
-	    return FALSE;
-	}
-	else {
-	    if (!copy_file_to (path_default_backup, path_default))
-	    {
-		g_free (path_default_backup);
-		g_free (path_default);
-		g_free (path_lowgfx);
-		return FALSE;
-	    }
-	}
+    else
+    {
+	if (!copy_file_to (system_unity_ini, default_ini))
+	    goto clean;
+	return TRUE;
     }
 
-    g_free (path_default_backup);
-    g_free (path_default);
-    g_free (path_lowgfx);
-
-    return TRUE;
+clean:
+    g_free (system_unity_ini);
+    g_free (system_lowgfx_ini);
+    g_free (default_ini);
+    return FALSE;
 }
 
 static void
@@ -1888,13 +1864,17 @@ lowgfx_widget_refresh (CcAppearancePanel *self)
     gboolean has_setting = unity_own_setting_exists(self, UNITY_LOWGFX);
     gboolean profile_exists = g_file_test ("/etc/compizconfig/unity-lowgfx.ini", G_FILE_TEST_EXISTS);
 
-    gtk_widget_set_sensitive (WID ("unity_lowgfx_mode"), has_setting && profile_exists);
+    gtk_widget_set_sensitive (WID ("unity_lowgfx"), has_setting && profile_exists);
 
     gboolean enable_lowgfx = g_settings_get_boolean (priv->unity_own_settings, UNITY_LOWGFX);
     if (!toggle_lowgfx_profile (enable_lowgfx)) {
-	gtk_widget_set_sensitive (WID ("unity_lowgfx_mode"), FALSE);
+	gtk_widget_set_sensitive (WID ("unity_lowgfx"), FALSE);
     }
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (WID ("unity_lowgfx_mode")), enable_lowgfx);
+
+    if (enable_lowgfx == TRUE)
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (WID ("unity_lowgfx_enable")), TRUE);
+    else
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (WID ("unity_lowgfx_disable")), TRUE);
 }
 
 static void
@@ -1903,13 +1883,12 @@ on_lowgfx_changed (GtkToggleButton *button,
 {
     CcAppearancePanel *self = CC_APPEARANCE_PANEL (user_data);
     CcAppearancePanelPrivate *priv = self->priv;
-    gboolean enabled = gtk_toggle_button_get_active (button);
 
+    gboolean enabled = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (WID ("unity_lowgfx_enable")));
     g_settings_set_boolean (priv->unity_own_settings, UNITY_LOWGFX, enabled);
 
     if (!toggle_lowgfx_profile (enabled)) {
-	gtk_widget_set_sensitive (WID ("unity_lowgfx_mode"), FALSE);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (WID ("unity_lowgfx_mode")), FALSE);
+	gtk_widget_set_sensitive (WID ("unity_lowgfx"), FALSE);
     }
 }
 
@@ -2126,7 +2105,9 @@ setup_unity_settings (CcAppearancePanel *self)
 
   /* Low gfx */
   g_signal_connect (priv->unity_own_settings, "changed::" UNITY_OWN_GSETTINGS_SCHEMA, G_CALLBACK (ext_lowgfx_changed_callback), self);
-  g_signal_connect (WID ("unity_lowgfx_mode"), "toggled",
+  g_signal_connect (WID ("unity_lowgfx_enable"), "toggled",
+                    G_CALLBACK (on_lowgfx_changed), self);
+  g_signal_connect (WID ("unity_lowgfx_disable"), "toggled",
                     G_CALLBACK (on_lowgfx_changed), self);
   lowgfx_widget_refresh (self);
 
