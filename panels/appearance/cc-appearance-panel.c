@@ -176,8 +176,10 @@ static gboolean toggle_lowgfx_profile (gboolean enable_lowgfx)
     gchar *system_unity_ini = strdup ("/etc/compizconfig/unity.ini");
 
     g_assert (g_file_test (default_ini, G_FILE_TEST_EXISTS));
-    g_assert (g_file_test (system_lowgfx_ini, G_FILE_TEST_EXISTS));
     g_assert (g_file_test (system_unity_ini, G_FILE_TEST_EXISTS));
+
+    if (!g_file_test (system_lowgfx_ini, G_FILE_TEST_EXISTS))
+	goto clean;
 
     if (enable_lowgfx)
     {
