@@ -1,4 +1,4 @@
-INCLUDES =					\
+AM_CPPFLAGS =					\
 	-I$(top_srcdir)				\
 	$(SHELL_CFLAGS)				\
 	$(CHEESE_CFLAGS)
@@ -70,7 +70,7 @@ libunity_control_center_includedir = $(includedir)/unity-control-center-1/libuni
 pkgconfigdir=$(libdir)/pkgconfig
 pkgconfig_DATA=libunity-control-center.pc
 
-AM_CPPFLAGS =							\
+AM_CPPFLAGS +=							\
 	-DGNOMELOCALEDIR="\"$(datadir)/locale\""		\
 	-DUIDIR="\"$(uidir)\""					\
 	-DMENUDIR="\"$(menudir)\""				\

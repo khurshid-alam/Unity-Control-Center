@@ -1,7 +1,7 @@
 # This is used in PANEL_CFLAGS
 cappletname = wacom
 
-INCLUDES = 						\
+AM_CPPFLAGS = 						\
 	$(PANEL_CFLAGS)					\
 	$(WACOM_PANEL_CFLAGS)				\
 	-DGNOMELOCALEDIR="\"$(datadir)/locale\""	\
@@ -28,7 +28,7 @@ test_calibrator_SOURCES =		\
 	gui_gtk.c			\
 	gui_gtk.h
 
-test_calibrator_CPPFLAGS = $(INCLUDES)
+test_calibrator_CPPFLAGS = $(AM_CPPFLAGS)
 test_calibrator_LDADD = $(PANEL_LIBS) $(WACOM_PANEL_LIBS)
 
 -include $(top_srcdir)/git.mk

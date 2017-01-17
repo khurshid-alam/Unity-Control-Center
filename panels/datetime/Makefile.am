@@ -17,7 +17,7 @@ dist_icons256_DATA = icons/256x256/unity-datetime-panel.png
 iconsscalabledir = $(datadir)/icons/hicolor/scalable/apps
 dist_iconsscalable_DATA = icons/scalable/unity-datetime-panel.svg
 
-INCLUDES =						\
+AM_CPPFLAGS =						\
 	$(PANEL_CFLAGS)					\
 	$(DATETIME_PANEL_CFLAGS) \
 	-DLOCALEDIR="\"$(datadir)/locale\"" \
