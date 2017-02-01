@@ -26,6 +26,7 @@
 #include <glib/gprintf.h>
 #include <glib/gstdio.h>
 #include <gdesktop-enums.h>
+#include <ccs.h>
 
 #include "cc-appearance-panel.h"
 #include "bg-wallpapers-source.h"
@@ -132,6 +133,27 @@ enum
 
 #define WID(y) (GtkWidget *) gtk_builder_get_object (priv->builder, y)
 
+static CCSContext *ccs_context;
+static gboolean init_ccs_context ()
+{
+    GdkScreen *screen = gdk_screen_get_default ();
+    g_assert (screen);
+
+    if (!(ccs_context = ccsContextNew (gdk_screen_get_number (screen),
+	    &ccsDefaultInterfaceTable)))
+    {
+	fprintf (stderr, "CCS error: Failed to initialize context.\n");
+	return FALSE;
+    }
+
+    return TRUE;
+}
+
+static void finalize_ccs_context ()
+{
+    ccsFreeContext(ccs_context);
+}
+
 static gboolean copy_file_to (const gchar *f1, const gchar *f2)
 {
     FILE *fp1, *fp2;
@@ -175,26 +197,31 @@ static gboolean toggle_lowgfx_profile (gboolean enable_lowgfx)
     gchar *system_lowgfx_ini = strdup ("/etc/compizconfig/unity-lowgfx.ini");
     gchar *system_unity_ini = strdup ("/etc/compizconfig/unity.ini");
 
-    g_assert (g_file_test (default_ini, G_FILE_TEST_EXISTS));
     g_assert (g_file_test (system_unity_ini, G_FILE_TEST_EXISTS));
 
     if (!g_file_test (system_lowgfx_ini, G_FILE_TEST_EXISTS))
-	goto clean;
+    {
+	g_warning ("File %s not found.", system_lowgfx_ini);
+	goto error;
+    }
+
+    const char *backend = ccsGetBackend (ccs_context);
+    if (g_strcmp0 (backend, "ini"))
+	ccsSetBackend(ccs_context, "ini");
 
     if (enable_lowgfx)
-    {
 	if (!copy_file_to (system_lowgfx_ini, default_ini))
-	    goto clean;
-	return TRUE;
-    }
+	    goto error;
     else
-    {
 	if (!copy_file_to (system_unity_ini, default_ini))
-	    goto clean;
-	return TRUE;
-    }
+	    goto error;
 
-clean:
+    g_free (system_unity_ini);
+    g_free (system_lowgfx_ini);
+    g_free (default_ini);
+    return TRUE;
+
+error:
     g_free (system_unity_ini);
     g_free (system_lowgfx_ini);
     g_free (default_ini);
@@ -342,6 +369,8 @@ cc_appearance_panel_finalize (GObject *object)
       g_object_unref (priv->current_background);
       priv->current_background = NULL;
     }
+
+  finalize_ccs_context ();
 
   G_OBJECT_CLASS (cc_appearance_panel_parent_class)->finalize (object);
 }
@@ -2129,6 +2158,8 @@ cc_appearance_panel_init (CcAppearancePanel *self)
   GtkWidget *widget;
   GtkListStore *store;
   GtkStyleContext *context;
+
+  init_ccs_context();
 
   priv = self->priv = APPEARANCE_PANEL_PRIVATE (self);
 
