@@ -146,6 +146,7 @@ static gboolean init_ccs_context ()
 	return FALSE;
     }
 
+    ccsSetBackend(ccs_context, "ini");
     return TRUE;
 }
 
@@ -205,16 +206,22 @@ static gboolean toggle_lowgfx_profile (gboolean enable_lowgfx)
 	goto error;
     }
 
-    const char *backend = ccsGetBackend (ccs_context);
-    if (g_strcmp0 (backend, "ini"))
-	ccsSetBackend(ccs_context, "ini");
+    if (ccs_context)
+    {
+	ccsSetBackend (ccs_context, "ini");
+	ccsSetIntegrationEnabled (ccs_context, 0);
+    }
 
     if (enable_lowgfx)
+    {
 	if (!copy_file_to (system_lowgfx_ini, default_ini))
 	    goto error;
+    }
     else
+    {
 	if (!copy_file_to (system_unity_ini, default_ini))
 	    goto error;
+    }
 
     g_free (system_unity_ini);
     g_free (system_lowgfx_ini);
