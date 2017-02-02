@@ -134,105 +134,154 @@ enum
 #define WID(y) (GtkWidget *) gtk_builder_get_object (priv->builder, y)
 
 static CCSContext *ccs_context;
+static char *ccs_backend;
 static gboolean init_ccs_context ()
 {
-    GdkScreen *screen = gdk_screen_get_default ();
-    g_assert (screen);
+  GdkScreen *screen = gdk_screen_get_default ();
+  g_assert (screen);
 
-    if (!(ccs_context = ccsContextNew (gdk_screen_get_number (screen),
-	    &ccsDefaultInterfaceTable)))
-    {
-	fprintf (stderr, "CCS error: Failed to initialize context.\n");
-	return FALSE;
-    }
+  if (!(ccs_context = ccsContextNew (gdk_screen_get_number (screen),
+          &ccsDefaultInterfaceTable)))
+  {
+    fprintf (stderr, "CCS error: Failed to initialize context.\n");
+    return FALSE;
+  }
 
-    ccsSetBackend(ccs_context, "ini");
-    return TRUE;
+  return TRUE;
 }
 
 static void finalize_ccs_context ()
 {
-    ccsFreeContext(ccs_context);
+  ccsFreeContext(ccs_context);
 }
 
 static gboolean copy_file_to (const gchar *f1, const gchar *f2)
 {
-    FILE *fp1, *fp2;
-    char buf[4096];
-    int sz;
-    gboolean res = TRUE;
+  FILE *fp1, *fp2;
+  char buf[4096];
+  int sz;
+  gboolean res = TRUE;
 
-    if (!(fp1 = fopen (f1, "r")))
-    {
-	fprintf (stderr, "Failed to open %s for reading: %s.\n", f1, strerror (errno));
-	return FALSE;
-    }
+  if (!(fp1 = fopen (f1, "r")))
+  {
+    fprintf (stderr, "Failed to open %s for reading: %s.\n", f1, strerror (errno));
+    return FALSE;
+  }
 
-    if (!(fp2 = fopen (f2, "w")))
-    {
-	fprintf (stderr, "Failed to open %s for writing: %s.\n", f2, strerror (errno));
-	fclose (fp1);
-	return FALSE;
-    }
-
-    while ((sz = fread (buf, 1, sizeof buf, fp1)) > 0)
-    {
-	if (fwrite (buf, 1, sz, fp2) != sz)
-	{
-	    res = FALSE;
-	    break;
-	}
-    }
-
+  if (!(fp2 = fopen (f2, "w")))
+  {
+    fprintf (stderr, "Failed to open %s for writing: %s.\n", f2, strerror (errno));
     fclose (fp1);
-    fclose (fp2);
+    return FALSE;
+  }
 
-    return res;
+  while ((sz = fread (buf, 1, sizeof buf, fp1)) > 0)
+  {
+    if (fwrite (buf, 1, sz, fp2) != sz)
+    {
+      res = FALSE;
+      break;
+    }
+  }
+
+  fclose (fp1);
+  fclose (fp2);
+
+  return res;
 }
 
 static gboolean toggle_lowgfx_profile (gboolean enable_lowgfx)
 {
-    gchar *home_dir = g_get_home_dir ();
+  if (enable_lowgfx)
+  {
+    ccsSetProfile (ccs_context, "unity-lowgfx");
+    ccsSetIntegrationEnabled (ccs_context, TRUE);
+    ccsSetPluginListAutoSort (ccs_context, TRUE);
+  }
+  else
+  {
+    ccsSetProfile (ccs_context, "unity");
+    ccsSetIntegrationEnabled (ccs_context, TRUE);
+    ccsSetPluginListAutoSort (ccs_context, TRUE);
+  }
 
-    gchar *default_ini = g_strconcat (home_dir, "/.config/compiz-1/compizconfig/Default.ini", NULL);
-    gchar *system_lowgfx_ini = strdup ("/etc/compizconfig/unity-lowgfx.ini");
-    gchar *system_unity_ini = strdup ("/etc/compizconfig/unity.ini");
+  return TRUE;
+}
 
-    g_assert (g_file_test (system_unity_ini, G_FILE_TEST_EXISTS));
+static gboolean toggle_lowgfx_ini_settings (gboolean enable_lowgfx)
+{
+  gchar *home_dir = g_get_home_dir ();
 
-    if (!g_file_test (system_lowgfx_ini, G_FILE_TEST_EXISTS))
+  gchar *default_ini = g_strconcat (home_dir, "/.config/compiz-1/compizconfig/Default.ini", NULL);
+  gchar *system_lowgfx_ini = strdup ("/etc/compizconfig/unity-lowgfx.ini");
+  gchar *system_unity_ini = strdup ("/etc/compizconfig/unity.ini");
+
+  g_assert (g_file_test (system_unity_ini, G_FILE_TEST_EXISTS));
+
+  if (!g_file_test (system_lowgfx_ini, G_FILE_TEST_EXISTS))
+  {
+    g_warning ("File %s not found.", system_lowgfx_ini);
+    goto error;
+  }
+
+  if (!g_file_test (default_ini, G_FILE_TEST_EXISTS))
+  {
+    if (!copy_file_to (system_unity_ini, default_ini))
+      goto error;
+  }
+
+  ccsSetProfile (ccs_context, "Default");
+  if (g_strcmp0 (ccsGetProfile (ccs_context), "Default"))
+  {
+    goto error;
+  }
+
+  if (enable_lowgfx)
+  {
+    if (!copy_file_to (system_lowgfx_ini, default_ini))
+      goto error;
+  }
+  else
+  {
+    if (!copy_file_to (system_unity_ini, default_ini))
+      goto error;
+  }
+
+  g_free (system_unity_ini);
+  g_free (system_lowgfx_ini);
+  g_free (default_ini);
+  return TRUE;
+
+error:
+  g_free (system_unity_ini);
+  g_free (system_lowgfx_ini);
+  g_free (default_ini);
+  return FALSE;
+}
+
+static gboolean toggle_lowgfx (gboolean enable_lowgfx)
+{
+  if (!g_file_test ("/etc/compizconfig/unity-lowgfx.ini", G_FILE_TEST_EXISTS))
+    return FALSE;
+
+  ccs_backend = ccsGetBackend (ccs_context);
+  if (!g_strcmp0 (ccs_backend, "ini"))
+  {
+    return toggle_lowgfx_ini_settings (enable_lowgfx);
+  }
+  else
+  {
+    if (!g_strcmp0 (ccs_backend, "gsettings"))
     {
-	g_warning ("File %s not found.", system_lowgfx_ini);
-	goto error;
-    }
-
-    if (ccs_context)
-    {
-	ccsSetBackend (ccs_context, "ini");
-	ccsSetIntegrationEnabled (ccs_context, 0);
-    }
-
-    if (enable_lowgfx)
-    {
-	if (!copy_file_to (system_lowgfx_ini, default_ini))
-	    goto error;
+      return toggle_lowgfx_profile (enable_lowgfx);
     }
     else
     {
-	if (!copy_file_to (system_unity_ini, default_ini))
-	    goto error;
+      return FALSE;
     }
+  }
 
-    g_free (system_unity_ini);
-    g_free (system_lowgfx_ini);
-    g_free (default_ini);
-    return TRUE;
-
-error:
-    g_free (system_unity_ini);
-    g_free (system_lowgfx_ini);
-    g_free (default_ini);
-    return FALSE;
+  return TRUE;
 }
 
 static void
@@ -1905,7 +1954,7 @@ lowgfx_widget_refresh (CcAppearancePanel *self)
     gtk_widget_set_sensitive (WID ("unity_lowgfx"), has_setting && profile_exists);
 
     gboolean enable_lowgfx = g_settings_get_boolean (priv->unity_own_settings, UNITY_LOWGFX);
-    if (!toggle_lowgfx_profile (enable_lowgfx)) {
+    if (!toggle_lowgfx (enable_lowgfx)) {
 	gtk_widget_set_sensitive (WID ("unity_lowgfx"), FALSE);
     }
 
@@ -1925,7 +1974,7 @@ on_lowgfx_changed (GtkToggleButton *button,
     gboolean enabled = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (WID ("unity_lowgfx_enable")));
     g_settings_set_boolean (priv->unity_own_settings, UNITY_LOWGFX, enabled);
 
-    if (!toggle_lowgfx_profile (enabled)) {
+    if (!toggle_lowgfx (enabled)) {
 	gtk_widget_set_sensitive (WID ("unity_lowgfx"), FALSE);
     }
 }
