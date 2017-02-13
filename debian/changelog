@@ -1,3 +1,18 @@
+unity-control-center (15.04.0+17.04.20170213-0ubuntu1) zesty; urgency=medium
+
+  [ Iain Lane ]
+  * user-accounts: Reset the AccountsService password mode when setting
+    the password. There's a codepath for directly setting the password
+    when the user is setting their own, but this doesn't set the AS mode
+    back to ACT_USER_PASSWORD_MODE_REGULAR. If you don't change this and
+    you're in ACT_USER_PASSWORD_MODE_NONE, then you end up staying in
+    the nopasswdlogin group. (LP: #1630156)
+
+  [ Robert Ancell ]
+  * Add AppData (LP: #1639507)
+
+ -- iain@orangesquash.org.uk <iain@orangesquash.org.uk>  Mon, 13 Feb 2017 10:04:53 +0000
+
 unity-control-center (15.04.0+16.10.20161003.1-0ubuntu3) zesty; urgency=medium
 
   * Restore the string change dropped in the previous upload since
