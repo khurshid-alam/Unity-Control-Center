@@ -6,6 +6,6 @@ Exec=unity-control-center bluetooth
 Terminal=false
 Type=Application
 Categories=GTK;GNOME;Settings;X-GNOME-NetworkSettings;HardwareSettings;X-Unity-Settings-Panel;
-OnlyShowIn=Unity;
+OnlyShowIn=Unity7;
 StartupNotify=true
 X-Unity-Settings-Panel=bluetooth
