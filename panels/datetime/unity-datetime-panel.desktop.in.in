@@ -9,4 +9,4 @@ StartupNotify=true
 Type=Application
 Categories=GNOME;GTK;Utility;DesktopSettings;Settings;X-GNOME-SystemSettings;X-Unity-Settings-Panel;
 X-Unity-Settings-Panel=datetime
-OnlyShowIn=Unity;
+OnlyShowIn=Unity7;
