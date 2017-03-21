@@ -5,24 +5,28 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  * Author: Thomas Wood <thomas.wood@intel.com>
  *
  */
 
 #include <config.h>
 
+#include <errno.h>
 #include <string.h>
 #include <glib/gi18n-lib.h>
+#include <glib/gprintf.h>
+#include <glib/gstdio.h>
 #include <gdesktop-enums.h>
+#include <ccs.h>
 
 #include "cc-appearance-panel.h"
 #include "bg-wallpapers-source.h"
@@ -118,6 +122,7 @@ enum
 #define UNITY_INTEGRATED_MENUS_KEY "integrated-menus"
 #define UNITY_ALWAYS_SHOW_MENUS_KEY "always-show-menus"
 #define SHOW_DESKTOP_UNITY_FAVORITE_STR "unity://desktop-icon"
+#define UNITY_LOWGFX "lowgfx"
 
 #define MIN_ICONSIZE 16.0
 #define MAX_ICONSIZE 64.0
@@ -127,6 +132,157 @@ enum
 #define MAX_LAUNCHER_SENSIVITY 8.0
 
 #define WID(y) (GtkWidget *) gtk_builder_get_object (priv->builder, y)
+
+static CCSContext *ccs_context;
+static char *ccs_backend;
+static gboolean init_ccs_context ()
+{
+  GdkScreen *screen = gdk_screen_get_default ();
+  g_assert (screen);
+
+  if (!(ccs_context = ccsContextNew (gdk_screen_get_number (screen),
+          &ccsDefaultInterfaceTable)))
+  {
+    fprintf (stderr, "CCS error: Failed to initialize context.\n");
+    return FALSE;
+  }
+
+  return TRUE;
+}
+
+static void finalize_ccs_context ()
+{
+  ccsFreeContext(ccs_context);
+}
+
+static gboolean copy_file_to (const gchar *f1, const gchar *f2)
+{
+  FILE *fp1, *fp2;
+  char buf[4096];
+  int sz;
+  gboolean res = TRUE;
+
+  if (!(fp1 = fopen (f1, "r")))
+  {
+    fprintf (stderr, "Failed to open %s for reading: %s.\n", f1, strerror (errno));
+    return FALSE;
+  }
+
+  if (!(fp2 = fopen (f2, "w")))
+  {
+    fprintf (stderr, "Failed to open %s for writing: %s.\n", f2, strerror (errno));
+    fclose (fp1);
+    return FALSE;
+  }
+
+  while ((sz = fread (buf, 1, sizeof buf, fp1)) > 0)
+  {
+    if (fwrite (buf, 1, sz, fp2) != sz)
+    {
+      res = FALSE;
+      break;
+    }
+  }
+
+  fclose (fp1);
+  fclose (fp2);
+
+  return res;
+}
+
+static gboolean toggle_lowgfx_profile (gboolean enable_lowgfx)
+{
+  if (enable_lowgfx)
+  {
+    ccsSetProfile (ccs_context, "unity-lowgfx");
+    ccsSetIntegrationEnabled (ccs_context, TRUE);
+    ccsSetPluginListAutoSort (ccs_context, TRUE);
+  }
+  else
+  {
+    ccsSetProfile (ccs_context, "unity");
+    ccsSetIntegrationEnabled (ccs_context, TRUE);
+    ccsSetPluginListAutoSort (ccs_context, TRUE);
+  }
+
+  return TRUE;
+}
+
+static gboolean toggle_lowgfx_ini_settings (gboolean enable_lowgfx)
+{
+  gchar *home_dir = g_get_home_dir ();
+
+  gchar *default_ini = g_strconcat (home_dir, "/.config/compiz-1/compizconfig/Default.ini", NULL);
+  gchar *system_lowgfx_ini = strdup ("/etc/compizconfig/unity-lowgfx.ini");
+  gchar *system_unity_ini = strdup ("/etc/compizconfig/unity.ini");
+
+  g_assert (g_file_test (system_unity_ini, G_FILE_TEST_EXISTS));
+
+  if (!g_file_test (system_lowgfx_ini, G_FILE_TEST_EXISTS))
+  {
+    g_warning ("File %s not found.", system_lowgfx_ini);
+    goto error;
+  }
+
+  if (!g_file_test (default_ini, G_FILE_TEST_EXISTS))
+  {
+    if (!copy_file_to (system_unity_ini, default_ini))
+      goto error;
+  }
+
+  ccsSetProfile (ccs_context, "Default");
+  if (g_strcmp0 (ccsGetProfile (ccs_context), "Default"))
+  {
+    goto error;
+  }
+
+  if (enable_lowgfx)
+  {
+    if (!copy_file_to (system_lowgfx_ini, default_ini))
+      goto error;
+  }
+  else
+  {
+    if (!copy_file_to (system_unity_ini, default_ini))
+      goto error;
+  }
+
+  g_free (system_unity_ini);
+  g_free (system_lowgfx_ini);
+  g_free (default_ini);
+  return TRUE;
+
+error:
+  g_free (system_unity_ini);
+  g_free (system_lowgfx_ini);
+  g_free (default_ini);
+  return FALSE;
+}
+
+static gboolean toggle_lowgfx (gboolean enable_lowgfx)
+{
+  if (!g_file_test ("/etc/compizconfig/unity-lowgfx.ini", G_FILE_TEST_EXISTS))
+    return FALSE;
+
+  ccs_backend = ccsGetBackend (ccs_context);
+  if (!g_strcmp0 (ccs_backend, "ini"))
+  {
+    return toggle_lowgfx_ini_settings (enable_lowgfx);
+  }
+  else
+  {
+    if (!g_strcmp0 (ccs_backend, "gsettings"))
+    {
+      return toggle_lowgfx_profile (enable_lowgfx);
+    }
+    else
+    {
+      return FALSE;
+    }
+  }
+
+  return TRUE;
+}
 
 static void
 cc_appearance_panel_get_property (GObject    *object,
@@ -269,6 +425,8 @@ cc_appearance_panel_finalize (GObject *object)
       g_object_unref (priv->current_background);
       priv->current_background = NULL;
     }
+
+  finalize_ccs_context ();
 
   G_OBJECT_CLASS (cc_appearance_panel_parent_class)->finalize (object);
 }
@@ -1787,6 +1945,49 @@ on_menuvisibility_changed (GtkToggleButton *button, gpointer user_data)
 }
 
 static void
+lowgfx_widget_refresh (CcAppearancePanel *self)
+{
+    CcAppearancePanelPrivate *priv = self->priv;
+    gboolean has_setting = unity_own_setting_exists(self, UNITY_LOWGFX);
+    gboolean profile_exists = g_file_test ("/etc/compizconfig/unity-lowgfx.ini", G_FILE_TEST_EXISTS);
+
+    gtk_widget_set_sensitive (WID ("unity_lowgfx"), has_setting && profile_exists);
+
+    gboolean enable_lowgfx = g_settings_get_boolean (priv->unity_own_settings, UNITY_LOWGFX);
+    if (!toggle_lowgfx (enable_lowgfx)) {
+	gtk_widget_set_sensitive (WID ("unity_lowgfx"), FALSE);
+    }
+
+    if (enable_lowgfx == TRUE)
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (WID ("unity_lowgfx_enable")), TRUE);
+    else
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (WID ("unity_lowgfx_disable")), TRUE);
+}
+
+static void
+on_lowgfx_changed (GtkToggleButton *button,
+                   gpointer user_data)
+{
+    CcAppearancePanel *self = CC_APPEARANCE_PANEL (user_data);
+    CcAppearancePanelPrivate *priv = self->priv;
+
+    gboolean enabled = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (WID ("unity_lowgfx_enable")));
+    g_settings_set_boolean (priv->unity_own_settings, UNITY_LOWGFX, enabled);
+
+    if (!toggle_lowgfx (enabled)) {
+	gtk_widget_set_sensitive (WID ("unity_lowgfx"), FALSE);
+    }
+}
+
+static void
+ext_lowgfx_changed_callback (GSettings* settings,
+                             guint key,
+                             gpointer user_data)
+{
+    lowgfx_widget_refresh (CC_APPEARANCE_PANEL (user_data));
+}
+
+static void
 on_restore_defaults_page2_clicked (GtkButton *button, gpointer user_data)
 {
   CcAppearancePanel *self = CC_APPEARANCE_PANEL (user_data);
@@ -1804,6 +2005,9 @@ on_restore_defaults_page2_clicked (GtkButton *button, gpointer user_data)
 
   if (unity_own_setting_exists (self, UNITY_ALWAYS_SHOW_MENUS_KEY))
     g_settings_reset (priv->unity_own_settings, UNITY_ALWAYS_SHOW_MENUS_KEY);
+
+  if (unity_own_setting_exists (self, UNITY_LOWGFX))
+    g_settings_reset (priv->unity_own_settings, UNITY_LOWGFX);
 
   GtkToggleButton *showdesktop = GTK_TOGGLE_BUTTON (WID ("check_showdesktop_in_launcher"));
   gtk_toggle_button_set_active(showdesktop, TRUE);
@@ -1985,9 +2189,19 @@ setup_unity_settings (CcAppearancePanel *self)
                      G_CALLBACK (on_menuvisibility_changed), self);
   menuvisibility_widget_refresh (self);
 
+
+  /* Low gfx */
+  g_signal_connect (priv->unity_own_settings, "changed::" UNITY_OWN_GSETTINGS_SCHEMA, G_CALLBACK (ext_lowgfx_changed_callback), self);
+  g_signal_connect (WID ("unity_lowgfx_enable"), "toggled",
+                    G_CALLBACK (on_lowgfx_changed), self);
+  g_signal_connect (WID ("unity_lowgfx_disable"), "toggled",
+                    G_CALLBACK (on_lowgfx_changed), self);
+  lowgfx_widget_refresh (self);
+
   /* Restore defaut on second page */
   g_signal_connect (WID ("button-restore-unitybehavior"), "clicked",
                     G_CALLBACK (on_restore_defaults_page2_clicked), self);
+
 }
 
 static void
@@ -2000,6 +2214,8 @@ cc_appearance_panel_init (CcAppearancePanel *self)
   GtkWidget *widget;
   GtkListStore *store;
   GtkStyleContext *context;
+
+  init_ccs_context();
 
   priv = self->priv = APPEARANCE_PANEL_PRIVATE (self);
 

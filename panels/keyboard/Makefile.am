@@ -47,7 +47,7 @@ xml_DATA     = $(xml_in_files:.xml.in=.xml)
 pkgconfigdir = $(datadir)/pkgconfig
 pkgconfig_DATA = unity-keybindings.pc
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	-DGNOMELOCALEDIR="\"$(datadir)/locale\"" \
 	-DGNOMECC_DATA_DIR="\"$(pkgdatadir)\"" \
 	-DGNOMECC_UI_DIR="\"$(uidir)\"" \
