@@ -126,7 +126,6 @@ enum
 #define UNITY_LOWGFX_KEY "lowgfx"
 #define SHOW_DESKTOP_UNITY_FAVORITE_STR "unity://desktop-icon"
 
-#define UNITY_LOWGFX_PROFILE_DEFINITION "/etc/compizconfig/unity-lowgfx.ini"
 #define UNITY_NORMAL_PROFILE "unity"
 #define UNITY_LOWGFX_PROFILE "unity-lowgfx"
 
@@ -1803,12 +1802,28 @@ on_menuvisibility_changed (GtkToggleButton *button, gpointer user_data)
   menuvisibility_widget_refresh (self);
 }
 
+static gboolean
+is_compiz_profile_available (CcAppearancePanel *self,
+                             const gchar *profile)
+{
+  CCSString profile_ccsstring = { profile, 2 };
+  CCSStringList available_profiles;
+  gboolean is_available;
+
+  available_profiles = ccsGetExistingProfiles (self->priv->ccs_context);
+  is_available = ccsStringListFind (available_profiles, &profile_ccsstring);
+
+  ccsStringListFree (available_profiles, TRUE);
+
+  return is_available;
+}
+
 static void
 gfx_mode_widget_refresh (CcAppearancePanel *self)
 {
   CcAppearancePanelPrivate *priv = self->priv;
   gboolean has_setting = unity_own_setting_exists (self, UNITY_LOWGFX_KEY);
-  gboolean profile_exists = g_file_test (UNITY_LOWGFX_PROFILE_DEFINITION, G_FILE_TEST_EXISTS);
+  gboolean profile_exists = is_compiz_profile_available (self, UNITY_LOWGFX_PROFILE);
 
   gtk_widget_set_visible (WID ("unity_gfx_mode_box"), has_setting && profile_exists);
   gboolean enable_lowgfx = g_settings_get_boolean (priv->unity_own_settings, UNITY_LOWGFX_KEY);
@@ -1820,11 +1835,11 @@ gfx_mode_widget_refresh (CcAppearancePanel *self)
 }
 
 static gboolean
-set_compiz_profile (CcAppearancePanel *self, const gchar *profile_name)
+set_compiz_profile (CcAppearancePanel *self,
+                    const gchar *profile_name)
 {
   CCSContext *ccs_context;
   CCSPluginList plugins;
-  CCSStringList available_profiles;
 
   const char *ccs_backend;
   const char *ccs_profile;
@@ -1845,13 +1860,9 @@ set_compiz_profile (CcAppearancePanel *self, const gchar *profile_name)
       return FALSE;
     }
 
-  CCSString profile_ccsstring = { profile_name, 2 };
-  available_profiles = ccsGetExistingProfiles (ccs_context);
-
-  if (!ccsStringListFind (available_profiles, &profile_ccsstring))
+  if (!is_compiz_profile_available (self, profile_name))
     {
       g_warning ("Compiz profile '%s' not found", profile_name);
-      ccsStringListFree (available_profiles, TRUE);
       return FALSE;
     }
 
@@ -1859,7 +1870,7 @@ set_compiz_profile (CcAppearancePanel *self, const gchar *profile_name)
   ccsReadSettings (ccs_context);
   ccsWriteSettings (ccs_context);
 
-  g_settings_sync();
+  g_settings_sync ();
 
   plugins = ccsContextGetPlugins (ccs_context);
 
@@ -1868,8 +1879,6 @@ set_compiz_profile (CcAppearancePanel *self, const gchar *profile_name)
       CCSPlugin* plugin = p->data;
       ccsReadPluginSettings (plugin);
     }
-
-  ccsStringListFree (available_profiles, TRUE);
 
   return TRUE;
 }
