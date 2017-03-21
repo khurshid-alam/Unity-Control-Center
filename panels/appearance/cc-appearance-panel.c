@@ -79,6 +79,8 @@ struct _CcAppearancePanelPrivate
   GSettings *unity_own_settings;
   GSettings *unity_launcher_settings;
 
+  CCSContext *ccs_context;
+
   GnomeDesktopThumbnailFactory *thumb_factory;
 
   CcAppearanceItem *current_background;
@@ -121,8 +123,8 @@ enum
 #define UNITY_FAVORITES_KEY "favorites"
 #define UNITY_INTEGRATED_MENUS_KEY "integrated-menus"
 #define UNITY_ALWAYS_SHOW_MENUS_KEY "always-show-menus"
+#define UNITY_LOWGFX_KEY "lowgfx"
 #define SHOW_DESKTOP_UNITY_FAVORITE_STR "unity://desktop-icon"
-#define UNITY_LOWGFX "lowgfx"
 
 #define UNITY_LOWGFX_PROFILE_DEFINITION "/etc/compizconfig/unity-lowgfx.ini"
 #define UNITY_NORMAL_PROFILE "unity"
@@ -136,115 +138,6 @@ enum
 #define MAX_LAUNCHER_SENSIVITY 8.0
 
 #define WID(y) (GtkWidget *) gtk_builder_get_object (priv->builder, y)
-
-static CCSContext *ccs_context;
-static gboolean init_ccs_context ()
-{
-  GdkScreen *screen = gdk_screen_get_default ();
-  g_assert (screen);
-
-  if (!(ccs_context = ccsContextNew (gdk_screen_get_number (screen),
-          &ccsDefaultInterfaceTable)))
-  {
-    fprintf (stderr, "CCS error: Failed to initialize context.\n");
-    return FALSE;
-  }
-
-  return TRUE;
-}
-
-static void finalize_ccs_context ()
-{
-  ccsFreeContext(ccs_context);
-}
-
-static gboolean copy_file_to (const gchar *f1, const gchar *f2)
-{
-  FILE *fp1, *fp2;
-  char buf[4096];
-  int sz;
-  gboolean res = TRUE;
-
-  if (!(fp1 = fopen (f1, "r")))
-  {
-    fprintf (stderr, "Failed to open %s for reading: %s.\n", f1, strerror (errno));
-    return FALSE;
-  }
-
-  if (!(fp2 = fopen (f2, "w")))
-  {
-    fprintf (stderr, "Failed to open %s for writing: %s.\n", f2, strerror (errno));
-    fclose (fp1);
-    return FALSE;
-  }
-
-  while ((sz = fread (buf, 1, sizeof buf, fp1)) > 0)
-  {
-    if (fwrite (buf, 1, sz, fp2) != sz)
-    {
-      res = FALSE;
-      break;
-    }
-  }
-
-  fclose (fp1);
-  fclose (fp2);
-
-  return res;
-}
-
-static gboolean
-set_compiz_profile (const gchar *profile_name)
-{
-  CCSPluginList plugins;
-  CCSStringList available_profiles;
-
-  const char *ccs_backend;
-  const char *ccs_profile;
-
-  ccs_profile = ccsGetProfile (ccs_context);
-
-  if (g_strcmp0 (ccs_profile, profile_name) == 0)
-    {
-      return TRUE;
-    }
-
-  ccs_backend = ccsGetBackend (ccs_context);
-
-  if (g_strcmp0 (ccs_backend, "gsettings") != 0)
-    {
-      g_warning ("Compiz GSettings backends different from GSettings aren't supported");
-      return FALSE;
-    }
-
-  CCSString profile_ccsstring = { profile_name, 2 };
-  available_profiles = ccsGetExistingProfiles (ccs_context);
-
-  if (!ccsStringListFind (available_profiles, &profile_ccsstring))
-    {
-      g_warning ("Compiz profile '%s' not found", profile_name);
-      ccsStringListFree (available_profiles, TRUE);
-      return FALSE;
-    }
-
-  ccsSetProfile (ccs_context, profile_name);
-  ccsReadSettings (ccs_context);
-  ccsWriteSettings (ccs_context);
-
-  g_settings_sync();
-
-  plugins = ccsContextGetPlugins (ccs_context);
-
-  for (CCSPluginList p = plugins; p; p = p->next)
-    {
-      CCSPlugin* plugin = p->data;
-      ccsReadPluginSettings (plugin);
-    }
-
-  ccsStringListFree (available_profiles, TRUE);
-
-  return TRUE;
-}
 
 static void
 cc_appearance_panel_get_property (GObject    *object,
@@ -310,6 +203,12 @@ cc_appearance_panel_dispose (GObject *object)
       priv->flickr_source = NULL;
     }
 #endif
+
+  if (priv->ccs_context)
+    {
+      ccsFreeContext (priv->ccs_context);
+      priv->ccs_context = NULL;
+    }
 
   if (priv->settings)
     {
@@ -387,8 +286,6 @@ cc_appearance_panel_finalize (GObject *object)
       g_object_unref (priv->current_background);
       priv->current_background = NULL;
     }
-
-  finalize_ccs_context ();
 
   G_OBJECT_CLASS (cc_appearance_panel_parent_class)->finalize (object);
 }
@@ -1910,16 +1807,71 @@ static void
 gfx_mode_widget_refresh (CcAppearancePanel *self)
 {
   CcAppearancePanelPrivate *priv = self->priv;
-  gboolean has_setting = unity_own_setting_exists (self, UNITY_LOWGFX);
+  gboolean has_setting = unity_own_setting_exists (self, UNITY_LOWGFX_KEY);
   gboolean profile_exists = g_file_test (UNITY_LOWGFX_PROFILE_DEFINITION, G_FILE_TEST_EXISTS);
 
   gtk_widget_set_visible (WID ("unity_gfx_mode_box"), has_setting && profile_exists);
-  gboolean enable_lowgfx = g_settings_get_boolean (priv->unity_own_settings, UNITY_LOWGFX);
+  gboolean enable_lowgfx = g_settings_get_boolean (priv->unity_own_settings, UNITY_LOWGFX_KEY);
 
   if (enable_lowgfx == FALSE)
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (WID ("unity_gfx_mode_full_enable")), TRUE);
   else
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (WID ("unity_gfx_mode_low_enable")), TRUE);
+}
+
+static gboolean
+set_compiz_profile (CcAppearancePanel *self, const gchar *profile_name)
+{
+  CCSContext *ccs_context;
+  CCSPluginList plugins;
+  CCSStringList available_profiles;
+
+  const char *ccs_backend;
+  const char *ccs_profile;
+
+  ccs_context = self->priv->ccs_context;
+  ccs_profile = ccsGetProfile (ccs_context);
+
+  if (g_strcmp0 (ccs_profile, profile_name) == 0)
+    {
+      return TRUE;
+    }
+
+  ccs_backend = ccsGetBackend (ccs_context);
+
+  if (g_strcmp0 (ccs_backend, "gsettings") != 0)
+    {
+      g_warning ("Compiz GSettings backends different from GSettings aren't supported");
+      return FALSE;
+    }
+
+  CCSString profile_ccsstring = { profile_name, 2 };
+  available_profiles = ccsGetExistingProfiles (ccs_context);
+
+  if (!ccsStringListFind (available_profiles, &profile_ccsstring))
+    {
+      g_warning ("Compiz profile '%s' not found", profile_name);
+      ccsStringListFree (available_profiles, TRUE);
+      return FALSE;
+    }
+
+  ccsSetProfile (ccs_context, profile_name);
+  ccsReadSettings (ccs_context);
+  ccsWriteSettings (ccs_context);
+
+  g_settings_sync();
+
+  plugins = ccsContextGetPlugins (ccs_context);
+
+  for (CCSPluginList p = plugins; p; p = p->next)
+    {
+      CCSPlugin* plugin = p->data;
+      ccsReadPluginSettings (plugin);
+    }
+
+  ccsStringListFree (available_profiles, TRUE);
+
+  return TRUE;
 }
 
 static void
@@ -1931,8 +1883,8 @@ on_gfx_mode_changed (GtkToggleButton *button,
 
   gboolean low_enabled = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (WID ("unity_gfx_mode_low_enable")));
 
-  set_compiz_profile (low_enabled ? UNITY_LOWGFX_PROFILE : UNITY_NORMAL_PROFILE);
-  g_settings_set_boolean (priv->unity_own_settings, UNITY_LOWGFX, low_enabled);
+  set_compiz_profile (self, low_enabled ? UNITY_LOWGFX_PROFILE : UNITY_NORMAL_PROFILE);
+  g_settings_set_boolean (priv->unity_own_settings, UNITY_LOWGFX_KEY, low_enabled);
   gfx_mode_widget_refresh (self);
 }
 
@@ -1963,8 +1915,8 @@ on_restore_defaults_page2_clicked (GtkButton *button, gpointer user_data)
   if (unity_own_setting_exists (self, UNITY_ALWAYS_SHOW_MENUS_KEY))
     g_settings_reset (priv->unity_own_settings, UNITY_ALWAYS_SHOW_MENUS_KEY);
 
-  if (unity_own_setting_exists (self, UNITY_LOWGFX))
-    g_settings_reset (priv->unity_own_settings, UNITY_LOWGFX);
+  if (unity_own_setting_exists (self, UNITY_LOWGFX_KEY))
+    g_settings_reset (priv->unity_own_settings, UNITY_LOWGFX_KEY);
 
   GtkToggleButton *showdesktop = GTK_TOGGLE_BUTTON (WID ("check_showdesktop_in_launcher"));
   gtk_toggle_button_set_active(showdesktop, TRUE);
@@ -2020,6 +1972,20 @@ compiz_profile_gsettings_path (const gchar *path)
     }
 
   return g_strdup_printf (path, profile);
+}
+
+static void
+setup_ccs_context (CcAppearancePanel *self)
+{
+  GdkScreen *screen = gdk_screen_get_default ();
+
+  self->priv->ccs_context = ccsContextNew (gdk_screen_get_number (screen),
+                                           &ccsDefaultInterfaceTable);
+
+  if (!self->priv->ccs_context)
+    {
+      g_warning ("CCS error: Failed to initialize context.");
+    }
 }
 
 static void
@@ -2172,8 +2138,6 @@ cc_appearance_panel_init (CcAppearancePanel *self)
   GtkListStore *store;
   GtkStyleContext *context;
 
-  init_ccs_context();
-
   priv = self->priv = APPEARANCE_PANEL_PRIVATE (self);
 
   priv->builder = gtk_builder_new ();
@@ -2306,6 +2270,9 @@ cc_appearance_panel_init (CcAppearancePanel *self)
 
   /* Setup theme selector */
   setup_theme_selector (self);
+
+  /* Setup Compiz Config Context */
+  setup_ccs_context (self);
 
   /* Setup unity settings */
   setup_unity_settings (self);
