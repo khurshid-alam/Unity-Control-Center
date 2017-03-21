@@ -1806,14 +1806,13 @@ static gboolean
 is_compiz_profile_available (CcAppearancePanel *self,
                              const gchar *profile)
 {
-  CCSString profile_ccsstring = { profile, 2 };
-  CCSStringList available_profiles;
   gboolean is_available;
+  gchar *profile_path;
 
-  available_profiles = ccsGetExistingProfiles (self->priv->ccs_context);
-  is_available = ccsStringListFind (available_profiles, &profile_ccsstring);
+  profile_path = g_strdup_printf ("/etc/compizconfig/%s.ini", profile);
+  is_available = g_file_test (profile_path, G_FILE_TEST_EXISTS);
 
-  ccsStringListFree (available_profiles, TRUE);
+  g_free (profile_path);
 
   return is_available;
 }
