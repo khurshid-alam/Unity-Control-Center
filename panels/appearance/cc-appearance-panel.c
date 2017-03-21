@@ -1893,7 +1893,6 @@ on_gfx_mode_changed (GtkToggleButton *button,
 
   set_compiz_profile (self, low_enabled ? UNITY_LOWGFX_PROFILE : UNITY_NORMAL_PROFILE);
   g_settings_set_boolean (priv->unity_own_settings, UNITY_LOWGFX_KEY, low_enabled);
-  gfx_mode_widget_refresh (self);
 }
 
 static void
@@ -2121,7 +2120,7 @@ setup_unity_settings (CcAppearancePanel *self)
   menuvisibility_widget_refresh (self);
 
   /* Low gfx */
-  g_signal_connect (priv->unity_own_settings, "changed::" UNITY_OWN_GSETTINGS_SCHEMA,
+  g_signal_connect (priv->unity_own_settings, "changed::" UNITY_LOWGFX_KEY,
                     G_CALLBACK (ext_lowgfx_changed_callback), self);
   g_signal_connect (WID ("unity_gfx_mode_full_enable"), "toggled",
                     G_CALLBACK (on_gfx_mode_changed), self);
