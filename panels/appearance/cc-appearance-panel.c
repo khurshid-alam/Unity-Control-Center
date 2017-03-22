@@ -59,6 +59,10 @@ G_DEFINE_DYNAMIC_TYPE (CcAppearancePanel, cc_appearance_panel, CC_TYPE_PANEL)
 #define APPEARANCE_PANEL_PRIVATE(o) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((o), CC_TYPE_APPEARANCE_PANEL, CcAppearancePanelPrivate))
 
+typedef struct _GroupedGSettings        GroupedGSettings;
+typedef struct _GroupedGSettingsClass   GroupedGSettingsClass;
+typedef struct _GroupedGSettingsPrivate GroupedGSettingsPrivate;
+
 struct _CcAppearancePanelPrivate
 {
   GtkBuilder *builder;
@@ -77,8 +81,9 @@ struct _CcAppearancePanelPrivate
   GSettings *unity_own_settings;
   GSettings *unity_launcher_settings;
 
-  GList *compiz_gsettings;
   CCSContext *ccs_context;
+  GroupedGSettings *unity_compiz_gs;
+  GroupedGSettings *compizcore_compiz_gs;
   GSettings *unity_settings;
   GSettings *compizcore_settings;
 
@@ -204,12 +209,6 @@ cc_appearance_panel_dispose (GObject *object)
     }
 #endif
 
-  if (priv->ccs_context)
-    {
-      ccsFreeContext (priv->ccs_context);
-      priv->ccs_context = NULL;
-    }
-
   if (priv->settings)
     {
       g_object_unref (priv->settings);
@@ -228,6 +227,24 @@ cc_appearance_panel_dispose (GObject *object)
       priv->wm_theme_settings = NULL;
     }
 
+  if (priv->ccs_context)
+    {
+      ccsFreeContext (priv->ccs_context);
+      priv->ccs_context = NULL;
+    }
+
+  if (priv->unity_compiz_gs)
+    {
+      g_object_unref (priv->unity_compiz_gs);
+      priv->unity_compiz_gs = NULL;
+    }
+
+  if (priv->compizcore_compiz_gs)
+    {
+      g_object_unref (priv->compizcore_compiz_gs);
+      priv->compizcore_compiz_gs = NULL;
+    }
+
   if (priv->unity_settings)
     {
       g_object_unref (priv->unity_settings);
@@ -238,12 +255,6 @@ cc_appearance_panel_dispose (GObject *object)
     {
       g_object_unref (priv->compizcore_settings);
       priv->compizcore_settings = NULL;
-    }
-
-  if (priv->compiz_gsettings)
-    {
-      g_list_free_full (priv->compiz_gsettings, g_object_unref);
-      priv->compiz_gsettings = NULL;
     }
 
   if (priv->unity_launcher_settings)
@@ -313,6 +324,212 @@ static void
 cc_appearance_panel_class_finalize (CcAppearancePanelClass *klass)
 {
 }
+
+/* Implementation of GroupedGSettings a class to manage multiple gsettings
+ * who share schema but with different paths
+ */
+#define IS_GSETTINGS_GROUPED(o) (G_TYPE_CHECK_INSTANCE_TYPE ((o), \
+                                 grouped_gsettings_get_type ()))
+
+GType grouped_gsettings_get_type (void) G_GNUC_CONST;
+
+struct _GroupedGSettings {
+  GObject parent_instance;
+  GroupedGSettingsPrivate *priv;
+};
+
+struct _GroupedGSettingsClass {
+  GObjectClass parent_class;
+};
+
+struct _GroupedGSettingsPrivate
+{
+  GList *settings_list;
+  GSettings *default_gs;
+  GSettings **remote_gs;
+};
+
+G_DEFINE_TYPE (GroupedGSettings, grouped_gsettings, G_TYPE_OBJECT)
+
+static void
+grouped_gsettings_dispose (GObject *object)
+{
+  GroupedGSettings *self = (GroupedGSettings *) object;
+
+  if (self->priv->settings_list)
+    {
+      g_list_free_full (self->priv->settings_list, g_object_unref);
+      self->priv->settings_list = NULL;
+    }
+
+  if (G_OBJECT_CLASS (grouped_gsettings_parent_class))
+    G_OBJECT_CLASS (grouped_gsettings_parent_class)->dispose (object);
+}
+
+static void
+grouped_gsettings_class_init (GroupedGSettingsClass *klass)
+{
+  GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+
+  g_type_class_add_private (klass, sizeof (GroupedGSettingsPrivate));
+
+  gobject_class->dispose = grouped_gsettings_dispose;
+
+  g_signal_new ("changed",  G_TYPE_FROM_CLASS (klass),
+                G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED, 0,
+                NULL, NULL, g_cclosure_marshal_VOID__STRING, G_TYPE_NONE,
+                1, G_TYPE_STRING | G_SIGNAL_TYPE_STATIC_SCOPE);
+}
+
+static void
+grouped_gsettings_init (GroupedGSettings *self)
+{
+  self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, grouped_gsettings_get_type (),
+                                            GroupedGSettingsPrivate);
+}
+
+static void
+on_default_settings_changed (GSettings *settings,
+                             gchar     *key,
+                             GroupedGSettings *self)
+{
+  gchar *signal = g_strdup_printf ("changed::%s", key);
+  g_signal_emit_by_name (self, signal, key);
+  g_free (signal);
+}
+
+static GSettings *
+grouped_gsettings_peek_default (GroupedGSettings *self)
+{
+  g_return_val_if_fail (IS_GSETTINGS_GROUPED (self), NULL);
+  return self->priv->default_gs;
+}
+
+static void
+grouped_gsettings_set_default_profile (GroupedGSettings *self,
+                                       const gchar *profile)
+{
+  GList *l;
+  GroupedGSettingsPrivate *priv;
+
+  g_return_if_fail (IS_GSETTINGS_GROUPED (self));
+
+  priv = self->priv;
+
+  for (l = priv->settings_list; l; l = l->next)
+    {
+      GSettings *settings;
+      const gchar *settings_profile;
+
+      settings = l->data;
+      settings_profile = g_object_get_data (G_OBJECT (settings), "profile");
+
+      if (g_strcmp0 (settings_profile, profile) == 0)
+        {
+          if (priv->default_gs == settings)
+            {
+              return;
+            }
+
+          if (priv->default_gs)
+            {
+              g_signal_handlers_block_by_func (priv->default_gs,
+                                               on_default_settings_changed, self);
+            }
+
+          priv->default_gs = settings;
+          g_signal_handlers_unblock_by_func (settings,
+                                             on_default_settings_changed, self);
+
+          if (priv->remote_gs)
+            {
+              if (G_IS_SETTINGS (*priv->remote_gs))
+                g_object_unref (*priv->remote_gs);
+
+              *priv->remote_gs = g_object_ref (settings);
+            }
+
+          return;
+        }
+    }
+}
+
+static GSettings *
+grouped_gsettings_add (GroupedGSettings *self,
+                       GSettingsSchema *settings_schema,
+                       const gchar *settings_path,
+                       const gchar *profile,
+                       GSettings **remote_settings)
+{
+  GSettings *settings;
+
+  g_return_val_if_fail (IS_GSETTINGS_GROUPED (self), NULL);
+
+  settings = g_settings_new_full (settings_schema, /*backend*/ NULL, settings_path);
+  self->priv->settings_list = g_list_prepend (self->priv->settings_list, settings);
+  self->priv->remote_gs = remote_settings;
+
+  g_signal_connect (settings, "changed", G_CALLBACK (on_default_settings_changed), self);
+  g_signal_handlers_block_by_func (settings, on_default_settings_changed, self);
+
+  if (!profile)
+    {
+      profile = settings_path;
+    }
+
+  g_object_set_data_full (G_OBJECT (settings), "profile",
+                          (gpointer) g_strdup (profile), g_free);
+
+  if (!self->priv->default_gs)
+    {
+      grouped_gsettings_set_default_profile (self, profile);
+    }
+
+  return settings;
+}
+
+
+static GSettings *
+compiz_grouped_gsettings_add (GroupedGSettings *self,
+                              GSettingsSchema *settings_schema,
+                              const gchar *settings_base_path,
+                              const gchar *compiz_profile,
+                              GSettings **remote_settings)
+{
+  GSettings *settings;
+  gchar *settings_path;
+
+  settings_path = g_strdup_printf (settings_base_path, compiz_profile ? compiz_profile : UNITY_NORMAL_PROFILE);
+  settings = grouped_gsettings_add (self, settings_schema, settings_path, compiz_profile, remote_settings);
+  g_free (settings_path);
+
+  return settings;
+}
+
+GroupedGSettings *
+compiz_grouped_gsettings_new (GSettingsSchema *settings_schema,
+                              const gchar *settings_base_path,
+                              CCSContext *ccs_context,
+                              GSettings **remote_settings)
+{
+  GroupedGSettings *ggs;
+  GSettings *settings;
+  const gchar *compiz_profile;
+
+  ggs = g_object_new (grouped_gsettings_get_type (), NULL);
+  compiz_profile = ccsGetProfile (ccs_context);
+
+  compiz_grouped_gsettings_add (ggs, settings_schema, settings_base_path,
+                                UNITY_NORMAL_PROFILE, remote_settings);
+  compiz_grouped_gsettings_add (ggs, settings_schema, settings_base_path,
+                                UNITY_LOWGFX_PROFILE, remote_settings);
+
+  grouped_gsettings_set_default_profile (ggs, compiz_profile);
+
+  return ggs;
+}
+
+/* GroupedGSettings definition end */
 
 static void
 source_update_edit_box (CcAppearancePanelPrivate *priv,
@@ -1410,11 +1627,11 @@ iconsize_widget_refresh (GtkAdjustment *iconsize_adj, GSettings *unity_settings)
 }
 
 static void
-ext_iconsize_changed_callback (GSettings* settings,
-                               guint key,
+ext_iconsize_changed_callback (GroupedGSettings* compiz_gs,
+                               gchar *key,
                                gpointer user_data)
 {
-  iconsize_widget_refresh (GTK_ADJUSTMENT (user_data), settings);
+  iconsize_widget_refresh (GTK_ADJUSTMENT (user_data), grouped_gsettings_peek_default (compiz_gs));
 }
 
 static gchar *
@@ -1424,9 +1641,9 @@ on_iconsize_format_value (GtkScale *scale, gdouble value)
 }
 
 static void
-on_iconsize_changed (GtkAdjustment *adj, GSettings *unity_settings)
+on_iconsize_changed (GtkAdjustment *adj, CcAppearancePanel *self)
 {
-  g_settings_set_int (unity_settings, UNITY_ICONSIZE_KEY, (gint)gtk_adjustment_get_value (adj) * 2);
+  g_settings_set_int (self->priv->unity_settings, UNITY_ICONSIZE_KEY, (gint)gtk_adjustment_get_value (adj) * 2);
 }
 
 static void
@@ -1482,8 +1699,8 @@ hidelauncher_widget_refresh (CcAppearancePanel *self)
 }
 
 static void
-ext_hidelauncher_changed_callback (GSettings* settings,
-                                   guint key,
+ext_hidelauncher_changed_callback (GroupedGSettings* compiz_gs,
+                                   gchar *key,
                                    gpointer user_data)
 {
   hidelauncher_widget_refresh (CC_APPEARANCE_PANEL (user_data));
@@ -1530,8 +1747,8 @@ reveallauncher_widget_refresh (CcAppearancePanel *self)
 }
 
 static void
-ext_reveallauncher_changed_callback (GSettings* settings,
-                                     guint key,
+ext_reveallauncher_changed_callback (GroupedGSettings* compiz_gs,
+                                     gchar *key,
                                      gpointer user_data)
 {
   reveallauncher_widget_refresh (CC_APPEARANCE_PANEL (user_data));
@@ -1561,11 +1778,11 @@ launcher_sensitivity_widget_refresh (GtkAdjustment *launcher_sensitivity_adj, GS
 }
 
 static void
-ext_launchersensitivity_changed_callback (GSettings* settings,
-                                          guint key,
+ext_launchersensitivity_changed_callback (GroupedGSettings* compiz_gs,
+                                          gchar *key,
                                           gpointer user_data)
 {
-  launcher_sensitivity_widget_refresh (GTK_ADJUSTMENT (user_data), settings);
+  launcher_sensitivity_widget_refresh (GTK_ADJUSTMENT (user_data), grouped_gsettings_peek_default (compiz_gs));
 }
 
 static void
@@ -1600,8 +1817,8 @@ enable_workspaces_widget_refresh (gpointer user_data)
 }
 
 static void
-ext_enableworkspaces_changed_callback (GSettings* settings,
-                                       guint key,
+ext_enableworkspaces_changed_callback (GroupedGSettings* compiz_gs,
+                                       gchar *key,
                                        gpointer user_data)
 {
   g_idle_add((GSourceFunc) enable_workspaces_widget_refresh, user_data);
@@ -1648,8 +1865,8 @@ enable_showdesktop_widget_refresh (gpointer user_data)
 }
 
 static void
-ext_enableshowdesktop_changed_callback (GSettings* settings,
-                                        guint key,
+ext_enableshowdesktop_changed_callback (GroupedGSettings* compiz_gs,
+                                        gchar *key,
                                         gpointer user_data)
 {
   enable_showdesktop_widget_refresh (user_data);
@@ -1751,8 +1968,8 @@ menulocation_widget_refresh (CcAppearancePanel *self)
 }
 
 static void
-ext_menulocation_changed_callback (GSettings* settings,
-                                   guint key,
+ext_menulocation_changed_callback (GroupedGSettings* compiz_gs,
+                                   gchar *key,
                                    gpointer user_data)
 {
   menulocation_widget_refresh (CC_APPEARANCE_PANEL (user_data));
@@ -1791,9 +2008,9 @@ menuvisibility_widget_refresh (CcAppearancePanel *self)
 }
 
 static void
-ext_menuvisibility_changed_callback (GSettings* settings,
-                                   guint key,
-                                   gpointer user_data)
+ext_menuvisibility_changed_callback (GroupedGSettings* compiz_gs,
+                                     gchar *key,
+                                     gpointer user_data)
 {
   menuvisibility_widget_refresh (CC_APPEARANCE_PANEL (user_data));
 }
@@ -1886,6 +2103,9 @@ set_compiz_profile (CcAppearancePanel *self,
       ccsReadPluginSettings (plugin);
     }
 
+  grouped_gsettings_set_default_profile (self->priv->unity_compiz_gs, profile_name);
+  grouped_gsettings_set_default_profile (self->priv->compizcore_compiz_gs, profile_name);
+
   return TRUE;
 }
 
@@ -1903,8 +2123,8 @@ on_gfx_mode_changed (GtkToggleButton *button,
 }
 
 static void
-ext_lowgfx_changed_callback (GSettings* settings,
-                             guint key,
+ext_lowgfx_changed_callback (GroupedGSettings* compiz_gs,
+                             gchar *key,
                              gpointer user_data)
 {
   gfx_mode_widget_refresh (CC_APPEARANCE_PANEL (user_data));
@@ -1996,32 +2216,6 @@ compiz_profile_gsettings_path (const gchar *path,
   return g_strdup_printf (path, profile ? profile : UNITY_NORMAL_PROFILE);
 }
 
-static GSettings *
-compiz_gsettings_add (CcAppearancePanel *self,
-                      GSettings **default_key,
-                      GSettingsSchema *settings_schema,
-                      const gchar *settings_base_path,
-                      const gchar *compiz_profile)
-{
-  GSettings *settings;
-  gchar *settings_path;
-  const gchar *current_compiz_profile;
-
-  current_compiz_profile = ccsGetProfile (self->priv->ccs_context);
-  settings_path = compiz_profile_gsettings_path (settings_base_path, compiz_profile);
-  settings = g_settings_new_full (settings_schema, /*backend*/ NULL, settings_path);
-  self->priv->compiz_gsettings = g_list_prepend (self->priv->compiz_gsettings, settings);
-
-  if (g_strcmp0 (current_compiz_profile, compiz_profile) == 0 && default_key)
-    {
-      *default_key = g_object_ref (settings);
-    }
-
-  g_free (settings_path);
-
-  return settings;
-}
-
 static void
 setup_unity_settings (CcAppearancePanel *self)
 {
@@ -2049,23 +2243,22 @@ setup_unity_settings (CcAppearancePanel *self)
   schema = g_settings_schema_source_lookup (source, UNITY_GSETTINGS_SCHEMA, TRUE);
   if (schema)
     {
-      compiz_gsettings_add (self, &priv->unity_settings, schema,
-                            UNITY_GSETTINGS_PATH, UNITY_NORMAL_PROFILE);
-      compiz_gsettings_add (self, &priv->unity_settings, schema,
-                            UNITY_GSETTINGS_PATH, UNITY_LOWGFX_PROFILE);
+      priv->unity_compiz_gs = compiz_grouped_gsettings_new (schema, UNITY_GSETTINGS_PATH,
+                                                            priv->ccs_context,
+                                                            &priv->unity_settings);
       g_settings_schema_unref (schema);
     }
   schema = g_settings_schema_source_lookup (source, COMPIZCORE_GSETTINGS_SCHEMA, TRUE);
   if (schema)
     {
-      compiz_gsettings_add (self, &priv->compizcore_settings, schema,
-                            COMPIZCORE_GSETTINGS_PATH, UNITY_NORMAL_PROFILE);
-      compiz_gsettings_add (self, &priv->compizcore_settings, schema,
-                            COMPIZCORE_GSETTINGS_PATH, UNITY_LOWGFX_PROFILE);
+      priv->compizcore_compiz_gs = compiz_grouped_gsettings_new (schema,
+                                                                 COMPIZCORE_GSETTINGS_PATH,
+                                                                 priv->ccs_context,
+                                                                 &priv->compizcore_settings);
       g_settings_schema_unref (schema);
     }
 
-  if (!priv->unity_settings || !priv->compizcore_settings || !priv->unity_own_settings || !priv->unity_launcher_settings)
+  if (!priv->unity_compiz_gs || !priv->compizcore_compiz_gs || !priv->unity_own_settings || !priv->unity_launcher_settings)
     return;
 
   /* Icon size change - we halve the sizes so we can only get even values*/
@@ -2073,19 +2266,19 @@ setup_unity_settings (CcAppearancePanel *self)
   iconsize_scale = GTK_SCALE (WID ("unity-iconsize-scale"));
   gtk_range_set_adjustment (GTK_RANGE (iconsize_scale), iconsize_adj);
   gtk_scale_add_mark (iconsize_scale, DEFAULT_ICONSIZE / 2, GTK_POS_BOTTOM, NULL);
-  g_signal_connect (priv->unity_settings, "changed::" UNITY_ICONSIZE_KEY,
+  g_signal_connect (priv->unity_compiz_gs, "changed::" UNITY_ICONSIZE_KEY,
                     G_CALLBACK (ext_iconsize_changed_callback), iconsize_adj);
 
   g_signal_connect (G_OBJECT (iconsize_scale), "format-value",
                     G_CALLBACK (on_iconsize_format_value), NULL);
   g_signal_connect (iconsize_adj, "value_changed",
-                    G_CALLBACK (on_iconsize_changed), priv->unity_settings);
+                    G_CALLBACK (on_iconsize_changed), self);
   g_signal_connect (G_OBJECT (iconsize_scale), "scroll-event",
                     G_CALLBACK (on_scale_scroll_event), NULL);
   iconsize_widget_refresh (iconsize_adj, priv->unity_settings);
 
   /* Reveal spot setting */
-  g_signal_connect (priv->unity_settings, "changed::" UNITY_LAUNCHERREVEAL_KEY,
+  g_signal_connect (priv->unity_compiz_gs, "changed::" UNITY_LAUNCHERREVEAL_KEY,
                     G_CALLBACK (ext_reveallauncher_changed_callback), self);
   g_signal_connect (WID ("unity_reveal_spot_topleft"), "toggled",
                      G_CALLBACK (on_reveallauncher_changed), self);
@@ -2098,7 +2291,7 @@ setup_unity_settings (CcAppearancePanel *self)
   launcher_sensitivity_scale = GTK_SCALE (WID ("unity-launcher-sensitivity"));
   gtk_range_set_adjustment (GTK_RANGE (launcher_sensitivity_scale), launcher_sensitivity_adj);
   gtk_scale_add_mark (launcher_sensitivity_scale, 2, GTK_POS_BOTTOM, NULL);
-  g_signal_connect (priv->unity_settings, "changed::" UNITY_LAUNCHERSENSITIVITY_KEY,
+  g_signal_connect (priv->unity_compiz_gs, "changed::" UNITY_LAUNCHERSENSITIVITY_KEY,
                     G_CALLBACK (ext_launchersensitivity_changed_callback), launcher_sensitivity_adj);
   g_signal_connect (launcher_sensitivity_adj, "value_changed",
                     G_CALLBACK (on_launchersensitivity_changed), self);
@@ -2107,16 +2300,16 @@ setup_unity_settings (CcAppearancePanel *self)
   launcher_sensitivity_widget_refresh (launcher_sensitivity_adj, priv->unity_settings);
 
   /* Autohide launcher setting */
-  g_signal_connect (priv->unity_settings, "changed::" UNITY_LAUNCHERHIDE_KEY,
+  g_signal_connect (priv->unity_compiz_gs, "changed::" UNITY_LAUNCHERHIDE_KEY,
                     G_CALLBACK (ext_hidelauncher_changed_callback), self);
   g_signal_connect (WID ("unity_launcher_autohide"), "notify::active",
                     G_CALLBACK (on_hidelauncher_changed), self);
   hidelauncher_widget_refresh (self);
 
   /* Enabling workspaces */
-  g_signal_connect (priv->compizcore_settings, "changed::" COMPIZCORE_HSIZE_KEY,
+  g_signal_connect (priv->compizcore_compiz_gs, "changed::" COMPIZCORE_HSIZE_KEY,
                     G_CALLBACK (ext_enableworkspaces_changed_callback), self);
-  g_signal_connect (priv->compizcore_settings, "changed::" COMPIZCORE_VSIZE_KEY,
+  g_signal_connect (priv->compizcore_compiz_gs, "changed::" COMPIZCORE_VSIZE_KEY,
                     G_CALLBACK (ext_enableworkspaces_changed_callback), self);
   g_signal_connect (WID ("check_enable_workspaces"), "toggled",
                      G_CALLBACK (on_enable_workspaces_changed), self);
