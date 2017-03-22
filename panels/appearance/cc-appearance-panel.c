@@ -74,12 +74,13 @@ struct _CcAppearancePanelPrivate
   GSettings *settings;
   GSettings *interface_settings;
   GSettings *wm_theme_settings;
-  GSettings *unity_settings;
-  GSettings *compizcore_settings;
   GSettings *unity_own_settings;
   GSettings *unity_launcher_settings;
 
+  GList *compiz_gsettings;
   CCSContext *ccs_context;
+  GSettings *unity_settings;
+  GSettings *compizcore_settings;
 
   GnomeDesktopThumbnailFactory *thumb_factory;
 
@@ -237,6 +238,12 @@ cc_appearance_panel_dispose (GObject *object)
     {
       g_object_unref (priv->compizcore_settings);
       priv->compizcore_settings = NULL;
+    }
+
+  if (priv->compiz_gsettings)
+    {
+      g_list_free_full (priv->compiz_gsettings, g_object_unref);
+      priv->compiz_gsettings = NULL;
     }
 
   if (priv->unity_launcher_settings)
@@ -1968,19 +1975,6 @@ on_scale_scroll_event (GtkWidget      *widget,
 
 /* </hacks> */
 
-static gchar *
-compiz_profile_gsettings_path (const gchar *path)
-{
-  const gchar *profile = "unity";
-
-  if (g_strcmp0 (g_getenv ("COMPIZ_CONFIG_PROFILE"), "ubuntu-lowgfx") == 0)
-    {
-      profile = "unity-lowgfx";
-    }
-
-  return g_strdup_printf (path, profile);
-}
-
 static void
 setup_ccs_context (CcAppearancePanel *self)
 {
@@ -1995,6 +1989,39 @@ setup_ccs_context (CcAppearancePanel *self)
     }
 }
 
+static gchar *
+compiz_profile_gsettings_path (const gchar *path,
+                               const gchar *profile)
+{
+  return g_strdup_printf (path, profile ? profile : UNITY_NORMAL_PROFILE);
+}
+
+static GSettings *
+compiz_gsettings_add (CcAppearancePanel *self,
+                      GSettings **default_key,
+                      GSettingsSchema *settings_schema,
+                      const gchar *settings_base_path,
+                      const gchar *compiz_profile)
+{
+  GSettings *settings;
+  gchar *settings_path;
+  const gchar *current_compiz_profile;
+
+  current_compiz_profile = ccsGetProfile (self->priv->ccs_context);
+  settings_path = compiz_profile_gsettings_path (settings_base_path, compiz_profile);
+  settings = g_settings_new_full (settings_schema, /*backend*/ NULL, settings_path);
+  self->priv->compiz_gsettings = g_list_prepend (self->priv->compiz_gsettings, settings);
+
+  if (g_strcmp0 (current_compiz_profile, compiz_profile) == 0 && default_key)
+    {
+      *default_key = g_object_ref (settings);
+    }
+
+  g_free (settings_path);
+
+  return settings;
+}
+
 static void
 setup_unity_settings (CcAppearancePanel *self)
 {
@@ -2005,7 +2032,6 @@ setup_unity_settings (CcAppearancePanel *self)
   GtkScale* launcher_sensitivity_scale;
   GSettingsSchema *schema;
   GSettingsSchemaSource* source;
-  gchar *settings_path;
 
   source = g_settings_schema_source_get_default ();
   schema = g_settings_schema_source_lookup (source, UNITY_OWN_GSETTINGS_SCHEMA, TRUE);
@@ -2023,18 +2049,20 @@ setup_unity_settings (CcAppearancePanel *self)
   schema = g_settings_schema_source_lookup (source, UNITY_GSETTINGS_SCHEMA, TRUE);
   if (schema)
     {
-      settings_path = compiz_profile_gsettings_path (UNITY_GSETTINGS_PATH);
-      priv->unity_settings = g_settings_new_with_path (UNITY_GSETTINGS_SCHEMA, settings_path);
+      compiz_gsettings_add (self, &priv->unity_settings, schema,
+                            UNITY_GSETTINGS_PATH, UNITY_NORMAL_PROFILE);
+      compiz_gsettings_add (self, &priv->unity_settings, schema,
+                            UNITY_GSETTINGS_PATH, UNITY_LOWGFX_PROFILE);
       g_settings_schema_unref (schema);
-      g_free (settings_path);
     }
   schema = g_settings_schema_source_lookup (source, COMPIZCORE_GSETTINGS_SCHEMA, TRUE);
   if (schema)
     {
-      settings_path = compiz_profile_gsettings_path (COMPIZCORE_GSETTINGS_PATH);
-      priv->compizcore_settings = g_settings_new_with_path (COMPIZCORE_GSETTINGS_SCHEMA, settings_path);
+      compiz_gsettings_add (self, &priv->compizcore_settings, schema,
+                            COMPIZCORE_GSETTINGS_PATH, UNITY_NORMAL_PROFILE);
+      compiz_gsettings_add (self, &priv->compizcore_settings, schema,
+                            COMPIZCORE_GSETTINGS_PATH, UNITY_LOWGFX_PROFILE);
       g_settings_schema_unref (schema);
-      g_free (settings_path);
     }
 
   if (!priv->unity_settings || !priv->compizcore_settings || !priv->unity_own_settings || !priv->unity_launcher_settings)
