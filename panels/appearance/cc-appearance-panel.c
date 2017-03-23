@@ -2140,8 +2140,8 @@ on_gfx_mode_changed (GtkToggleButton *button,
 
   gboolean low_enabled = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (WID ("unity_gfx_mode_low_enable")));
 
-  set_compiz_profile (self, low_enabled ? UNITY_LOWGFX_PROFILE : UNITY_NORMAL_PROFILE);
   g_settings_set_boolean (priv->unity_own_settings, UNITY_LOWGFX_KEY, low_enabled);
+  set_compiz_profile (self, low_enabled ? UNITY_LOWGFX_PROFILE : UNITY_NORMAL_PROFILE);
 }
 
 static void
