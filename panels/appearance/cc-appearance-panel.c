@@ -132,6 +132,7 @@ enum
 #define UNITY_LOWGFX_KEY "lowgfx"
 #define SHOW_DESKTOP_UNITY_FAVORITE_STR "unity://desktop-icon"
 
+#define COMPIZ_CONFIG_PROFILE_ENV "COMPIZ_CONFIG_PROFILE"
 #define UNITY_NORMAL_PROFILE "unity"
 #define UNITY_LOWGFX_PROFILE "unity-lowgfx"
 
@@ -2220,8 +2221,17 @@ on_scale_scroll_event (GtkWidget      *widget,
 static void
 setup_ccs_context (CcAppearancePanel *self)
 {
-  GdkScreen *screen = gdk_screen_get_default ();
+  GdkScreen *screen;
+  const gchar *ccs_profile;
 
+  ccs_profile = g_getenv (COMPIZ_CONFIG_PROFILE_ENV);
+
+  if (!ccs_profile || ccs_profile[0] == '\0')
+    {
+      g_setenv (COMPIZ_CONFIG_PROFILE_ENV, "ubuntu", TRUE);
+    }
+
+  screen = gdk_screen_get_default ();
   self->priv->ccs_context = ccsContextNew (gdk_screen_get_number (screen),
                                            &ccsDefaultInterfaceTable);
 
