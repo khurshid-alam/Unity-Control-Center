@@ -454,6 +454,26 @@ grouped_gsettings_set_default_profile (GroupedGSettings *self,
     }
 }
 
+static void
+grouped_gsettings_reset (GroupedGSettings *self, const gchar *key)
+{
+  g_return_if_fail (IS_GSETTINGS_GROUPED (self));
+  g_list_foreach (self->priv->settings_list,
+                  (GFunc) g_settings_reset, (gpointer) key);
+}
+
+static void
+grouped_gsettings_set_value (GroupedGSettings *self,
+                             const gchar      *key,
+                             GVariant         *value)
+{
+  GList *l;
+  g_return_if_fail (IS_GSETTINGS_GROUPED (self));
+
+  for (l = self->priv->settings_list; l; l = l->next)
+    g_settings_set_value (G_SETTINGS (l->data), key, value);
+}
+
 static GSettings *
 grouped_gsettings_add (GroupedGSettings *self,
                        GSettingsSchema *settings_schema,
@@ -499,8 +519,10 @@ compiz_grouped_gsettings_add (GroupedGSettings *self,
   GSettings *settings;
   gchar *settings_path;
 
-  settings_path = g_strdup_printf (settings_base_path, compiz_profile ? compiz_profile : UNITY_NORMAL_PROFILE);
-  settings = grouped_gsettings_add (self, settings_schema, settings_path, compiz_profile, remote_settings);
+  compiz_profile = compiz_profile ? compiz_profile : UNITY_NORMAL_PROFILE;
+  settings_path = g_strdup_printf (settings_base_path, compiz_profile);
+  settings = grouped_gsettings_add (self, settings_schema, settings_path,
+                                    compiz_profile, remote_settings);
   g_free (settings_path);
 
   return settings;
@@ -1643,7 +1665,7 @@ on_iconsize_format_value (GtkScale *scale, gdouble value)
 static void
 on_iconsize_changed (GtkAdjustment *adj, CcAppearancePanel *self)
 {
-  g_settings_set_int (self->priv->unity_settings, UNITY_ICONSIZE_KEY, (gint)gtk_adjustment_get_value (adj) * 2);
+  grouped_gsettings_set_value (self->priv->unity_compiz_gs, UNITY_ICONSIZE_KEY, g_variant_new_int32 ((gint) gtk_adjustment_get_value (adj) * 2));
 }
 
 static void
@@ -1725,7 +1747,7 @@ on_hidelauncher_changed (GtkSwitch *switcher, gboolean enabled, gpointer user_da
     }
 
   /* 3d */
-  g_settings_set_int (self->priv->unity_settings, UNITY_LAUNCHERHIDE_KEY, value);
+  grouped_gsettings_set_value (self->priv->unity_compiz_gs, UNITY_LAUNCHERHIDE_KEY, g_variant_new_int32 (value));
   hidelauncher_set_sensitivity_reveal (self, (value != -1));
 }
 
@@ -1766,7 +1788,7 @@ on_reveallauncher_changed (GtkToggleButton *button, gpointer user_data)
   if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (WID ("unity_reveal_spot_left"))))
     reveal_spot = 0;
 
-  g_settings_set_int (priv->unity_settings, UNITY_LAUNCHERREVEAL_KEY, reveal_spot);
+  grouped_gsettings_set_value (priv->unity_compiz_gs, UNITY_LAUNCHERREVEAL_KEY, g_variant_new_int32 (reveal_spot));
   reveallauncher_widget_refresh (self);
 }
 
@@ -1792,7 +1814,7 @@ on_launchersensitivity_changed (GtkAdjustment *adj, gpointer user_data)
   CcAppearancePanelPrivate *priv = self->priv;
   gdouble value = gtk_adjustment_get_value (adj);
 
-  g_settings_set_double (priv->unity_settings, UNITY_LAUNCHERSENSITIVITY_KEY, value);
+  grouped_gsettings_set_value (priv->unity_settings, UNITY_LAUNCHERSENSITIVITY_KEY, g_variant_new_double (value));
 }
 
 gboolean
@@ -1837,8 +1859,8 @@ on_enable_workspaces_changed (GtkToggleButton *button, gpointer user_data)
     hsize = vsize = 2;
   }
 
-  g_settings_set_int (priv->compizcore_settings, COMPIZCORE_HSIZE_KEY, hsize);
-  g_settings_set_int (priv->compizcore_settings, COMPIZCORE_VSIZE_KEY, hsize);
+  grouped_gsettings_set_value (priv->compizcore_compiz_gs, COMPIZCORE_HSIZE_KEY, g_variant_new_int32 (hsize));
+  grouped_gsettings_set_value (priv->compizcore_compiz_gs, COMPIZCORE_VSIZE_KEY, g_variant_new_int32 (hsize));
 }
 
 static void
@@ -2137,11 +2159,11 @@ on_restore_defaults_page2_clicked (GtkButton *button, gpointer user_data)
   CcAppearancePanelPrivate *priv = self->priv;
 
   /* reset defaut for the profile and get the default */
-  g_settings_reset (priv->unity_settings, UNITY_LAUNCHERHIDE_KEY);
-  g_settings_reset (priv->unity_settings, UNITY_LAUNCHERSENSITIVITY_KEY);
-  g_settings_reset (priv->unity_settings, UNITY_LAUNCHERREVEAL_KEY);
-  g_settings_reset (priv->compizcore_settings, COMPIZCORE_HSIZE_KEY);
-  g_settings_reset (priv->compizcore_settings, COMPIZCORE_VSIZE_KEY);
+  grouped_gsettings_reset (priv->unity_compiz_gs, UNITY_LAUNCHERHIDE_KEY);
+  grouped_gsettings_reset (priv->unity_compiz_gs, UNITY_LAUNCHERSENSITIVITY_KEY);
+  grouped_gsettings_reset (priv->unity_compiz_gs, UNITY_LAUNCHERREVEAL_KEY);
+  grouped_gsettings_reset (priv->compizcore_compiz_gs, COMPIZCORE_HSIZE_KEY);
+  grouped_gsettings_reset (priv->compizcore_compiz_gs, COMPIZCORE_VSIZE_KEY);
 
   if (unity_own_setting_exists (self, UNITY_INTEGRATED_MENUS_KEY))
     g_settings_reset (priv->unity_own_settings, UNITY_INTEGRATED_MENUS_KEY);
