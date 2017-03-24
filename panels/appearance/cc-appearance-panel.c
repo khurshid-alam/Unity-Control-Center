@@ -1818,7 +1818,7 @@ on_launchersensitivity_changed (GtkAdjustment *adj, gpointer user_data)
   CcAppearancePanelPrivate *priv = self->priv;
   gdouble value = gtk_adjustment_get_value (adj);
 
-  grouped_gsettings_set_value (priv->unity_settings, UNITY_LAUNCHERSENSITIVITY_KEY, g_variant_new_double (value));
+  grouped_gsettings_set_value (priv->unity_compiz_gs, UNITY_LAUNCHERSENSITIVITY_KEY, g_variant_new_double (value));
 }
 
 gboolean
@@ -2141,13 +2141,14 @@ update_ccs_env_variable (const gchar *profile)
 {
   GDBusConnection *bus;
   GVariant *call_ret;
+  GVariantBuilder gvb;
   gchar *env_value;
 
   g_setenv (COMPIZ_CONFIG_PROFILE_ENV, profile, TRUE);
 
   bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
   env_value = g_strconcat (COMPIZ_CONFIG_PROFILE_ENV "=", profile, NULL);
-  const gchar * const * env_value_array[1] = { env_value };
+  const gchar * const env_value_array[2] = { env_value, NULL };
 
   call_ret = g_dbus_connection_call_sync (bus,
                                           "org.freedesktop.systemd1",
@@ -2156,6 +2157,24 @@ update_ccs_env_variable (const gchar *profile)
                                           "SetEnvironment",
                                           g_variant_new("(@as)",
                                             g_variant_new_strv (env_value_array, 1)),
+                                          NULL,
+                                          G_DBUS_CALL_FLAGS_NONE,
+                                          -1,
+                                          NULL,
+                                          NULL);
+
+  g_clear_pointer (&call_ret, g_variant_unref);
+
+  g_variant_builder_init (&gvb, G_VARIANT_TYPE ("a{ss}"));
+  g_variant_builder_add (&gvb, "{ss}", COMPIZ_CONFIG_LOWGFX_PROFILE, profile);
+
+  call_ret = g_dbus_connection_call_sync (bus,
+                                          "org.freedesktop.DBus",
+                                          "/org/freedesktop/DBus",
+                                          "org.freedesktop.DBus",
+                                          "UpdateActivationEnvironment",
+                                          g_variant_new("(@a{ss})",
+                                            g_variant_builder_end (&gvb)),
                                           NULL,
                                           G_DBUS_CALL_FLAGS_NONE,
                                           -1,
@@ -2183,6 +2202,7 @@ update_ccs_env_variable (const gchar *profile)
       g_clear_pointer (&call_ret, g_variant_unref);
     }
 
+  g_free (env_value);
   g_object_unref (bus);
 }
 
