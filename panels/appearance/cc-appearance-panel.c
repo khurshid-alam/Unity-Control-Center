@@ -2217,18 +2217,76 @@ on_scale_scroll_event (GtkWidget      *widget,
 }
 
 /* </hacks> */
+gchar *
+get_ccs_profile_env_from_session_manager ()
+{
+  GDBusConnection *bus;
+  GVariant *environment_prop, *environment_prop_list;
+  const gchar **env_vars;
+  gsize env_vars_size, i;
+  gchar *profile;
+
+  profile = NULL;
+  bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
+
+  environment_prop = g_dbus_connection_call_sync (bus,
+                                                  "org.freedesktop.systemd1",
+                                                  "/org/freedesktop/systemd1",
+                                                  "org.freedesktop.DBus.Properties",
+                                                  "Get",
+                                                  g_variant_new ("(ss)",
+                                                                  "org.freedesktop.systemd1.Manager",
+                                                                  "Environment"),
+                                                  G_VARIANT_TYPE ("(v)"),
+                                                  G_DBUS_CALL_FLAGS_NONE,
+                                                  -1,
+                                                  NULL,
+                                                  NULL);
+
+  if (!environment_prop)
+    return NULL;
+
+  g_variant_get (environment_prop, "(v)", &environment_prop_list, NULL);
+  env_vars = g_variant_get_strv (environment_prop_list, &env_vars_size);
+
+  for (i = 0; i < env_vars_size; ++i)
+    {
+      if (g_str_has_prefix (env_vars[i], COMPIZ_CONFIG_PROFILE_ENV "="))
+        {
+          profile = g_strdup (env_vars [i] + G_N_ELEMENTS (COMPIZ_CONFIG_PROFILE_ENV));
+          break;
+        }
+    }
+
+  g_object_unref (bus);
+  g_variant_unref (environment_prop);
+  g_variant_unref (environment_prop_list);
+
+  return profile;
+}
 
 static void
 setup_ccs_context (CcAppearancePanel *self)
 {
   GdkScreen *screen;
+  gchar *session_manager_profile;
   const gchar *ccs_profile;
 
-  ccs_profile = g_getenv (COMPIZ_CONFIG_PROFILE_ENV);
+  session_manager_profile = get_ccs_profile_env_from_session_manager ();
 
-  if (!ccs_profile || ccs_profile[0] == '\0')
+  if (session_manager_profile)
     {
-      g_setenv (COMPIZ_CONFIG_PROFILE_ENV, "ubuntu", TRUE);
+      g_setenv (COMPIZ_CONFIG_PROFILE_ENV, session_manager_profile, TRUE);
+      g_clear_pointer (&session_manager_profile, g_free);
+    }
+  else
+    {
+      ccs_profile = g_getenv (COMPIZ_CONFIG_PROFILE_ENV);
+
+      if (!ccs_profile || ccs_profile[0] == '\0')
+        {
+          g_setenv (COMPIZ_CONFIG_PROFILE_ENV, "ubuntu", TRUE);
+        }
     }
 
   screen = gdk_screen_get_default ();
