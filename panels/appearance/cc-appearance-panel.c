@@ -133,6 +133,9 @@ enum
 #define SHOW_DESKTOP_UNITY_FAVORITE_STR "unity://desktop-icon"
 
 #define COMPIZ_CONFIG_PROFILE_ENV "COMPIZ_CONFIG_PROFILE"
+#define COMPIZ_CONFIG_NORMAL_PROFILE "ubuntu"
+#define COMPIZ_CONFIG_LOWGFX_PROFILE "ubuntu-lowgfx"
+
 #define UNITY_NORMAL_PROFILE "unity"
 #define UNITY_LOWGFX_PROFILE "unity-lowgfx"
 
@@ -2070,8 +2073,9 @@ gfx_mode_widget_refresh (CcAppearancePanel *self)
   CcAppearancePanelPrivate *priv = self->priv;
   gboolean has_setting = unity_own_setting_exists (self, UNITY_LOWGFX_KEY);
   gboolean profile_exists = is_compiz_profile_available (self, UNITY_LOWGFX_PROFILE);
+  gboolean is_gsettings_backend = g_strcmp0 (ccsGetBackend (priv->ccs_context), "gsettings") == 0;
 
-  gtk_widget_set_visible (WID ("unity_gfx_mode_box"), has_setting && profile_exists);
+  gtk_widget_set_visible (WID ("unity_gfx_mode_box"), has_setting && profile_exists && is_gsettings_backend);
   gboolean enable_lowgfx = g_settings_get_boolean (priv->unity_own_settings, UNITY_LOWGFX_KEY);
 
   if (enable_lowgfx == FALSE)
@@ -2133,6 +2137,36 @@ set_compiz_profile (CcAppearancePanel *self,
 }
 
 static void
+update_ccs_env_variable (const gchar *profile)
+{
+  GDBusConnection *bus;
+  GVariant *call_ret;
+  gchar *env_value;
+
+  g_setenv (COMPIZ_CONFIG_PROFILE_ENV, profile, TRUE);
+
+  bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
+  env_value = g_strconcat (COMPIZ_CONFIG_PROFILE_ENV "=", profile, NULL);
+  const gchar * const * env_value_array[1] = { env_value };
+
+  call_ret = g_dbus_connection_call_sync (bus,
+                                          "org.freedesktop.systemd1",
+                                          "/org/freedesktop/systemd1",
+                                          "org.freedesktop.systemd1.Manager",
+                                          "SetEnvironment",
+                                          g_variant_new("(@as)",
+                                            g_variant_new_strv (env_value_array, 1)),
+                                          NULL,
+                                          G_DBUS_CALL_FLAGS_NONE,
+                                          -1,
+                                          NULL,
+                                          NULL);
+
+  g_clear_pointer (&call_ret, g_variant_unref);
+  g_object_unref (bus);
+}
+
+static void
 on_gfx_mode_changed (GtkToggleButton *button,
                      gpointer user_data)
 {
@@ -2143,6 +2177,7 @@ on_gfx_mode_changed (GtkToggleButton *button,
 
   g_settings_set_boolean (priv->unity_own_settings, UNITY_LOWGFX_KEY, low_enabled);
   set_compiz_profile (self, low_enabled ? UNITY_LOWGFX_PROFILE : UNITY_NORMAL_PROFILE);
+  update_ccs_env_variable (low_enabled ? COMPIZ_CONFIG_LOWGFX_PROFILE : COMPIZ_CONFIG_NORMAL_PROFILE);
 }
 
 static void
@@ -2285,7 +2320,7 @@ setup_ccs_context (CcAppearancePanel *self)
 
       if (!ccs_profile || ccs_profile[0] == '\0')
         {
-          g_setenv (COMPIZ_CONFIG_PROFILE_ENV, "ubuntu", TRUE);
+          g_setenv (COMPIZ_CONFIG_PROFILE_ENV, COMPIZ_CONFIG_NORMAL_PROFILE, TRUE);
         }
     }
 
