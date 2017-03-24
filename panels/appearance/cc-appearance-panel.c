@@ -2163,6 +2163,26 @@ update_ccs_env_variable (const gchar *profile)
                                           NULL);
 
   g_clear_pointer (&call_ret, g_variant_unref);
+
+  if (g_getenv ("UPSTART_SESSION"))
+    {
+      const gchar * const * empty_array[] = {0};
+      call_ret = g_dbus_connection_call_sync (bus,
+                                              "com.ubuntu.Upstart",
+                                              "/com/ubuntu/Upstart",
+                                              "com.ubuntu.Upstart0_6",
+                                              "SetEnv",
+                                              g_variant_new("(@assb)",
+                                                g_variant_new_strv (NULL, 0), env_value, TRUE),
+                                              NULL,
+                                              G_DBUS_CALL_FLAGS_NONE,
+                                              -1,
+                                              NULL,
+                                              NULL);
+
+      g_clear_pointer (&call_ret, g_variant_unref);
+    }
+
   g_object_unref (bus);
 }
 
@@ -2253,12 +2273,28 @@ on_scale_scroll_event (GtkWidget      *widget,
 
 /* </hacks> */
 gchar *
+get_ccs_profile_env_from_env_list (const gchar **env_vars)
+{
+  gchar *var = NULL;
+
+  for (; env_vars && *env_vars; ++env_vars)
+    {
+      if (g_str_has_prefix (*env_vars, COMPIZ_CONFIG_PROFILE_ENV "="))
+        {
+          var = g_strdup (*env_vars + G_N_ELEMENTS (COMPIZ_CONFIG_PROFILE_ENV));
+          break;
+        }
+    }
+
+  return var;
+}
+
+gchar *
 get_ccs_profile_env_from_session_manager ()
 {
   GDBusConnection *bus;
   GVariant *environment_prop, *environment_prop_list;
   const gchar **env_vars;
-  gsize env_vars_size, i;
   gchar *profile;
 
   profile = NULL;
@@ -2279,23 +2315,41 @@ get_ccs_profile_env_from_session_manager ()
                                                   NULL);
 
   if (!environment_prop)
-    return NULL;
+    goto out;
 
   g_variant_get (environment_prop, "(v)", &environment_prop_list, NULL);
-  env_vars = g_variant_get_strv (environment_prop_list, &env_vars_size);
+  env_vars = g_variant_get_strv (environment_prop_list, NULL);
+  profile = get_ccs_profile_env_from_env_list (env_vars);
 
-  for (i = 0; i < env_vars_size; ++i)
+  g_clear_pointer (&environment_prop, g_variant_unref);
+  g_clear_pointer (&environment_prop_list, g_variant_unref);
+
+  if (!profile && g_getenv ("UPSTART_SESSION"))
     {
-      if (g_str_has_prefix (env_vars[i], COMPIZ_CONFIG_PROFILE_ENV "="))
-        {
-          profile = g_strdup (env_vars [i] + G_N_ELEMENTS (COMPIZ_CONFIG_PROFILE_ENV));
-          break;
-        }
+      const gchar * const * empty_array[] = {0};
+      environment_prop_list = g_dbus_connection_call_sync (bus,
+                                                           "com.ubuntu.Upstart",
+                                                           "/com/ubuntu/Upstart",
+                                                           "com.ubuntu.Upstart0_6",
+                                                           "ListEnv",
+                                                           g_variant_new("(@as)",
+                                                             g_variant_new_strv (NULL, 0)),
+                                                           NULL,
+                                                           G_DBUS_CALL_FLAGS_NONE,
+                                                           -1,
+                                                           NULL,
+                                                           NULL);
+      if (!environment_prop_list)
+        goto out;
+
+      g_variant_get (environment_prop_list, "(^a&s)", &env_vars);
+      profile = get_ccs_profile_env_from_env_list (env_vars);
+
+      g_variant_unref (environment_prop_list);
     }
 
+out:
   g_object_unref (bus);
-  g_variant_unref (environment_prop);
-  g_variant_unref (environment_prop_list);
 
   return profile;
 }
