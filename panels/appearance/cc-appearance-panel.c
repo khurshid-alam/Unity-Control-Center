@@ -1957,19 +1957,15 @@ unity_own_setting_exists (CcAppearancePanel *self, const gchar* key_name)
   if (!self->priv->unity_own_settings)
     return FALSE;
 
-  gchar** unity_keys;
-  gchar** key;
+  GSettingsSchema *unity_schema;
+  gboolean has_key;
 
-  unity_keys = g_settings_list_keys (self->priv->unity_own_settings);
+  g_object_get (self->priv->unity_own_settings,
+                "settings-schema", &unity_schema, NULL);
+  has_key = g_settings_schema_has_key (unity_schema, key_name);
+  g_settings_schema_unref (unity_schema);
 
-  for (key = unity_keys; *key; ++key)
-    {
-      if (g_strcmp0 (*key, key_name) == 0)
-        return TRUE;
-    }
-
-  g_strfreev (unity_keys);
-  return FALSE;
+  return has_key;
 }
 
 static void
