@@ -133,8 +133,7 @@ enum
 #define SHOW_DESKTOP_UNITY_FAVORITE_STR "unity://desktop-icon"
 
 #define COMPIZ_CONFIG_PROFILE_ENV "COMPIZ_CONFIG_PROFILE"
-#define COMPIZ_CONFIG_NORMAL_PROFILE "ubuntu"
-#define COMPIZ_CONFIG_LOWGFX_PROFILE "ubuntu-lowgfx"
+#define COMPIZ_CONFIG_DEFAULT_PROFILE "ubuntu"
 
 #define UNITY_NORMAL_PROFILE "unity"
 #define UNITY_LOWGFX_PROFILE "unity-lowgfx"
@@ -2049,16 +2048,22 @@ on_menuvisibility_changed (GtkToggleButton *button, gpointer user_data)
 }
 
 static gboolean
-is_compiz_profile_available (CcAppearancePanel *self,
-                             const gchar *profile)
+is_compiz_profile_available (const gchar *profile)
 {
   gboolean is_available;
   gchar *profile_path;
 
-  profile_path = g_strdup_printf ("/etc/compizconfig/%s.ini", profile);
+  profile_path = g_strdup_printf ("%s/compiz-1/compizconfig/%s.ini",
+                                  g_get_user_config_dir (), profile);
   is_available = g_file_test (profile_path, G_FILE_TEST_EXISTS);
-
   g_free (profile_path);
+
+  if (!is_available)
+    {
+      profile_path = g_strdup_printf ("/etc/compizconfig/%s.ini", profile);
+      is_available = g_file_test (profile_path, G_FILE_TEST_EXISTS);
+      g_free (profile_path);
+    }
 
   return is_available;
 }
@@ -2068,7 +2073,7 @@ gfx_mode_widget_refresh (CcAppearancePanel *self)
 {
   CcAppearancePanelPrivate *priv = self->priv;
   gboolean has_setting = unity_own_setting_exists (self, UNITY_LOWGFX_KEY);
-  gboolean profile_exists = is_compiz_profile_available (self, UNITY_LOWGFX_PROFILE);
+  gboolean profile_exists = is_compiz_profile_available (UNITY_LOWGFX_PROFILE);
   gboolean is_gsettings_backend = g_strcmp0 (ccsGetBackend (priv->ccs_context), "gsettings") == 0;
 
   gtk_widget_set_visible (WID ("unity_gfx_mode_box"), has_setting && profile_exists && is_gsettings_backend);
@@ -2106,7 +2111,7 @@ set_compiz_profile (CcAppearancePanel *self,
       return FALSE;
     }
 
-  if (!is_compiz_profile_available (self, profile_name))
+  if (!is_compiz_profile_available (profile_name))
     {
       g_warning ("Compiz profile '%s' not found", profile_name);
       return FALSE;
@@ -2133,76 +2138,6 @@ set_compiz_profile (CcAppearancePanel *self,
 }
 
 static void
-update_ccs_env_variable (const gchar *profile)
-{
-  GDBusConnection *bus;
-  GVariant *call_ret;
-  GVariantBuilder gvb;
-  gchar *env_value;
-
-  g_setenv (COMPIZ_CONFIG_PROFILE_ENV, profile, TRUE);
-
-  bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
-  env_value = g_strconcat (COMPIZ_CONFIG_PROFILE_ENV "=", profile, NULL);
-  const gchar * const env_value_array[2] = { env_value, NULL };
-
-  call_ret = g_dbus_connection_call_sync (bus,
-                                          "org.freedesktop.systemd1",
-                                          "/org/freedesktop/systemd1",
-                                          "org.freedesktop.systemd1.Manager",
-                                          "SetEnvironment",
-                                          g_variant_new("(@as)",
-                                            g_variant_new_strv (env_value_array, 1)),
-                                          NULL,
-                                          G_DBUS_CALL_FLAGS_NONE,
-                                          -1,
-                                          NULL,
-                                          NULL);
-
-  g_clear_pointer (&call_ret, g_variant_unref);
-
-  g_variant_builder_init (&gvb, G_VARIANT_TYPE ("a{ss}"));
-  g_variant_builder_add (&gvb, "{ss}", COMPIZ_CONFIG_LOWGFX_PROFILE, profile);
-
-  call_ret = g_dbus_connection_call_sync (bus,
-                                          "org.freedesktop.DBus",
-                                          "/org/freedesktop/DBus",
-                                          "org.freedesktop.DBus",
-                                          "UpdateActivationEnvironment",
-                                          g_variant_new("(@a{ss})",
-                                            g_variant_builder_end (&gvb)),
-                                          NULL,
-                                          G_DBUS_CALL_FLAGS_NONE,
-                                          -1,
-                                          NULL,
-                                          NULL);
-
-  g_clear_pointer (&call_ret, g_variant_unref);
-
-  if (g_getenv ("UPSTART_SESSION"))
-    {
-      const gchar * const * empty_array[] = {0};
-      call_ret = g_dbus_connection_call_sync (bus,
-                                              "com.ubuntu.Upstart",
-                                              "/com/ubuntu/Upstart",
-                                              "com.ubuntu.Upstart0_6",
-                                              "SetEnv",
-                                              g_variant_new("(@assb)",
-                                                g_variant_new_strv (NULL, 0), env_value, TRUE),
-                                              NULL,
-                                              G_DBUS_CALL_FLAGS_NONE,
-                                              -1,
-                                              NULL,
-                                              NULL);
-
-      g_clear_pointer (&call_ret, g_variant_unref);
-    }
-
-  g_free (env_value);
-  g_object_unref (bus);
-}
-
-static void
 on_gfx_mode_changed (GtkToggleButton *button,
                      gpointer user_data)
 {
@@ -2213,7 +2148,6 @@ on_gfx_mode_changed (GtkToggleButton *button,
 
   g_settings_set_boolean (priv->unity_own_settings, UNITY_LOWGFX_KEY, low_enabled);
   set_compiz_profile (self, low_enabled ? UNITY_LOWGFX_PROFILE : UNITY_NORMAL_PROFILE);
-  update_ccs_env_variable (low_enabled ? COMPIZ_CONFIG_LOWGFX_PROFILE : COMPIZ_CONFIG_NORMAL_PROFILE);
 }
 
 static void
@@ -2288,7 +2222,7 @@ on_scale_scroll_event (GtkWidget      *widget,
 }
 
 /* </hacks> */
-gchar *
+static gchar *
 get_ccs_profile_env_from_env_list (const gchar **env_vars)
 {
   gchar *var = NULL;
@@ -2305,7 +2239,7 @@ get_ccs_profile_env_from_env_list (const gchar **env_vars)
   return var;
 }
 
-gchar *
+static gchar *
 get_ccs_profile_env_from_session_manager ()
 {
   GDBusConnection *bus;
@@ -2390,7 +2324,7 @@ setup_ccs_context (CcAppearancePanel *self)
 
       if (!ccs_profile || ccs_profile[0] == '\0')
         {
-          g_setenv (COMPIZ_CONFIG_PROFILE_ENV, COMPIZ_CONFIG_NORMAL_PROFILE, TRUE);
+          g_setenv (COMPIZ_CONFIG_PROFILE_ENV, COMPIZ_CONFIG_DEFAULT_PROFILE, TRUE);
         }
     }
 
