@@ -1,3 +1,10 @@
+unity-control-center (15.04.0+17.04.20170402.6-0ubuntu1) zesty; urgency=medium
+
+  [ Robert Ancell ]
+  * Update system information logo for Zesty Zapus (LP: #1639656)
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Sun, 02 Apr 2017 19:07:55 +0000
+
 unity-control-center (15.04.0+17.04.20170314-0ubuntu2) zesty; urgency=medium
 
   * s/Unity77/Unity7/ typo to restore Screen Display applet (LP: #1673253)
