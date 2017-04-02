@@ -1,3 +1,9 @@
+unity-control-center (15.04.0+17.04.20170314-0ubuntu2) zesty; urgency=medium
+
+  * s/Unity77/Unity7/ typo to restore Screen Display applet (LP: #1673253)
+
+ -- Adam Conrad <adconrad@ubuntu.com>  Wed, 15 Mar 2017 15:01:08 -0600
+
 unity-control-center (15.04.0+17.04.20170314-0ubuntu1) zesty; urgency=medium
 
   * Only show Unity Control Center in unity7.
