@@ -20,11 +20,8 @@
 
 #include <config.h>
 
-#include <errno.h>
 #include <string.h>
 #include <glib/gi18n-lib.h>
-#include <glib/gprintf.h>
-#include <glib/gstdio.h>
 #include <gdesktop-enums.h>
 
 #include "cc-appearance-panel.h"
