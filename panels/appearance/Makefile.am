@@ -16,7 +16,6 @@ dist_slideshowemblem_DATA = ucc-slideshow-emblem.svg
 AM_CPPFLAGS =						\
 	$(PANEL_CFLAGS)					\
 	$(APPEARANCE_PANEL_CFLAGS) \
-	$(COMPIZCONFIG_CFLAGS) \
 	-DG_LOG_DOMAIN="\"$(PACKAGE)\"" \
 	-DLOCALEDIR="\"$(datadir)/locale\"" \
 	-DPKGDATADIR="\"$(uidir)\"" \
@@ -49,7 +48,7 @@ libappearance_la_SOURCES = \
 	bg-colors-source.h
 
 libappearance_la_LIBADD = $(PANEL_LIBS) $(APPEARANCE_PANEL_LIBS)
-libappearance_la_LDFLAGS = $(PANEL_LDFLAGS) $(COMPIZCONFIG_LIBS)
+libappearance_la_LDFLAGS = $(PANEL_LDFLAGS)
 
 if WITH_LIBSOCIALWEB
 libappearance_la_SOURCES += bg-flickr-source.c bg-flickr-source.h

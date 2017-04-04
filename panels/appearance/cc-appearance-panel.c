@@ -26,7 +26,6 @@
 #include <glib/gprintf.h>
 #include <glib/gstdio.h>
 #include <gdesktop-enums.h>
-#include <ccs.h>
 
 #include "cc-appearance-panel.h"
 #include "bg-wallpapers-source.h"
@@ -81,11 +80,11 @@ struct _CcAppearancePanelPrivate
   GSettings *unity_own_settings;
   GSettings *unity_launcher_settings;
 
-  CCSContext *ccs_context;
   GroupedGSettings *unity_compiz_gs;
   GroupedGSettings *compizcore_compiz_gs;
-  GSettings *unity_settings;
+  GSettings *compiz_settings;
   GSettings *compizcore_settings;
+  GSettings *unity_settings;
 
   GnomeDesktopThumbnailFactory *thumb_factory;
 
@@ -110,7 +109,13 @@ enum
 #endif
 };
 
-#define UNITY_GSETTINGS_SCHEMA "org.compiz.unityshell"
+#define COMPIZ_GSETTINGS_SCHEMA "org.compiz"
+#define COMPIZ_CURRENT_PROFILE_KEY "current-profile"
+
+#define UNITY_NORMAL_PROFILE "unity"
+#define UNITY_LOWGFX_PROFILE "unity-lowgfx"
+
+#define UNITY_GSETTINGS_SCHEMA COMPIZ_GSETTINGS_SCHEMA ".unityshell"
 #define UNITY_PROFILE_PATH "/org/compiz/profiles/%s/plugins/"
 #define UNITY_GSETTINGS_PATH UNITY_PROFILE_PATH"unityshell/"
 #define UNITY_ICONSIZE_KEY "icon-size"
@@ -119,7 +124,7 @@ enum
 #define UNITY_LAUNCHERREVEAL_KEY "reveal-trigger"
 #define CANONICAL_DESKTOP_INTERFACE "com.canonical.desktop.interface"
 
-#define COMPIZCORE_GSETTINGS_SCHEMA "org.compiz.core"
+#define COMPIZCORE_GSETTINGS_SCHEMA COMPIZ_GSETTINGS_SCHEMA ".core"
 #define COMPIZCORE_GSETTINGS_PATH UNITY_PROFILE_PATH"core/"
 #define COMPIZCORE_HSIZE_KEY "hsize"
 #define COMPIZCORE_VSIZE_KEY "vsize"
@@ -131,12 +136,6 @@ enum
 #define UNITY_ALWAYS_SHOW_MENUS_KEY "always-show-menus"
 #define UNITY_LOWGFX_KEY "lowgfx"
 #define SHOW_DESKTOP_UNITY_FAVORITE_STR "unity://desktop-icon"
-
-#define COMPIZ_CONFIG_PROFILE_ENV "COMPIZ_CONFIG_PROFILE"
-#define COMPIZ_CONFIG_DEFAULT_PROFILE "ubuntu"
-
-#define UNITY_NORMAL_PROFILE "unity"
-#define UNITY_LOWGFX_PROFILE "unity-lowgfx"
 
 #define MIN_ICONSIZE 16.0
 #define MAX_ICONSIZE 64.0
@@ -230,12 +229,6 @@ cc_appearance_panel_dispose (GObject *object)
       priv->wm_theme_settings = NULL;
     }
 
-  if (priv->ccs_context)
-    {
-      ccsFreeContext (priv->ccs_context);
-      priv->ccs_context = NULL;
-    }
-
   if (priv->unity_compiz_gs)
     {
       g_object_unref (priv->unity_compiz_gs);
@@ -252,6 +245,12 @@ cc_appearance_panel_dispose (GObject *object)
     {
       g_object_unref (priv->unity_settings);
       priv->unity_settings = NULL;
+    }
+
+  if (priv->compiz_settings)
+    {
+      g_object_unref (priv->compiz_settings);
+      priv->compiz_settings = NULL;
     }
 
   if (priv->compizcore_settings)
@@ -416,6 +415,7 @@ grouped_gsettings_set_default_profile (GroupedGSettings *self,
   GroupedGSettingsPrivate *priv;
 
   g_return_if_fail (IS_GSETTINGS_GROUPED (self));
+  g_return_if_fail (profile);
 
   priv = self->priv;
 
@@ -533,16 +533,19 @@ compiz_grouped_gsettings_add (GroupedGSettings *self,
 
 GroupedGSettings *
 compiz_grouped_gsettings_new (GSettingsSchema *settings_schema,
+                              GSettings *compiz_settings,
                               const gchar *settings_base_path,
-                              CCSContext *ccs_context,
                               GSettings **remote_settings)
 {
   GroupedGSettings *ggs;
   GSettings *settings;
-  const gchar *compiz_profile;
+  gchar *compiz_profile;
+
+  g_return_val_if_fail (settings_base_path, NULL);
 
   ggs = g_object_new (grouped_gsettings_get_type (), NULL);
-  compiz_profile = ccsGetProfile (ccs_context);
+  compiz_profile = g_settings_get_string (compiz_settings,
+                                          COMPIZ_CURRENT_PROFILE_KEY);
 
   compiz_grouped_gsettings_add (ggs, settings_schema, settings_base_path,
                                 UNITY_NORMAL_PROFILE, remote_settings);
@@ -550,6 +553,7 @@ compiz_grouped_gsettings_new (GSettingsSchema *settings_schema,
                                 UNITY_LOWGFX_PROFILE, remote_settings);
 
   grouped_gsettings_set_default_profile (ggs, compiz_profile);
+  g_free (compiz_profile);
 
   return ggs;
 }
@@ -2073,68 +2077,14 @@ gfx_mode_widget_refresh (CcAppearancePanel *self)
 {
   CcAppearancePanelPrivate *priv = self->priv;
   gboolean has_setting = unity_own_setting_exists (self, UNITY_LOWGFX_KEY);
-  gboolean profile_exists = is_compiz_profile_available (UNITY_LOWGFX_PROFILE);
-  gboolean is_gsettings_backend = g_strcmp0 (ccsGetBackend (priv->ccs_context), "gsettings") == 0;
 
-  gtk_widget_set_visible (WID ("unity_gfx_mode_box"), has_setting && profile_exists && is_gsettings_backend);
+  gtk_widget_set_visible (WID ("unity_gfx_mode_box"), has_setting);
   gboolean enable_lowgfx = g_settings_get_boolean (priv->unity_own_settings, UNITY_LOWGFX_KEY);
 
   if (enable_lowgfx == FALSE)
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (WID ("unity_gfx_mode_full_enable")), TRUE);
   else
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (WID ("unity_gfx_mode_low_enable")), TRUE);
-}
-
-static gboolean
-set_compiz_profile (CcAppearancePanel *self,
-                    const gchar *profile_name)
-{
-  CCSContext *ccs_context;
-  CCSPluginList plugins;
-
-  const char *ccs_backend;
-  const char *ccs_profile;
-
-  ccs_context = self->priv->ccs_context;
-  ccs_profile = ccsGetProfile (ccs_context);
-
-  if (g_strcmp0 (ccs_profile, profile_name) == 0)
-    {
-      return TRUE;
-    }
-
-  ccs_backend = ccsGetBackend (ccs_context);
-
-  if (g_strcmp0 (ccs_backend, "gsettings") != 0)
-    {
-      g_warning ("Compiz GSettings backends different from GSettings aren't supported");
-      return FALSE;
-    }
-
-  if (!is_compiz_profile_available (profile_name))
-    {
-      g_warning ("Compiz profile '%s' not found", profile_name);
-      return FALSE;
-    }
-
-  ccsSetProfile (ccs_context, profile_name);
-  ccsReadSettings (ccs_context);
-  ccsWriteSettings (ccs_context);
-
-  g_settings_sync ();
-
-  plugins = ccsContextGetPlugins (ccs_context);
-
-  for (CCSPluginList p = plugins; p; p = p->next)
-    {
-      CCSPlugin* plugin = p->data;
-      ccsReadPluginSettings (plugin);
-    }
-
-  grouped_gsettings_set_default_profile (self->priv->unity_compiz_gs, profile_name);
-  grouped_gsettings_set_default_profile (self->priv->compizcore_compiz_gs, profile_name);
-
-  return TRUE;
 }
 
 static void
@@ -2145,9 +2095,7 @@ on_gfx_mode_changed (GtkToggleButton *button,
   CcAppearancePanelPrivate *priv = self->priv;
 
   gboolean low_enabled = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (WID ("unity_gfx_mode_low_enable")));
-
   g_settings_set_boolean (priv->unity_own_settings, UNITY_LOWGFX_KEY, low_enabled);
-  set_compiz_profile (self, low_enabled ? UNITY_LOWGFX_PROFILE : UNITY_NORMAL_PROFILE);
 }
 
 static void
@@ -2156,6 +2104,30 @@ ext_lowgfx_changed_callback (GroupedGSettings* compiz_gs,
                              gpointer user_data)
 {
   gfx_mode_widget_refresh (CC_APPEARANCE_PANEL (user_data));
+}
+
+static void
+ext_compiz_profile_changed_callback (GSettings* compiz_settings,
+                                     gchar *key,
+                                     gpointer user_data)
+{
+  CcAppearancePanel *self = user_data;
+  gchar *compiz_profile;
+  gboolean low_enabled;
+
+  compiz_profile = g_settings_get_string (compiz_settings, COMPIZ_CURRENT_PROFILE_KEY);
+
+  if (g_strcmp0 (compiz_profile, UNITY_NORMAL_PROFILE) != 0 &&
+      g_strcmp0 (compiz_profile, UNITY_LOWGFX_PROFILE) != 0)
+  {
+    g_free (compiz_profile);
+    return;
+  }
+
+  grouped_gsettings_set_default_profile (self->priv->unity_compiz_gs, compiz_profile);
+  grouped_gsettings_set_default_profile (self->priv->compizcore_compiz_gs, compiz_profile);
+
+  g_free (compiz_profile);
 }
 
 static void
@@ -2222,129 +2194,6 @@ on_scale_scroll_event (GtkWidget      *widget,
 }
 
 /* </hacks> */
-static gchar *
-get_ccs_profile_env_from_env_list (const gchar **env_vars)
-{
-  gchar *var = NULL;
-
-  for (; env_vars && *env_vars; ++env_vars)
-    {
-      if (g_str_has_prefix (*env_vars, COMPIZ_CONFIG_PROFILE_ENV "="))
-        {
-          var = g_strdup (*env_vars + G_N_ELEMENTS (COMPIZ_CONFIG_PROFILE_ENV));
-          break;
-        }
-    }
-
-  return var;
-}
-
-static gchar *
-get_ccs_profile_env_from_session_manager ()
-{
-  GDBusConnection *bus;
-  GVariant *environment_prop, *environment_prop_list;
-  const gchar **env_vars;
-  gchar *profile;
-
-  profile = NULL;
-  bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, NULL);
-
-  environment_prop = g_dbus_connection_call_sync (bus,
-                                                  "org.freedesktop.systemd1",
-                                                  "/org/freedesktop/systemd1",
-                                                  "org.freedesktop.DBus.Properties",
-                                                  "Get",
-                                                  g_variant_new ("(ss)",
-                                                                  "org.freedesktop.systemd1.Manager",
-                                                                  "Environment"),
-                                                  G_VARIANT_TYPE ("(v)"),
-                                                  G_DBUS_CALL_FLAGS_NONE,
-                                                  -1,
-                                                  NULL,
-                                                  NULL);
-
-  if (!environment_prop)
-    goto out;
-
-  g_variant_get (environment_prop, "(v)", &environment_prop_list, NULL);
-  env_vars = g_variant_get_strv (environment_prop_list, NULL);
-  profile = get_ccs_profile_env_from_env_list (env_vars);
-
-  g_clear_pointer (&environment_prop, g_variant_unref);
-  g_clear_pointer (&environment_prop_list, g_variant_unref);
-
-  if (!profile && g_getenv ("UPSTART_SESSION"))
-    {
-      const gchar * const * empty_array[] = {0};
-      environment_prop_list = g_dbus_connection_call_sync (bus,
-                                                           "com.ubuntu.Upstart",
-                                                           "/com/ubuntu/Upstart",
-                                                           "com.ubuntu.Upstart0_6",
-                                                           "ListEnv",
-                                                           g_variant_new("(@as)",
-                                                             g_variant_new_strv (NULL, 0)),
-                                                           NULL,
-                                                           G_DBUS_CALL_FLAGS_NONE,
-                                                           -1,
-                                                           NULL,
-                                                           NULL);
-      if (!environment_prop_list)
-        goto out;
-
-      g_variant_get (environment_prop_list, "(^a&s)", &env_vars);
-      profile = get_ccs_profile_env_from_env_list (env_vars);
-
-      g_variant_unref (environment_prop_list);
-    }
-
-out:
-  g_object_unref (bus);
-
-  return profile;
-}
-
-static void
-setup_ccs_context (CcAppearancePanel *self)
-{
-  GdkScreen *screen;
-  gchar *session_manager_profile;
-  const gchar *ccs_profile;
-
-  session_manager_profile = get_ccs_profile_env_from_session_manager ();
-
-  if (session_manager_profile)
-    {
-      g_setenv (COMPIZ_CONFIG_PROFILE_ENV, session_manager_profile, TRUE);
-      g_clear_pointer (&session_manager_profile, g_free);
-    }
-  else
-    {
-      ccs_profile = g_getenv (COMPIZ_CONFIG_PROFILE_ENV);
-
-      if (!ccs_profile || ccs_profile[0] == '\0')
-        {
-          g_setenv (COMPIZ_CONFIG_PROFILE_ENV, COMPIZ_CONFIG_DEFAULT_PROFILE, TRUE);
-        }
-    }
-
-  screen = gdk_screen_get_default ();
-  self->priv->ccs_context = ccsContextNew (gdk_screen_get_number (screen),
-                                           &ccsDefaultInterfaceTable);
-
-  if (!self->priv->ccs_context)
-    {
-      g_warning ("CCS error: Failed to initialize context.");
-    }
-}
-
-static gchar *
-compiz_profile_gsettings_path (const gchar *path,
-                               const gchar *profile)
-{
-  return g_strdup_printf (path, profile ? profile : UNITY_NORMAL_PROFILE);
-}
-
 static void
 setup_unity_settings (CcAppearancePanel *self)
 {
@@ -2360,20 +2209,27 @@ setup_unity_settings (CcAppearancePanel *self)
   schema = g_settings_schema_source_lookup (source, UNITY_OWN_GSETTINGS_SCHEMA, TRUE);
   if (schema)
     {
-      priv->unity_own_settings = g_settings_new (UNITY_OWN_GSETTINGS_SCHEMA);
+      priv->unity_own_settings = g_settings_new_full (schema, /*backend*/ NULL, /*path*/ NULL);
+      g_settings_schema_unref (schema);
+    }
+  schema = g_settings_schema_source_lookup (source, COMPIZ_GSETTINGS_SCHEMA, TRUE);
+  if (schema)
+    {
+      priv->compiz_settings = g_settings_new_full (schema, /*backend*/ NULL, /*path*/ NULL);
       g_settings_schema_unref (schema);
     }
   schema = g_settings_schema_source_lookup (source, UNITY_LAUNCHER_GSETTINGS_SCHEMA, TRUE);
   if (schema)
     {
-      priv->unity_launcher_settings = g_settings_new (UNITY_LAUNCHER_GSETTINGS_SCHEMA);
+      priv->unity_launcher_settings = g_settings_new_full (schema, /*backend*/ NULL, /*path*/ NULL);
       g_settings_schema_unref (schema);
     }
   schema = g_settings_schema_source_lookup (source, UNITY_GSETTINGS_SCHEMA, TRUE);
   if (schema)
     {
-      priv->unity_compiz_gs = compiz_grouped_gsettings_new (schema, UNITY_GSETTINGS_PATH,
-                                                            priv->ccs_context,
+      priv->unity_compiz_gs = compiz_grouped_gsettings_new (schema,
+                                                            priv->compiz_settings,
+                                                            UNITY_GSETTINGS_PATH,
                                                             &priv->unity_settings);
       g_settings_schema_unref (schema);
     }
@@ -2381,14 +2237,17 @@ setup_unity_settings (CcAppearancePanel *self)
   if (schema)
     {
       priv->compizcore_compiz_gs = compiz_grouped_gsettings_new (schema,
+                                                                 priv->compiz_settings,
                                                                  COMPIZCORE_GSETTINGS_PATH,
-                                                                 priv->ccs_context,
                                                                  &priv->compizcore_settings);
       g_settings_schema_unref (schema);
     }
 
   if (!priv->unity_compiz_gs || !priv->compizcore_compiz_gs || !priv->unity_own_settings || !priv->unity_launcher_settings)
     return;
+
+  g_signal_connect (priv->compiz_settings, "changed::" COMPIZ_CURRENT_PROFILE_KEY,
+                    G_CALLBACK (ext_compiz_profile_changed_callback), self);
 
   /* Icon size change - we halve the sizes so we can only get even values*/
   iconsize_adj = gtk_adjustment_new (DEFAULT_ICONSIZE / 2, MIN_ICONSIZE / 2, MAX_ICONSIZE / 2, 1, 4, 0);
@@ -2627,9 +2486,6 @@ cc_appearance_panel_init (CcAppearancePanel *self)
 
   /* Setup theme selector */
   setup_theme_selector (self);
-
-  /* Setup Compiz Config Context */
-  setup_ccs_context (self);
 
   /* Setup unity settings */
   setup_unity_settings (self);
