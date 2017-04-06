@@ -13,7 +13,7 @@ dist_slideshowicon_DATA = ucc-slideshow-symbolic.svg
 slideshowemblemdir = $(datadir)/icons/hicolor/scalable/emblems/
 dist_slideshowemblem_DATA = ucc-slideshow-emblem.svg
 
-AM_CPPFLAGS =						\
+INCLUDES =						\
 	$(PANEL_CFLAGS)					\
 	$(APPEARANCE_PANEL_CFLAGS) \
 	-DG_LOG_DOMAIN="\"$(PACKAGE)\"" \
@@ -52,7 +52,7 @@ libappearance_la_LDFLAGS = $(PANEL_LDFLAGS)
 
 if WITH_LIBSOCIALWEB
 libappearance_la_SOURCES += bg-flickr-source.c bg-flickr-source.h
-AM_CPPFLAGS += $(SOCIALWEB_CFLAGS)
+INCLUDES += $(SOCIALWEB_CFLAGS)
 libappearance_la_LIBADD += $(SOCIALWEB_LIBS)
 endif
 

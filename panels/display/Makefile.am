@@ -43,7 +43,7 @@ desktopdir = $(datadir)/applications
 Desktop_in_files = unity-display-panel.desktop.in
 desktop_DATA = $(Desktop_in_files:.desktop.in=.desktop)
 
-AM_CPPFLAGS   = $(PANEL_CFLAGS) \
+INCLUDES   = $(PANEL_CFLAGS) \
 	     $(DISPLAY_PANEL_CFLAGS) \
 	     -DSBINDIR="\"$(sbindir)\"" \
 	     -DUIDIR="\"$(uidir)\"" \

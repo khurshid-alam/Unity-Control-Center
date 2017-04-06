@@ -1,6 +1,6 @@
 cappletname = universal-access
 
-AM_CPPFLAGS = 						\
+INCLUDES = 						\
 	$(PANEL_CFLAGS)					\
 	$(UNIVERSAL_ACCESS_PANEL_CFLAGS)		\
 	-DGNOMECC_UI_DIR="\"$(uidir)\""			\

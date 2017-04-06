@@ -1,6 +1,6 @@
 cappletname = network
 
-AM_CPPFLAGS = 						\
+INCLUDES = 						\
 	$(PANEL_CFLAGS)					\
 	$(NETWORK_PANEL_CFLAGS)				\
 	$(NETWORK_MANAGER_CFLAGS)			\

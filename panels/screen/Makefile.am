@@ -1,6 +1,6 @@
 cappletname = screen
 
-AM_CPPFLAGS = 						\
+INCLUDES = 						\
 	$(PANEL_CFLAGS)					\
 	$(SCREEN_PANEL_CFLAGS)			\
 	-DGNOMECC_UI_DIR="\"$(uidir)\""			\

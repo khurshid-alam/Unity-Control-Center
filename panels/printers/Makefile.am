@@ -8,7 +8,7 @@ dist_ui_DATA = \
 	jobs-dialog.ui		\
 	printers.ui
 
-AM_CPPFLAGS = 						\
+INCLUDES = 						\
 	$(PANEL_CFLAGS)					\
 	$(PRINTERS_PANEL_CFLAGS)			\
 	-I$(top_srcdir)/shell/				\

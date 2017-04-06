@@ -1,6 +1,6 @@
 cappletname = info
 
-AM_CPPFLAGS = 						\
+INCLUDES = 						\
 	$(PANEL_CFLAGS)					\
 	$(INFO_PANEL_CFLAGS)				\
 	-DGNOMECC_UI_DIR="\"$(uidir)\""			\
@@ -13,7 +13,7 @@ AM_CPPFLAGS = 						\
 noinst_PROGRAMS = test-hostname logo-generator
 test_hostname_SOURCES = hostname-helper.c hostname-helper.h test-hostname.c
 test_hostname_LDADD = $(PANEL_LIBS) $(INFO_PANEL_LIBS)
-test_hostname_CFLAGS = $(AM_CPPFLAGS)
+test_hostname_CFLAGS = $(INCLUDES)
 
 logo_generator_SOURCES = logo-generator.vala
 

@@ -2,7 +2,7 @@ SUBDIRS = icons
 
 cappletname = color
 
-AM_CPPFLAGS = 						\
+INCLUDES = 						\
 	$(PANEL_CFLAGS)					\
 	$(COLOR_PANEL_CFLAGS)				\
 	-DGNOMECC_UI_DIR="\"$(uidir)\""			\

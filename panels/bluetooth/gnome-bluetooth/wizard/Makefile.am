@@ -20,7 +20,7 @@ pindir = $(pkgdatadir)
 ui_DATA = wizard.ui
 uidir = $(pkgdatadir)
 
-AM_CPPFLAGS = \
+INCLUDES = \
 	 -I$(srcdir)/../lib \
 	-DLOCALEDIR="\"$(datadir)/locale\""
 

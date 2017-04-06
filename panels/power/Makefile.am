@@ -2,7 +2,7 @@ cappletname = power
 
 SUBDIRS = icons
 
-AM_CPPFLAGS = 						\
+INCLUDES = 						\
 	$(PANEL_CFLAGS)					\
 	$(POWER_PANEL_CFLAGS)				\
 	-DGNOMECC_UI_DIR="\"$(uidir)\""			\

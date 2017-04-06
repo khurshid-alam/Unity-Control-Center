@@ -6,7 +6,7 @@ cappletname = bluetooth
 ccpanelsdir = $(PANELS_DIR)
 ccpanels_LTLIBRARIES = libbluetooth.la
 
-AM_CPPFLAGS = 						\
+INCLUDES = 						\
 	$(PANEL_CFLAGS)					\
 	$(BLUETOOTH_PANEL_CFLAGS)				\
 	-I$(srcdir)/gnome-bluetooth/lib			\

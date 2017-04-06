@@ -1,7 +1,7 @@
 # This is used in PANEL_CFLAGS
 cappletname = region
 
-AM_CPPFLAGS =						\
+INCLUDES =						\
 	$(PANEL_CFLAGS)					\
 	$(REGION_PANEL_CFLAGS)				\
 	-DGNOMELOCALEDIR="\"$(datadir)/locale\""	\
