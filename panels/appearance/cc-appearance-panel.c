@@ -131,6 +131,7 @@ enum
 #define UNITY_FAVORITES_KEY "favorites"
 #define UNITY_INTEGRATED_MENUS_KEY "integrated-menus"
 #define UNITY_ALWAYS_SHOW_MENUS_KEY "always-show-menus"
+#define UNITY_LOWGFX_KEY "lowgfx"
 #define SHOW_DESKTOP_UNITY_FAVORITE_STR "unity://desktop-icon"
 
 #define MIN_ICONSIZE 16.0
@@ -2047,6 +2048,61 @@ on_menuvisibility_changed (GtkToggleButton *button, gpointer user_data)
   menuvisibility_widget_refresh (self);
 }
 
+static gboolean
+is_compiz_profile_available (const gchar *profile)
+{
+  gboolean is_available;
+  gchar *profile_path;
+
+  profile_path = g_strdup_printf ("%s/compiz-1/compizconfig/%s.ini",
+                                  g_get_user_config_dir (), profile);
+  is_available = g_file_test (profile_path, G_FILE_TEST_EXISTS);
+  g_free (profile_path);
+
+  if (!is_available)
+    {
+      profile_path = g_strdup_printf ("/etc/compizconfig/%s.ini", profile);
+      is_available = g_file_test (profile_path, G_FILE_TEST_EXISTS);
+      g_free (profile_path);
+    }
+
+  return is_available;
+}
+
+static void
+gfx_mode_widget_refresh (CcAppearancePanel *self)
+{
+  CcAppearancePanelPrivate *priv = self->priv;
+  gboolean has_setting = unity_own_setting_exists (self, UNITY_LOWGFX_KEY);
+
+  gtk_widget_set_visible (WID ("unity_gfx_mode_box"), has_setting);
+  gboolean enable_lowgfx = g_settings_get_boolean (priv->unity_own_settings, UNITY_LOWGFX_KEY);
+
+  if (enable_lowgfx == FALSE)
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (WID ("unity_gfx_mode_full_enable")), TRUE);
+  else
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (WID ("unity_gfx_mode_low_enable")), TRUE);
+}
+
+static void
+on_gfx_mode_changed (GtkToggleButton *button,
+                     gpointer user_data)
+{
+  CcAppearancePanel *self = CC_APPEARANCE_PANEL (user_data);
+  CcAppearancePanelPrivate *priv = self->priv;
+
+  gboolean low_enabled = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (WID ("unity_gfx_mode_low_enable")));
+  g_settings_set_boolean (priv->unity_own_settings, UNITY_LOWGFX_KEY, low_enabled);
+}
+
+static void
+ext_lowgfx_changed_callback (GroupedGSettings* compiz_gs,
+                             gchar *key,
+                             gpointer user_data)
+{
+  gfx_mode_widget_refresh (CC_APPEARANCE_PANEL (user_data));
+}
+
 static void
 ext_compiz_profile_changed_callback (GSettings* compiz_settings,
                                      gchar *key,
@@ -2089,6 +2145,9 @@ on_restore_defaults_page2_clicked (GtkButton *button, gpointer user_data)
 
   if (unity_own_setting_exists (self, UNITY_ALWAYS_SHOW_MENUS_KEY))
     g_settings_reset (priv->unity_own_settings, UNITY_ALWAYS_SHOW_MENUS_KEY);
+
+  if (unity_own_setting_exists (self, UNITY_LOWGFX_KEY))
+    g_settings_reset (priv->unity_own_settings, UNITY_LOWGFX_KEY);
 
   GtkToggleButton *showdesktop = GTK_TOGGLE_BUTTON (WID ("check_showdesktop_in_launcher"));
   gtk_toggle_button_set_active(showdesktop, TRUE);
@@ -2265,6 +2324,15 @@ setup_unity_settings (CcAppearancePanel *self)
   g_signal_connect (WID ("unity_auto_hide_menus"), "toggled",
                      G_CALLBACK (on_menuvisibility_changed), self);
   menuvisibility_widget_refresh (self);
+
+  /* Low gfx */
+  g_signal_connect (priv->unity_own_settings, "changed::" UNITY_LOWGFX_KEY,
+                    G_CALLBACK (ext_lowgfx_changed_callback), self);
+  g_signal_connect (WID ("unity_gfx_mode_full_enable"), "toggled",
+                    G_CALLBACK (on_gfx_mode_changed), self);
+  g_signal_connect (WID ("unity_gfx_mode_low_enable"), "toggled",
+                    G_CALLBACK (on_gfx_mode_changed), self);
+  gfx_mode_widget_refresh (self);
 
   /* Restore defaut on second page */
   g_signal_connect (WID ("button-restore-unitybehavior"), "clicked",
