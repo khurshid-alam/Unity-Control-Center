@@ -2269,7 +2269,6 @@ setup_unity_settings (CcAppearancePanel *self)
   /* Restore defaut on second page */
   g_signal_connect (WID ("button-restore-unitybehavior"), "clicked",
                     G_CALLBACK (on_restore_defaults_page2_clicked), self);
-
 }
 
 static void
