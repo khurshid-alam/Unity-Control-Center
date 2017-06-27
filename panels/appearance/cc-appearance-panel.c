@@ -2076,9 +2076,15 @@ gfx_mode_widget_refresh (CcAppearancePanel *self)
 {
   CcAppearancePanelPrivate *priv = self->priv;
   gboolean has_setting = unity_own_setting_exists (self, UNITY_LOWGFX_KEY);
+  gboolean has_profile = is_compiz_profile_available (UNITY_NORMAL_PROFILE) &&
+                         is_compiz_profile_available (UNITY_LOWGFX_PROFILE);
 
-  gtk_widget_set_visible (WID ("unity_gfx_mode_box"), has_setting);
-  gtk_widget_set_visible (WID ("unity_gfx_mode_separator"), has_setting);
+  gtk_widget_set_visible (WID ("unity_gfx_mode_box"), has_setting && has_profile);
+  gtk_widget_set_visible (WID ("unity_gfx_mode_separator"), has_setting && has_profile);
+  
+  if (!has_setting || !has_profile)
+    return;
+  
   gboolean enable_lowgfx = g_settings_get_boolean (priv->unity_own_settings, UNITY_LOWGFX_KEY);
 
   if (enable_lowgfx == FALSE)
