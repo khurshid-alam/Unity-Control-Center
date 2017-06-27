@@ -1977,6 +1977,7 @@ menulocation_widget_refresh (CcAppearancePanel *self)
   gboolean has_menu_settings = has_setting && unity_own_setting_exists (self, UNITY_ALWAYS_SHOW_MENUS_KEY);
   gtk_widget_set_visible (WID ("unity_menus_location_box"), has_setting);
   gtk_widget_set_visible (WID ("unity_menus_box"), has_menu_settings);
+  gtk_widget_set_visible (WID ("unity_menus_separator"), has_menu_settings);
 
   if (!has_setting)
     return;
@@ -2017,6 +2018,7 @@ menuvisibility_widget_refresh (CcAppearancePanel *self)
   gboolean has_menu_settings = has_setting && unity_own_setting_exists (self, UNITY_INTEGRATED_MENUS_KEY);
   gtk_widget_set_visible (WID ("unity_menus_location_box"), has_setting);
   gtk_widget_set_visible (WID ("unity_menus_box"), has_menu_settings);
+  gtk_widget_set_visible (WID ("unity_menus_separator"), has_menu_settings);
 
   if (!has_setting)
     return;
@@ -2076,6 +2078,7 @@ gfx_mode_widget_refresh (CcAppearancePanel *self)
   gboolean has_setting = unity_own_setting_exists (self, UNITY_LOWGFX_KEY);
 
   gtk_widget_set_visible (WID ("unity_gfx_mode_box"), has_setting);
+  gtk_widget_set_visible (WID ("unity_gfx_mode_separator"), has_setting);
   gboolean enable_lowgfx = g_settings_get_boolean (priv->unity_own_settings, UNITY_LOWGFX_KEY);
 
   if (enable_lowgfx == FALSE)
