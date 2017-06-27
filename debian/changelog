@@ -1,3 +1,12 @@
+unity-control-center (15.04.0+17.10.20170627.3-0ubuntu1) artful; urgency=medium
+
+  * Appearance: create GroupedGSettings class to manage group of
+    gsettings sharing the schema (LP: #1700600)
+  * appearance: support multiple compiz setting profiles, and update
+    lowgfx key accordingly (LP: #1668950)
+
+ -- Marco Trevisan (Treviño) <mail@3v1n0.net>  Tue, 27 Jun 2017 23:37:17 +0000
+
 unity-control-center (15.04.0+17.04.20170402.6-0ubuntu1) zesty; urgency=medium
 
   [ Robert Ancell ]
