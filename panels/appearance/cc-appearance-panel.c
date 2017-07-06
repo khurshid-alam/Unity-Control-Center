@@ -1870,7 +1870,7 @@ on_enable_workspaces_changed (GtkToggleButton *button, gpointer user_data)
   }
 
   grouped_gsettings_set_value (priv->compizcore_compiz_gs, COMPIZCORE_HSIZE_KEY, g_variant_new_int32 (hsize));
-  grouped_gsettings_set_value (priv->compizcore_compiz_gs, COMPIZCORE_VSIZE_KEY, g_variant_new_int32 (hsize));
+  grouped_gsettings_set_value (priv->compizcore_compiz_gs, COMPIZCORE_VSIZE_KEY, g_variant_new_int32 (vsize));
 }
 
 static void
