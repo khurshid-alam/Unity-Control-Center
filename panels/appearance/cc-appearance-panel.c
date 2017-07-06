@@ -468,10 +468,16 @@ grouped_gsettings_set_value (GroupedGSettings *self,
                              GVariant         *value)
 {
   GList *l;
+
   g_return_if_fail (IS_GSETTINGS_GROUPED (self));
+  g_return_if_fail (g_variant_get_type (value));
+
+  g_variant_ref_sink (value);
 
   for (l = self->priv->settings_list; l; l = l->next)
     g_settings_set_value (G_SETTINGS (l->data), key, value);
+
+  g_variant_unref (value);
 }
 
 static GSettings *
