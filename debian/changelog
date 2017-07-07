@@ -1,6 +1,7 @@
 unity-control-center (15.04.0+17.10.20170627.3-0ubuntu2) UNRELEASED; urgency=medium
 
   * Delete unity-control-center-faces pacakage, now provided by g-c-c.
+  * Recommends deja-dup-unity-panel as it's separated from deja-dup now.
 
  -- Didier Roche <didrocks@ubuntu.com>  Fri, 07 Jul 2017 10:44:54 +0200
 
