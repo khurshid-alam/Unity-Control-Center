@@ -1083,7 +1083,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkBox" id="unity_gfx_mode_box">
+              <object class="GtkBox" id="unity_gfx_mode_selector_box">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="margin_left">10</property>
