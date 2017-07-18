@@ -2185,7 +2185,7 @@ on_restore_defaults_page2_clicked (GtkButton *button, gpointer user_data)
     g_settings_reset (priv->unity_own_settings, UNITY_LOWGFX_KEY);
 
   GtkToggleButton *showdesktop = GTK_TOGGLE_BUTTON (WID ("check_showdesktop_in_launcher"));
-  gtk_toggle_button_set_active(showdesktop, TRUE);
+  gtk_toggle_button_set_active(showdesktop, FALSE);
 }
 
 /* <hacks> */
