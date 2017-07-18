@@ -302,6 +302,8 @@ cc_appearance_panel_finalize (GObject *object)
       g_object_unref (priv->current_background);
       priv->current_background = NULL;
     }
+    
+  g_source_remove_by_user_data (object);
 
   G_OBJECT_CLASS (cc_appearance_panel_parent_class)->finalize (object);
 }
@@ -2077,6 +2079,36 @@ is_compiz_profile_available (const gchar *profile)
   return is_available;
 }
 
+static void gfx_mode_widget_refresh (CcAppearancePanel *self);
+
+static gboolean
+gfx_mode_changed_timeout (gpointer data)
+{
+  CcAppearancePanel *self = CC_APPEARANCE_PANEL (data);
+  CcAppearancePanelPrivate *priv = self->priv;
+
+  gfx_mode_widget_refresh (self);
+  gtk_widget_set_sensitive (WID ("unity_gfx_mode_selectors_box"), TRUE);
+  
+  return FALSE;
+}
+
+static void
+on_gfx_mode_changed (GtkToggleButton *button,
+                     gpointer user_data)
+{
+  CcAppearancePanel *self = CC_APPEARANCE_PANEL (user_data);
+  CcAppearancePanelPrivate *priv = self->priv;
+
+  gboolean low_enabled = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (WID ("unity_gfx_mode_low_enable")));
+  gtk_widget_set_sensitive (WID ("unity_gfx_mode_selectors_box"), FALSE);
+ 
+  g_settings_set_boolean (priv->unity_own_settings, UNITY_LOWGFX_KEY, low_enabled);
+
+  gfx_mode_widget_refresh (self);
+  g_timeout_add (200, gfx_mode_changed_timeout, self);
+}
+
 static void
 gfx_mode_widget_refresh (CcAppearancePanel *self)
 {
@@ -2090,32 +2122,19 @@ gfx_mode_widget_refresh (CcAppearancePanel *self)
   
   if (!has_setting || !has_profile)
     return;
-  
-  gboolean enable_lowgfx = g_settings_get_boolean (priv->unity_own_settings, UNITY_LOWGFX_KEY);
 
-  if (enable_lowgfx == FALSE)
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (WID ("unity_gfx_mode_full_enable")), TRUE);
-  else
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (WID ("unity_gfx_mode_low_enable")), TRUE);
-}
+  GtkToggleButton *active_toggle, *low_toggle, *full_toggle;
+  gchar *compiz_profile = g_settings_get_string (priv->compiz_settings, COMPIZ_CURRENT_PROFILE_KEY);
+  gboolean enable_lowgfx = g_strcmp0 (compiz_profile, UNITY_LOWGFX_PROFILE) == 0;
+  low_toggle = GTK_TOGGLE_BUTTON (WID ("unity_gfx_mode_low_enable"));
+  full_toggle = GTK_TOGGLE_BUTTON (WID ("unity_gfx_mode_full_enable"));
+  active_toggle = enable_lowgfx ? low_toggle : full_toggle;
 
-static void
-on_gfx_mode_changed (GtkToggleButton *button,
-                     gpointer user_data)
-{
-  CcAppearancePanel *self = CC_APPEARANCE_PANEL (user_data);
-  CcAppearancePanelPrivate *priv = self->priv;
+  g_signal_handlers_block_by_func (low_toggle, on_gfx_mode_changed, self);
+  gtk_toggle_button_set_active (active_toggle, TRUE);
+  g_signal_handlers_unblock_by_func (low_toggle, on_gfx_mode_changed, self);
 
-  gboolean low_enabled = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (WID ("unity_gfx_mode_low_enable")));
-  g_settings_set_boolean (priv->unity_own_settings, UNITY_LOWGFX_KEY, low_enabled);
-}
-
-static void
-ext_lowgfx_changed_callback (GroupedGSettings* compiz_gs,
-                             gchar *key,
-                             gpointer user_data)
-{
-  gfx_mode_widget_refresh (CC_APPEARANCE_PANEL (user_data));
+  g_free (compiz_profile);
 }
 
 static void
@@ -2138,6 +2157,7 @@ ext_compiz_profile_changed_callback (GSettings* compiz_settings,
 
   grouped_gsettings_set_default_profile (self->priv->unity_compiz_gs, compiz_profile);
   grouped_gsettings_set_default_profile (self->priv->compizcore_compiz_gs, compiz_profile);
+  gfx_mode_widget_refresh (self);
 
   g_free (compiz_profile);
 }
@@ -2165,7 +2185,7 @@ on_restore_defaults_page2_clicked (GtkButton *button, gpointer user_data)
     g_settings_reset (priv->unity_own_settings, UNITY_LOWGFX_KEY);
 
   GtkToggleButton *showdesktop = GTK_TOGGLE_BUTTON (WID ("check_showdesktop_in_launcher"));
-  gtk_toggle_button_set_active(showdesktop, TRUE);
+  gtk_toggle_button_set_active(showdesktop, FALSE);
 }
 
 /* <hacks> */
@@ -2341,10 +2361,6 @@ setup_unity_settings (CcAppearancePanel *self)
   menuvisibility_widget_refresh (self);
 
   /* Low gfx */
-  g_signal_connect (priv->unity_own_settings, "changed::" UNITY_LOWGFX_KEY,
-                    G_CALLBACK (ext_lowgfx_changed_callback), self);
-  g_signal_connect (WID ("unity_gfx_mode_full_enable"), "toggled",
-                    G_CALLBACK (on_gfx_mode_changed), self);
   g_signal_connect (WID ("unity_gfx_mode_low_enable"), "toggled",
                     G_CALLBACK (on_gfx_mode_changed), self);
   gfx_mode_widget_refresh (self);
