@@ -1,3 +1,10 @@
+unity-control-center (15.04.0+17.10.20170718.1-0ubuntu1) artful; urgency=medium
+
+  * Appearance: listen to compiz-profile key instead of lowgfx (LP:
+    #1705063)
+
+ -- Marco Trevisan (Treviño) <mail@3v1n0.net>  Tue, 18 Jul 2017 16:52:15 +0000
+
 unity-control-center (15.04.0+17.10.20170710-0ubuntu1) artful; urgency=medium
 
   [ Didier Roche ]
