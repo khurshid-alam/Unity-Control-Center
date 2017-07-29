@@ -92,7 +92,6 @@ Recommends: cups-pk-helper,
             libcanberra-pulse,
             system-config-printer,
             gnome-control-center-faces,
-            deja-dup-unity-panel,
 Conflicts: gnome-control-center (<< 1:3.6.3-0ubuntu50),
            gnome-control-center-unity,
            unity-control-center-datetime
