@@ -59,6 +59,7 @@ Build-Depends: autotools-dev,
                valac (>= 0.20.0),
                indicator-datetime
 Vcs-Bzr: https://code.launchpad.net/~unity-control-center-team/unity-control-center/trunk
+X-Ubuntu-Use-Langpack: yes
 
 Package: unity-control-center
 Architecture: any
