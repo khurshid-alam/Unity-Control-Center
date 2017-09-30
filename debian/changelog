@@ -1,9 +1,10 @@
-unity-control-center (15.04.0+17.10.20170814.1-0ubuntu3) UNRELEASED; urgency=medium
+unity-control-center (15.04.0+17.10.20170930-0ubuntu1) artful; urgency=medium
 
+  [ ventrical ]
   * debian/control insert recommend activity-log-manager to pop privacy and
     security icon in settings panel 
 
- -- ventrical <ventrical@ventrical-MS-7798>  Sat, 30 Sep 2017 18:23:39 -0400
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Sat, 30 Sep 2017 22:48:51 +0000
 
 unity-control-center (15.04.0+17.10.20170814.1-0ubuntu2) artful; urgency=medium
 
