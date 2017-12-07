@@ -13,7 +13,8 @@ SUBDIRS= \
 	keyboard \
 	universal-access \
 	user-accounts \
-	bluetooth
+	bluetooth \
+	screen-sharing
 
 if BUILD_WACOM
 SUBDIRS += wacom
