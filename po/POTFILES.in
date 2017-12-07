@@ -89,6 +89,10 @@ panels/region/gnome-region-panel-system.c
 panels/region/gtkentryaccel.c
 panels/screen/unity-screen-panel.desktop.in.in
 [type: gettext/glade]panels/screen/screen.ui
+panels/screen-sharing/vino-message-box.c
+panels/screen-sharing/cc-screen-sharing-panel.c
+panels/screen-sharing/unity-screen-sharing-panel.desktop.in.in
+[type: gettext/glade]panels/screen-sharing/cc-screen-sharing-panel.ui
 panels/sound/cc-sound-panel.c
 panels/sound/gvc-balance-bar.c
 panels/sound/gvc-channel-bar.c
