@@ -1,4 +1,4 @@
-unity-control-center (15.04.0+17.10.20170930-0ubuntu3) UNRELEASED; urgency=medium
+unity-control-center (15.04.0+17.10.20171225-0ubuntu1) bionic; urgency=medium
 
   [ Andrea Azzarone ]
   * sound: Discard selection-changed events that are not triggered 
@@ -11,7 +11,7 @@ unity-control-center (15.04.0+17.10.20170930-0ubuntu3) UNRELEASED; urgency=mediu
   * Merge Robert Ancell's Desktop Sharing panel since Vino
     no longer provides its own settings app (LP: #1271358)
 
- -- Dale Beaudoin <dale_f_beaudoin@hotmail.com>  Wed, 06 Dec 2017 08:15:41 -0500
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Mon, 25 Dec 2017 14:10:10 -0500
 
 unity-control-center (15.04.0+17.10.20170930-0ubuntu1) artful; urgency=medium
 
