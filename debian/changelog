@@ -7,6 +7,10 @@ unity-control-center (15.04.0+17.10.20170930-0ubuntu3) UNRELEASED; urgency=mediu
   [ Dale Beaudoin ]
   * version change 17.10 to 18.04 LTS
 
+  [ Khurshid Alam ]
+  * Merge Robert Ancell's Desktop Sharing panel since Vino
+    no longer provides its own settings app (LP: #1271358)
+
  -- Dale Beaudoin <dale_f_beaudoin@hotmail.com>  Wed, 06 Dec 2017 08:15:41 -0500
 
 unity-control-center (15.04.0+17.10.20170930-0ubuntu1) artful; urgency=medium
