@@ -1,0 +1,15 @@
+[Desktop Entry]
+Exec=unity-control-center online-accounts
+Icon=unity-online-accounts
+Terminal=false
+Type=Application
+NoDisplay=false
+StartupNotify=true
+Categories=GNOME;GTK;Settings;DesktopSettings;X-Unity-Settings-Panel;X-GNOME-PersonalSettings;OnlineAccounts;
+OnlyShowIn=Unity;
+X-Unity-Settings-Panel=online-accounts
+# Translators: those are keywords for the online-accounts control-center panel
+Keywords=Google;Facebook;Twitter;Yahoo;Web;Online;Chat;Calendar;Mail;Contact;ownCloud;Kerberos;IMAP;SMTP;Pocket;ReadItLater;
+Name=Online Accounts
+Comment=Connect your online accounts
+X-Ubuntu-Gettext-Domain=unity-control-center

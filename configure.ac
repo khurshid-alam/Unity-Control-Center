@@ -119,7 +119,7 @@ GNOME_DESKTOP_REQUIRED_VERSION=3.5.91
 SCHEMAS_REQUIRED_VERSION=3.15.4
 LIBWACOM_REQUIRED_VERSION=0.7
 CLUTTER_REQUIRED_VERSION=1.11.3
-GOA_REQUIRED_VERSION=3.5.90
+GOA_REQUIRED_VERSION=3.18.0
 ACCOUNTSSERVICE_REQUIRED_VERSION=0.6.30
 
 COMMON_MODULES="gtk+-3.0 >= $GTK_REQUIRED_VERSION
@@ -261,6 +261,34 @@ case $host_os in
     ;;
 esac
 AM_CONDITIONAL(BUILD_WACOM, [test x"$have_wacom" = x"yes"])
+
+# Online accounts
+AC_ARG_ENABLE(onlineaccounts, AC_HELP_STRING([--disable-onlineaccounts], [disable online-accounts panel]),
+              [case "${enableval}" in
+                      yes) enable_onlineaccounts=yes ;;
+                      no) enable_onlineaccounts=no ;;
+                      *) AC_MSG_ERROR(bad value ${enableval} for --disable-onlineaccounts) ;;
+              esac],
+              [enable_onlineaccounts=yes]) dnl Enabled by default
+
+if test "x$enable_onlineaccounts" = xyes; then
+    PKG_CHECK_MODULES(ONLINE_ACCOUNTS_PANEL, $COMMON_MODULES goa-1.0
+                  goa-backend-1.0 >= $GOA_REQUIRED_VERSION,
+                      [have_onlineaccounts=yes], have_onlineaccounts=no)
+    if test "x$have_onlineaccounts" = xno ; then
+        AC_MSG_ERROR(*** Gnome Online Accounts not found ***)
+    fi
+
+    AC_DEFINE(BUILD_ONLINE_ACCOUNTS, 1, [Define to 1 to build the online-accounts panel])
+
+    if test x${have_onlineaccounts} = xyes; then
+      AC_DEFINE(HAVE_ONLINE_ACCOUNTS, 1, [Define to 1 if Gnome Online Accounts is available])
+    fi
+fi
+
+AM_CONDITIONAL(BUILD_ONLINE_ACCOUNTS, [test x$have_onlineaccounts = xyes])
+AC_SUBST(ONLINE_ACCOUNTS_CFLAGS)
+AC_SUBST(ONLINE_ACCOUNTS_LIBS)
 
 # This is a hard-dependency for the region and user-accounts panels
 PKG_CHECK_MODULES(ISOCODES, iso-codes)
@@ -495,6 +523,15 @@ panels/user-accounts/data/faces/Makefile
 panels/wacom/Makefile
 panels/wacom/calibrator/Makefile
 panels/wacom/unity-wacom-panel.desktop.in
+panels/online-accounts/Makefile
+panels/online-accounts/unity-online-accounts-panel.desktop.in
+panels/online-accounts/icons/Makefile
+panels/online-accounts/icons/16x16/Makefile
+panels/online-accounts/icons/22x22/Makefile
+panels/online-accounts/icons/24x24/Makefile
+panels/online-accounts/icons/32x32/Makefile
+panels/online-accounts/icons/48x48/Makefile
+panels/online-accounts/icons/256x256/Makefile
 po/Makefile.in
 shell/appdata/Makefile
 shell/Makefile
@@ -537,5 +574,10 @@ if test "x$enable_fcitx" == "xyes"; then
 	AC_MSG_NOTICE([** Fcitx (Region panel Fcitx support)])
 else
 	AC_MSG_NOTICE([   Region panel Fcitx support disabled])
+fi
+if test "x$have_onlineaccounts" = "xyes"; then
+	AC_MSG_NOTICE([** Online-Accounts support (Online-Accounts panel)])
+else
+	AC_MSG_NOTICE([   Online-Accounts support disabled])
 fi
 AC_MSG_NOTICE([End options])
