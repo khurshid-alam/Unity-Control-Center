@@ -92,7 +92,10 @@ panels/screen/unity-screen-panel.desktop.in.in
 panels/screen-sharing/vino-message-box.c
 panels/screen-sharing/cc-screen-sharing-panel.c
 panels/screen-sharing/unity-screen-sharing-panel.desktop.in.in
-[type: gettext/glade]panels/screen-sharing/cc-screen-sharing-panel.ui
+[type: gettext/glade]panels/screen-sharing/screen-sharing-panel.ui
+panels/online-accounts/cc-online-accounts-panel.c
+panels/online-accounts/unity-online-accounts-panel.desktop.in.in
+[type: gettext/glade]panels/online-accounts/online-accounts.ui
 panels/sound/cc-sound-panel.c
 panels/sound/gvc-balance-bar.c
 panels/sound/gvc-channel-bar.c

@@ -54,6 +54,8 @@ libunity_control_center_la_SOURCES =		\
 	cc-shell.h				\
 	cc-editable-entry.c			\
 	cc-editable-entry.h			\
+	list-box-helper.h			\
+	list-box-helper.c			\	
 	$(NULL)
 
 libunity_control_center_la_LDFLAGS =		\

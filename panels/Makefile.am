@@ -28,4 +28,8 @@ if BUILD_NETWORK
 SUBDIRS += network
 endif
 
+if BUILD_ONLINE_ACCOUNTS
+SUBDIRS += online-accounts
+endif
+
 -include $(top_srcdir)/git.mk
