@@ -1,3 +1,11 @@
+unity-control-center (15.04.0+17.10.20171225-0ubuntu3) bionic; urgency=medium
+
+  * Build against latest gnome-desktop3, cherry-picked fix from
+    gnome-control-center.
+  * Bump minimum gnome-desktop3 to 3.27.3
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Mon, 12 Feb 2018 21:58:09 -0500
+
 unity-control-center (15.04.0+17.10.20171225-0ubuntu1) bionic; urgency=medium
 
   [ Andrea Azzarone ]
