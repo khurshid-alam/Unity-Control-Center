@@ -18,6 +18,9 @@ libunity-control-center.so.1 libunity-control-center1 #MINVER#
  cc_editable_entry_set_text@Base 14.04.0
  cc_editable_entry_set_weight@Base 14.04.0
  cc_editable_entry_set_width_chars@Base 14.04.3+14.04.20140225
+ cc_hostname_entry_get_hostname@Base 15.04.0+17.10.20171225
+ cc_hostname_entry_get_type@Base 15.04.0+17.10.20171225
+ cc_hostname_entry_new@Base 15.04.0+17.10.20171225
  cc_list_box_adjust_scrolling@Base 15.04.0+17.10.20171225
  cc_list_box_setup_scrolling@Base 15.04.0+17.10.20171225
  cc_list_box_update_header_func@Base 15.04.0+17.10.20171225
@@ -32,3 +35,5 @@ libunity-control-center.so.1 libunity-control-center1 #MINVER#
  cc_shell_get_type@Base 14.04.0
  cc_shell_set_active_panel@Base 14.04.0
  cc_shell_set_active_panel_from_id@Base 14.04.0
+ pretty_hostname_to_ssid@Base 15.04.0+17.10.20171225
+ pretty_hostname_to_static@Base 15.04.0+17.10.20171225

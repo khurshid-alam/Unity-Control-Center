@@ -3,7 +3,7 @@ SUBDIRS = appdata
 INCLUDES =					\
 	-I$(top_srcdir)				\
 	$(SHELL_CFLAGS)				\
-	$(CHEESE_CFLAGS)
+	$(CHEESE_CFLAGS)		
 
 bin_PROGRAMS = unity-control-center
 
@@ -45,6 +45,7 @@ libunity_control_center_include_HEADERS =      \
 	cc-panel.h                              \
 	cc-shell.h                              \
 	cc-editable-entry.h			\
+	cc-hostname-entry.h         \
 	$(NULL)
 
 libunity_control_center_la_SOURCES =		\
@@ -55,11 +56,15 @@ libunity_control_center_la_SOURCES =		\
 	cc-editable-entry.c			\
 	cc-editable-entry.h			\
 	list-box-helper.h			\
-	list-box-helper.c			\	
+	list-box-helper.c			\
+	hostname-helper.c           \
+	hostname-helper.h           \
+	cc-hostname-entry.h         \
+	cc-hostname-entry.c         \	
 	$(NULL)
 
 libunity_control_center_la_LDFLAGS =		\
-	-no-undefined				\
+    -no-undefined                         \
 	-version-info $(LIBUNITYCONTROLCENTER_CURRENT):$(LIBUNITYCONTROLCENTER_REVISION):$(LIBUNITYCONTROLCENTER_AGE) \
 	$(NULL)
 
@@ -78,7 +83,7 @@ AM_CPPFLAGS =							\
 	-DGNOMELOCALEDIR="\"$(datadir)/locale\""		\
 	-DUIDIR="\"$(uidir)\""					\
 	-DMENUDIR="\"$(menudir)\""				\
-	-DPANELS_DIR="\"$(PANELS_DIR)\""
+	-DPANELS_DIR="\"$(PANELS_DIR)\""	
 
 menudir = $(sysconfdir)/xdg/menus
 menu_DATA = unitycc.menu

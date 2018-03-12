@@ -115,7 +115,7 @@ GDKPIXBUF_REQUIRED_VERSION=2.23.0
 POLKIT_REQUIRED_VERSION=0.103
 NETWORK_MANAGER_REQUIRED_VERSION=0.8.992
 LIBNOTIFY_REQUIRED_VERSION=0.7.3
-GNOME_DESKTOP_REQUIRED_VERSION=3.27.3
+GNOME_DESKTOP_REQUIRED_VERSION=3.5.91
 SCHEMAS_REQUIRED_VERSION=3.15.4
 LIBWACOM_REQUIRED_VERSION=0.7
 CLUTTER_REQUIRED_VERSION=1.11.3
@@ -130,10 +130,12 @@ COMMON_MODULES="gtk+-3.0 >= $GTK_REQUIRED_VERSION
  gsettings-desktop-schemas >= $SCHEMAS_REQUIRED_VERSION
  libnotify >= $LIBNOTIFY_REQUIRED_VERSION"
 
-PKG_CHECK_MODULES(LIBUNITY_CONTROL_CENTER, $COMMON_MODULES)
+PKG_CHECK_MODULES(LIBUNITY_CONTROL_CENTER, $COMMON_MODULES
+                  polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION)
 PKG_CHECK_MODULES(LIBLANGUAGE, $COMMON_MODULES gnome-desktop-3.0 fontconfig)
 PKG_CHECK_MODULES(LIBSHORTCUTS, $COMMON_MODULES x11)
-PKG_CHECK_MODULES(SHELL, $COMMON_MODULES libgnome-menu-3.0 gio-unix-2.0 x11)
+PKG_CHECK_MODULES(SHELL, $COMMON_MODULES libgnome-menu-3.0 gio-unix-2.0 x11
+                  polkit-gobject-1 >= $POLKIT_REQUIRED_VERSION)
 PKG_CHECK_MODULES(APPEARANCE_PANEL, $COMMON_MODULES libxml-2.0 gnome-desktop-3.0
                   gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED_VERSION)
 PKG_CHECK_MODULES(DATETIME_PANEL, $COMMON_MODULES timezonemap geonames
@@ -159,7 +161,9 @@ PKG_CHECK_MODULES(REGION_PANEL, $COMMON_MODULES
                   $IBUS_MODULE
                   $FCITX_MODULE
                   x11)
+PKG_CHECK_MODULES(REMOTE_LOGIN_HELPER, glib-2.0 >= $GLIB_REQUIRED_VERSION gio-2.0)
 PKG_CHECK_MODULES(SCREEN_PANEL, $COMMON_MODULES)
+PKG_CHECK_MODULES(SHARING_PANEL, $COMMON_MODULES)
 PKG_CHECK_MODULES(SOUND_PANEL, $COMMON_MODULES libxml-2.0
                   libcanberra-gtk3 >= $CANBERRA_REQUIRED_VERSION
                   libpulse >= $PA_REQUIRED_VERSION
@@ -182,7 +186,7 @@ AC_SUBST(GDESKTOP_PREFIX)
 PKG_CHECK_MODULES(NETWORK_MANAGER, NetworkManager >= $NETWORK_MANAGER_REQUIRED_VERSION
                   libnm-glib >= $NETWORK_MANAGER_REQUIRED_VERSION
                   libnm-util >= $NETWORK_MANAGER_REQUIRED_VERSION
-		  libnm-gtk >= $NETWORK_MANAGER_REQUIRED_VERSION,
+                  libnm-gtk >= $NETWORK_MANAGER_REQUIRED_VERSION,
                   [have_networkmanager=yes], have_networkmanager=no)
 if test "x$have_networkmanager" = xno ; then
         AC_MSG_WARN(*** Network panel will not be built (NetworkManager ~0.9 or newer not found) ***)
@@ -489,6 +493,8 @@ panels/sound/data/icons/scalable/Makefile
 panels/sound/data/icons/scalable/devices/Makefile
 panels/screen/Makefile
 panels/screen/unity-screen-panel.desktop.in
+panels/sharing/Makefile
+panels/sharing/unity-sharing-panel.desktop.in
 panels/info/Makefile
 panels/info/unity-info-panel.desktop.in
 panels/power/Makefile

@@ -10,6 +10,7 @@ SUBDIRS= \
 	region \
 	info \
 	sound \
+	sharing \
 	keyboard \
 	universal-access \
 	user-accounts \

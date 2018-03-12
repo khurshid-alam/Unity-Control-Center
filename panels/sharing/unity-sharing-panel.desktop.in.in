@@ -1,0 +1,17 @@
+[Desktop Entry]
+# Translators: Add soft hyphens to your translations so that the icon view won't clip your translations. See https://bugzilla.gnome.org/show_bug.cgi?id=647087#c13 for details
+_Name=Sha­ring
+_Comment=Control what you want to share with others
+Exec=unity-control-center sharing
+Icon=preferences-system-sharing
+Terminal=false
+Type=Application
+NoDisplay=false
+StartupNotify=true
+Categories=GNOME;GTK;Settings;DesktopSettings;X-GNOME-Settings-Panel;X-Unity-Settings-Panel;X-GNOME-SystemSettings;X-GNOME-AccountSettings;
+OnlyShowIn=GNOME;Unity;
+X-Unity-Settings-Panel=sharing
+#X-GNOME-Settings-Panel=sharing
+# Translators: those are keywords for the sharing control-center panel
+_Keywords=share;sharing;ssh;host;name;remote;desktop;media;audio;video;pictures;photos;movies;server;renderer;
+X-Ubuntu-Gettext-Domain=unity-control-center
