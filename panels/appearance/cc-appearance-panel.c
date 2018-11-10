@@ -1300,7 +1300,7 @@ update_chooser_preview (GtkFileChooser    *chooser,
       g_object_unref (file);
 
       if (file_info != NULL) {
-	      mime_type = g_file_info_get_content_type (file_info);
+	      mime_type = g_strdup (g_file_info_get_content_type (file_info));
 	      g_object_unref (file_info);
       }
 
